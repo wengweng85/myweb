@@ -77,7 +77,6 @@
         <property name="logAbandoned" value="true" />
 
         <!-- 监控数据库 -->
-        <!-- <property name="filters" value="stat" /> -->
         <!-- 监控统计拦截的filters,日志记录 edited by zhangpl 20140824 start -->  
         <!-- 并在filters属性中配置了log4j -->  
         <property name="proxyFilters">  
@@ -86,7 +85,6 @@
                 <ref bean="log-filter" />  
             </list>   
         </property>  
-        <!-- 监控统计拦截的filters,日志记录 edited by zhangpl 20140824 end -->  
         <property name="filters">  
         <value>stat,wall,log4j</value>  
     </property>  
