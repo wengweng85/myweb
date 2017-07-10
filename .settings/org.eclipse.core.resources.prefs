@@ -1,0 +1,7 @@
+eclipse.preferences.version=1
+encoding//src/main/resources/config/app/app.properties=utf-8
+encoding//src/main/resources/mybatis-generator/generatorConfig.xml=gbk
+encoding//src/main/resources/quartz.properties=UTF-8
+encoding//src/main/webapp/WEB-INF/page/login/login.ftl=utf-8
+encoding//src/main/webapp/initsql/mysql_tables.sql=utf-8
+encoding//src/main/webapp/resource/drag/dragedit.js=utf-8

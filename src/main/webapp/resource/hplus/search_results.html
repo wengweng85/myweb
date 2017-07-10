@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <title>H+ 后台主题UI框架 - 搜索</title>
+    <meta name="keywords" content="H+后台主题,后台bootstrap框架,会员中心主题,后台HTML,响应式后台">
+    <meta name="description" content="H+是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术">
+
+    <link rel="shortcut icon" href="favicon.ico"> <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="css/animate.min.css" rel="stylesheet">
+    <link href="css/style.min.css" rel="stylesheet">
+
+</head>
+
+<body class="gray-bg">
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content">
+                        
+
+                        <div class="search-form">
+                                <div class="input-group">
+                                    <input type="text"  placeholder="请输入搜索关键字"  id="keyword" name="keyword"  class="form-control input-lg">
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-lg btn-primary"  id="search">
+                                            搜索
+                                        </button>
+                                    </div>
+                                </div>
+                        </div>
+                        <h2>
+                                为您找到相关结果约<span id="numFound"></span>个
+                        </h2>
+                        <small>搜索用时  (<span id="qtime"></span>秒)</small>
+                        
+                        <xmp id="model" style="display: none;" >
+                            {{#each this}}
+	                        <div class="hr-line-dashed"></div>
+	                        <div class="search-result">
+	                            <h3><a href="#"></a></h3>
+	                            <a href="#" class="search-link"></a>
+	                              <span>
+	                                {{{this.f_title_ik}}}
+	                              </span>
+	                        </div>
+	                        {{/each}}
+                        </xmp>
+                        <div id="view"></div>
+                        
+                        <div class="hr-line-dashed"></div>
+                        <div class="text-center">
+                            <div class="btn-group">
+                                <button class="btn btn-white" type="button"><i class="fa fa-chevron-left"></i>
+                                </button>
+                                <button class="btn btn-white">1</button>
+                                <button class="btn btn-white  active">2</button>
+                                <button class="btn btn-white">3</button>
+                                <button class="btn btn-white">4</button>
+                                <button class="btn btn-white">5</button>
+                                <button class="btn btn-white">6</button>
+                                <button class="btn btn-white">7</button>
+                                <button class="btn btn-white" type="button"><i class="fa fa-chevron-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/content.min.js"></script>
+    <script src="js/handlebars-v2.0.0-min.js"></script>
+ 
+      <script type="text/javascript">
+        $("#search").click(function() {
+            var keyword = $("#keyword").val();
+            var solrServer = "http://127.0.0.1:8080/solr/new_core/select";
+            $.ajax({
+                type : "get",
+                url : solrServer,
+                data : {
+                    wt : "json",
+                    q : "f_title_ik:" + keyword,
+                    indent : true,
+                    "json.wrf" : 'callback',
+                    "hl" : "true",
+                    "hl.fl" : "f_title_ik, f_value_ik",
+                    "hl.simple.pre" : "<font color=\"red\">",
+                    "hl.simple.post" : "</font>",
+                    "start":"0",
+                    "rows":"20"
+                },
+                dataType : "jsonp",
+                //jsonp : "callback",
+                jsonpCallback : "callback",//自定义的jsonp回调函数名称，默认为jQuery自动生成的随机函数名
+                error : function() {
+                    alert('发生错误了');
+                }
+            });
+        });
+
+        function callback(data) {
+            var responseHeader = data.responseHeader;
+            var response = data.response;
+            $('#numFound').html(response.numFound);
+            $('#qtime').html(responseHeader.QTime / 1000);
+            var model=$('#model').html();
+			var modeldata=Handlebars.compile($('#model').html());
+			var views = modeldata(data.highlighting);
+			$('#view').html(views);
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	">
+	
+	 <!--hessian-->
+	<bean id="httpRequestHandlerAdapter" class="org.springframework.web.servlet.mvc.HttpRequestHandlerAdapter"/>
+	<bean class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"/>
+	
+	<bean id="servicecall" class="com.insigma.rpc.client.ServiceCall"></bean>
+    <bean id="hessianservice" class="com.insigma.rpc.hessianservice.HessianServiceImpl">
+        <property name="servicecall" ref="servicecall" />
+    </bean>  
+    
+	<bean name="/hessian" class="org.springframework.remoting.caucho.HessianServiceExporter">
+	    <property name="service" ref="hessianservice"/>
+	    <property name="serviceInterface" value="com.insigma.rpc.hessianservice.HessianService"/>
+	</bean>
+</beans>

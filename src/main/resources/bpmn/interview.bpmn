@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="Examples">
+  <process id="Interview" name="某公司2012年实习生招聘流程" isExecutable="true">
+    <documentation>招聘工作流程</documentation>
+    <startEvent id="start" name="实习生招聘启动"></startEvent>
+    <userTask id="bishi" name="笔试" activiti:assignee="#{groupid}">
+      <extensionElements>
+        <activiti:formProperty id="name" name="姓名" type="string"></activiti:formProperty>
+        <activiti:formProperty id="sex" name="性别" type="string">
+          <activiti:value id="0" name="男"></activiti:value>
+          <activiti:value id="1" name="女"></activiti:value>
+        </activiti:formProperty>
+      </extensionElements>
+    </userTask>
+    <sequenceFlow id="flow1" sourceRef="start" targetRef="bishi"></sequenceFlow>
+    <userTask id="yimian" name="技术一面" activiti:candidateGroups="技术部"></userTask>
+    <sequenceFlow id="flow2" sourceRef="bishi" targetRef="yimian"></sequenceFlow>
+    <userTask id="ermian" name="技术二面" activiti:candidateGroups="技术部"></userTask>
+    <sequenceFlow id="flow3" sourceRef="yimian" targetRef="ermian"></sequenceFlow>
+    <userTask id="hrmian" name="HR面" activiti:candidateGroups="人力资源部"></userTask>
+    <sequenceFlow id="flow4" sourceRef="ermian" targetRef="hrmian"></sequenceFlow>
+    <userTask id="luyong" name="录用，发放Offer" activiti:candidateGroups="{groupid}"></userTask>
+    <sequenceFlow id="flow5" sourceRef="hrmian" targetRef="luyong"></sequenceFlow>
+    <userTask id="beginwork" name="办理入职手续" activiti:candidateGroups="{groupid}"></userTask>
+    <sequenceFlow id="flow7" sourceRef="luyong" targetRef="beginwork"></sequenceFlow>
+    <endEvent id="end" name="实习生招聘结束"></endEvent>
+    <sequenceFlow id="flow8" sourceRef="beginwork" targetRef="end"></sequenceFlow>
+  </process>
+</definitions>

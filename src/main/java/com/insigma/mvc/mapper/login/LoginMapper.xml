@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.insigma.mvc.dao.login.LoginMapper">
+    
+    <sql id="sql_state">
+    </sql>
+    <select id="getUser" parameterType="String" resultType="SUser" >
+		select 
+		 t.username,
+		 t.password,
+		 t.cnname,
+		 t.enabled
+		 from s_user  t 
+		 where t.username=#{username}
+	</select>
+	
+	<!-- 个人用户角色查询  -->
+	<select id="findRolesStr" parameterType="String" resultType="SUser">
+		select b.name from s_user a,s_role b ,s_user_role c where a.username=#{username}  and a.userid=c.userid and b.roleid=c.roleid 
+	</select>
+	
+	
+	
+	<!-- 个人用户权限查询  -->
+	<select id="findPermissionStr" parameterType="String" resultType="SUser">
+		select distinct d.name from s_user a,s_role b ,s_user_role c,s_permission d ,s_role_permission e 
+		where a.username=#{username} 
+		and a.userid=c.userid 
+		and b.roleid=c.roleid  and b.roleid=e.roleid 
+		and d.permissionid=e.permissionid 
+		union 
+		select distinct c.name from s_user a, s_user_permission b, s_permission  c 
+		where a.username =#{username} 
+		and a.userid = b.userid and c.permissionid=b.permissionid 
+			
+	</select>
+</mapper>

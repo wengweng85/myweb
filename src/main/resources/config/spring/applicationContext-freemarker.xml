@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	">
+	<!-- 针对freemarker的视图配置 -->
+	<!-- Freemarker配置 -->
+	<bean id="freemarkerConfigurer"
+		class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+		<property name="templateLoaderPath" value="/WEB-INF/page/" />
+		<property name="freemarkerSettings">
+			<props>
+				<prop key="template_update_delay">0</prop>
+				<prop key="defaultEncoding">UTF-8</prop>
+				<prop key="number_format">0.##########</prop>
+				<prop key="date_format">yyyy-MM-dd</prop>
+				<prop key="time_format">HH:mm:Ss</prop>
+				<prop key="datetime_format">yyyy-MM-dd HH:mm:Ss</prop>
+				<prop key="classic_compatible">true</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- freemarker模版中的变量 -->
+	<bean id="modulesMap" class="java.util.HashMap">
+		<constructor-arg>
+			<map>
+				<entry key="homeModule" value="/myweb/" />
+			</map>
+		</constructor-arg>
+	</bean>
+
+</beans>

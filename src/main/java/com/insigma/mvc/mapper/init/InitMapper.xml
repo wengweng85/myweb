@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.insigma.mvc.dao.init.InitMapper">
+    <select id="getInitcodetypeList"  resultType="CodeType" >
+		select code_type from code_type
+	</select>
+	
+	<select id="getInitCodeValueList" parameterType="String" resultType="CodeValue" >
+		 select code_value,code_name from code_value where code_type=#{code_type} order by code_value
+	</select>
+	
+	<select id="getInitParamList" parameterType="String" resultType="Aa01" >
+		 select aaa001,aaa005 from Aa01 
+	</select>
+
+</mapper>

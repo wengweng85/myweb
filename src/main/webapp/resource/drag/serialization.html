@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>jQuery响应式可拖拽的元素组件网格布局插件</title>
+	<link rel="stylesheet" href="../hplus/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../hplus/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="dist/gridstack.css"/>
+	<link rel="stylesheet" type="text/css" href="css/default.css">
+	<style type="text/css">
+        .grid-stack {
+            background-color: #fff;
+        }
+
+        .grid-stack-item-content {
+            color: #2c3e50;
+            text-align: center;
+            background-color: #fff;
+            overflow: auto;
+            border: 1px dashed #000;
+        }
+        
+    </style>
+	<!--[if IE]>
+		<script src="http://libs.baidu.com/html5shiv/3.7/html5shiv.min.js"></script>
+	<![endif]-->
+</head>
+<body>
+<div >
+    <div class="grid-stack">
+    </div>
+</div>    
+	<script src="js/jquery.min.js"></script>
+    <script src="js/jquery-ui.min.js"></script>
+     <script src="js/jquery.ui.touch-punch.min.js"></script>
+    <script src="../hplus/js/bootstrap.min.js"></script>
+	<script src="js/jquery.jsonp.js"></script>
+    <script src="js/lodash.min.js"></script>
+    <script src="dist/gridstack.js"></script>
+    
+    <script type="text/javascript">
+        $(function () {
+        	var options = {
+      		   cell_height: 80,
+      		   vertical_margin: 10,
+      		   height:600,
+      	       alwaysShowResizeHandle: /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+      	    
+      		};
+            $('.grid-stack').gridstack(options);
+
+            new function () {
+                this.serialized_data = [
+                    {x: 0, y: 0, width: 2, height: 2},
+                    {x: 2, y: 0, width: 2, height: 2},
+                    {x: 0, y: 2, width: 2, height: 2},
+                    {x: 2, y: 4, width: 2, height: 2}
+                ];
+
+                this.grid = $('.grid-stack').data('gridstack');
+
+                this.load_grid = function () {
+            
+                	
+                    this.grid.remove_all();
+                    var items = GridStackUI.Utils.sort(this.serialized_data);
+                    _.each(items, function (node) {
+			            var d=$('<div><div class="grid-stack-item-content"  /></div>');
+                        this.grid.add_widget(d,
+                            node.x, node.y, node.width, node.height);
+                    }, this);
+                }.bind(this);
+
+                
+
+                this.load_grid();
+            };
+        });
+    </script>
+</body>
+</html>
