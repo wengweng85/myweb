@@ -18,6 +18,7 @@ public class PageDesign extends PageInfo implements java.io.Serializable {
 	@NotEmpty(message="{page_describe.empty}")
 	private String page_describe;
 	private String serialized_data;
+	private String userid;
 	public String getPage_name() {
 		return page_name;
 	}
@@ -25,6 +26,14 @@ public class PageDesign extends PageInfo implements java.io.Serializable {
 		this.page_name = page_name;
 	}
 
+	
+	
+	public String getUserid() {
+		return userid;
+	}
+	public void setUserid(String userid) {
+		this.userid = userid;
+	}
 	public String getPage_describe() {
 		return page_describe;
 	}

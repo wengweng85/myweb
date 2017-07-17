@@ -9,6 +9,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.insigma.mvc.dao.login.LoginMapper;
+import com.insigma.mvc.model.LoginInf;
 import com.insigma.mvc.model.SUser;
 import com.insigma.mvc.service.login.LoginService;
 import com.insigma.resolver.AppException;
@@ -63,6 +64,16 @@ public class LoginServiceImpl implements LoginService {
 		}else{
 			throw new AppException("用户角色信息不存在!");
 		}
+	}
+
+	@Override
+	public void saveLoginHashInfo(LoginInf inf) {
+		loginmapper.saveLoginHashInfo(inf);
+	}
+
+	@Override
+	public LoginInf findLoginInfoByhashcode(String loginhash) {
+		return loginmapper.findLoginInfoByhashcode(loginhash);
 	}
 
 }

@@ -35,4 +35,19 @@
 		and a.userid = b.userid and c.permissionid=b.permissionid 
 			
 	</select>
+	
+	
+	<!-- 保存 -->
+	<insert id="saveLoginHashInfo"  parameterType="LoginInf">
+		insert into LOGININF(loginhash,logintime,ip,usergent,sessionid)
+		values (#{loginhash},sysdate,#{ip},#{usergent},#{sessionid})
+	</insert>
+	
+	
+	
+	<select id="findLoginInfoByhashcode" parameterType="String" resultType="LoginInf">
+		select * from LOGININF where loginhash=#{loginhash} 
+			
+	</select>
+	
 </mapper>

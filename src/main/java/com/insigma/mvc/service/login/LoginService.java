@@ -3,6 +3,7 @@ package com.insigma.mvc.service.login;
 
 import java.util.Set;
 
+import com.insigma.mvc.model.LoginInf;
 import com.insigma.mvc.model.SUser;
 import com.insigma.resolver.AppException;
 
@@ -36,6 +37,12 @@ public interface LoginService {
 	 * @throws Exception 
 	 */
 	public Set<String> findPermissionStr(String loginname) throws AppException, Exception;
+	
+	
+	public void saveLoginHashInfo(LoginInf inf);
+	
+	
+	public LoginInf findLoginInfoByhashcode(String loginhash);
 	
 
 }

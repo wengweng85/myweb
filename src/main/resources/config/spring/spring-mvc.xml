@@ -52,6 +52,11 @@
             <mvc:mapping path="/**" />
             <bean class="com.insigma.common.interceptor.ContextPathInterceptor" />
         </mvc:interceptor>
+        <mvc:interceptor>
+            <mvc:mapping path="/**" />
+            <bean class="com.insigma.common.interceptor.SessionHashValidatorInterceptor" />
+        </mvc:interceptor>
+        
      </mvc:interceptors>
 
      <!-- ViewResolver freemarker视图解析器 -->

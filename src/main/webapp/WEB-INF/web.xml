@@ -24,6 +24,10 @@
     <listener-class>com.insigma.common.listener.ApplicationListener</listener-class>
   </listener>
   
+  
+ 
+  
+  
   <!-- 浏览器不支持put,delete等method,由该filter将/xxx?_method=delete转换为标准的http delete方法 -->
   <!-- 
   <filter>
@@ -101,6 +105,10 @@
     <url-pattern>/mydruid/*</url-pattern>
   </servlet-mapping>
   
+  
+  
+ 
+  
   <!-- dwr setvlet -->
   <servlet>  
         <display-name>DWR Servlet</display-name>  
@@ -161,18 +169,20 @@
     <filter-name>CharacterEncodingFilter</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
-  <!--  
   <filter>
     <filter-name>SafeFilter</filter-name>
-    <filter-class>
+        <filter-class>
 			com.insigma.common.filter.SafeFilter
 		</filter-class>
+		<init-param>
+			<param-name>ignorurlpattern</param-name>
+			<param-value>/drag/*</param-value>
+		</init-param>
   </filter>
   <filter-mapping>
     <filter-name>SafeFilter</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
-  -->
   <servlet>
     <servlet-name>springmvc</servlet-name>
     <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>

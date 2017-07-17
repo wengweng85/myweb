@@ -12,6 +12,8 @@ import javax.validation.Valid;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -102,6 +104,9 @@ public class DragController extends BaseController {
 	@RequestMapping("/drag/querylist")
 	@ResponseBody
 	public AjaxReturnMsg querylist(HttpServletRequest request,Model model,PageDesign pagedesign) throws Exception {
+		Subject subject = SecurityUtils.getSubject();
+		String principal= (String)subject.getPrincipal();
+		pagedesign.setUserid(principal);
 		PageInfo<PageDesign> pageinfo =dragservice.queryDesignPageList(pagedesign);
 		return this.success(pageinfo);
 	}

@@ -24,6 +24,7 @@ public class SafeFilter implements javax.servlet.Filter {
 
     Log log= LogFactory.getLog(SafeFilter.class);
 
+    private String []  ignorurlpattern;
 
     @Override
     public void destroy() {
@@ -33,7 +34,10 @@ public class SafeFilter implements javax.servlet.Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        
+    	String pattens=filterConfig.getInitParameter("ignorurlpattern");
+    	if(pattens!=null){
+    		ignorurlpattern=pattens.split(",");
+    	}
     }
 
 	@Override
@@ -41,12 +45,28 @@ public class SafeFilter implements javax.servlet.Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
+       
+        boolean ismatch=false;
+        String requesturi=request.getRequestURI();
+        if(ignorurlpattern!=null){
+        	 for(int i=0;i<ignorurlpattern.length;i++){
+                 if(requesturi.matches(ignorurlpattern[i])){
+               	  ismatch=true;
+               	  break;
+                 }
+           }
+        }
+        
         /**
          * xss及sql注入过滤
          **/
-        SafeFilterHttpServletRequestWrapper safeRequest = new SafeFilterHttpServletRequestWrapper(request);
-        filterChain.doFilter(safeRequest, servletResponse);
-        
+        if(ismatch){
+        	filterChain.doFilter(servletRequest, servletResponse);
+        }else{
+       	    System.out.println("不检验此地址"+requesturi);
+    	    SafeFilterHttpServletRequestWrapper safeRequest = new SafeFilterHttpServletRequestWrapper(request);
+    	    filterChain.doFilter(safeRequest, servletResponse);
+        }
     }
 
 }

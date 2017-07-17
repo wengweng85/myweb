@@ -14,16 +14,21 @@ import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.apache.shiro.web.util.WebUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.insigma.common.rsa.RSAUtils;
+import com.insigma.common.util.MD5Util;
 import com.insigma.dto.AjaxReturnMsg;
 import com.insigma.mvc.controller.BaseController;
+import com.insigma.mvc.model.LoginInf;
 import com.insigma.mvc.model.SUser;
+import com.insigma.mvc.service.login.LoginService;
 import com.insigma.shiro.token.CustomUsernamePasswordToken;
 
 
@@ -36,6 +41,10 @@ import com.insigma.shiro.token.CustomUsernamePasswordToken;
 public class LoginController extends BaseController {
 	
 	Log log=LogFactory.getLog(LoginController.class);
+	
+	@Autowired
+	private LoginService loginservice;
+	
 	
 	/**
 	 * 跳转至登录页面
@@ -61,7 +70,6 @@ public class LoginController extends BaseController {
 			modelAndView.addAllObjects(map);
 			return modelAndView;
 		}
-	
 	}
 	
 	/**
@@ -80,6 +88,12 @@ public class LoginController extends BaseController {
 		CustomUsernamePasswordToken token = new CustomUsernamePasswordToken(suer.getUsername(), suer.getPassword() .toCharArray(), rememberMe,host);
 		try {
 			subject.login(token);
+			LoginInf inf=new LoginInf();
+			inf.setIp(request.getRemoteHost());
+			inf.setUsergent(request.getHeader("User-Agent"));
+			inf.setSessionid(request.getSession().getId());
+			inf.setLoginhash(MD5Util.MD5Encode(inf.getIp()+inf.getUsergent()+inf.getSessionid()));
+			loginservice.saveLoginHashInfo(inf);
 			return this.success("登录成功");
 		} catch (UnknownAccountException uae) {
 			errorMessage = "用户名或密码不对";
@@ -97,6 +111,7 @@ public class LoginController extends BaseController {
 		return this.error(errorMessage);
 	}
 	
+	
 	/**
 	 * 登出
 	 * @param request
@@ -108,5 +123,18 @@ public class LoginController extends BaseController {
 		Subject user = SecurityUtils.getSubject();
 		user.logout();
 		return "redirect:/gotologin";
+	}
+	
+	/**
+	 * 登出
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/clientlogout")
+	public String loginout(HttpServletRequest request,Model model) {
+		request.getSession().setAttribute("user", null);
+		Subject user = SecurityUtils.getSubject();
+		user.logout();
+		return "redirect:/logout";
 	}
 }

@@ -3,6 +3,7 @@ package com.insigma.mvc.dao.login;
 
 import java.util.List;
 
+import com.insigma.mvc.model.LoginInf;
 import com.insigma.mvc.model.SUser;
 import com.insigma.resolver.AppException;
 
@@ -37,5 +38,14 @@ public interface LoginMapper {
 	 * @throws Exception 
 	 */
 	public List<SUser> findPermissionStr(String loginname) throws AppException, Exception;
+	
+	/**
+	 * ±£´æhashinfo
+	 * @param hashinfo
+	 */
+	public void saveLoginHashInfo(LoginInf inf);
+	
+	
+	public LoginInf findLoginInfoByhashcode(String loginhash);
 
 }
