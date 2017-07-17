@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	">
+	<!-- 安全认证过滤器 -->
+	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+		<property name="securityManager" ref="securityManager" />
+		<property name="loginUrl" value="${shiro.loginUrl}" />
+		<property name="unauthorizedUrl" value="/unrecognized" />
+		<!-- 自定义过滤器 -->
+		<property name="filters">  
+            <map>  
+                <!-- 添加casFilter到shiroFilter -->
+                <entry key="cas" value-ref="casFilter" />
+                <entry key="logout" value-ref="logoutFilter" />
+                
+                <entry key="role">  
+                    <bean  
+                        class="com.insigma.shiro.filter.RoleAuthorizationFilter" />  
+                </entry>  
+                <entry key="authc">  
+                    <bean  
+                        class="com.insigma.shiro.filter.SimpleFormAuthenticationFilter" />  
+                </entry>  
+            </map>  
+        </property>  
+		<!-- Shiro过滤链的定义 -->
+		<property name="filterChainDefinitions">
+			<value>
+			    /shiro-cas = cas
+                /logout = logout
+			</value>
+		</property>
+		
+	</bean>
+	
+	<bean id="casFilter" class="org.apache.shiro.cas.CasFilter">
+        <property name="failureUrl" value="${shiro.failureUrl}" />
+        <property name="successUrl" value="${shiro.successUrl}" />
+    </bean>
+    
+    <bean id="logoutFilter" class="org.apache.shiro.web.filter.authc.LogoutFilter">
+        <property name="redirectUrl" value="${shiro.logoutUrl}" />
+    </bean>
+    
+    
+    <bean id="casRealm" class="com.insigma.shiro.realm.MyCasRealm"> 
+        <!-- 认证通过后的默认角色 -->
+        <property name="defaultRoles" value="ROLE_USER" />
+        <!-- cas服务端地址前缀 -->
+        <property name="casServerUrlPrefix" value="${shiro.cas.serverUrlPrefix}" />
+        <!-- 应用服务地址，用来接收cas服务端票据 -->
+        <property name="casService" value="${shiro.cas.service}" />
+    </bean>
+    
+    
+    
+    <bean id="casSubjectFactory" class="org.apache.shiro.cas.CasSubjectFactory"></bean>
+    
+
+	<!-- 定义 Shiro安全管理工具 -->
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<property name="realm" ref="casRealm" />
+		<property name="subjectFactory" ref="casSubjectFactory" />
+		<property name="rememberMeManager" ref="rememberMeManager"/> 
+		
+		<!-- 修改成基于redis的集群模式-->
+		 
+		<!--  
+		<property name="sessionManager" ref="sessionManager"/>  
+		<property name="cacheManager" ref="redisCacheManager"/>  
+	    --> 
+		
+		<!-- 单机模式  --> 
+		
+		<property name="cacheManager" ref="ehCacheManager"/>  
+		
+	</bean>
+	
+	<!-- redisManager -->
+	<bean id="redisManager" class="com.insigma.redis.RedisManager" ></bean>
+	
+	<!-- 会话管理器 -->  
+    <bean id="sessionManager"  
+        class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">  
+        <!-- 设置全局会话超时时间，默认2小时(7200000) -->  
+        <property name="globalSessionTimeout" value="7200000" />  
+        <!-- 是否在会话过期后会调用SessionDAO的delete方法删除会话 默认true -->  
+        <property name="deleteInvalidSessions" value="true" />  
+  
+        <!-- 会话验证器调度时间 -->  
+        <property name="sessionValidationInterval" value="7200000" />  
+  
+        <!-- session存储的实现 -->  
+        <property name="sessionDAO" ref="customShiroSessionDAO"/>  
+        <!-- sessionIdCookie的实现,用于重写覆盖容器默认的JSESSIONID -->  
+        <property name="sessionIdCookie" ref="sharesession" />  
+        <!-- 定时检查失效的session -->  
+        <property name="sessionValidationSchedulerEnabled" value="true" />  
+    </bean>  
+	
+	<!-- 自定义sessionDAO  -->
+	<bean id="customShiroSessionDAO" class="com.insigma.shiro.session.CustomShiroSessionDAO">  
+	    <property name="shiroSessionRepository" ref="jedisShiroSessionRepository" />  
+	</bean>
+	
+
+    <!-- 基于jedis 的 ShiroSessionRepository -->
+	<bean id="jedisShiroSessionRepository" class="com.insigma.shiro.session.JedisShiroSessionRepository" >
+	     <property name="redisManager" ref="redisManager"></property> 
+	</bean> 
+    
+    
+    <!-- sessionIdCookie的实现,用于重写覆盖容器默认的JSESSIONID -->  
+    <bean id="sharesession" class="org.apache.shiro.web.servlet.SimpleCookie">  
+        <!-- cookie的name,对应的默认是 JSESSIONID -->  
+        <constructor-arg name="name" value="SHAREJSESSIONID" />  
+        <!-- jsessionId的path为 / 用于多个系统共享jsessionId -->  
+        <property name="path" value="/" />  
+        <property name="httpOnly" value="true"/>  
+    </bean>  
+	
+	
+	<!-- shiro的自带缓存管理器ehCache -->  
+    <bean id="ehCacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+		<property name="cacheManagerConfigFile" value="classpath:ehcache-shiro.xml" />
+    </bean>  
+	
+	<!-- 自定义的redis缓存 -->  
+    <bean id="redisCacheManager" class="com.insigma.shiro.cache.RedisCacheManager">
+         <property name="redisManager" ref="redisManager" /> 
+    </bean> 
+    
+    <!-- 自定义cacheManager -->  
+    <bean id="redisCache" class="com.insigma.shiro.cache.RedisCache">  
+        <constructor-arg ref="redisManager"></constructor-arg>  
+    </bean>    
+	
+	
+    <!-- myShiroRealm -->
+	<bean id="myShiroRealm" class="com.insigma.shiro.realm.MyShiroRealm">
+		<!--验证方式-->
+		<property name="credentialsMatcher">
+			<bean class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
+				<property name="hashAlgorithmName" value="MD5" />
+			</bean>
+		</property>
+	</bean>
+	<!-- rememberMe管理器 -->  
+    <bean id="rememberMeManager" class="org.apache.shiro.web.mgt.CookieRememberMeManager">  
+        <property name="cipherKey" value="#{T(org.apache.shiro.codec.Base64).decode('4AvVhmFLUs0KTA3Kprsdag==')}"/>  
+        <property name="cookie" ref="rememberMeCookie"/>  
+    </bean>  
+	
+
+    <!-- 记住我cookie设置 -->
+	<bean id="rememberMeCookie" class="org.apache.shiro.web.servlet.SimpleCookie">  
+        <constructor-arg value="rememberMe"/>  
+        <property name="httpOnly" value="true"/>  
+        <property name="maxAge" value="2592000"/>  
+        <!-- 30天 -->  
+    </bean> 
+    
+   
+</beans>
