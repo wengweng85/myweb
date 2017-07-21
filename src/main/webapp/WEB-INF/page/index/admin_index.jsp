@@ -74,7 +74,7 @@
                         <shiro:hasPermission  name="perm:joblist">
                         <ul class="nav nav-second-level">
                             <li>
-                                <a class="J_menuItem" href="<c:url value='/job/list'/>" data-index="0">定时任务配置</a>
+                                <a class="J_menuItem" href="<c:url value='/job/list'/>" data-index="1">定时任务配置</a>
                             </li>
                         </ul>
                         </shiro:hasPermission>
@@ -108,7 +108,7 @@
                 </button>
                 <nav class="page-tabs J_menuTabs">
                     <div class="page-tabs-content">
-                            <a href="javascript:;" class="active J_menuTab" >首页</a>
+                            <a href="javascript:;" class="active J_menuTab"  data-id="index_v1.html" >首页</a>
                     </div>
                 </nav>
                 <button class="roll-nav roll-right J_tabRight"><i class="fa fa-forward"></i>
@@ -133,7 +133,7 @@
                 <iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="<c:url value='/index'/>" frameborder="0" data-id="index_v1.html" seamless></iframe>
             </div>
             <div class="footer">
-                <div class="pull-right">&copy;2017
+                <div class="pull-right">&copy;2017浙江网新思普软件有限公司
                 </div>
             </div>
         </div>

@@ -26,6 +26,8 @@
 		<!-- Shiro过滤链的定义 -->
 		<property name="filterChainDefinitions">
 			<value>
+			    /=authc
+			    /index=authc
 				/drag/**=authc
 				/job/**=authc
 			</value>

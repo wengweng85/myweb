@@ -43,7 +43,7 @@ public class IndexController extends BaseController {
 	 */
 	@RequestMapping("/index")
 	public ModelAndView gotoIndex(HttpServletRequest request,Model model) throws Exception {
-		ModelAndView modelAndView=new ModelAndView("index/index2");
+		ModelAndView modelAndView=new ModelAndView("index/index");
         return modelAndView;
 	}
 	

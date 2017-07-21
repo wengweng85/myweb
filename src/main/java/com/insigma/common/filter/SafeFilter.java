@@ -63,7 +63,7 @@ public class SafeFilter implements javax.servlet.Filter {
         if(ismatch){
         	filterChain.doFilter(servletRequest, servletResponse);
         }else{
-       	    System.out.println("不检验此地址"+requesturi);
+        	log.info("不检验此地址"+requesturi);
     	    SafeFilterHttpServletRequestWrapper safeRequest = new SafeFilterHttpServletRequestWrapper(request);
     	    filterChain.doFilter(safeRequest, servletResponse);
         }
