@@ -69,9 +69,6 @@ var rc = {
 	     serverSide: true,  //启用服务器端分页
 	     searching: false,  //禁用原生搜索
 	     orderMulti: false,  //启用多列排序
-	     //scrollY: 350,
-	     //scrollX:false,
-	     //scrollCollapse: false,
 	     paging:true,
 	     ordering:true,
 	     info:true,

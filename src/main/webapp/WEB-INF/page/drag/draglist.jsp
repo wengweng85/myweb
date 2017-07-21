@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=gbk"  pageEncoding="gbk"%>
-<%@taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
-<%@taglib uri="http://www.myweb.com/mywebtag" prefix="web" %>
-<%@taglib tagdir="/WEB-INF/tags" prefix="tags"%>
+<%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.myweb.com/mywebtag" prefix="web" %>
+<%@ taglib tagdir="/WEB-INF/tags" prefix="tags"%>
 <!DOCTYPE html>
 <html>
 <head>

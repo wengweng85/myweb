@@ -84,10 +84,13 @@
             	layer.msg(response.message);
             	if(response.success){
             	    window.location.href="${homeModule}";
+            	}else{
+            	    $('#password').val('');
             	}
             },
             error : function(response) {
                 layer.msg(response.message);
+                $('#password').val('');
             }
         });
 	}

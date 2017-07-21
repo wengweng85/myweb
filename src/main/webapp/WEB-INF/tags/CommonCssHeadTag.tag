@@ -10,4 +10,3 @@
 <link href="<c:url value='/resource/hplus/css/style.min.css'/>" rel="stylesheet">
 <!-- Data Tables -->
 <link href="<c:url value='/resource/hplus/css/plugins/dataTables/dataTables.bootstrap.css'/>" rel="stylesheet">
-

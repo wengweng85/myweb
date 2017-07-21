@@ -1,7 +1,5 @@
 package com.insigma.shiro.realm;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -78,13 +76,12 @@ public class MyShiroRealm extends AuthorizingRealm  implements Realm, Initializi
 	public AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
 		String loginname = (String) principals.getPrimaryPrincipal();
 		try{
-			if (!StringUtil.isNotEmpty(loginname)) {
+			if (StringUtil.isNotEmpty(loginname)) {
 	            SimpleAuthorizationInfo authenticationInfo = new SimpleAuthorizationInfo();
 	            List<SPermission> permlist=loginservice.findPermissionStr(loginname);
-	            setSession("permlist",permlist);
 	            Set<String> set=new HashSet<String>();
 	            Iterator iterator=permlist.iterator();
-	            if(iterator.hasNext()){
+	            while(iterator.hasNext()){
 	            	SPermission  spermission=(SPermission) iterator.next();
 	            	set.add(spermission.getName());
 	            }
@@ -107,7 +104,7 @@ public class MyShiroRealm extends AuthorizingRealm  implements Realm, Initializi
 	public AuthorizationInfo doGetAuthorizationInfo_rediscache(PrincipalCollection principals) {
 		String loginname = (String) principals.getPrimaryPrincipal();
 		try{
-			if (!StringUtil.isNotEmpty(loginname)) {
+			if (StringUtil.isNotEmpty(loginname)) {
 	            SimpleAuthorizationInfo authenticationInfo = new SimpleAuthorizationInfo();
             	 //roles从缓存服务器中获取
 	            Set<String> rolesset = redisCache.get(Constants.getUserRolesCacheKey(loginname));

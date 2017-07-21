@@ -31,8 +31,19 @@ public class IndexController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping("/")
+	public ModelAndView gotoAdminIndex(HttpServletRequest request,Model model) throws Exception {
+		ModelAndView modelAndView=new ModelAndView("index/admin_index");
+        return modelAndView;
+	}
+	
+	/**
+	 * ึ๗าณ
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/index")
 	public ModelAndView gotoIndex(HttpServletRequest request,Model model) throws Exception {
-		ModelAndView modelAndView=new ModelAndView("index/index");
+		ModelAndView modelAndView=new ModelAndView("index/index2");
         return modelAndView;
 	}
 	
