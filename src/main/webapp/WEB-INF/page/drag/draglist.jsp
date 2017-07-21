@@ -1,18 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=gbk"  pageEncoding="gbk"%>
 <%@taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 <%@taglib uri="http://www.myweb.com/mywebtag" prefix="web" %>
+<%@taglib tagdir="/WEB-INF/tags" prefix="tags"%>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>页面列表</title>
-    <link href="<c:url value='/resource/hplus/css/bootstrap.min.css'/>" rel="stylesheet">
-    <link href="<c:url value='/resource/hplus/css/font-awesome.min.css'/>" rel="stylesheet">
-    <link href="<c:url value='/resource/hplus/css/animate.min.css'/>" rel="stylesheet">
-    <link href="<c:url value='/resource/hplus/css/style.min.css'/>" rel="stylesheet">
-    <!-- Data Tables -->
-    <link href="<c:url value='/resource/hplus/css/plugins/dataTables/dataTables.bootstrap.css'/>" rel="stylesheet">
+    <tags:CommonCssHeadTag/>
 </head>
 <body class="gray-bg">
     <div class="wrapper wrapper-content animated fadeInRight">
@@ -34,7 +30,7 @@
 		           </div>
 		           <label class="col-sm-1 control-label">下拉测试</label>
 		           <div class="col-sm-1">
-		               <web:select codetype="AAB301" id="aac004" name="aac004"  value="${v}"/> 
+		               <web:select codetype="AAC004" id="aac004" name="aac004"  value="${v}"/> 
 		           </div>
 	               <div class="col-sm-4">
 	                  <button type="button" class="btn btn-w-m btn-info" onclick="query()">查询</button>
@@ -77,17 +73,7 @@
         </div>
         <!-- End Panel Basic -->
     </div>
-    <script src="<c:url value='/resource/hplus/js/jquery.min.js'/>"></script>
-    <script src="<c:url value='/resource/hplus/js/bootstrap.min.js'/>"></script>
-    <script src="<c:url value='/resource/hplus/js/handlebars-v2.0.0-min.js'/>"></script>
-    <script src="<c:url value='/resource/hplus/js/plugins/layer/layer.min.js'/>"></script>
-    
-    <!-- data table extend -->
-    <script src="<c:url value='/resource/hplus/js/plugins/dataTables/jquery.dataTables.js'/>"></script>
-    <script src="<c:url value='/resource/hplus/js/plugins/dataTables/dataTables.bootstrap.js'/>"></script>
-
-    <script src="<c:url value='/resource/drag/dragcommon.js'/>"></script>
-    <script src="<c:url value='/resource/drag/draglist.js'/>"></script>
+    <tags:CommonJsHeadTag/>
     <script type="text/javascript">
     var datatable;
     //页面模型数据准备
@@ -125,7 +111,7 @@
     
     //初始化
     $(function(){
-    	datatable=tableinit(options);
+    	datatable=rc.tableinit(options);
     });
     
     //查询

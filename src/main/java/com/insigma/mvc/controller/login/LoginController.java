@@ -84,8 +84,10 @@ public class LoginController extends BaseController {
 		Subject subject = SecurityUtils.getSubject();
 		boolean rememberMe = WebUtils.isTrue(request, FormAuthenticationFilter.DEFAULT_REMEMBER_ME_PARAM);
         String host = request.getRemoteHost();
+        //使用rsa privatekey解密
+        String password = RSAUtils.decryptStringByJs(suer.getPassword());  
 		//构造登陆令牌环
-		CustomUsernamePasswordToken token = new CustomUsernamePasswordToken(suer.getUsername(), suer.getPassword() .toCharArray(), rememberMe,host);
+		CustomUsernamePasswordToken token = new CustomUsernamePasswordToken(suer.getUsername(),  password.toCharArray(), rememberMe,host);
 		try {
 			subject.login(token);
 			LoginInf inf=new LoginInf();

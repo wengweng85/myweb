@@ -1,0 +1,48 @@
+body{margin:0;padding:0;background:#fff;font-size:12px;color:#000}
+div,form,img,ul,ol,li,dl,dt,dd{margin:0;padding:0;border:0}
+li{list-style:none;list-style-position:outside}
+h1,h2,h3,h4,h5,h6{margin:0;padding:0;font-size:12px}
+
+/* ÕÚÕÖ²ã */
+#maskLayer{position: absolute;left:0px;top:0px;background:#000;z-index: 19900307}
+#alphadiv{position:absolute;background:#000;z-index: 19900308}
+#drag{position:fixed;background:#fff;z-index: 19900309;width:580px;border:1px solid #ccc}
+#drag_h{line-height:42px;height:42px;cursor:move;color:#fff;background:#f94600;border-bottom:1px dashed #babcbc;padding:0 10px}
+#drag h3 b{float:left}
+#drag h3 div{font-weight:normal;float:right;cursor:pointer}
+#drag .btn{width:26px;height:12px;background-color: #f3f3f3;padding: 5px 16px 5px 16px;color: #a3a3a3;margin-top: 8px;border:1px solid #e1c9bb; }
+#drag .btn:hover{background-color: #ef5e03;color: #fff;}
+#sublist{position:absolute;z-index:19900407;background:#fff}
+
+
+/*Ñ¡ÔñÆ÷ÑùÊ½*/
+
+.selector{background:url(btn.png) no-repeat;width:183px;height:21px;border:none;cursor:pointer}
+
+
+#commonSelectAlpha{padding:5px 4px;text-align: left;overflow: scroll;height: 500px;}
+#commonSelectAlpha h4{color:#F90;font-size:12px;height: 2px;}
+#commonSelectAlpha dl{zoom:1;line-height:25px;}
+#commonSelectAlpha dt{float:left;width:150px;font-weight:bold;color:#f94600;}
+#commonSelectAlpha dd{float:left;width:592px;padding: 5px 0px 5px 0px; }
+#commonSelectAlpha dd li{float:left;width:140px;cursor:pointer;text-indent:16px;height:25px;overflow-y:Hidden}
+#commonSelectAlpha dd li.over{background-color:#ffe9d2;color:#4d4c4c}
+
+#commonSelected {height: 30px; border-bottom:1px solid #e1e1e1;margin-bottom:5px;padding-bottom:5px}
+#commonSelected dt{font-size:12px;color:#4d4c4c}
+
+#mainSelectData li,#commonSelected li{background-image:url(chk_off.gif);background-repeat:no-repeat;background-position:2px 6px}
+#mainSelectData li.chkON,#commonSelected li.chkON{background-image:url(chk_on.gif)}
+
+#allSelectData li {background-image:url(chk_off.gif);background-repeat:no-repeat;background-position:2px 6px}
+#allSelectData li.chkON,#commonSelected li.chkON{background-image:url(chk_on.gif)}
+
+/* Ðü¸¡×Ó²Ëµ¥ */
+#sub_SelectData{border:1px solid #f60;line-height:25px;text-align:left}
+#sub_SelectData h4{border-bottom:1px dashed #ccc}
+#sub_SelectData ul{overflow:hidden;zoom:1}
+#sub_SelectData ul li{float:left;width:150px;height:25px}
+#sub_SelectData ul a{display:block;height:25px;color:#4d4c4c;text-decoration:none;text-indent:16px;background-image:url(chk_off.gif);background-repeat:no-repeat;background-position:2px 6px}
+#sub_SelectData ul a:hover{background-color:#ffe9d2;color:#4d4c4c}
+#sub_SelectData ul a.chkON{background-image:url(chk_on.gif)}
+

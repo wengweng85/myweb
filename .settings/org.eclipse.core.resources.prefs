@@ -5,5 +5,4 @@ encoding//src/main/resources/quartz.properties=UTF-8
 encoding//src/main/webapp/WEB-INF/page/index/index_v1.jsp=gbk
 encoding//src/main/webapp/WEB-INF/page/index/index_v3.jsp=utf-8
 encoding//src/main/webapp/WEB-INF/page/login/login.ftl=utf-8
-encoding//src/main/webapp/initsql/mysql_tables.sql=utf-8
-encoding//src/main/webapp/resource/drag/dragedit.js=utf-8
+encoding//src/main/webapp/resource/hplus/js/rc.all-2.0.js=utf-8

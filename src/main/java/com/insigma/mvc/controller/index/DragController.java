@@ -29,7 +29,6 @@ import com.insigma.mvc.controller.BaseController;
 import com.insigma.mvc.model.PageDesign;
 import com.insigma.mvc.model.SLog;
 import com.insigma.mvc.service.drag.DragService;
-import com.insigma.mvc.service.jms.JmsProducerService;
 import com.insigma.mvc.service.log.LogService;
 
 
@@ -48,8 +47,7 @@ public class DragController extends BaseController {
 	@Resource
 	private LogService logservice;
 	
-	@Resource 
-    private JmsProducerService jmsProducerService;
+   //private JmsProducerService jmsProducerService;
 	
 	//@Resource
 	//private MongoDbUserDao mongoDbUserDao;

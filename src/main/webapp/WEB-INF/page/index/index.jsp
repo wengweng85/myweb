@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit">
     <meta http-equiv="Cache-Control" content="no-siteapp" />
-    <title>公共服务网框架v1.0</title>
+    <title>陕西省人力资源市场管理信息系统</title>
 
     <meta name="keywords" content="xxx">
     <meta name="description" content="xxxx">
@@ -42,7 +42,7 @@
                             <ul class="dropdown-menu animated fadeInRight m-t-xs">
                             </ul>
                         </div>
-                        <div class="logo-element">myweb
+                        <div class="logo-element">人力资源市场
                         </div>
                     </li>
                     <li>
@@ -59,7 +59,7 @@
                     </li>
                     <li>
                         <a href="#">
-                            <i class="fa fa-home"></i>
+                            <i class="fa fa-bar-chart-o"></i>
                             <span class="nav-label">定时任务配置</span>
                             <span class="fa arrow"></span>
                         </a>
@@ -70,18 +70,6 @@
                         </ul>
                     </li>
                     
-                    <li>
-                        <a href="#">
-                            <i class="fa fa-home"></i>
-                            <span class="nav-label">工作流程</span>
-                            <span class="fa arrow"></span>
-                        </a>
-                        <ul class="nav nav-second-level">
-                            <li>
-                                <a class="J_menuItem" href="<c:url value='/workflow/list'/>" data-index="0">工作流程配置</a>
-                            </li>
-                        </ul>
-                    </li>
                 </ul>
             </div>
         </nav>

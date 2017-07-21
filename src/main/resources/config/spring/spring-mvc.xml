@@ -50,6 +50,10 @@
      <mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/**" />
+            <bean class="com.insigma.common.interceptor.TokenInterceptor" />
+        </mvc:interceptor>
+        <mvc:interceptor>
+            <mvc:mapping path="/**" />
             <bean class="com.insigma.common.interceptor.ContextPathInterceptor" />
         </mvc:interceptor>
         <mvc:interceptor>

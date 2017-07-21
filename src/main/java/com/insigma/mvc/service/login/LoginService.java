@@ -1,9 +1,11 @@
 package com.insigma.mvc.service.login;
 
 
-import java.util.Set;
+import java.util.List;
 
 import com.insigma.mvc.model.LoginInf;
+import com.insigma.mvc.model.SPermission;
+import com.insigma.mvc.model.SRole;
 import com.insigma.mvc.model.SUser;
 import com.insigma.resolver.AppException;
 
@@ -28,7 +30,7 @@ public interface LoginService {
 	 * @return 角色集合
 	 * @throws Exception 
 	 */
-	public Set<String> findRolesStr(String loginname) throws AppException, Exception;
+	public List<SRole> findRolesStr(String loginname) throws AppException, Exception;
 	
 	/**
 	 * 通过用户id获取用户权限集合
@@ -36,7 +38,7 @@ public interface LoginService {
 	 * @return 权限集合
 	 * @throws Exception 
 	 */
-	public Set<String> findPermissionStr(String loginname) throws AppException, Exception;
+	public List<SPermission> findPermissionStr(String loginname) throws AppException, Exception;
 	
 	
 	public void saveLoginHashInfo(LoginInf inf);

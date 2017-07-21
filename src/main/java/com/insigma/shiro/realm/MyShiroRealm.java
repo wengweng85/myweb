@@ -1,5 +1,10 @@
 package com.insigma.shiro.realm;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import org.apache.shiro.SecurityUtils;
@@ -23,6 +28,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.github.pagehelper.StringUtil;
+import com.insigma.mvc.model.SPermission;
 import com.insigma.mvc.model.SUser;
 import com.insigma.mvc.service.login.LoginService;
 import com.insigma.shiro.cache.RedisCache;
@@ -70,21 +76,26 @@ public class MyShiroRealm extends AuthorizingRealm  implements Realm, Initializi
 	 * ÊÚÈ¨
 	 */
 	public AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-		/*String loginname = (String) principals.getPrimaryPrincipal();
+		String loginname = (String) principals.getPrimaryPrincipal();
 		try{
 			if (!StringUtil.isNotEmpty(loginname)) {
 	            SimpleAuthorizationInfo authenticationInfo = new SimpleAuthorizationInfo();
-            	Set<String>  rolesset=loginservice.findRolesStr(loginname);
-	            authenticationInfo.setRoles(rolesset);
-	            Set<String> permissionsset=loginservice.findPermissionStr(loginname);
- 	            authenticationInfo.setStringPermissions(permissionsset);
+	            List<SPermission> permlist=loginservice.findPermissionStr(loginname);
+	            setSession("permlist",permlist);
+	            Set<String> set=new HashSet<String>();
+	            Iterator iterator=permlist.iterator();
+	            if(iterator.hasNext()){
+	            	SPermission  spermission=(SPermission) iterator.next();
+	            	set.add(spermission.getName());
+	            }
+ 	            authenticationInfo.setStringPermissions(set);
 	            return authenticationInfo;
 	        }else{
 	            return null;
 	        }
 		}catch(Exception e){
 			e.printStackTrace();
-		}*/
+		}
         return null;
 	}
 	
@@ -103,7 +114,7 @@ public class MyShiroRealm extends AuthorizingRealm  implements Realm, Initializi
 	            if(rolesset!=null){
 	            	authenticationInfo.setRoles(rolesset);
 	            }else{
-	            	rolesset=loginservice.findRolesStr(loginname);
+	            	//rolesset=loginservice.findRolesStr(loginname);
 		            authenticationInfo.setRoles(rolesset);
 		            redisCache.put(Constants.getUserRolesCacheKey(loginname), rolesset);
 	            }
@@ -112,7 +123,7 @@ public class MyShiroRealm extends AuthorizingRealm  implements Realm, Initializi
 	            if(permissionsset!=null){
 	            	authenticationInfo.setStringPermissions(permissionsset);
 	            }else{
-	            	permissionsset=loginservice.findPermissionStr(loginname);
+	            	//permissionsset=loginservice.findPermissionStr(loginname);
 	 	            authenticationInfo.setStringPermissions(permissionsset);
 	 	            redisCache.put(Constants.getUserPermissionCacheKey(loginname), permissionsset);
 	            }

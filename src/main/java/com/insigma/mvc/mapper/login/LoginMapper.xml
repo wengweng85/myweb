@@ -16,23 +16,23 @@
 	</select>
 	
 	<!-- 个人用户角色查询  -->
-	<select id="findRolesStr" parameterType="String" resultType="SUser">
+	<select id="findRolesStr" parameterType="String" resultType="SRole">
 		select b.name from s_user a,s_role b ,s_user_role c where a.username=#{username}  and a.userid=c.userid and b.roleid=c.roleid 
 	</select>
 	
 	
 	
 	<!-- 个人用户权限查询  -->
-	<select id="findPermissionStr" parameterType="String" resultType="SUser">
-		select distinct d.name from s_user a,s_role b ,s_user_role c,s_permission d ,s_role_permission e 
-		where a.username=#{username} 
-		and a.userid=c.userid 
-		and b.roleid=c.roleid  and b.roleid=e.roleid 
-		and d.permissionid=e.permissionid 
-		union 
-		select distinct c.name from s_user a, s_user_permission b, s_permission  c 
-		where a.username =#{username} 
-		and a.userid = b.userid and c.permissionid=b.permissionid 
+	<select id="findPermissionStr" parameterType="String" resultType="SPermission">
+		select distinct d.permissionid, d.name,d.url,d.type,d.iconcss,d.parentid from s_user a,s_role b ,s_user_role c,s_permission d ,s_role_permission e 
+	    where a.username=#{username} 
+	    and a.userid=c.userid 
+	    and b.roleid=c.roleid  and b.roleid=e.roleid 
+	    and d.permissionid=e.permissionid 
+	    union 
+	    select distinct c.permissionid, c.name,c.url,c.type,c.iconcss,c.parentid from s_user a, s_user_permission b, s_permission  c 
+	    where a.username =#{username} 
+	    and a.userid = b.userid and c.permissionid=b.permissionid 
 			
 	</select>
 	

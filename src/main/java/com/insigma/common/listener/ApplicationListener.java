@@ -36,11 +36,9 @@ public class ApplicationListener implements   ServletContextListener  {
 		
 	}
 	
-	@Override
 	public void contextInitialized(ServletContextEvent sce) {
 		
 	}
-
 	/**
 	 * 基于ehcache
 	 */
@@ -90,7 +88,7 @@ public class ApplicationListener implements   ServletContextListener  {
 	 * 基于redis
 	 * @param sce
 	 */
-	public void contextInitialized2(ServletContextEvent sce) {
+	public void contextInitialized_redis(ServletContextEvent sce) {
 		//通过MyApplicationContextUtil获取bean
 		InitService initservice= MyApplicationContextUtil.getContext().getBean(InitService.class);
 		RedisManager redismanager= MyApplicationContextUtil.getContext().getBean(RedisManager.class);

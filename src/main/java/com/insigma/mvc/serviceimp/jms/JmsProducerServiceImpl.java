@@ -24,13 +24,13 @@ import com.insigma.mvc.service.jms.JmsProducerService;
  * @author wengsh
  *
  */
-@Service
+//@Service
 public class JmsProducerServiceImpl implements JmsProducerService {
 
 	private Log log = LogFactory.getLog(JmsProducerServiceImpl.class);
 
 	//@Resource(name = "jmsQueueTemplate")
-	@Resource(name="jmsTopicTemplate")
+	//@Resource(name="jmsTopicTemplate")
     private JmsTemplate jmsTemplate;
 
 	/**

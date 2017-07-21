@@ -7,7 +7,7 @@
   </context-param>
   <context-param>
 	  <param-name>webAppRootKey</param-name>
-	  <param-value>drag</param-value>
+	  <param-value>myweb</param-value>
   </context-param>
   <context-param>
     <param-name>contextConfigLocation</param-name>
@@ -23,9 +23,6 @@
   <listener>
     <listener-class>com.insigma.common.listener.ApplicationListener</listener-class>
   </listener>
-  
-  
- 
   
   
   <!-- 浏览器不支持put,delete等method,由该filter将/xxx?_method=delete转换为标准的http delete方法 -->
@@ -104,9 +101,6 @@
     <servlet-name>druidStatView</servlet-name>
     <url-pattern>/mydruid/*</url-pattern>
   </servlet-mapping>
-  
-  
-  
  
   
   <!-- dwr setvlet -->
@@ -198,6 +192,7 @@
   </servlet-mapping>
   
   <!-- 配置CXF框架的核心Servlet --> 
+  <!--  
   <servlet> 
   <servlet-name>CXFServlet</servlet-name> 
 	  <servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class> 
@@ -207,6 +202,7 @@
 	  <servlet-name>CXFServlet</servlet-name> 
 	  <url-pattern>/server/*</url-pattern> 
   </servlet-mapping>
+  -->
   <jsp-config>
     <taglib>
       <taglib-uri>/tags/jstl/core</taglib-uri>

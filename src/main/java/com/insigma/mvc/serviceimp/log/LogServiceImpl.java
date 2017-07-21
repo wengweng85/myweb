@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.insigma.mvc.dao.log.LogMapper;
-import com.insigma.mvc.jpa.dao.log.LogDao;
 import com.insigma.mvc.model.SLog;
 import com.insigma.mvc.service.log.LogService;
 
@@ -25,8 +24,8 @@ public class LogServiceImpl implements LogService {
 	@Resource
 	private LogMapper logMapper;
 	
-	@Resource
-	private LogDao logdao;
+	//@Resource
+	//private LogDao logdao;
 
 	@Override
 	@Transactional
@@ -34,7 +33,7 @@ public class LogServiceImpl implements LogService {
 		logMapper.saveLogInfo(slog);
 		slog.setContent(slog.getContent()+"2");
 		slog.setLogtime(new Date());
-		logdao.save(slog);
+		//logdao.save(slog);
 		return slog.getLogid();
 	}
 

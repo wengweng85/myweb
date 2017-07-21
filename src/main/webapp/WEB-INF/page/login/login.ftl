@@ -19,10 +19,11 @@
     <div class="middle-box text-center loginscreen  animated fadeInDown">
         <div>
             <div>
-                <h1 class="logo-name">W</h1>
+                <h3 >陕西人力资源市场管理信息系统</h3>
             </div>
-            <h3>欢迎使用</h3>
             <form class="m-t" role="form"  method="post" action="" >
+            <input type="hidden" id="publicKeyExponent" name="publicKeyExponent" value="${publicKeyExponent}"/>
+	        <input type="hidden" id="publicKeyModulus" name="publicKeyModulus" value="${publicKeyModulus}"/>
                 <div class="form-group">
                     <input type="text" id="username" name="username"  class="form-control" placeholder="用户名" >
                 </div>
@@ -33,10 +34,12 @@
             </form>
         </div>
     </div>
-    <script src="${homeModule}/resource/hplus/js/jquery.min.js"></script>
+    
+    <script src="${homeModule}/resource/hplus/js/jQuery/all/jquery.js"></script>
     <script src="${homeModule}/resource/hplus/js/bootstrap.min.js"></script>
     <script src="${homeModule}/resource/hplus/js/plugins/layer/layer.min.js"></script>
-    <script src="${homeModule}/resource/drag/dragcommon.js"></script>
+    <script src="${homeModule}/resource/hplus/js/rc.all-2.0.js"></script>
+    <script src="${homeModule}/resource/hplus/js/RSA.js"></script>
 </body>
 
 <script type="text/javascript">
@@ -64,7 +67,12 @@
     		layer.msg('密码不能不空');
     		$('#password').focus();
     		return ;
-    	}  
+    	} 
+    	
+    	RSAUtils.setMaxDigits(200);  
+		var key = new RSAUtils.getKeyPair($('#publicKeyExponent').val(), "", $('#publicKeyModulus').val());  
+		var encrypedPwd = RSAUtils.encryptedString(key,$('#password').val().split("").reverse().join("")); 
+		$('#password').val(encrypedPwd); 
 	    
 	    var param = $('form').serializeObject();
 	    $.ajax({
