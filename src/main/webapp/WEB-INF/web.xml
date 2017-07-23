@@ -170,7 +170,7 @@
 		</filter-class>
 		<init-param>
 			<param-name>ignorurlpattern</param-name>
-			<param-value>/drag/*</param-value>
+			<param-value></param-value>
 		</init-param>
   </filter>
   <filter-mapping>

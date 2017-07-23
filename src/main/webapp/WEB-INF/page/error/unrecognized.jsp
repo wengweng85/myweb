@@ -18,8 +18,10 @@
 
         <div class="error-desc">
             你没有相关访问权限...
+            <!-- 
             <br/>您可以返回主页看看
             <br/><a href="<c:url value='/'/>" class="btn btn-primary m-t">主页</a>
+            -->
         </div>
     </div>
     <script src="<c:url value='/resource/hplus/js/jquery.min.js'/>"></script>

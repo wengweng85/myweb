@@ -13,6 +13,7 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -58,6 +59,7 @@ public class DragController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping("/drag/list")
+	@RequiresPermissions("pagedesignlist")
 	public ModelAndView draglist(HttpServletRequest request,Model model) throws Exception {
 		ModelAndView modelAndView=new ModelAndView("drag/draglist");
 		request.setAttribute("v", 1);
@@ -191,15 +193,10 @@ public class DragController extends BaseController {
 		String id=request.getParameter("id");
 		String serialized_data=request.getParameter("serialized_data");
 		
-		
-		
 		PageDesign design=new PageDesign();
 		design.setId(id);
 		design.setSerialized_data(serialized_data);
 		dragservice.updateserializedData(design);
-		
-		
-		
 		
 		try{
 			DwrDragView.sendMsg("÷ÿ–¬º”‘ÿ");
