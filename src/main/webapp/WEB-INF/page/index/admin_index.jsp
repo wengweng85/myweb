@@ -65,6 +65,7 @@
                     </li>
                     </shiro:hasPermission>
                     <shiro:hasPermission  name="perm:jobindex">
+                    
                     <li>
                         <a href="#">
                             <i class="fa fa-bar-chart-o"></i>
@@ -80,6 +81,45 @@
                         </shiro:hasPermission>
                     </li>
                     </shiro:hasPermission>
+                    <!-- 管理员角色功能  -->
+                    <shiro:hasRole name="admin">
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-sun-o"></i>
+                            <span class="nav-label">权限管理</span>
+                            <span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a class="J_menuItem" href="<c:url value='/sys/perm/index'/>" data-index="1">权限管理</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-users"></i>
+                            <span class="nav-label">角色管理</span>
+                            <span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a class="J_menuItem" href="<c:url value='/job/list'/>" data-index="1">角色管理</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-user"></i>
+                            <span class="nav-label">授权管理</span>
+                            <span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a class="J_menuItem" href="<c:url value='/job/list'/>" data-index="1">授权管理</a>
+                            </li>
+                        </ul>
+                    </li>
+                    </shiro:hasRole>
                     </shiro:user>
                 </ul>
             </div>

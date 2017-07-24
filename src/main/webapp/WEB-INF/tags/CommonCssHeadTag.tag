@@ -10,3 +10,20 @@
 <link href="<c:url value='/resource/hplus/css/style.min.css'/>" rel="stylesheet">
 <!-- Data Tables -->
 <link href="<c:url value='/resource/hplus/css/plugins/dataTables/dataTables.bootstrap.css'/>" rel="stylesheet">
+<!-- ztree -->
+<link href="<c:url value='/resource/hplus/js/jQuery/ztree/css/zTreeStyle.css'/>"  rel="stylesheet" >
+<!-- chosen -->
+<!--  
+<link href="<c:url value='/resource/hplus/css/plugins/chosen/chosen.css'/>" rel="stylesheet">
+-->
+<!-- select -->
+<link href="<c:url value='/resource/hplus/js/plugins/bootstrap-select/css/bootstrap-select.min.css'/>" rel="stylesheet">
+<style>
+
+.require {
+   color: red;
+   width: 20px;
+   font-weight: bold;
+}
+
+</style>

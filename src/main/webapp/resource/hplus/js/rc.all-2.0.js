@@ -41,6 +41,13 @@ $(function() {
 	//浏览器尺寸变化响应事件时，重新设置遮盖层
 	window.onresize=rc.updateBody;
 	
+	
+	var config = {
+		".selectpicker" : {}
+	};
+	for (var selector in config){
+		$(selector).selectpicker()
+	}
 });
 
 $.fn.serializeObject = function()    
@@ -370,7 +377,7 @@ var rc = {
 
 	/**
 	 * 以ajax方式调用查询方法并赋值
-	 * @param url
+	 * @param url 
 	 * @param model
 	 * @param target
 	 * @param formid
@@ -378,18 +385,18 @@ var rc = {
 	ajaxQuery:function(url,model,target,formid){
 		var param={};
 		if(formid){
-			param=$('#'+formid);
+			param=$('#'+formid).serializeObject()
 		}
 		rc.ajax(url,param,function(response){
-			if(model.length>0){
+			if(model){
 				var jsondata=response.obj;
 				var modeldata=Handlebars.compile(model.html());
 				var views = modeldata(jsondata);
-				if(target.length>0){
+				if(target){
 					target.html(views);
 				}
 			}else{
-				rc.evaluation(response);
+				rc.evaluation(response.obj);
 			}
 		})
 	},
@@ -398,13 +405,14 @@ var rc = {
 	 *
 	 * @param {} response
 	 */
-	evaluation : function(response) {
-		var inputs = $(":input");
+	evaluation : function(obj) {
+		var inputs = $("form :input");
 		inputs.each(function(i, dom) {
 			var type = dom.type;
 			var name = dom.name;
+			console.log(type+" "+name);
 			if (name) {
-				eval('var res=response.obj.' + name);
+				eval('var res=obj.' + name);
 				if (res) {
 					if (type == 'text'||type=='hidden') {
 						$(dom).val(res);
@@ -421,11 +429,12 @@ var rc = {
 						}
 					} else if (type == 'select-one') {
 						var options = $(dom).children();
-						options.each(function(i, d) {
-							if ($(d).val() === res) {
-								$(d).attr('selected','selected');
-							}
-						})
+						//options.each(function(i, d) {
+							//if ($(d).val() === res) {
+								//$(d).attr('selected','selected');
+								$(dom).selectpicker('val',res);
+							//}
+						//})
 					} else if (type == 'select-multiple') {
 						var a = new Array();
 						for (var i = 0; i < selectvalues.length; i++) {
@@ -1159,11 +1168,12 @@ function imgError(obj){
 	$(obj).src="/resource/image/no_picture.jpg";
 }
 
+
+
 /**
  * rc.paging.js
  * jQuery ajax分页插件
  * @author wengsh
- * @date 2015-1-7
  */
 (function($){
 	$.fn.paging = function(model,target,settings) {
@@ -1278,7 +1288,7 @@ function imgError(obj){
 
 
 /**
- * rc.paging.js
+ * rc.nopaging.js
  * jQuery ajax分页插件
  * @author wengsh
  * @date 2015-1-7

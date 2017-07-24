@@ -17,20 +17,20 @@
 	
 	<!-- 个人用户角色查询  -->
 	<select id="findRolesStr" parameterType="String" resultType="SRole">
-		select b.name from s_user a,s_role b ,s_user_role c where a.username=#{username}  and a.userid=c.userid and b.roleid=c.roleid 
+		select b.code from s_user a,s_role b ,s_user_role c where a.username=#{username}  and a.userid=c.userid and b.roleid=c.roleid 
 	</select>
 	
 	
 	
 	<!-- 个人用户权限查询  -->
 	<select id="findPermissionStr" parameterType="String" resultType="SPermission">
-		select distinct d.name from s_user a,s_role b ,s_user_role c,s_permission d ,s_role_permission e 
+		select distinct d.code from s_user a,s_role b ,s_user_role c,s_permission d ,s_role_permission e 
 	    where a.username=#{username} 
 	    and a.userid=c.userid 
 	    and b.roleid=c.roleid  and b.roleid=e.roleid 
 	    and d.permissionid=e.permissionid 
 	    union 
-	    select distinct c.name from s_user a, s_user_permission b, s_permission  c 
+	    select distinct c.code from s_user a, s_user_permission b, s_permission  c 
 	    where a.username =#{username} 
 	    and a.userid = b.userid and c.permissionid=b.permissionid 
 	</select>
@@ -43,10 +43,9 @@
 	</insert>
 	
 	
-	
+	<!-- 检验登录权限 -->
 	<select id="findLoginInfoByhashcode" parameterType="String" resultType="LoginInf">
 		select * from LOGININF where loginhash=#{loginhash} 
-			
 	</select>
 	
 </mapper>

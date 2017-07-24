@@ -12,6 +12,18 @@
 <!-- data table  -->
 <script src="<c:url value='/resource/hplus/js/plugins/dataTables/jquery.dataTables.js'/>"></script>
 <script src="<c:url value='/resource/hplus/js/plugins/dataTables/dataTables.bootstrap.js'/>"></script>
+
+<!-- ztree  -->
+<script type="text/javascript" src="<c:url value='/resource/hplus/js/jQuery/ztree/jquery.ztree.core.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/resource/hplus/js/jQuery/ztree/jquery.ztree.excheck.js'/>"></script>
+<script type="text/javascript" src="<c:url value='/resource/hplus/js/jQuery/ztree/jquery.ztree.exedit.js'/>"></script>
+
+<!-- chosen -->
+<!--  
+<script src="<c:url value='/resource/hplus/js/plugins/chosen/chosen.jquery.js'/>"></script>
+-->
+<!-- select -->
+<script src="<c:url value='/resource/hplus/js/plugins/bootstrap-select/js/bootstrap-select.min.js'/>"></script>
     
 <script src="<c:url value='/resource/hplus/js/rc.all-2.0.js'/>"></script>
     

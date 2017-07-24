@@ -46,13 +46,13 @@ public class SafeFilter implements javax.servlet.Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
        
-        boolean ismatch=false;
+        boolean isignore=false;
         String requesturi=request.getRequestURI();
-        if(ignorurlpattern!=null){
+        if(ignorurlpattern!=null&&!ignorurlpattern.equals("")){
         	 for(int i=0;i<ignorurlpattern.length;i++){
                  if(requesturi.matches(ignorurlpattern[i])){
-               	  ismatch=true;
-               	  break;
+                	 isignore=true;
+               	     break;
                  }
            }
         }
@@ -60,10 +60,10 @@ public class SafeFilter implements javax.servlet.Filter {
         /**
          * xss及sql注入过滤
          **/
-        if(ismatch){
+        //是否忽略校验
+        if(isignore){
         	filterChain.doFilter(servletRequest, servletResponse);
         }else{
-        	log.info("不检验此地址"+requesturi);
     	    SafeFilterHttpServletRequestWrapper safeRequest = new SafeFilterHttpServletRequestWrapper(request);
     	    filterChain.doFilter(safeRequest, servletResponse);
         }

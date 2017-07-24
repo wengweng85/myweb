@@ -47,7 +47,7 @@
             <div class="ibox-title">
                 <h5>查询结果列表</h5>
             </div>
-            <!-- 模型 -->
+            <!-- 模型 tpl  -->
             <script id="tpl" type="text/x-handlebars-template" >
                 <button type="button" class="btn btn-info" onclick="gotoedit('{{id}}')">编辑</button> 
 	            <button type="button" class="btn btn-info" onclick="edit('{{id}}')">页面可视化编辑</button>

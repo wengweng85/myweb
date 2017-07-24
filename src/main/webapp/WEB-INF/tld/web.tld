@@ -34,6 +34,12 @@
 	        <required>false</required>
 	        <rtexprvalue>true</rtexprvalue>
 	    </attribute>
+	    <attribute>
+	        <description>校验值</description>
+	        <name>validate</name>
+	        <required>false</required>
+	        <rtexprvalue>true</rtexprvalue>
+	    </attribute>
 	    <body-content>empty</body-content>  
     </tag>  
 </taglib>  

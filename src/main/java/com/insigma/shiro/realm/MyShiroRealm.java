@@ -27,6 +27,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.github.pagehelper.StringUtil;
 import com.insigma.mvc.model.SPermission;
+import com.insigma.mvc.model.SRole;
 import com.insigma.mvc.model.SUser;
 import com.insigma.mvc.service.login.LoginService;
 import com.insigma.shiro.cache.RedisCache;
@@ -78,12 +79,23 @@ public class MyShiroRealm extends AuthorizingRealm  implements Realm, Initializi
 		try{
 			if (StringUtil.isNotEmpty(loginname)) {
 	            SimpleAuthorizationInfo authenticationInfo = new SimpleAuthorizationInfo();
+ 	           //用户角色
+ 	            List<SRole> rolelist=loginservice.findRolesStr(loginname);
+ 	            Set<String> roleset=new HashSet<String>();
+ 	            Iterator iterator_role=rolelist.iterator();
+ 	            while(iterator_role.hasNext()){
+ 	            	SRole  srole=(SRole) iterator_role.next();
+ 	            	roleset.add(srole.getCode());
+	            }
+ 	           authenticationInfo.setRoles(roleset);
+ 	           
+ 	            //用户权限
 	            List<SPermission> permlist=loginservice.findPermissionStr(loginname);
 	            Set<String> set=new HashSet<String>();
 	            Iterator iterator=permlist.iterator();
 	            while(iterator.hasNext()){
 	            	SPermission  spermission=(SPermission) iterator.next();
-	            	set.add(spermission.getName());
+	            	set.add(spermission.getCode());
 	            }
  	            authenticationInfo.setStringPermissions(set);
 	            return authenticationInfo;
@@ -111,8 +123,15 @@ public class MyShiroRealm extends AuthorizingRealm  implements Realm, Initializi
 	            if(rolesset!=null){
 	            	authenticationInfo.setRoles(rolesset);
 	            }else{
-	            	//rolesset=loginservice.findRolesStr(loginname);
-		            authenticationInfo.setRoles(rolesset);
+	            	//用户角色
+	 	            List<SRole> rolelist=loginservice.findRolesStr(loginname);
+	 	            Set<String> roleset=new HashSet<String>();
+	 	            Iterator iterator_role=rolelist.iterator();
+	 	            while(iterator_role.hasNext()){
+	 	            	SRole  srole=(SRole) iterator_role.next();
+	 	            	roleset.add(srole.getName());
+		            }
+		            authenticationInfo.setRoles(roleset);
 		            redisCache.put(Constants.getUserRolesCacheKey(loginname), rolesset);
 	            }
 	            //permissions从缓存服务器中获取
@@ -120,8 +139,15 @@ public class MyShiroRealm extends AuthorizingRealm  implements Realm, Initializi
 	            if(permissionsset!=null){
 	            	authenticationInfo.setStringPermissions(permissionsset);
 	            }else{
-	            	//permissionsset=loginservice.findPermissionStr(loginname);
-	 	            authenticationInfo.setStringPermissions(permissionsset);
+	            	//用户权限
+		            List<SPermission> permlist=loginservice.findPermissionStr(loginname);
+		            Set<String> set=new HashSet<String>();
+		            Iterator iterator=permlist.iterator();
+		            while(iterator.hasNext()){
+		            	SPermission  spermission=(SPermission) iterator.next();
+		            	set.add(spermission.getName());
+		            }
+	 	            authenticationInfo.setStringPermissions(set);
 	 	            redisCache.put(Constants.getUserPermissionCacheKey(loginname), permissionsset);
 	            }
 	            return authenticationInfo;

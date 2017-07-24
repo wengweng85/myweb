@@ -2,9 +2,11 @@ package com.insigma.mvc.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import org.springframework.stereotype.Controller;
@@ -91,7 +93,6 @@ public class BaseController {
      * @throws IOException
      */
     public void success(HttpServletResponse response,String message) throws IOException {
-        response.setCharacterEncoding("GBK");
         AjaxReturnMsg dto = new AjaxReturnMsg();
         dto.setSuccess(true);
         dto.setMessage(message);
@@ -111,7 +112,6 @@ public class BaseController {
      * @throws IOException
      */
     public void success(HttpServletResponse response,String message,Object o) throws IOException{
-        response.setCharacterEncoding("GBK");
         AjaxReturnMsg dto = new AjaxReturnMsg();
         dto.setSuccess(true);
         dto.setMessage(message);
@@ -130,7 +130,6 @@ public class BaseController {
      * @throws IOException
      */
     public void success(HttpServletResponse response,Object o) throws IOException {
-        response.setCharacterEncoding("GBK");
         AjaxReturnMsg dto = new AjaxReturnMsg();
         dto.setSuccess(true);
         dto.setObj(o);
@@ -140,6 +139,38 @@ public class BaseController {
         out.flush();
         out.close();
     }
+    
+    
+    /**
+     * 成功返回
+     * @param response
+     * @param o
+     * @throws IOException
+     */
+    public void success_native_response(HttpServletResponse response,List list) throws IOException {
+        JSONArray jsonarray=JSONArray.fromObject(list);
+        PrintWriter out = response.getWriter();
+        out.write(jsonarray.toString());
+        out.flush();
+        out.close();
+    }
+    
+    
+    /**
+     * 成功返回
+     * @param response
+     * @param o
+     * @throws IOException
+     */
+    public void success_native_response(HttpServletResponse response,Object o) throws IOException {
+        JSONObject jsonObject=JSONObject.fromObject(o);
+        PrintWriter out = response.getWriter();
+        out.write(jsonObject.toString());
+        out.flush();
+        out.close();
+    }
+    
+    
     
     /**
      * 错误返回
@@ -216,7 +247,6 @@ public class BaseController {
      * @throws IOException
      */
     public void error(HttpServletResponse response,String message,Object obj) throws IOException{
-        response.setCharacterEncoding("GBK");
         AjaxReturnMsg dto = new AjaxReturnMsg();
         dto.setSuccess(false);
         dto.setMessage(message);
@@ -235,7 +265,6 @@ public class BaseController {
      * @throws IOException
      */
     public void error(HttpServletResponse response,Object o) throws IOException{
-        response.setCharacterEncoding("GBK");
         AjaxReturnMsg dto = new AjaxReturnMsg();
         dto.setSuccess(false);
         dto.setObj(o);
@@ -253,7 +282,6 @@ public class BaseController {
      * @throws IOException
      */
     public void error(HttpServletResponse response,Exception e) throws IOException {
-        response.setCharacterEncoding("GBK");
         AjaxReturnMsg dto = new AjaxReturnMsg();
         dto.setSuccess(false);
         dto.setMessage(e.getLocalizedMessage());

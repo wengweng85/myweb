@@ -4,4 +4,5 @@ encoding//src/main/resources/mybatis-generator/generatorConfig.xml=gbk
 encoding//src/main/resources/quartz.properties=UTF-8
 encoding//src/main/webapp/WEB-INF/page/index/index.jsp=utf-8
 encoding//src/main/webapp/WEB-INF/page/login/login.ftl=utf-8
+encoding//src/main/webapp/resource/hplus/js/1.js=UTF-8
 encoding//src/main/webapp/resource/hplus/js/rc.all-2.0.js=utf-8

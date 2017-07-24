@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.insigma.mvc.dao.sysmanager.perm.SysPermMapper">
+
+    <!-- 查询列表 -->
+    <select id="getPermTreeList"  resultType="SPermission" >
+		select 
+		permissionid id ,
+		name, 
+		parentid pid,
+		open 
+		from 
+		s_permission 
+		order by to_number(sortnum)
+	</select>
+	
+	
+	
+	<!-- 通过权限id获取相关权限数据 -->
+	<select id="getPermDataById"  resultType="SPermission" parameterType="String" >
+		select 
+		    permissionid  ,
+		    name, 
+		    code,
+		    describe,
+		    parentid,
+		    url,
+		    type,
+		    (select name from s_permission t where t.permissionid=a.parentid) parentname,
+		    enabled,
+		    sortnum
+		    from 
+		    s_permission  a 
+		where permissionid=#{permissionid}
+	</select>
+</mapper>

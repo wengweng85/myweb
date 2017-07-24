@@ -36,14 +36,11 @@ public class ApplicationListener implements   ServletContextListener  {
 		
 	}
 	
-	public void contextInitialized(ServletContextEvent sce) {
-		
-	}
 	/**
 	 * 基于ehcache
 	 */
-	
-	public void contextInitialized_ehcache(ServletContextEvent sce) {
+	@Override
+	public void contextInitialized(ServletContextEvent sce) {
 		//通过MyApplicationContextUtil获取bean
 		InitService initservice= MyApplicationContextUtil.getContext().getBean(InitService.class);
 		//是否同步标志 如果上一次同步时间是1小时之内，不同步下载代码

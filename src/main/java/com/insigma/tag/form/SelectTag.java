@@ -34,6 +34,9 @@ public class SelectTag implements Tag  {
 	
     //值
 	private String value;
+	
+	//校验规则
+	private String validate;
 
 	
 
@@ -72,6 +75,16 @@ public class SelectTag implements Tag  {
 	public String getValue() {
 		return value;
 	}
+	
+	
+
+	public String getValidate() {
+		return validate;
+	}
+
+	public void setValidate(String validate) {
+		this.validate = validate;
+	}
 
 	@Override
 	public int doEndTag() throws JspException {
@@ -84,8 +97,7 @@ public class SelectTag implements Tag  {
 		// TODO Auto-generated method stub
 	  JspWriter out = pageContext.getOut();
 	  StringBuffer sb=new StringBuffer();
-	  sb.append("<select class=\"form-control\" id=\""+id+"\" name=\""+name+"\"  value=\""+value+"\"  >");
-	  
+	  sb.append("<select class=\"form-control selectpicker \" id=\""+id+"\" name=\""+name+"\"  value=\""+value+"\"   data-live-search=\"true\"  validate=\""+validate+"\">");
 	  //从EhCache获取下载
 	  Element element=EhCacheUtil.getManager().getCache("webcache").get(codetype);
 	  if(element!=null){

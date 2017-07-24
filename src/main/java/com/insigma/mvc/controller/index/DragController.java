@@ -59,7 +59,7 @@ public class DragController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping("/drag/list")
-	@RequiresPermissions("pagedesignlist")
+	@RequiresPermissions("perm:pagedesignlist")
 	public ModelAndView draglist(HttpServletRequest request,Model model) throws Exception {
 		ModelAndView modelAndView=new ModelAndView("drag/draglist");
 		request.setAttribute("v", 1);
