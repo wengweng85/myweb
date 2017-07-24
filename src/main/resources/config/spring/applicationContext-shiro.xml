@@ -30,6 +30,7 @@
 			    /index=authc
 				/drag/**=authc
 				/job/**=authc
+				/sys/**=authc,roles[admin]
 			</value>
 		</property>
 	</bean>
@@ -56,8 +57,8 @@
 	<bean id="redisManager" class="com.insigma.redis.RedisManager" ></bean>
 	
 	<!-- 会话管理器 -->  
-    <bean id="sessionManager"  
-        class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">  
+    <bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager"> 
+        <property name="sessionIdUrlRewritingEnabled" value="false" /> 
         <!-- 设置全局会话超时时间，默认2小时(7200000) -->  
         <property name="globalSessionTimeout" value="7200000" />  
         <!-- 是否在会话过期后会调用SessionDAO的delete方法删除会话 默认true -->  
@@ -68,8 +69,7 @@
   
         <!-- session存储的实现 -->  
         <property name="sessionDAO" ref="customShiroSessionDAO"/>  
-        <!-- sessionIdCookie的实现,用于重写覆盖容器默认的JSESSIONID -->  
-        <property name="sessionIdCookie" ref="sharesession" />  
+       
         <!-- 定时检查失效的session -->  
         <property name="sessionValidationSchedulerEnabled" value="true" />  
     </bean>  
