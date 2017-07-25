@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=gbk"  pageEncoding="gbk"%>
 <%@taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
-<%@ taglib tagdir="/WEB-INF/tags" prefix="tags"%>
+<%@ taglib uri="http://www.rc.com/rctag" prefix="rc"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,7 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!--360浏览器优先以webkit内核解析-->
     <title>新增加及编辑页面</title>
-    <tags:CommonCssHeadTag/>
+    <!-- css头文件  -->
+    <rc:csshead/>
 </head>
 <body >
     <body class="gray-bg">
@@ -51,8 +52,7 @@
          </div>
         </div>
     </div>   
-    <tags:CommonJsHeadTag/>
-    
+    <rc:jsfooter />
     <script>
 	      var editor_sample; 
 	      var editor_one;    

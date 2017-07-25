@@ -1,0 +1,10 @@
+.require {
+   color: red;
+   width: 20px;
+   font-weight: bold;
+}
+
+.form-group{
+	height:25px;
+	margin-bottom:5px;
+}

@@ -62,7 +62,7 @@ public class DragController extends BaseController {
 	@RequiresPermissions("perm:pagedesignlist")
 	public ModelAndView draglist(HttpServletRequest request,Model model) throws Exception {
 		ModelAndView modelAndView=new ModelAndView("drag/draglist");
-		request.setAttribute("v", 1);
+		request.setAttribute("v", 3);
 		//SLog slog=new SLog();
 		//slog.setContent("跳转至列表");
 		//logservice.saveLogInfo(slog);

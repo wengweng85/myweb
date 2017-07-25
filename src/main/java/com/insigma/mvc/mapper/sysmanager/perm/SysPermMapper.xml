@@ -2,7 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.insigma.mvc.dao.sysmanager.perm.SysPermMapper">
-
     <!-- 查询列表 -->
     <select id="getPermTreeList"  resultType="SPermission" >
 		select 
@@ -12,10 +11,8 @@
 		open 
 		from 
 		s_permission 
-		order by to_number(sortnum)
+		order by sortnum
 	</select>
-	
-	
 	
 	<!-- 通过权限id获取相关权限数据 -->
 	<select id="getPermDataById"  resultType="SPermission" parameterType="String" >
@@ -34,4 +31,47 @@
 		    s_permission  a 
 		where permissionid=#{permissionid}
 	</select>
+	
+	
+	<!-- 通过代码编号获取权限相关数据 -->
+	<select id="isPermCodeExist"  resultType="SPermission" parameterType="SPermission" >
+		select code from s_permission a  where code=#{code} 
+		<if test="permissionid != null"> and a.permissionid&lt;&gt;#{permissionid}</if>
+	</select>
+	
+	<!-- 判断当前权限节点是否有子结点 -->
+	<select id="getPermListDataByParentid"  resultType="SPermission" parameterType="String" >
+		select code from s_permission a  where parentid=#{parentid}
+	</select>
+	
+	<!-- 通过权限节点删除权限相关数据 -->
+	<delete id="deletePermDataById">
+	    delete from s_permission s where s.permissionid=#{permissionid}
+	</delete>
+	
+	
+	<!-- 保存 -->
+	<insert id="savePermissionData"  parameterType="SPermission">
+	    <selectKey resultType="java.lang.String" order="BEFORE" keyProperty="permissionid"> 
+            SELECT sys_guid() from dual 
+        </selectKey>
+		insert into s_permission(permissionid,parentid,code,name,type,url,describe,sortnum,updatetime)
+		values (#{permissionid},#{parentid},#{code},#{name},#{type},#{url},#{describe},#{sortnum},sysdate)
+	</insert>
+	
+	<!-- 更新-->
+	<update id="updatePermissionData" parameterType="SPermission">
+		update s_permission t
+		  <set>
+		      t.updatetime=sysdate,
+	      <if test="name != null">t.name=#{name},</if>
+	      <if test="code != null">t.code=#{code},</if>
+	      <if test="describe != null">t.describe=#{describe},</if>
+	      <if test="type != null">type=#{type},</if>
+	      <if test="url != null">url=#{url},</if>
+	      <if test="sortnum != null">sortnum=#{sortnum}</if>
+	    </set>
+        where t.permissionid=#{permissionid}
+	</update>
+	
 </mapper>

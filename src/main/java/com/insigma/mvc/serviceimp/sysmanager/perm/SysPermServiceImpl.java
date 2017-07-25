@@ -35,4 +35,29 @@ public class SysPermServiceImpl implements SysPermService {
 		return sysPermMapper.getPermDataById(id);
 	}
 
+	@Override
+	public void updatePermissionData(SPermission spermission) {
+		sysPermMapper.updatePermissionData(spermission);
+	}
+
+	@Override
+	public SPermission isPermCodeExist(SPermission spermission) {
+		return sysPermMapper.isPermCodeExist(spermission);
+	}
+
+	@Override
+	public void savePermissionData(SPermission spermission) {
+		sysPermMapper.savePermissionData(spermission);
+	}
+
+	@Override
+	public List<SPermission> getPermListDataByParentid(String parentid) {
+		return sysPermMapper.getPermListDataByParentid(parentid);
+	}
+
+	@Override
+	public void deletePermDataById(String id) {
+		sysPermMapper.deletePermDataById(id);
+	}
+
 }

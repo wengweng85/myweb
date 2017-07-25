@@ -1,5 +1,7 @@
 package com.insigma.mvc.model;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 
 /**
  *  权限表
@@ -12,14 +14,18 @@ public class SPermission implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**权限编码*/
+	@NotEmpty(message="权限编码不能为空")
 	private String code;
 	/**权限名称*/
+	@NotEmpty(message="权限名称不能为空")
 	private String name;
 	/**权限描述*/
+	@NotEmpty(message="权限描述不能为空")
 	private String describe;
 	/**权限地址*/
 	private String url;
 	/**权限类型*/
+	@NotEmpty(message="权限类型不能为空")
 	private String type;
 	/**权限编号*/
 	private String permissionid;
@@ -33,8 +39,18 @@ public class SPermission implements java.io.Serializable {
 	private String pid;
 	/**是否打开*/
 	private String open;
+	/**排序号*/
+	private String sortnum;
 	
 	
+	
+	
+	public String getSortnum() {
+		return sortnum;
+	}
+	public void setSortnum(String sortnum) {
+		this.sortnum = sortnum;
+	}
 	public String getParentname() {
 		return parentname;
 	}

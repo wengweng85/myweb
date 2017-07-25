@@ -1,5 +1,5 @@
 /**
- * rc.main-1.0.js
+ * rc.main-2.0.js
  *
  * 用于网站的主要功能js
  * @author wengsh
@@ -42,11 +42,25 @@ $(function() {
 	window.onresize=rc.updateBody;
 	
 	
-	var config = {
+	var select_config = {
 		".selectpicker" : {}
 	};
-	for (var selector in config){
+	for (var selector in select_config){
 		$(selector).selectpicker()
+	}
+	
+	var date_config = {
+		".date" : {}
+	};
+	for (var selector in date_config){
+		$(selector).datepicker({
+			startView : 0,
+			todayBtn : "linked",
+			keyboardNavigation : !1,
+			forceParse : !1,
+			autoclose : !0,
+			format : "yyyy-mm-dd"
+		})
 	}
 });
 
@@ -134,10 +148,9 @@ var rc = {
 		                returnData.recordsFiltered = response.total;//后台不实现过滤功能，每次查询均视作全部结果
 		                returnData.data = response.obj;//返回的数据列表
 	                    callback(returnData);
-						
-						rc.reloadToken(response,_istokenreload);
 					}
 				}catch (e) {
+					console.log(e);
 					rc.ajax_error(null, '解析返回的文本出错！');
 					return;
 				}
@@ -229,8 +242,8 @@ var rc = {
 			showErrors:function(errorMap,errorList) {
 				if(errorList.length>0){
 					//$(errorList[0].element).focus();
-					//layer.tips(errorList[0].message,$(errorList[0].element),param);
-					layer.msg(errorList[0].message);
+					layer.tips(errorList[0].message,$(errorList[0].element),param);
+					//layer.msg(errorList[0].message);
 				}
 				//this.defaultShowErrors();
 			}
@@ -252,6 +265,9 @@ var rc = {
 			}
 		}
 		rc.ajax(_form.attr('action'),param,callback,'post',null,true,true,istokenreload);
+	},
+	ajaxdelete:function(url,callback){
+		rc.ajax(url,null,callback);
 	},
 	/**
 	 * 调用成功重新生成Token ajax
@@ -281,7 +297,7 @@ var rc = {
 		var _istokenreload =(istokenreload==undefined)?false:istokenreload;
 		var options={};
 		options.headers={'RequestVerificationToken':$("#CSRFToken").val()},
-		options.type=method||'get';
+		options.type=method||'post';
 		options.cache = false;
 		options.url=url;
 		options.async=_async;//ajax异步或同步请求（遮罩效果需要异步）
@@ -317,12 +333,12 @@ var rc = {
 					//rc.hideMask();
 				}
 				else{
-				    rc.ajax_success(response);
+				    //rc.ajax_success(response);
 					//自定义成功回调函数
 					if(callback){
 						callback(response);
 					}else{
-						alert(response.message);
+						layer.msg(response.message);
 					}
 					rc.reloadToken(response,_istokenreload);
 				}
@@ -412,8 +428,8 @@ var rc = {
 			var name = dom.name;
 			console.log(type+" "+name);
 			if (name) {
-				eval('var res=obj.' + name);
-				if (res) {
+				eval('var res=obj.' + name||'');
+				//if (res) {
 					if (type == 'text'||type=='hidden') {
 						$(dom).val(res);
 					} else if (type == 'checkbox') {
@@ -442,7 +458,45 @@ var rc = {
 						}
 						$(dom).val(a);
 					}
-				}
+				//}
+			}
+		});
+	},
+	
+	/**
+	 * 清空页面值
+	 *
+	 * @param {} response
+	 */
+	clean : function(obj) {
+		var inputs = $("form :input");
+		inputs.each(function(i, dom) {
+			var type = dom.type;
+			var name = dom.name;
+			if (name) {
+					if (type == 'text'||type=='hidden') {
+						$(dom).val('');
+					} else if (type == 'checkbox') {
+						var checkboxvalues = res.split(',');
+						for (var i = 0; i < checkboxvalues.length; i++) {
+							if ($(dom).val() === checkboxvalues[i]) {
+								$(dom).attr('checked', '');
+							}
+						}
+					} else if (type == 'radio') {
+						if ($(dom).val() === res) {
+							$(dom).attr('checked', '');
+						}
+					} else if (type == 'select-one') {
+						var options = $(dom).children();
+								$(dom).selectpicker('val','');
+					} else if (type == 'select-multiple') {
+						var a = new Array();
+						for (var i = 0; i < selectvalues.length; i++) {
+							a.push(selectvalues[i]);
+						}
+						$(dom).val(a);
+					}
 			}
 		});
 	},
@@ -495,7 +549,7 @@ var rc = {
 	 * @param _ismask 是否有遮盖效果
 	 */
 	ajax_error:function(xhr, errormsg,maskdom_selector){
-		//rc.errorMask(xhr, errormsg,maskdom_selector);
+		rc.errorMask(xhr, errormsg,maskdom_selector);
 	},
 	/**
 	 * 遮盖
@@ -532,12 +586,12 @@ var rc = {
 	 * @param errormsg
 	 */
 	errorMask:function(xhr, errormsg,maskdom_selector){
-		if($('#maskdom').length>0) {
+		//if($('#maskdom').length>0) {
 			//$('#maskimg').html("<span style='color:red'>" + errormsg + "</span>");
-			rc.hideMask();//关闭提示框
-		}
+			//rc.hideMask();//关闭提示框
+		//}
 		//layer.msg(errormsg);
-		//alert(errormsg);
+		alert(errormsg);
 	},
 	/**
 	 * 延迟关闭mask
