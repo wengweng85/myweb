@@ -91,25 +91,31 @@ var rc = {
 	     searching: false,  //禁用原生搜索
 	     orderMulti: false,  //启用多列排序
 	     paging:true,
-	     ordering:true,
-	     info:true,
-	     keys:true,
-	     fixedHeader:true,//表头固定
-	     responsive: true,//自适应
+	     ordering:false,
 	     order: [],  //取消默认排序查询,否则复选框一列会出现小箭头
 	     pagingType: "simple_numbers",  //分页样式：simple,simple_numbers,full,full_numbers
 	     //列表表头字段
 	     columns: options.columns,
-	     columnDefs: options.columnDefs,
+	     columnDefs: options.columnDefs||[],
 	     ajax: function (data, callback, settings) {
-	        //封装请求参数
-	        var param = $(options.query_form_selector).serializeObject();
+	     	var param ={};
+	     	var url='';
+	     	if(options.url){
+	     		url=options.url;
+	     	}
+	     	if(options.query_form_selector){
+	     		//封装请求参数
+	     		param = $(options.query_form_selector).serializeObject();
+	     		if($(options.query_form_selector).attr('action')){
+	     			url=$(options.query_form_selector).attr('action');
+	     		}
+	     	}
 	        param.limit = data.length;//页面显示记录条数，在页面显示每页显示多少项的时候
 	        param.curpage = (data.start / data.length)+1;//当前页码
 	        //ajax请求数据
 	        $.ajax({
 	            type: "post",
-	            url: $(options.query_form_selector).attr('action'),
+	            url: url,
 	            cache: false,  //禁用缓存
 	            data: param,  //传入组装的参数
 	            dataType: "json",

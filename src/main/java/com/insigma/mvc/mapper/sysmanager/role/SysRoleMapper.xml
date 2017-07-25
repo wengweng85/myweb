@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.insigma.mvc.dao.sysmanager.role.SysRoleMapper">
+    <!-- 查询列表 -->
+    <select id="getAllRoleList"  resultType="SRole" >
+		select 
+		  roleid,
+		  name, 
+		  code,
+		  describe 
+		from 
+		s_role order by updatetime desc 
+	</select>
+	
+	<!-- 通过角色id获取相关角色数据 -->
+	<select id="getRoleDataById"  resultType="SRole" parameterType="String" >
+		select 
+		  roleid,
+		  name, 
+		  code,
+		  describe 
+		from 
+		s_role 
+		where roleid=#{roleid}
+	</select>
+	
+	
+	<!-- 通过代码编号获取角色相关数据 -->
+	<select id="isRoleCodeExist"  resultType="SRole" parameterType="SRole" >
+		select code from s_role a  where code=#{code} 
+		<if test="roleid != null and roleid!=''"> and a.roleid&lt;&gt;#{roleid}</if>
+	</select>
+	
+	<!-- 判断角色是否有被用户使用 -->
+	<select id="isRoleUsedbyUser"  resultType="SRole" parameterType="String" >
+		select code from s_role a  where exists (select 1 from s_user_role s where s.roleid=#{roleid} and s.roleid=a.roleid)
+	</select>
+	
+	
+	<!-- 通过角色节点删除角色相关数据 -->
+	<delete id="deleteRoleDataById">
+	    delete from s_role s where s.roleid=#{roleid}
+	</delete>
+	
+	
+	<!-- 保存 -->
+	<insert id="saveRoleData"  parameterType="SRole">
+	    <selectKey resultType="java.lang.String" order="BEFORE" keyProperty="roleid"> 
+            SELECT sys_guid() from dual 
+        </selectKey>
+		insert into s_role(roleid,code,name,describe,updatetime)
+		values (#{roleid},#{code},#{name},#{describe},sysdate)
+	</insert>
+	
+	<!-- 更新-->
+	<update id="updateRoleData" parameterType="SRole">
+		update s_role t
+		  <set>
+		      t.updatetime=sysdate,
+	      <if test="name != null and name !=''">t.name=#{name},</if>
+	      <if test="code != null and code !=''">t.code=#{code},</if>
+	      <if test="describe != null and describe !=''">t.describe=#{describe}</if>
+	    </set>
+        where t.roleid=#{roleid}
+	</update>
+</mapper>

@@ -1,5 +1,7 @@
 package com.insigma.mvc.model;
 
+import java.util.Date;
+
 import org.hibernate.validator.constraints.NotEmpty;
 
 
@@ -42,9 +44,15 @@ public class SPermission implements java.io.Serializable {
 	/**≈≈–Ú∫≈*/
 	private String sortnum;
 	
+	private Date updatetime;
 	
 	
-	
+	public Date getUpdatetime() {
+		return updatetime;
+	}
+	public void setUpdatetime(Date updatetime) {
+		this.updatetime = updatetime;
+	}
 	public String getSortnum() {
 		return sortnum;
 	}

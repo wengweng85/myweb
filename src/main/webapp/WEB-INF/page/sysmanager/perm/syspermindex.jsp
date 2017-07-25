@@ -6,7 +6,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>权限列表</title>
+<title>权限管理</title>
 <!-- css头文件  -->
 <rc:csshead/>
 </head>
@@ -34,37 +34,33 @@
 				</div>
 				<div class="ibox-content">
 				<form action="<c:url value='/sys/perm/saveorupdate'/>"  class="form-horizontal" method="post" id="myform">
-                           <div class="form-group">
-                               <input type="hidden" id="permissionid" name="permissionid" class="form-control" >
-                               <input type="hidden" id="parentid" name="parentid" class="form-control" >
-                           </div>
-                           
+                           <rc:hidden property="permissionid"/>
+                           <rc:hidden property="parentid" />
                            <div class="form-group">
                                <label class="col-sm-2 control-label">上级权限名称 </label>
                                <div class="col-sm-10">
-                                    <rc:textedit name="parentname" id="parentname" readonly="true"/>
+                                    <rc:textedit property="parentname" readonly="true"/>
                                </div>
                            </div>
                            <div class="hr-line-dashed"></div>
-                           
                            <div class="form-group">
                                <label class="col-sm-2 control-label">权限编码 <span class="require">*<span></label>
                                <div class="col-sm-10">
-                                    <rc:textedit name="code" id="code" validate="{required:true,messages:{required:'请输入权限编码'}}"/>
+                                    <rc:textedit property="code"  validate="{required:true,messages:{required:'请输入权限编码'}}"/>
                                </div>
                            </div>
                            <div class="hr-line-dashed"></div>
                            <div class="form-group">
                                <label class="col-sm-2 control-label">权限名称  <span class="require">*<span></label>
                                <div class="col-sm-10">
-                                    <rc:textedit name="name" id="name" validate="{required:true,messages:{required:'请输入权限名称'}}"/>
+                                    <rc:textedit property="name"  validate="{required:true,messages:{required:'请输入权限名称'}}"/>
                                </div>
                            </div>
                            <div class="hr-line-dashed"></div>
                            <div class="form-group">
                                <label class="col-sm-2 control-label">权限描述 <span class="require">*<span></label>
                                <div class="col-sm-10">
-                                    <rc:textedit name="describe" id="describe" validate="{required:true,messages:{required:'请输入权限描述'}}"/>
+                                    <rc:textedit property="describe"  validate="{required:true,messages:{required:'请输入权限描述'}}"/>
                                </div>
                            </div>
                            <div class="hr-line-dashed"></div>
@@ -72,7 +68,7 @@
                            <div class="form-group">
                                <label class="col-sm-2 control-label">权限类型 <span class="require">*<span></label>
                                <div class="col-sm-10">
-                                   <rc:select codetype="PERMTYPE" id="type" name="type"  validate="{required:true,messages:{required:'请选择权限类型'}}"/> 
+                                   <rc:select codetype="PERMTYPE" property="type"   validate="{required:true,messages:{required:'请选择权限类型'}}"/> 
                                </div>
                            </div>
                            <div class="hr-line-dashed"></div>
@@ -80,7 +76,7 @@
                            <div class="form-group">
                                <label class="col-sm-2 control-label">权限地址url</label>
                                <div class="col-sm-10">
-                                    <rc:textedit name="url" id="url" />
+                                    <rc:textedit property="url"  />
                                </div>
                            </div>
                            <div class="hr-line-dashed"></div>
@@ -88,16 +84,14 @@
                            <div class="form-group">
                                <label class="col-sm-2 control-label">排序号<span class="require">*<span></label>
                                <div class="col-sm-10">
-                                    <rc:textedit name="sortnum" id="sortnum" />
+                                    <rc:textedit property="sortnum"  />
                                </div>
                            </div>
                            <div class="hr-line-dashed"></div>
-                           
-                           
                            <div class="form-group">
                                <label class="col-sm-2 control-label">更新日期</label>
                                <div class="col-sm-10">
-                                   <rc:date name="updatetime" id="updatetime"/>
+                                   <rc:date property="updatetime" />
                                </div>
                            </div>
                            <div class="hr-line-dashed"></div>
@@ -185,6 +179,7 @@ function deleteperm(){
 			rc.ajax(url, null,function (response) {
 				if(response.success){
 					treeinit();
+					rc.clean();
 				}else{
 					alert(response.message);
 				}
