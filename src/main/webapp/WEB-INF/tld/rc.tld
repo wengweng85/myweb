@@ -30,14 +30,8 @@
 	        <rtexprvalue>true</rtexprvalue>
 	    </attribute>
 	     <attribute>
-	        <description>名称</description>
-	        <name>name</name>
-	        <required>true</required>
-	        <rtexprvalue>true</rtexprvalue>
-	    </attribute>
-	    <attribute>
-	        <description>id</description>
-	        <name>id</name>
+	        <description>属性名</description>
+	        <name>property</name>
 	        <required>true</required>
 	        <rtexprvalue>true</rtexprvalue>
 	    </attribute>
@@ -61,18 +55,12 @@
 	    <tag-class>com.insigma.tag.form.input.DatePickerTag</tag-class> 
 	    <description>通用日期标签</description> 
 	     <attribute>
-	        <description>名称</description>
-	        <name>name</name>
+	        <description>属性名</description>
+	        <name>property</name>
 	        <required>true</required>
 	        <rtexprvalue>true</rtexprvalue>
 	    </attribute>
 	    <attribute>
-	        <description>id</description>
-	        <name>id</name>
-	        <required>true</required>
-	        <rtexprvalue>true</rtexprvalue>
-	    </attribute>
-	     <attribute>
 	        <description>值</description>
 	        <name>value</name>
 	        <required>false</required>
@@ -92,14 +80,8 @@
 	    <tag-class>com.insigma.tag.form.input.TextEditTag</tag-class> 
 	    <description>通用文本标签</description> 
 	     <attribute>
-	        <description>名称</description>
-	        <name>name</name>
-	        <required>true</required>
-	        <rtexprvalue>true</rtexprvalue>
-	    </attribute>
-	    <attribute>
-	        <description>id</description>
-	        <name>id</name>
+	        <description>属性名</description>
+	        <name>property</name>
 	        <required>true</required>
 	        <rtexprvalue>true</rtexprvalue>
 	    </attribute>
@@ -118,6 +100,24 @@
 	    <attribute>
 	        <description>是否只读</description>
 	        <name>readonly</name>
+	        <required>false</required>
+	        <rtexprvalue>true</rtexprvalue>
+	    </attribute>
+	    <body-content>empty</body-content>  
+    </tag> 
+    <tag>  
+	    <name>hidden</name> 
+	    <tag-class>com.insigma.tag.form.input.HiddenEditTag</tag-class> 
+	    <description>通用隐藏文本框</description> 
+	     <attribute>
+	        <description>属性名</description>
+	        <name>property</name>
+	        <required>true</required>
+	        <rtexprvalue>true</rtexprvalue>
+	    </attribute>
+	     <attribute>
+	        <description>值</description>
+	        <name>value</name>
 	        <required>false</required>
 	        <rtexprvalue>true</rtexprvalue>
 	    </attribute>

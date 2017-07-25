@@ -29,7 +29,7 @@
 		               <input type="text" name="page_describe" class="form-control"> 
 		           </div>
 		           <div class="col-sm-1">
-		               <rc:select name="aac004" codetype="PERMTYPE" id="aac004" value="${v}"/>
+		               <rc:select property="aac004"   codetype="PERMTYPE"  value="${v}"/>
 		           </div>
 	               <div class="col-sm-4">
 	                  <button type="button" class="btn btn-w-m btn-info" onclick="query()">≤È—Ø</button>

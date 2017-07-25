@@ -1,7 +1,5 @@
 package com.insigma.mvc.controller.sysmanager.role;
 
-import java.util.List;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,14 +15,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.github.pagehelper.PageInfo;
 import com.insigma.dto.AjaxReturnMsg;
 import com.insigma.mvc.controller.BaseController;
-import com.insigma.mvc.model.SPermission;
-import com.insigma.mvc.service.sysmanager.perm.SysPermService;
+import com.insigma.mvc.model.SRole;
+import com.insigma.mvc.service.sysmanager.role.SysRoleService;
 import com.mysql.jdbc.StringUtils;
 
 /**
- * 角色管理及角色权限分配管理
+ * 角色管理及角色角色分配管理
  * @author wengsh
  *
  */
@@ -34,7 +33,7 @@ public class SysRoleController extends BaseController {
 	
 	
 	@Resource
-	private SysPermService sysPermService;
+	private SysRoleService sysRoleService;
 	/**
 	 * 页面初始化
 	 * @param request
@@ -43,80 +42,81 @@ public class SysRoleController extends BaseController {
 	@RequestMapping("/index")
 	@RequiresRoles("admin")
 	public ModelAndView draglist(HttpServletRequest request,Model model) throws Exception {
-		ModelAndView modelAndView=new ModelAndView("sysmanager/perm/syspermindx");
+		ModelAndView modelAndView=new ModelAndView("sysmanager/role/sysroleindex");
         return modelAndView;
 	}
 	
-	
 	/**
-	 * 权限树数据
+	 * 角色列表查询
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping("/treedata")
+	@RequestMapping("/querylist")
+	@ResponseBody
 	@RequiresRoles("admin")
-	public void treedata(HttpServletRequest request, HttpServletResponse response,Model model) throws Exception {
-		List<SPermission> permlist =sysPermService.getPermTreeList();
-		this.success_native_response(response,permlist);
+	public AjaxReturnMsg querylist(HttpServletRequest request,Model model,SRole srole) throws Exception {
+		PageInfo<SRole> pageinfo =sysRoleService.getAllRoleList(srole);
+		return this.success(pageinfo);
 	}
 	
 	
 	/**
-	 * 通过权限编号获取权限数据
+	 * 通过角色编号获取角色数据
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping("/getPermData/{id}")
+	@RequestMapping("/getRoleData/{id}")
 	@RequiresRoles("admin")
 	@ResponseBody
 	public AjaxReturnMsg getPermDataByid(HttpServletRequest request, HttpServletResponse response,Model model,@PathVariable String id) throws Exception {
-		SPermission spermission= sysPermService.getPermDataById(id);
-		return this.success(spermission);
+		SRole srole= sysRoleService.getRoleDataById(id);
+		return this.success(srole);
 	}
 	
+	/**
+	 * 删除角色相关数据
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/deleteRoleDataById/{id}")
+	@ResponseBody
+	@Transactional
+	@RequiresRoles("admin")
+	public AjaxReturnMsg deleteRoleDataById(HttpServletRequest request,Model model,@PathVariable String id) throws Exception {
+		if(sysRoleService.isRoleUsedbyUser(id)!=null){
+			return this.error("当前角色已经被用户绑定使用，不允许删除,请确认");
+		}else{
+			sysRoleService.deleteRoleDataById(id);
+			return this.success("操作成功");
+		}
+	}
 	
 	/**
-	 * 更新或保存权限
+	 * 更新或保存角色
 	 * @param request
 	 * @return
 	 */
 	@RequestMapping("/saveorupdate")
 	@ResponseBody
 	@Transactional
-	public AjaxReturnMsg saveorupdate(HttpServletRequest request,Model model,@Valid SPermission spermission,BindingResult result) throws Exception {
+	@RequiresRoles("admin")
+	public AjaxReturnMsg saveorupdate(HttpServletRequest request,Model model,@Valid SRole srole,BindingResult result) throws Exception {
 		//检验输入
 		if (result.hasErrors()){
 			return validate(result);
 		}
-		SPermission ispermsionexist=sysPermService.isPermCodeExist(spermission);
-		   if(ispermsionexist!=null){
-			   return this.error("此权限"+spermission.getCode()+"编号已经存在,请重新输入一个新的权限编号");
-		   }else{
+		SRole ispermsionexist=sysRoleService.isRoleCodeExist(srole);
+		if(ispermsionexist!=null){
+			   return this.error("此角色"+srole.getCode()+"编号已经存在,请重新输入一个新的角色编号");
+		}else{
 			//判断是否更新操作
-			if(StringUtils.isNullOrEmpty(spermission.getPermissionid())){
-			     sysPermService.savePermissionData(spermission);
+			if(StringUtils.isNullOrEmpty(srole.getRoleid())){
+				sysRoleService.saveRoleData(srole);
 				 return this.success("新增成功");
 			}else{
-				 sysPermService.updatePermissionData(spermission);
+				sysRoleService.updateRoleData(srole);
 				return this.success("更新成功");
 			}
-		}
-	}
-	
-	/**
-	 * 删除权限相关数据
-	 * @param request
-	 * @return
-	 */
-	@RequestMapping("/deletePermDataById/{id}")
-	@ResponseBody
-	@Transactional
-	public AjaxReturnMsg deletePermDataById(HttpServletRequest request,Model model,@PathVariable String id) throws Exception {
-		if(sysPermService.getPermListDataByParentid(id).size()>0){
-			return this.error("当前权限还存在子权限数据,请先删除子权限数据");
-		}else{
-			sysPermService.deletePermDataById(id);
-			return this.success("操作成功");
 		}
 	}
 }

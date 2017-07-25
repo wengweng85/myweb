@@ -26,11 +26,8 @@ public class SelectTag implements Tag {
 	// 下拉代码类型
 	private String codetype;
 
-	// id
-	private String id;
-
-	// name
-	private String name;
+	// property
+	private String property;
 
 	// 值
 	private String value;
@@ -40,14 +37,6 @@ public class SelectTag implements Tag {
 
 	public void setCodetype(String codetype) {
 		this.codetype = codetype;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public void setValue(String value) {
@@ -62,13 +51,17 @@ public class SelectTag implements Tag {
 		return codetype;
 	}
 
-	public String getId() {
-		return id;
+	public String getProperty() {
+		return property;
 	}
 
-	public String getName() {
-		return name;
+
+
+	public void setProperty(String property) {
+		this.property = property;
 	}
+
+
 
 	public String getValue() {
 		return value;
@@ -96,7 +89,7 @@ public class SelectTag implements Tag {
 		// TODO Auto-generated method stub
 		JspWriter out = pageContext.getOut();
 		StringBuffer sb = new StringBuffer();
-		sb.append("<select class=\"form-control selectpicker \" id=\"" + id+ "\" name=\"" + name + "\"  value=\"" + value+ "\"   data-live-search=\"true\"  validate=\"" + validate+ "\">");
+		sb.append("<select class=\"form-control selectpicker \" id=\"" + property+ "\" name=\"" + property + "\"  value=\"" + value+ "\"   data-live-search=\"true\"  validate=\"" + validate+ "\">");
 		// 从EhCache获取下载
 		Element element = EhCacheUtil.getManager().getCache("webcache")
 				.get(codetype);

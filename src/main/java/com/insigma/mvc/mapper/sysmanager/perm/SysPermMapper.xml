@@ -26,7 +26,8 @@
 		    type,
 		    (select name from s_permission t where t.permissionid=a.parentid) parentname,
 		    enabled,
-		    sortnum
+		    sortnum,
+		    updatetime
 		    from 
 		    s_permission  a 
 		where permissionid=#{permissionid}
@@ -36,7 +37,7 @@
 	<!-- 通过代码编号获取权限相关数据 -->
 	<select id="isPermCodeExist"  resultType="SPermission" parameterType="SPermission" >
 		select code from s_permission a  where code=#{code} 
-		<if test="permissionid != null"> and a.permissionid&lt;&gt;#{permissionid}</if>
+		<if test="permissionid != null and  permissionid!=''"> and a.permissionid&lt;&gt;#{permissionid}</if>
 	</select>
 	
 	<!-- 判断当前权限节点是否有子结点 -->
@@ -64,12 +65,12 @@
 		update s_permission t
 		  <set>
 		      t.updatetime=sysdate,
-	      <if test="name != null">t.name=#{name},</if>
-	      <if test="code != null">t.code=#{code},</if>
-	      <if test="describe != null">t.describe=#{describe},</if>
-	      <if test="type != null">type=#{type},</if>
-	      <if test="url != null">url=#{url},</if>
-	      <if test="sortnum != null">sortnum=#{sortnum}</if>
+	      <if test="name != null and name!='' ">t.name=#{name},</if>
+	      <if test="code != null and code !='' ">t.code=#{code},</if>
+	      <if test="describe != null and describe!=''">t.describe=#{describe},</if>
+	      <if test="type != null and type!=''">type=#{type},</if>
+	      <if test="url != null and url!=''">url=#{url},</if>
+	      <if test="sortnum != null and sortnum!=''">sortnum=#{sortnum}</if>
 	    </set>
         where t.permissionid=#{permissionid}
 	</update>

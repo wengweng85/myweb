@@ -43,7 +43,7 @@ public class SysPermController extends BaseController {
 	@RequestMapping("/index")
 	@RequiresRoles("admin")
 	public ModelAndView draglist(HttpServletRequest request,Model model) throws Exception {
-		ModelAndView modelAndView=new ModelAndView("sysmanager/perm/syspermindx");
+		ModelAndView modelAndView=new ModelAndView("sysmanager/perm/syspermindex");
         return modelAndView;
 	}
 	
@@ -83,6 +83,7 @@ public class SysPermController extends BaseController {
 	@RequestMapping("/saveorupdate")
 	@ResponseBody
 	@Transactional
+	@RequiresRoles("admin")
 	public AjaxReturnMsg saveorupdate(HttpServletRequest request,Model model,@Valid SPermission spermission,BindingResult result) throws Exception {
 		//检验输入
 		if (result.hasErrors()){
@@ -111,6 +112,7 @@ public class SysPermController extends BaseController {
 	@RequestMapping("/deletePermDataById/{id}")
 	@ResponseBody
 	@Transactional
+	@RequiresRoles("admin")
 	public AjaxReturnMsg deletePermDataById(HttpServletRequest request,Model model,@PathVariable String id) throws Exception {
 		if(sysPermService.getPermListDataByParentid(id).size()>0){
 			return this.error("当前权限还存在子权限数据,请先删除子权限数据");

@@ -32,20 +32,8 @@
             <div class="sidebar-collapse">
                 <ul class="nav" id="side-menu">
                     <li class="nav-header">
-                        <div class="dropdown profile-element">
-                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                                <span class="clear">
-                                <span class="text-muted text-xs block"><strong> 陕西省人力资源市场管理信息系统</strong></span>
-                                <span class="text-muted text-xs block">欢迎您:<strong>${suser.cnname}</strong></span>
-                                </span>
-                            </a>
-                        </div>
-                        <div class="logo-element">
-                           ${suser.cnname}
-                            <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#">
-		                    <i class="fa fa-bars"></i> 
-		                    </a>
-                        </div>
+                        <span class="text-muted text-xs block"><strong> 陕西省人力资源市场管理信息系统</strong></span>
+                        <span class="text-muted text-xs block">欢迎您:<strong>${suser.cnname}</strong></span>
                     </li>
                     <shiro:user>
                     <shiro:hasPermission  name="perm:pagedesignindex">
@@ -66,7 +54,6 @@
                     </li>
                     </shiro:hasPermission>
                     <shiro:hasPermission  name="perm:jobindex">
-                    
                     <li>
                         <a href="#">
                             <i class="fa fa-bar-chart-o"></i>
@@ -104,7 +91,7 @@
                         </a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a class="J_menuItem" href="<c:url value='/job/list'/>" data-index="3">角色管理</a>
+                                <a class="J_menuItem" href="<c:url value='/sys/role/index'/>" data-index="3">角色管理</a>
                             </li>
                         </ul>
                     </li>

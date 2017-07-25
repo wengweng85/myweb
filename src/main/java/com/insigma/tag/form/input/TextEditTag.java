@@ -17,11 +17,8 @@ public class TextEditTag implements Tag {
 
 	private PageContext pageContext;
 
-	// id
-	private String id;
-
-	// name
-	private String name;
+	// property
+	private String property;
 
 	// ֵ
 	private String value;
@@ -40,12 +37,14 @@ public class TextEditTag implements Tag {
 		this.readonly = readonly;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	
+
+	public String getProperty() {
+		return property;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setProperty(String property) {
+		this.property = property;
 	}
 
 	public void setValue(String value) {
@@ -56,13 +55,7 @@ public class TextEditTag implements Tag {
 		return pageContext;
 	}
 
-	public String getId() {
-		return id;
-	}
-
-	public String getName() {
-		return name;
-	}
+	
 
 	public String getValue() {
 		return value;
@@ -90,7 +83,7 @@ public class TextEditTag implements Tag {
 	     boolean isreadonly=Boolean.parseBoolean(readonly=(readonly==null)?"false":readonly);
 	     JspWriter out = pageContext.getOut();
 	     StringBuffer sb=new StringBuffer();
-		 sb.append("<input type=\"text\" id=\""+id+"\" name=\""+name+"\"  validate=\""+validate+"\" class=\"form-control\"");
+		 sb.append("<input type=\"text\" id=\""+property+"\" name=\""+property+"\"  validate=\""+validate+"\" class=\"form-control\"");
 		 if(isreadonly){
 			 sb.append(" readonly=\"readonly\" ");
 		 }

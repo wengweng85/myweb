@@ -17,11 +17,7 @@ public class DatePickerTag implements Tag {
 
 	private PageContext pageContext;
 
-	// id
-	private String id;
-
-	// name
-	private String name;
+	private String property;
 
 	// 值
 	private String value;
@@ -29,13 +25,7 @@ public class DatePickerTag implements Tag {
 	// 校验规则
 	private String validate;
 
-	public void setId(String id) {
-		this.id = id;
-	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
 
 	public void setValue(String value) {
 		this.value = value;
@@ -45,12 +35,14 @@ public class DatePickerTag implements Tag {
 		return pageContext;
 	}
 
-	public String getId() {
-		return id;
+	
+
+	public String getProperty() {
+		return property;
 	}
 
-	public String getName() {
-		return name;
+	public void setProperty(String property) {
+		this.property = property;
 	}
 
 	public String getValue() {
@@ -80,7 +72,7 @@ public class DatePickerTag implements Tag {
 	     StringBuffer sb=new StringBuffer();
 	     sb.append("<div class=\"input-group date\">");
 		 sb.append("<span class=\"input-group-addon\" draggable=\"false\"><i class=\"fa fa-calendar\"></i></span>");
-		 sb.append("<input type=\"text\" id=\""+id+"\" name=\""+name+"\"  validate=\""+validate+"\" class=\"form-control\"  >");
+		 sb.append("<input type=\"text\" id=\""+property+"\" name=\""+property+"\"  validate=\""+validate+"\" class=\"form-control\"  >");
 		 sb.append("</div>");
 		 try {  
 			   out.write(sb.toString());
