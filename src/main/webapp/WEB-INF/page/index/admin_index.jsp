@@ -33,17 +33,18 @@
                 <ul class="nav" id="side-menu">
                     <li class="nav-header">
                         <div class="dropdown profile-element">
-                            <span><img alt="image" class="img-circle" src="<c:url value='/resource/hplus/img/profile_small.png'/>" /></span>
                             <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                                 <span class="clear">
-                                <span class="block m-t-xs"><strong class="font-bold">${suser.username}</strong></span>
-                                <span class="text-muted text-xs block">${suser.cnname}<b class="caret"></b></span>
+                                <span class="text-muted text-xs block"><strong> 陕西省人力资源市场管理信息系统</strong></span>
+                                <span class="text-muted text-xs block">欢迎您:<strong>${suser.cnname}</strong></span>
                                 </span>
                             </a>
-                            <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                            </ul>
                         </div>
-                        <div class="logo-element">人力资源市场
+                        <div class="logo-element">
+                           ${suser.cnname}
+                            <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#">
+		                    <i class="fa fa-bars"></i> 
+		                    </a>
                         </div>
                     </li>
                     <shiro:user>
@@ -51,7 +52,7 @@
                     <li>
                         <a href="#">
                             <i class="fa fa-home"></i>
-                            <span class="nav-label">主页</span>
+                            <span class="nav-label">页面设计</span>
                             <span class="fa arrow"></span>
                         </a>
                         
@@ -91,7 +92,7 @@
                         </a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a class="J_menuItem" href="<c:url value='/sys/perm/index'/>" data-index="1">权限管理</a>
+                                <a class="J_menuItem" href="<c:url value='/sys/perm/index'/>" data-index="2">权限管理</a>
                             </li>
                         </ul>
                     </li>
@@ -103,7 +104,7 @@
                         </a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a class="J_menuItem" href="<c:url value='/job/list'/>" data-index="1">角色管理</a>
+                                <a class="J_menuItem" href="<c:url value='/job/list'/>" data-index="3">角色管理</a>
                             </li>
                         </ul>
                     </li>
@@ -115,7 +116,7 @@
                         </a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a class="J_menuItem" href="<c:url value='/job/list'/>" data-index="1">授权管理</a>
+                                <a class="J_menuItem" href="<c:url value='/job/list'/>" data-index="4">授权管理</a>
                             </li>
                         </ul>
                     </li>
@@ -127,22 +128,6 @@
         <!--左侧导航结束-->
         <!--右侧部分开始-->
         <div id="page-wrapper" class="gray-bg dashbard-1">
-            <div class="row border-bottom">
-                <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
-                    <div class="navbar-header">
-                    <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#">
-                    <i class="fa fa-bars"></i> 
-                    </a>
-                        <form role="search" class="navbar-form-custom" method="post" action="search_results.html">
-                            <div class="form-group">
-                                <input type="text" placeholder="请输入您需要查找的内容 …" class="form-control" name="top-search" id="top-search">
-                            </div>
-                        </form>
-                    </div>
-                    <ul class="nav navbar-top-links navbar-right">
-                    </ul>
-                </nav>
-            </div>
             <div class="row content-tabs">
                 <button class="roll-nav roll-left J_tabLeft"><i class="fa fa-backward"></i>
                 </button>
@@ -155,7 +140,6 @@
                 </button>
                 <div class="btn-group roll-nav roll-right">
                     <button class="dropdown J_tabClose" data-toggle="dropdown">关闭操作<span class="caret"></span>
-
                     </button>
                     <ul role="menu" class="dropdown-menu dropdown-menu-right">
                         <li class="J_tabShowActive"><a>定位当前选项卡</a>
@@ -189,7 +173,7 @@
     <script src="<c:url value='/resource/hplus/js/plugins/pace/pace.min.js'/>"></script>
     <script type="text/javascript">
     $(function(){
-    	$('.navbar-minimalize').click();
+    	//$('.navbar-minimalize').click();
     })
     </script>
 </body>

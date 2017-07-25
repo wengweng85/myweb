@@ -24,7 +24,7 @@ import com.insigma.mvc.service.sysmanager.perm.SysPermService;
 import com.mysql.jdbc.StringUtils;
 
 /**
- * 用户权限管理
+ * 权限管理
  * @author wengsh
  *
  */
