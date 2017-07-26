@@ -57,20 +57,20 @@
             SELECT sys_guid() from dual 
         </selectKey>
 		insert into s_permission(permissionid,parentid,code,name,type,url,describe,sortnum,updatetime)
-		values (#{permissionid},#{parentid},#{code},#{name},#{type},#{url},#{describe},#{sortnum},sysdate)
+		values (#{permissionid},#{parentid},#{code},#{name},#{type},#{url},#{describe},#{sortnum},#{updatetime,jdbcType=DATE})
 	</insert>
 	
 	<!-- 更新-->
 	<update id="updatePermissionData" parameterType="SPermission">
 		update s_permission t
 		  <set>
-		      t.updatetime=sysdate,
 	      <if test="name != null and name!='' ">t.name=#{name},</if>
 	      <if test="code != null and code !='' ">t.code=#{code},</if>
 	      <if test="describe != null and describe!=''">t.describe=#{describe},</if>
 	      <if test="type != null and type!=''">type=#{type},</if>
 	      <if test="url != null and url!=''">url=#{url},</if>
-	      <if test="sortnum != null and sortnum!=''">sortnum=#{sortnum}</if>
+	      <if test="sortnum != null and sortnum!=''">sortnum=#{sortnum},</if>
+	      <if test="updatetime != null and updatetime!=''">updatetime=#{updatetime, jdbcType=DATE}</if>
 	    </set>
         where t.permissionid=#{permissionid}
 	</update>

@@ -40,7 +40,7 @@ public class SysRoleController extends MvcHelper  {
 	@RequestMapping("/index")
 	@RequiresRoles("admin")
 	public ModelAndView draglist(HttpServletRequest request,Model model) throws Exception {
-		ModelAndView modelAndView=new ModelAndView("sysmanager/role/sysroleindex");
+		ModelAndView modelAndView=new ModelAndView("sysmanager/role/sysRoleIndex");
         return modelAndView;
 	}
 	

@@ -86,7 +86,7 @@
                         </a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a class="J_menuItem" href="<c:url value='/job/list'/>" data-index="4">授权管理</a>
+                                <a class="J_menuItem" href="<c:url value='/sys/userrole/index'/>" data-index="4">授权管理</a>
                             </li>
                         </ul>
                     </li>

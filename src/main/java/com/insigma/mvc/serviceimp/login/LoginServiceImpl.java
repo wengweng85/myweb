@@ -41,21 +41,13 @@ public class LoginServiceImpl implements LoginService {
 	@Override
 	public List<SRole> findRolesStr(String loginname) throws Exception {
 		List<SRole> list= loginmapper.findRolesStr(loginname);
-		if(list.size()>0){
-			return list;
-		}else{
-			throw new AppException("用户角色信息不存在!");
-		}
+		return list;
 	}
 
 	@Override
 	public List<SPermission>  findPermissionStr(String loginname) throws Exception {
 		List<SPermission> list=loginmapper.findPermissionStr(loginname);
-		if(list.size()>0){
-			return list;
-		}else{
-			throw new AppException("用户角色信息不存在!");
-		}
+		return list;
 	}
 
 	@Override

@@ -81,23 +81,27 @@ public class MyShiroRealm extends AuthorizingRealm  implements Realm, Initializi
 	            SimpleAuthorizationInfo authenticationInfo = new SimpleAuthorizationInfo();
  	           //用户角色
  	            List<SRole> rolelist=loginservice.findRolesStr(loginname);
- 	            Set<String> roleset=new HashSet<String>();
- 	            Iterator iterator_role=rolelist.iterator();
- 	            while(iterator_role.hasNext()){
- 	            	SRole  srole=(SRole) iterator_role.next();
- 	            	roleset.add(srole.getCode());
-	            }
- 	           authenticationInfo.setRoles(roleset);
+ 	            if(rolelist!=null){
+ 	            	Set<String> roleset=new HashSet<String>();
+ 	 	            Iterator iterator_role=rolelist.iterator();
+ 	 	            while(iterator_role.hasNext()){
+ 	 	            	SRole  srole=(SRole) iterator_role.next();
+ 	 	            	roleset.add(srole.getCode());
+ 		            }
+ 	 	           authenticationInfo.setRoles(roleset);
+ 	            }
  	           
  	            //用户权限
 	            List<SPermission> permlist=loginservice.findPermissionStr(loginname);
-	            Set<String> set=new HashSet<String>();
-	            Iterator iterator=permlist.iterator();
-	            while(iterator.hasNext()){
-	            	SPermission  spermission=(SPermission) iterator.next();
-	            	set.add(spermission.getCode());
+	            if(permlist!=null){
+	            	  Set<String> set=new HashSet<String>();
+	  	            Iterator iterator=permlist.iterator();
+	  	            while(iterator.hasNext()){
+	  	            	SPermission  spermission=(SPermission) iterator.next();
+	  	            	set.add(spermission.getCode());
+	  	            }
+	   	            authenticationInfo.setStringPermissions(set);
 	            }
- 	            authenticationInfo.setStringPermissions(set);
 	            return authenticationInfo;
 	        }else{
 	            return null;
@@ -125,15 +129,18 @@ public class MyShiroRealm extends AuthorizingRealm  implements Realm, Initializi
 	            }else{
 	            	//用户角色
 	 	            List<SRole> rolelist=loginservice.findRolesStr(loginname);
-	 	            Set<String> roleset=new HashSet<String>();
-	 	            Iterator iterator_role=rolelist.iterator();
-	 	            while(iterator_role.hasNext()){
-	 	            	SRole  srole=(SRole) iterator_role.next();
-	 	            	roleset.add(srole.getName());
-	 	            	roleset.add(srole.getCode());
-		            }
-		            authenticationInfo.setRoles(roleset);
-		            redisCache.put(Constants.getUserRolesCacheKey(loginname), rolesset);
+	 	            if(rolelist!=null){
+	 	            	 Set<String> roleset=new HashSet<String>();
+	 	 	            Iterator iterator_role=rolelist.iterator();
+	 	 	            while(iterator_role.hasNext()){
+	 	 	            	SRole  srole=(SRole) iterator_role.next();
+	 	 	            	roleset.add(srole.getName());
+	 	 	            	roleset.add(srole.getCode());
+	 		            }
+	 		            authenticationInfo.setRoles(roleset);
+	 		            redisCache.put(Constants.getUserRolesCacheKey(loginname), rolesset);
+	 	            }
+	 	           
 	            }
 	            //permissions从缓存服务器中获取
 	            Set<String> permissionsset = redisCache.get(Constants.getUserPermissionCacheKey(loginname));
@@ -142,14 +149,16 @@ public class MyShiroRealm extends AuthorizingRealm  implements Realm, Initializi
 	            }else{
 	            	//用户权限
 		            List<SPermission> permlist=loginservice.findPermissionStr(loginname);
-		            Set<String> set=new HashSet<String>();
-		            Iterator iterator=permlist.iterator();
-		            while(iterator.hasNext()){
-		            	SPermission  spermission=(SPermission) iterator.next();
-		            	set.add(spermission.getCode());
+		            if(permlist!=null){
+		                Set<String> set=new HashSet<String>();
+			            Iterator iterator=permlist.iterator();
+			            while(iterator.hasNext()){
+			            	SPermission  spermission=(SPermission) iterator.next();
+			            	set.add(spermission.getCode());
+			            }
+		 	            authenticationInfo.setStringPermissions(set);
+		 	            redisCache.put(Constants.getUserPermissionCacheKey(loginname), permissionsset);
 		            }
-	 	            authenticationInfo.setStringPermissions(set);
-	 	            redisCache.put(Constants.getUserPermissionCacheKey(loginname), permissionsset);
 	            }
 	            return authenticationInfo;
 	        }

@@ -16,6 +16,14 @@ public class SUser implements java.io.Serializable {
 	private String password;
 	private String cnname;
 	private String enabled;
+	private String isgrant;
+	
+	public String getIsgrant() {
+		return isgrant;
+	}
+	public void setIsgrant(String isgrant) {
+		this.isgrant = isgrant;
+	}
 	public String getUserid() {
 		return userid;
 	}

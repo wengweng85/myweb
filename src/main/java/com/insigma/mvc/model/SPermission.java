@@ -44,14 +44,14 @@ public class SPermission implements java.io.Serializable {
 	/**≈≈–Ú∫≈*/
 	private String sortnum;
 	
-	private String updatetime;
+	private Date updatetime;
 	
 	
 	
-	public String getUpdatetime() {
+	public Date getUpdatetime() {
 		return updatetime;
 	}
-	public void setUpdatetime(String updatetime) {
+	public void setUpdatetime(Date updatetime) {
 		this.updatetime = updatetime;
 	}
 	public String getSortnum() {

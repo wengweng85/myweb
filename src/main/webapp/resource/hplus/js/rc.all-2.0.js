@@ -76,6 +76,9 @@ var rc = {
 	     //columnDefs: options.columnDefs||[],
 	     ajax: function (data, callback, settings) {
 	     	var param ={};
+	     	if(options.param){
+	     		param=options.param;
+	     	}
 	     	var url='';
 	     	if(options.url){
 	     		url=options.url;

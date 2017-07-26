@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.insigma.mvc.dao.sysmanager.userrole.SysUserRoleMapper">
+    <!-- 查询机构树数据 -->
+    <select id="getAllGroupList"  resultType="SGroup" parameterType="String">
+		select groupid id ,'true' open, isparent,decode(isparent,'true','parent','leaf')  iconSkin,t.name from (select a.groupid,a.name, decode(sign((select count(*) from s_group s where s.parentid=a.groupid)),'1','true','false') isparent from s_group a where a.parentid=#{parentid}  order by a.groupid ) t
+	</select>
+	
+	<!-- 通过机构id获取机构信息 -->
+	<select id="getGroupDataById" resultType="SGroup" parameterType="String">
+	    select groupid,name,description from s_group t where t.groupid=#{groupid}
+	</select>
+	
+	<select id="getUserListByGroupid" resultType="SUser" parameterType="String">
+	    select b.userid,
+	    b.username,
+	    b.cnname,
+	    decode(sign((select count(*) from s_user_role t where t.userid=b.userid)),'1','true','false') isgrant
+	    from s_group a,s_user b,s_usergroupref c  
+	    where 
+	    a.groupid=c.groupid 
+	    and b.userid=c.userid 
+	    and  a.groupid=#{groupid}
+	</select>
+	
+	
+</mapper>

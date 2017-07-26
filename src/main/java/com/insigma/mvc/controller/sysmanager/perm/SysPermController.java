@@ -40,7 +40,7 @@ public class SysPermController extends MvcHelper {
 	@RequestMapping("/index")
 	@RequiresRoles("admin")
 	public ModelAndView draglist(HttpServletRequest request,Model model) throws Exception {
-		ModelAndView modelAndView=new ModelAndView("sysmanager/perm/syspermindex");
+		ModelAndView modelAndView=new ModelAndView("sysmanager/perm/sysPermIndex");
         return modelAndView;
 	}
 	

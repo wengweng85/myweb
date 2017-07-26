@@ -24,7 +24,7 @@
         "> 
      
      <!-- 默认的注解映射的支持 -->
-     <mvc:annotation-driven validator="validator">
+     <mvc:annotation-driven validator="validator" conversion-service="conversionService">
         <mvc:message-converters>
             <bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
                 <property name="objectMapper" ref="myCustomObjectMapper"></property>
@@ -35,6 +35,14 @@
         </mvc:message-converters>
      </mvc:annotation-driven>
      
+     <!-- conversionService -->
+     <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">    
+        <property name="converters">    
+            <list>    
+                <bean class="com.insigma.resolver.DateConverter" />    
+            </list>    
+        </property>    
+	 </bean> 
      
       
      <!-- 自动扫描的包名 -->
