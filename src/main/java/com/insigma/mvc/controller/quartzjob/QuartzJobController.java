@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,9 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.github.pagehelper.PageInfo;
 import com.insigma.dto.AjaxReturnMsg;
-import com.insigma.mvc.controller.BaseController;
+import com.insigma.mvc.MvcHelper;
 import com.insigma.mvc.model.QrtzTrigger;
 import com.insigma.mvc.service.quartzjob.QuartzJobService;
 
@@ -27,7 +27,7 @@ import com.insigma.mvc.service.quartzjob.QuartzJobService;
  *
  */
 @Controller
-public class QuartzJobController extends BaseController {
+public class QuartzJobController extends MvcHelper {
 	
 	Log log=LogFactory.getLog(QuartzJobController.class);
 	
@@ -40,6 +40,7 @@ public class QuartzJobController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping("/job/list")	
+	@RequiresRoles("admin")
 	public ModelAndView draglist(HttpServletRequest request,Model model) throws Exception {
 		ModelAndView modelAndView=new ModelAndView("job/joblist");
         return modelAndView;
@@ -52,9 +53,9 @@ public class QuartzJobController extends BaseController {
 	 */
 	@RequestMapping("/job/querylist")
 	@ResponseBody
+	@RequiresRoles("admin")
 	public AjaxReturnMsg querylist(HttpServletRequest request,Model model,QrtzTrigger qrtztrigger) throws Exception {
-		PageInfo<QrtzTrigger> pageinfo =quartzJobService.queryJobList(qrtztrigger);
-		return this.success(pageinfo);
+		return quartzJobService.queryJobList(qrtztrigger);
 	}
 	
 	/**
@@ -63,6 +64,7 @@ public class QuartzJobController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping("/job/toadd")
+	@RequiresRoles("admin")
 	public ModelAndView toadd(HttpServletRequest request,Model model) throws Exception {
 		ModelAndView modelAndView=new ModelAndView("job/addjob");
 		return modelAndView;
@@ -76,13 +78,13 @@ public class QuartzJobController extends BaseController {
 	 */
 	@RequestMapping("/job/saveorupdate")
 	@ResponseBody
+	@RequiresRoles("admin")
 	public AjaxReturnMsg saveorupdate( HttpServletRequest request,Model model,@Valid QrtzTrigger qrtzTrigger,BindingResult result) throws Exception {
 		//检验输入
 		if (result.hasErrors()){
 			return validate(result);
 		}
-	    quartzJobService.addJob(qrtzTrigger);
-	    return this.success("新增成功");
+		return quartzJobService.addJob(qrtzTrigger);
 	}
 	
 	/**
@@ -92,11 +94,22 @@ public class QuartzJobController extends BaseController {
 	 */
 	@RequestMapping("/job/delete/{id}")
 	@ResponseBody
+	@RequiresRoles("admin")
 	public AjaxReturnMsg jobdelete(HttpServletRequest request,Model model,@PathVariable String id) throws Exception {
-		quartzJobService.deleteJob(id);
-		return this.success("删除成功");
+		return quartzJobService.deleteJob(id);
 	}
 	
+	/**
+	 * delete
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/job/batchdelete")
+	@ResponseBody
+	@RequiresRoles("admin")
+	public AjaxReturnMsg batchdelete(HttpServletRequest request,Model model,QrtzTrigger qrtzTrigger) throws Exception {
+		return quartzJobService.batchdeleteJob(qrtzTrigger);
+	}
 	
 	/**
 	 * pause
@@ -105,9 +118,9 @@ public class QuartzJobController extends BaseController {
 	 */
 	@RequestMapping("/job/pause/{id}")
 	@ResponseBody
+	@RequiresRoles("admin")
 	public AjaxReturnMsg jobpause(HttpServletRequest request,Model model,@PathVariable String id) throws Exception {
-		quartzJobService.pauseJob(id);
-		return this.success("暂停成功");
+		return quartzJobService.pauseJob(id);
 	}
 	
 	/**
@@ -117,9 +130,9 @@ public class QuartzJobController extends BaseController {
 	 */
 	@RequestMapping("/job/resume/{id}")
 	@ResponseBody
+	@RequiresRoles("admin")
 	public AjaxReturnMsg jobresume(HttpServletRequest request,Model model,@PathVariable String id) throws Exception {
-		quartzJobService.resumeJob(id);
-		return this.success("恢复成功");
+		return quartzJobService.resumeJob(id);
 	}
 	
 }

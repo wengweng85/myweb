@@ -9,7 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.insigma.mvc.controller.BaseController;
+import com.insigma.mvc.MvcHelper;
 import com.insigma.mvc.service.index.IndexService;
 
 
@@ -20,7 +20,7 @@ import com.insigma.mvc.service.index.IndexService;
  *
  */
 @Controller
-public class IndexController extends BaseController {
+public class IndexController extends MvcHelper {
 	
 	@Resource
     private IndexService indexService;
@@ -79,4 +79,17 @@ public class IndexController extends BaseController {
 		ModelAndView modelAndView=new ModelAndView("error/unrecognized");
         return modelAndView;
 	}
+	
+	/**
+	 *  Î´ÊÚÈ¨
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/resubmit")
+	public ModelAndView resubmit(HttpServletRequest request,Model model) throws Exception {
+		ModelAndView modelAndView=new ModelAndView("error/resubmit");
+        return modelAndView;
+	}
+	
+	
 }

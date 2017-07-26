@@ -35,33 +35,10 @@ $(function() {
 	 * 防止退格
 	 */
 	$(document).bind('keydown', function(event) {
-		
 	});
 
 	//浏览器尺寸变化响应事件时，重新设置遮盖层
 	window.onresize=rc.updateBody;
-	
-	
-	var select_config = {
-		".selectpicker" : {}
-	};
-	for (var selector in select_config){
-		$(selector).selectpicker()
-	}
-	
-	var date_config = {
-		".date" : {}
-	};
-	for (var selector in date_config){
-		$(selector).datepicker({
-			startView : 0,
-			todayBtn : "linked",
-			keyboardNavigation : !1,
-			forceParse : !1,
-			autoclose : !0,
-			format : "yyyy-mm-dd"
-		})
-	}
 });
 
 $.fn.serializeObject = function()    
@@ -96,7 +73,7 @@ var rc = {
 	     pagingType: "simple_numbers",  //分页样式：simple,simple_numbers,full,full_numbers
 	     //列表表头字段
 	     columns: options.columns,
-	     columnDefs: options.columnDefs||[],
+	     //columnDefs: options.columnDefs||[],
 	     ajax: function (data, callback, settings) {
 	     	var param ={};
 	     	var url='';
@@ -337,6 +314,9 @@ var rc = {
 				}else if(response.obj&&response.obj.statuscode=='sqlinject'){
 					layer.alert('请求中存在sql注入关键字,属于非法请求,请确认参数中是否有 \" \' * % < > & 等字符');
 					//rc.hideMask();
+				}else if(response.obj&&response.obj.statuscode=='resubmit'){
+					alert('请勿重复提交数据');
+					//rc.hideMask();
 				}
 				else{
 				    //rc.ajax_success(response);
@@ -349,6 +329,7 @@ var rc = {
 					rc.reloadToken(response,_istokenreload);
 				}
 			}catch (e) {
+				console.log(e);
 				rc.ajax_error(null, '解析返回的文本出错！');
 				return;
 			}
@@ -404,7 +385,7 @@ var rc = {
 	 * @param target
 	 * @param formid
 	 */
-	ajaxQuery:function(url,model,target,formid){
+	ajaxQuery:function(url,dom_selector,model,target,formid){
 		var param={};
 		if(formid){
 			param=$('#'+formid).serializeObject()
@@ -418,7 +399,7 @@ var rc = {
 					target.html(views);
 				}
 			}else{
-				rc.evaluation(response.obj);
+				rc.evaluation(response.obj,dom_selector);
 			}
 		})
 	},
@@ -427,12 +408,14 @@ var rc = {
 	 *
 	 * @param {} response
 	 */
-	evaluation : function(obj) {
+	evaluation : function(obj,dom_selector) {
 		var inputs = $("form :input");
+		if(dom_selector){
+			inputs=dom_selector.find("form :input");
+		}
 		inputs.each(function(i, dom) {
 			var type = dom.type;
 			var name = dom.name;
-			console.log(type+" "+name);
 			if (name) {
 				eval('var res=obj.' + name||'');
 				//if (res) {
@@ -474,8 +457,11 @@ var rc = {
 	 *
 	 * @param {} response
 	 */
-	clean : function(obj) {
+	clean : function(dom_selector) {
 		var inputs = $("form :input");
+		if(dom_selector>0){
+			inputs=dom_selector.find("form :input");
+		}
 		inputs.each(function(i, dom) {
 			var type = dom.type;
 			var name = dom.name;
@@ -529,7 +515,7 @@ var rc = {
 	 * @param name
 	 * @returns {string}
 	 */
-	getSelectValues:function(wrapper_id_name,name){
+	getCheckedValues:function(wrapper_id_name,name){
 		var selected_values="";
 		$("#"+wrapper_id_name+" :checkbox[name='"+name+"']:checked").each(function(i,dom){
 			selected_values+=$(this).val()+","
@@ -1129,105 +1115,11 @@ var JPlaceHolder = {
 function setTab(name, cursel, n) {
 	rc.setTab(name,cursel,n);
 }
-//自动将ajax返回的数据填充进input或select
-function setData(divid,data){
-	$("#"+divid+" input").each(function(i, dom) {
-		var name = dom.name;
-		var type = dom.type;
-		if (name) {
-			eval('var res=data.' + name);
-			if (res) {
-				if (type == 'text'||type=='hidden') {
-					$(dom).val(res);
-				} else if (type == 'checkbox') {
-					var checkboxvalues = res.split(',');
-					for (var i = 0; i < checkboxvalues.length; i++) {
-						if ($(dom).val() === checkboxvalues[i]) {
-							$(dom).attr('checked',true);
-							break;
-						}else{
-							$(dom).attr('checked',false);
-						}
-					}
-				} else if (type == 'radio') {
-					if ($(dom).val() === res) {
-						$(dom).attr('checked',true);
-					}else{
-						$(dom).attr('checked',false);
-					}
-				}
-			}else{
-				if (type == 'text'||type=='hidden') {
-					$(dom).val("");
-				} else if (type == 'checkbox'){
-					$(dom).attr('checked',false);
-				} else if (type == 'radio') {
-					$(dom).attr('checked',false);
-				}
-			}
-		}
-	});
-	
-	$("#"+divid+" select").each(function(i, dom) {
-		var name = dom.name;
-		eval("var value = data." + name);
-		$(dom).children().attr("selected",false);
-		$(dom).children("[value='"+value+"']").attr("selected",true);
-	});
-	
-	$("#"+divid+" textarea").each(function(i, dom) {
-		var name = dom.name;
-		eval("var value = data." + name);
-		$(dom).val(value);
-	});
-	
-}
-
-function getData(divid){
-	var data = new Array();
-	var cnt = 0;
-	$("#"+divid+" input").each(function(i, dom) {
-		var name = dom.name;
-		var type = dom.type;
-		if (name) {
-			if (type == 'text'||type=='hidden') {
-				data[name] = dom.value;
-			}else if (type == 'checkbox') {
-				if($(dom).attr('checked')=="checked"){
-					if(data[name]==null){
-						data[name] = dom.value+",";
-					}else{
-						data[name] += dom.value+",";	
-					}
-				}
-			}else if(type == 'radio'){
-				if($(dom).attr('checked')=='checked'){
-					data[name] = $(dom).val();
-				}
-			}
-		}
-	});
-	
-	$("#"+divid+" select").each(function(i, dom) {
-		var name = dom.name;
-		var value = $(dom).children("[selected='selected']").val();
-		data[name] = dom.value;
-	});
-	
-	$("#"+divid+" textarea").each(function(i, dom) {
-		var name = dom.name;
-		var value = $(dom).val();
-		data[name] = dom.value;
-	});
-	
-	return data;
-}
 
 //图片错误
 function imgError(obj){
 	$(obj).src="/resource/image/no_picture.jpg";
 }
-
 
 
 /**
@@ -1418,6 +1310,11 @@ $(function(){
 			return options.inverse(this);
 		}
 	});
+	//注册索引+1的helper
+	 Handlebars.registerHelper("addOne",function(index){
+	    //返回+1之后的结果
+	    return index+1;
+	});
 })
 
 function jiangese_set(tabid,start,color1,color2){
@@ -1520,8 +1417,4 @@ function reset(str){
 }
 
 
-//注册索引+1的helper
-var handleHelper = Handlebars.registerHelper("addOne",function(index){
-  //返回+1之后的结果
-  return index+1;
-});
+

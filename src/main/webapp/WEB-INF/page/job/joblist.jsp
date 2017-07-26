@@ -1,18 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=gbk"  pageEncoding="gbk"%>
 <%@taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
-<%@taglib uri="http://www.myweb.com/mywebtag" prefix="web" %>
+<%@ taglib uri="http://www.rc.com/rctag" prefix="rc"%>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>页面列表</title>
-    <link href="<c:url value='/resource/hplus/css/bootstrap.min.css'/>" rel="stylesheet">
-    <link href="<c:url value='/resource/hplus/css/font-awesome.min.css'/>" rel="stylesheet">
-    <link href="<c:url value='/resource/hplus/css/animate.min.css'/>" rel="stylesheet">
-    <link href="<c:url value='/resource/hplus/css/style.min.css'/>" rel="stylesheet">
-     <!-- Data Tables -->
-    <link href="<c:url value='/resource/hplus/css/plugins/dataTables/dataTables.bootstrap.css'/>" rel="stylesheet">
+    <rc:csshead/>
 </head>
 <body class="gray-bg">
     <div class="wrapper wrapper-content animated fadeInRight">
@@ -33,9 +28,9 @@
 		               <input type="text" name="page_describe" class="form-control"> 
 		           </div>
 	               <div class="col-sm-4">
-	                  <button type="button" class="btn btn-w-m btn-info" onclick="query()">查询</button>
-	                  <button type="button" class="btn btn-w-m btn-info" onclick="document.getElementById('query_form').reset()">重置</button>
-	                  <button type="button" class="btn btn-w-m btn-info" onclick="add_page()">新增</button>
+	                  <a class="btn btn-info" onclick="query()">查询</a>
+	                  <a class="btn btn-info" onclick="document.getElementById('query_form').reset()">重置</a>
+	                  <a class="btn btn-info" onclick="add_page()">新增</a>
 	               </div>
 		       </div>
 	       </form>
@@ -46,18 +41,28 @@
         <div class="ibox float-e-margins">
             <div class="ibox-title">
                 <h5>查询结果列表</h5>
+                <div class="ibox-tools">
+                    <a onclick="batchdelete()" class="btn btn-danger btn-xs">批量删除</a>
+                </div>
             </div>
             <!-- 模型 -->
             <script id="tpl" type="text/x-handlebars-template" >
-                <button type="button" class="btn btn-info" onclick="gotoedit('{{job_name}}')">编辑</button> 
-	            <button type="button" class="btn btn-danger" onclick="pause('{{job_name}}')" >暂停</button> 
-                <button type="button" class="btn btn-info" onclick="resume('{{job_name}}')" >恢复</button> 
-                <button type="button" class="btn btn-danger" onclick="dd('{{job_name}}')" >删除</button> 
+                <a  class="btn btn-info" onclick="gotoedit('{{job_name}}')">编辑</a> 
+                {{#equals trigger_state 'WAITING'}}
+	                 <a class="btn btn-danger" onclick="pause('{{job_name}}')" >暂停</a>
+                {{/equals}} 
+                {{#equals trigger_state 'PAUSED'}}
+                     <a  class="btn btn-info" onclick="resume('{{job_name}}')" >恢复</a>
+                {{/equals}} 
+                <a  class="btn btn-danger" onclick="dd('{{job_name}}')" >删除</a> 
             </script>
             <div class="ibox-content">
                 <table class="table table-striped table-bordered table-hover dataTables-example">
                     <thead>
                         <tr>
+                            <th>
+				                <input type="checkbox" class="checkall" />
+				            </th>
                             <th>任务名称</th>
                             <th>任务执行类名称</th>
                             <th>cron表达式</th>
@@ -78,24 +83,23 @@
         </div>
         <!-- End Panel Basic -->
     </div>
-    <script src="<c:url value='/resource/hplus/js/jquery.min.js'/>"></script>
-    <script src="<c:url value='/resource/hplus/js/bootstrap.min.js'/>"></script>
-    <script src="<c:url value='/resource/hplus/js/handlebars-v2.0.0-min.js'/>"></script>
-    <script src="<c:url value='/resource/hplus/js/plugins/layer/layer.min.js'/>"></script>
-    
-    <!-- data table extend -->
-    <script src="<c:url value='/resource/hplus/js/plugins/dataTables/jquery.dataTables.js'/>"></script>
-    <script src="<c:url value='/resource/hplus/js/plugins/dataTables/dataTables.bootstrap.js'/>"></script>
-
-    <script src="<c:url value='/resource/drag/dragcommon.js'/>"></script>
-    <script src="<c:url value='/resource/drag/draglist.js'/>"></script>
+    <rc:jsfooter/>
     <script type="text/javascript">
     var datatable;
     //页面模型数据准备
     var options={
     	//列模型	
 	   	columns:[
-  	         { "data": "job_name" },
+			 {    
+				 "data":null,
+				 "sClass": "text-center",
+				 "render": function (data, type, full, meta ) {
+				     return "<input type='checkbox' name='' class='checkchild'  value='"+data.job_name+"'/>"
+		          }
+			 },    
+  	         {   "data": "job_name" ,
+				 "visible": false 
+		     },
   	         { "data": "job_class_name" }, 
   	         { "data": "cron_expression" }, 
   	         { "data": "next_fire_time" },
@@ -105,33 +109,54 @@
   	         { "data": "start_time" },
 	  	     { "data": "end_time" },
 	  	     { "data": "description" },
-	  	     { "data": null }
+	  	     { 
+	  	    	"data":null,
+	  	        "render": function ( data, type, full, meta ) {
+			       var tpl = $("#tpl").html();  
+			  	   //预编译模板  
+			  	   var template = Handlebars.compile(tpl);  
+			  	   return template(data);
+	  	         } 
+	  	     }
    	     ],
-   	    //列自定义 
-		columnDefs:[ {
-  	         "targets": 10,
-  	         "render": function ( data, type, full, meta ) {
-		          var tpl = $("#tpl").html();  
-		  	      //预编译模板  
-		  	      var template = Handlebars.compile(tpl);  
-		  	      return template(data);
-  	         }
-	  	  },
-	  	  {
-	          "targets": [0],
-	          "visible": false
-	      }
-	    ],
-	    //表格jquery selector
-		datatable_selector:'.dataTables-example',
-		//对应查询form
-		query_form_selector:'#query_form'	   		
+	     //表格jquery selector
+		 datatable_selector:'.dataTables-example',
+		 //对应查询form
+		 query_form_selector:'#query_form'	   		
     };
     
+    //checkbox全选
+    $(".checkall").on('click',function () {
+	    var check = $(this).prop("checked");
+	    $(".checkchild").prop("checked", check);
+	});
+    
+    //批量删除
+    function batchdelete(){
+       if ($(".checkchild:checked").length > 0){         
+    	   var result = new Array();
+           $(".checkchild:checked").each(function () {
+               if ($(this).is(":checked")) {
+                   result.push($(this).attr("value"));
+               }
+           });
+           ids=result.join(",");
+    	   rc.ajax("<c:url value='/job/batchdelete'/>", {ids:ids},function (response) {
+		    	alert(response.message);
+		    	if(response.success){
+		    		query();
+				}
+		   });  
+    	   
+	   }else{
+		   layer.alert("请至少选中一条记录");                
+		   return;
+	   }
+    }	 
     
     //初始化
     $(function(){
-    	datatable=tableinit(options);
+    	datatable=rc.tableinit(options);
     });
     
     //查询
@@ -166,7 +191,6 @@
     
     function ajax(url,tip){
     	layer.confirm(tip,function(){
-    		
         	$.ajax({
                 type : "get",
                 url : url,
@@ -192,8 +216,6 @@
 	   		  content: "<c:url value='/job/toadd'/>" //iframe的url
    		});
     }    
-    
     </script>
 </body>
-
 </html>

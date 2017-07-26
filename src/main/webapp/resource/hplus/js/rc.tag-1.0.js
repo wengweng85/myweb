@@ -19,7 +19,15 @@ $(function() {
 	
 	/**通用日期配置*/
 	var date_config = {
-		".date" : {}
+		".form_date" : {}
+	};
+	
+	var datetime_config = {
+		".form_datetime" : {}
+	};
+	
+	var time_config = {
+		".form_time" : {}
 	};
 	
 	for (var selector in select_config){
@@ -27,13 +35,29 @@ $(function() {
 	}
 	
 	for (var selector in date_config){
-		$(selector).datepicker({
-			startView : 0,
-			todayBtn : "linked",
-			keyboardNavigation : !1,
-			forceParse : !1,
-			autoclose : !0,
-			format : "yyyy-mm-dd"
+		$(selector).datetimepicker({
+			format : "yyyy-mm-dd",
+			minView: "2",//设置只显示到月份
+			todayBtn:true,
+			todayHighlight:true,
+			autoclose:true
+		})
+	}
+	
+	for (var selector in datetime_config){
+		$(selector).datetimepicker({
+			format : "yyyy-mm-dd hh:ii:ss",
+			todayHighlight:true,
+			todayBtn:true
+		})
+	}
+	
+	for (var selector in time_config){
+		$(selector).datetimepicker({
+			format : "hh:ii",
+			startView:'0',
+			todayHighlight:true,
+			todayBtn:true
 		})
 	}
 	

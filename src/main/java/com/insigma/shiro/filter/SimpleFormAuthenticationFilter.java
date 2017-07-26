@@ -70,6 +70,6 @@ public class SimpleFormAuthenticationFilter extends FormAuthenticationFilter {
 	 * @return
 	 */
 	public boolean isAjax( HttpServletRequest request){
-	  return request.getHeader("accept").indexOf("application/json") > -1 || (request.getHeader("X-Requested-With")!= null && request.getHeader("X-Requested-With").indexOf("XMLHttpRequest") > -1); 
+	      return request.getHeader("accept").indexOf("application/json") > -1 || (request.getHeader("X-Requested-With")!= null && request.getHeader("X-Requested-With").indexOf("XMLHttpRequest") > -1); 
 	}
 }

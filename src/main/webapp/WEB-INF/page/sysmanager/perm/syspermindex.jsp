@@ -89,9 +89,9 @@
                            </div>
                            <div class="hr-line-dashed"></div>
                            <div class="form-group">
-                               <label class="col-sm-2 control-label">更新日期</label>
+                               <label class="col-sm-2 control-label">更新日期<span class="require">*<span></label>
                                <div class="col-sm-10">
-                                   <rc:date property="updatetime" />
+                                   <rc:date property="updatetime" validate="{required:true,messages:{required:'请选择更新日期'}}" />
                                </div>
                            </div>
                            <div class="hr-line-dashed"></div>
@@ -109,6 +109,7 @@
 $(function() {
 	//验证 ajax
 	rc.validAndAjaxSubmit($("#myform"),callback);
+	treeinit();
 })
 //回调函数
 function callback(response){
@@ -153,10 +154,6 @@ function onClick(event, treeId, treeNode, clickFlag) {
 function treeinit(){
 	$.fn.zTree.init($("#tree-div"), setting);
 }
-//初始化数据加载
-$(document).ready(function(){
-	treeinit();
-});
 
 //保存页面配置信息
 function savePermData(){

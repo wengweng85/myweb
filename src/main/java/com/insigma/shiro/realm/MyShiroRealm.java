@@ -85,9 +85,7 @@ public class MyShiroRealm extends AuthorizingRealm  implements Realm, Initializi
  	            Iterator iterator_role=rolelist.iterator();
  	            while(iterator_role.hasNext()){
  	            	SRole  srole=(SRole) iterator_role.next();
- 	            	if(srole.getCode()!=null){
- 	            		roleset.add(srole.getCode());
-	            	}
+ 	            	roleset.add(srole.getCode());
 	            }
  	           authenticationInfo.setRoles(roleset);
  	           
@@ -97,9 +95,7 @@ public class MyShiroRealm extends AuthorizingRealm  implements Realm, Initializi
 	            Iterator iterator=permlist.iterator();
 	            while(iterator.hasNext()){
 	            	SPermission  spermission=(SPermission) iterator.next();
-	            	if(spermission.getCode()!=null){
-	            		set.add(spermission.getCode());
-	            	}
+	            	set.add(spermission.getCode());
 	            }
  	            authenticationInfo.setStringPermissions(set);
 	            return authenticationInfo;
@@ -134,9 +130,7 @@ public class MyShiroRealm extends AuthorizingRealm  implements Realm, Initializi
 	 	            while(iterator_role.hasNext()){
 	 	            	SRole  srole=(SRole) iterator_role.next();
 	 	            	roleset.add(srole.getName());
-	 	            	if(srole.getCode()!=null){
-	 	            		roleset.add(srole.getCode());
-		            	}
+	 	            	roleset.add(srole.getCode());
 		            }
 		            authenticationInfo.setRoles(roleset);
 		            redisCache.put(Constants.getUserRolesCacheKey(loginname), rolesset);
@@ -152,9 +146,7 @@ public class MyShiroRealm extends AuthorizingRealm  implements Realm, Initializi
 		            Iterator iterator=permlist.iterator();
 		            while(iterator.hasNext()){
 		            	SPermission  spermission=(SPermission) iterator.next();
-		            	if(spermission.getCode()!=null){
-		            		set.add(spermission.getCode());
-		            	}
+		            	set.add(spermission.getCode());
 		            }
 	 	            authenticationInfo.setStringPermissions(set);
 	 	            redisCache.put(Constants.getUserPermissionCacheKey(loginname), permissionsset);

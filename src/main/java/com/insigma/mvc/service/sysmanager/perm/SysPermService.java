@@ -1,7 +1,6 @@
 package com.insigma.mvc.service.sysmanager.perm;
 
-import java.util.List;
-
+import com.insigma.dto.AjaxReturnMsg;
 import com.insigma.mvc.model.SPermission;
 
 
@@ -14,18 +13,14 @@ import com.insigma.mvc.model.SPermission;
  */
 public interface SysPermService {
 	
-	public List<SPermission> getPermTreeList();
+	public String getPermTreeList();
 	
-	public SPermission getPermDataById(String id);
+	public AjaxReturnMsg getPermDataById(String id);
 	
-    public SPermission isPermCodeExist(SPermission spermission);
+	public AjaxReturnMsg saveOrUpdatePermData(SPermission spermission);
 	
-	public void savePermissionData(SPermission spermission);
+    public AjaxReturnMsg getPermListDataByParentid(String parentid);
 	
-	public void updatePermissionData(SPermission spermission);
-	
-    public List<SPermission> getPermListDataByParentid(String parentid);
-	
-	public void deletePermDataById(String id);
+	public AjaxReturnMsg deletePermDataById(String id);
 
 }

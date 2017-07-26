@@ -2,7 +2,7 @@ package com.insigma.mvc.controller.demo;
 
 import org.springframework.stereotype.Controller;
 
-import com.insigma.mvc.controller.BaseController;
+import com.insigma.mvc.MvcHelper;
 
 
 /**
@@ -11,6 +11,6 @@ import com.insigma.mvc.controller.BaseController;
  *
  */
 @Controller
-public class DemoController extends BaseController {
+public class DemoController extends MvcHelper {
 
 }

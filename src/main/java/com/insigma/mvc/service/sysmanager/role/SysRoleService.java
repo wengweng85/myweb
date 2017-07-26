@@ -1,9 +1,6 @@
 package com.insigma.mvc.service.sysmanager.role;
 
-import java.util.List;
-
-import com.github.pagehelper.PageInfo;
-import com.insigma.mvc.model.SPermission;
+import com.insigma.dto.AjaxReturnMsg;
 import com.insigma.mvc.model.SRole;
 
 
@@ -16,18 +13,16 @@ import com.insigma.mvc.model.SRole;
  */
 public interface SysRoleService {
 	
-    public PageInfo<SRole>  getAllRoleList( SRole role);
+    public AjaxReturnMsg  getAllRoleList( SRole role);
 	
-	public SRole getRoleDataById(String id);
+	public AjaxReturnMsg getRoleDataById(String id);
 	
-	public SRole isRoleCodeExist(SRole srole);
+	public AjaxReturnMsg saveOrUpdateRoleData(SRole srole);
 	
-	public void saveRoleData(SRole srole);
+	public AjaxReturnMsg deleteRoleDataById(String id);
 	
-	public void updateRoleData(SRole srole);
+	public String getRolePermTreeData(String roleid);
 	
-	public void deleteRoleDataById(String id);
-	
-	public SRole isRoleUsedbyUser(String roleid);
+	public AjaxReturnMsg saveRolePermData(SRole srole);
 
 }

@@ -64,4 +64,29 @@
 	    </set>
         where t.roleid=#{roleid}
 	</update>
+	
+	<!--获取角色权限树  -->
+	<select id="getRolePermTreeData"  resultType="SRole" parameterType="String" >
+		select permissionid id ,
+		name,
+		parentid pid,
+		open,
+		decode(sign((select count(*) from s_role_permission  t where t.roleid=#{roleid} and t.permissionid=a.permissionid  )),'1','true','false') checked 
+		from s_permission  a  
+		order by to_number(sortnum) 
+	</select>
+	
+	<!-- 通过角色id删除角色对应权限 -->
+	<delete id="deleteRolePermbyRoleid" parameterType="String">
+	    delete from s_role_permission t where t.roleid=#{roleid}
+	</delete>
+	
+	<!-- 增加 -->
+	<insert id="saveRolePermData" parameterType="SRole">
+	   <selectKey resultType="java.lang.String" order="BEFORE" keyProperty="id">  
+            SELECT sys_guid() from dual  
+	    </selectKey >  
+	    INSERT INTO s_role_permission(id,roleid,permissionid) 
+	    VALUES  (#{id},#{roleid},#{permissionid}) 
+	</insert>
 </mapper>

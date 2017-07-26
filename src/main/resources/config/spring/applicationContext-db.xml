@@ -86,7 +86,7 @@
             </list>   
         </property>  
         <property name="filters">  
-        <value>mergeStat,wall,log4j</value>  
+        <value>mergeStat,log4j</value>  <!-- mergeStat,wall,log4j -->
     </property>  
     </bean>
 

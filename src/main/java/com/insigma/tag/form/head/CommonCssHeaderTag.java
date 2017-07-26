@@ -44,7 +44,7 @@ public class CommonCssHeaderTag implements Tag  {
 	  //<!-- select -->
 	  sb.append("<link href='"+contextpath+"/resource/hplus/js/plugins/bootstrap-select/css/bootstrap-select.min.css' rel='stylesheet'>");
 	  //<!-- datapicker -->
-	  sb.append("<link href='"+contextpath+"/resource/hplus/css/plugins/datapicker/datepicker3.css' rel='stylesheet'>");
+	  sb.append("<link href='"+contextpath+"/resource/hplus/js/plugins/datetimepicker/css/bootstrap-datetimepicker.min.css' rel='stylesheet'>");
 	  //<!-- rc.css -->
 	  sb.append("<link href='"+contextpath+"/resource/hplus/css/rc.css' rel='stylesheet'>");
 	  

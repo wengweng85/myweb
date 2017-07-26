@@ -19,7 +19,7 @@ import org.apache.shiro.SecurityUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.insigma.mvc.controller.BaseController;
+import com.insigma.mvc.MvcHelper;
 import com.insigma.resolver.AppException;
 
 /**
@@ -27,7 +27,7 @@ import com.insigma.resolver.AppException;
  */
 @Controller
 @RequestMapping(value = "/verifycode")
-public class CodeValidatorController extends BaseController {
+public class CodeValidatorController extends MvcHelper {
 
 
     Log log = LogFactory.getLog(CodeValidatorController.class);

@@ -5,10 +5,8 @@ import java.util.UUID;
 
 import javax.annotation.Resource;
 
-import org.apache.poi.ss.formula.functions.T;
 import org.quartz.CronScheduleBuilder;
 import org.quartz.CronTrigger;
-import org.quartz.Job;
 import org.quartz.JobBuilder;
 import org.quartz.JobDataMap;
 import org.quartz.JobDetail;
@@ -22,6 +20,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.insigma.dto.AjaxReturnMsg;
+import com.insigma.mvc.MvcHelper;
 import com.insigma.mvc.dao.quartzjob.QuartzJobMapper;
 import com.insigma.mvc.model.QrtzTrigger;
 import com.insigma.mvc.service.quartzjob.QuartzJobService;
@@ -34,7 +34,7 @@ import com.insigma.mvc.service.quartzjob.QuartzJobService;
  *
  */
 @Service
-public class QuartzJobServiceImpl implements QuartzJobService {
+public class QuartzJobServiceImpl   extends MvcHelper implements QuartzJobService {
 
 	@Resource
 	private QuartzJobMapper quartzJobMapper;
@@ -43,11 +43,11 @@ public class QuartzJobServiceImpl implements QuartzJobService {
 	private Scheduler quartzScheduler;
 
 	@Override
-	public PageInfo<QrtzTrigger> queryJobList( QrtzTrigger qrtztrigger) {
+	public AjaxReturnMsg queryJobList( QrtzTrigger qrtztrigger) {
 		PageHelper.startPage(qrtztrigger.getCurpage(), qrtztrigger.getLimit());
 		List<QrtzTrigger> list =quartzJobMapper.queryJobList(qrtztrigger);
 		PageInfo<QrtzTrigger> pageinfo = new PageInfo<QrtzTrigger>(list);
-		return pageinfo;
+		return this.success(pageinfo);
 	}
 
 	/**
@@ -55,7 +55,7 @@ public class QuartzJobServiceImpl implements QuartzJobService {
 	 */
 	@Override
 	@Transactional
-	public void addJob(QrtzTrigger qrtzTrigger) throws SchedulerException {
+	public AjaxReturnMsg addJob(QrtzTrigger qrtzTrigger) throws SchedulerException {
 		//初始化JobDetail
 		JobDataMap dataMap = new JobDataMap();
 		Class jobclass=null;
@@ -89,6 +89,8 @@ public class QuartzJobServiceImpl implements QuartzJobService {
 		
 		//scheduleJob
 		quartzScheduler.scheduleJob(jobDetail, trigger);
+		
+		return this.success("新增任务成功");
 	}
 	
 	/**
@@ -96,8 +98,9 @@ public class QuartzJobServiceImpl implements QuartzJobService {
 	 */
 	@Override
 	@Transactional
-	public void deleteJob(String job_name) throws SchedulerException {
+	public AjaxReturnMsg deleteJob(String job_name) throws SchedulerException {
 		quartzScheduler.deleteJob(new JobKey(job_name, Scheduler.DEFAULT_GROUP));
+		return this.success("删除成功");
 	}
 	
 	/**
@@ -105,8 +108,9 @@ public class QuartzJobServiceImpl implements QuartzJobService {
 	 */
 	@Override
 	@Transactional
-	public void pauseJob(String job_name) throws SchedulerException {
+	public AjaxReturnMsg pauseJob(String job_name) throws SchedulerException {
 		quartzScheduler.pauseJob(new JobKey(job_name, Scheduler.DEFAULT_GROUP));
+		return this.success("暂停成功");
 	}
 	
 	
@@ -115,8 +119,22 @@ public class QuartzJobServiceImpl implements QuartzJobService {
 	 */
 	@Override
 	@Transactional
-	public void resumeJob(String job_name) throws SchedulerException {
+	public AjaxReturnMsg resumeJob(String job_name) throws SchedulerException {
 		quartzScheduler.resumeJob(new JobKey(job_name, Scheduler.DEFAULT_GROUP));
+		return this.success("恢复成功");
+	}
+
+	/**
+	 * 批量删除
+	 */
+	@Override
+	public AjaxReturnMsg batchdeleteJob(QrtzTrigger qrtzTrigger) throws SchedulerException {
+		// TODO Auto-generated method stub
+		String[] ids=qrtzTrigger.getIds().split(",");
+		for (int i=0;i<ids.length;i++){
+			quartzScheduler.deleteJob(new JobKey(ids[i], Scheduler.DEFAULT_GROUP));
+		}
+		return this.success("批量删除成功");
 	}
 	
 }

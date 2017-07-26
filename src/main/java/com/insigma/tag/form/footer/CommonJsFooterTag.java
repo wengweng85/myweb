@@ -59,8 +59,11 @@ public class CommonJsFooterTag implements Tag  {
 	
 	  //<!-- select -->
 	  sb.append("<script src='"+contextpath+"/resource/hplus/js/plugins/bootstrap-select/js/bootstrap-select.min.js'></script>");
-	  // <!-- datapicker -->
-	  sb.append("<script src='"+contextpath+"/resource/hplus/js/plugins/datapicker/bootstrap-datepicker.js'></script>");
+	  sb.append("<script src='"+contextpath+"/resource/hplus/js/plugins/bootstrap-select/js/i18n/defaults-zh_CN.min.js'></script>");
+	  // <!-- datetimepicker -->
+	  
+	  sb.append("<script src='"+contextpath+"/resource/hplus/js/plugins/datetimepicker/js/bootstrap-datetimepicker.min.js'></script>");
+	  sb.append("<script src='"+contextpath+"/resource/hplus/js/plugins/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js'></script>");
 	      
 	  sb.append("<script src='"+contextpath+"/resource/hplus/js/rc.tag-1.0.js'></script>");
 	  sb.append("<script src='"+contextpath+"/resource/hplus/js/rc.all-2.0.js'></script>");

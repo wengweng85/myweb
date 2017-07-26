@@ -32,27 +32,10 @@
             <div class="sidebar-collapse">
                 <ul class="nav" id="side-menu">
                     <li class="nav-header">
-                        <span class="text-muted text-xs block"><strong> 陕西省人力资源市场管理信息系统</strong></span>
-                        <span class="text-muted text-xs block">欢迎您:<strong>${suser.cnname}</strong></span>
+                        <span class="text-muted text-xs block" style="color: #f9f9f9"><strong> 陕西省人力资源市场管理信息系统</strong></span>
+                        <span class="text-muted text-xs block">欢迎您:${suser.cnname}</span>
                     </li>
                     <shiro:user>
-                    <shiro:hasPermission  name="perm:pagedesignindex">
-                    <li>
-                        <a href="#">
-                            <i class="fa fa-home"></i>
-                            <span class="nav-label">页面设计</span>
-                            <span class="fa arrow"></span>
-                        </a>
-                        
-                        <shiro:hasPermission  name="perm:pagedesignlist">
-                        <ul class="nav nav-second-level">
-                            <li>
-                                <a class="J_menuItem" href="<c:url value='/drag/list'/>" data-index="0">页面设计</a>
-                            </li>
-                        </ul>
-                        </shiro:hasPermission>
-                    </li>
-                    </shiro:hasPermission>
                     <shiro:hasPermission  name="perm:jobindex">
                     <li>
                         <a href="#">
@@ -131,7 +114,6 @@
                     <ul role="menu" class="dropdown-menu dropdown-menu-right">
                         <li class="J_tabShowActive"><a>定位当前选项卡</a>
                         </li>
-                        <li class="divider"></li>
                         <li class="J_tabCloseAll"><a>关闭全部选项卡</a>
                         </li>
                         <li class="J_tabCloseOther"><a>关闭其他选项卡</a>

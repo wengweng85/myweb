@@ -3,7 +3,7 @@ package com.insigma.mvc.service.quartzjob;
 
 import org.quartz.SchedulerException;
 
-import com.github.pagehelper.PageInfo;
+import com.insigma.dto.AjaxReturnMsg;
 import com.insigma.mvc.model.QrtzTrigger;
 
 
@@ -14,10 +14,11 @@ import com.insigma.mvc.model.QrtzTrigger;
  */
 public interface QuartzJobService {
 	
-	public PageInfo<QrtzTrigger> queryJobList( QrtzTrigger qrtztrigger);
-	public void addJob(QrtzTrigger qrtzTrigger) throws SchedulerException;
-	public void deleteJob(String jobName) throws SchedulerException;
-	public void pauseJob(String jobName) throws SchedulerException;
-	public void resumeJob(String jobName) throws SchedulerException;
+	public AjaxReturnMsg queryJobList( QrtzTrigger qrtztrigger);
+	public AjaxReturnMsg addJob(QrtzTrigger qrtzTrigger) throws SchedulerException;
+	public AjaxReturnMsg deleteJob(String jobName) throws SchedulerException;
+	public AjaxReturnMsg batchdeleteJob(QrtzTrigger qrtzTrigger) throws SchedulerException;
+	public AjaxReturnMsg pauseJob(String jobName) throws SchedulerException;
+	public AjaxReturnMsg resumeJob(String jobName) throws SchedulerException;
 
 }

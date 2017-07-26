@@ -25,7 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.insigma.common.rsa.RSAUtils;
 import com.insigma.common.util.MD5Util;
 import com.insigma.dto.AjaxReturnMsg;
-import com.insigma.mvc.controller.BaseController;
+import com.insigma.mvc.MvcHelper;
 import com.insigma.mvc.model.LoginInf;
 import com.insigma.mvc.model.SUser;
 import com.insigma.mvc.service.login.LoginService;
@@ -38,7 +38,7 @@ import com.insigma.shiro.token.CustomUsernamePasswordToken;
  *
  */
 @Controller
-public class LoginController extends BaseController {
+public class LoginController extends MvcHelper {
 	
 	Log log=LogFactory.getLog(LoginController.class);
 	

@@ -15,15 +15,14 @@ import com.insigma.common.util.MD5Util;
 import com.insigma.mvc.service.login.LoginService;
 
 /**
- * 重复提交token检验器
+ * 登录hashcode相关信息校验
  * @author wengsh
  * @date 2015-8-17
  *
  */
 public class SessionHashValidatorInterceptor extends HandlerInterceptorAdapter {
 
-	Log log=LogFactory.getLog(ContextPathInterceptor.class);
-	
+	Log log=LogFactory.getLog(SessionHashValidatorInterceptor.class);
 
 	@Autowired
 	private LoginService loginservice;

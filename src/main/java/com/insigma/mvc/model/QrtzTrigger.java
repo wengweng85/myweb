@@ -25,8 +25,14 @@ public class QrtzTrigger  extends PageInfo implements java.io.Serializable {
 	@NotEmpty(message="{cron_expression.empty}")
 	private String cron_expression;
 	
+	private String ids;
 	
-	
+	public String getIds() {
+		return ids;
+	}
+	public void setIds(String ids) {
+		this.ids = ids;
+	}
 	public Long getNext_fire_time() {
 		return next_fire_time;
 	}

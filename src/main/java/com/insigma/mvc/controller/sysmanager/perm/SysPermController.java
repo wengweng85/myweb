@@ -1,7 +1,5 @@
 package com.insigma.mvc.controller.sysmanager.perm;
 
-import java.util.List;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,10 +16,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.insigma.dto.AjaxReturnMsg;
-import com.insigma.mvc.controller.BaseController;
+import com.insigma.mvc.MvcHelper;
 import com.insigma.mvc.model.SPermission;
 import com.insigma.mvc.service.sysmanager.perm.SysPermService;
-import com.mysql.jdbc.StringUtils;
 
 /**
  * 权限管理
@@ -30,7 +27,7 @@ import com.mysql.jdbc.StringUtils;
  */
 @Controller
 @RequestMapping("/sys/perm")
-public class SysPermController extends BaseController {
+public class SysPermController extends MvcHelper {
 	
 	
 	@Resource
@@ -55,9 +52,9 @@ public class SysPermController extends BaseController {
 	 */
 	@RequestMapping("/treedata")
 	@RequiresRoles("admin")
-	public void treedata(HttpServletRequest request, HttpServletResponse response,Model model) throws Exception {
-		List<SPermission> permlist =sysPermService.getPermTreeList();
-		this.success_native_response(response,permlist);
+	@ResponseBody
+	public String treedata(HttpServletRequest request, HttpServletResponse response,Model model) throws Exception {
+		return sysPermService.getPermTreeList();
 	}
 	
 	
@@ -70,8 +67,7 @@ public class SysPermController extends BaseController {
 	@RequiresRoles("admin")
 	@ResponseBody
 	public AjaxReturnMsg getPermDataByid(HttpServletRequest request, HttpServletResponse response,Model model,@PathVariable String id) throws Exception {
-		SPermission spermission= sysPermService.getPermDataById(id);
-		return this.success(spermission);
+		return  sysPermService.getPermDataById(id);
 	}
 	
 	
@@ -82,26 +78,14 @@ public class SysPermController extends BaseController {
 	 */
 	@RequestMapping("/saveorupdate")
 	@ResponseBody
-	@Transactional
 	@RequiresRoles("admin")
 	public AjaxReturnMsg saveorupdate(HttpServletRequest request,Model model,@Valid SPermission spermission,BindingResult result) throws Exception {
 		//检验输入
 		if (result.hasErrors()){
 			return validate(result);
 		}
-		SPermission ispermsionexist=sysPermService.isPermCodeExist(spermission);
-		   if(ispermsionexist!=null){
-			   return this.error("此权限"+spermission.getCode()+"编号已经存在,请重新输入一个新的权限编号");
-		   }else{
-			//判断是否更新操作
-			if(StringUtils.isNullOrEmpty(spermission.getPermissionid())){
-			     sysPermService.savePermissionData(spermission);
-				 return this.success("新增成功");
-			}else{
-				 sysPermService.updatePermissionData(spermission);
-				return this.success("更新成功");
-			}
-		}
+		return sysPermService.saveOrUpdatePermData(spermission);
+		
 	}
 	
 	/**
@@ -111,14 +95,8 @@ public class SysPermController extends BaseController {
 	 */
 	@RequestMapping("/deletePermDataById/{id}")
 	@ResponseBody
-	@Transactional
 	@RequiresRoles("admin")
 	public AjaxReturnMsg deletePermDataById(HttpServletRequest request,Model model,@PathVariable String id) throws Exception {
-		if(sysPermService.getPermListDataByParentid(id).size()>0){
-			return this.error("当前权限还存在子权限数据,请先删除子权限数据");
-		}else{
-			sysPermService.deletePermDataById(id);
-			return this.success("操作成功");
-		}
+		return   sysPermService.deletePermDataById(id);
 	}
 }

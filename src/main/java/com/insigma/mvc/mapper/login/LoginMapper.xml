@@ -17,7 +17,7 @@
 	
 	<!-- 个人用户角色查询  -->
 	<select id="findRolesStr" parameterType="String" resultType="SRole">
-		select b.code from s_user a,s_role b ,s_user_role c where a.username=#{username}  and a.userid=c.userid and b.roleid=c.roleid 
+		select b.code from s_user a,s_role b ,s_user_role c where a.username=#{username}  and a.userid=c.userid and b.roleid=c.roleid  and b.code is not null
 	</select>
 	
 	
@@ -28,11 +28,11 @@
 	    where a.username=#{username} 
 	    and a.userid=c.userid 
 	    and b.roleid=c.roleid  and b.roleid=e.roleid 
-	    and d.permissionid=e.permissionid 
+	    and d.permissionid=e.permissionid  and d.code is not null 
 	    union 
 	    select distinct c.code from s_user a, s_user_permission b, s_permission  c 
 	    where a.username =#{username} 
-	    and a.userid = b.userid and c.permissionid=b.permissionid 
+	    and a.userid = b.userid and c.permissionid=b.permissionid and c.code is not null
 	</select>
 	
 	

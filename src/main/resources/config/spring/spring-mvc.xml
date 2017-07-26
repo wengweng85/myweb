@@ -29,6 +29,9 @@
             <bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
                 <property name="objectMapper" ref="myCustomObjectMapper"></property>
             </bean>
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+		         <property name="supportedMediaTypes" value = "text/plain;charset=UTF-8" />
+		    </bean>
         </mvc:message-converters>
      </mvc:annotation-driven>
      
@@ -45,16 +48,12 @@
  	 <mvc:default-servlet-handler/>
 
 
-      <!-- 配置Token拦截器，防止用户重复提交数据 -->
-
+     <!-- 登录hashcode校验 -->
+     <!-- 配置Token拦截器，防止用户重复提交数据 -->
      <mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/**" />
             <bean class="com.insigma.common.interceptor.TokenInterceptor" />
-        </mvc:interceptor>
-        <mvc:interceptor>
-            <mvc:mapping path="/**" />
-            <bean class="com.insigma.common.interceptor.ContextPathInterceptor" />
         </mvc:interceptor>
         <mvc:interceptor>
             <mvc:mapping path="/**" />

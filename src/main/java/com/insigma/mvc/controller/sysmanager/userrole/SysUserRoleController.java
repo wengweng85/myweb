@@ -3,7 +3,7 @@ package com.insigma.mvc.controller.sysmanager.userrole;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.insigma.mvc.controller.BaseController;
+import com.insigma.mvc.MvcHelper;
 
 /**
  * 用户组与用户管理
@@ -12,7 +12,7 @@ import com.insigma.mvc.controller.BaseController;
  */
 @Controller
 @RequestMapping("/sys/userrole")
-public class SysUserRoleController extends BaseController {
+public class SysUserRoleController extends MvcHelper {
 	
 	
 	//机构及人员树初始化加载

@@ -49,7 +49,7 @@
 						<div class="ibox-title">
 							<h5>角色编辑区</h5>
 						</div>
-						<div class="ibox-content">
+						<div class="ibox-content" id="role_edit_div">
 							<form action="<c:url value='/sys/role/saveorupdate'/>" class="form-horizontal" method="post" id="myform">
 								<rc:hidden property="roleid"/>
 								<div class="form-group">
@@ -87,12 +87,15 @@
 					<div class="ibox float-e-margins">
 						<div class="ibox-title">
 							<h5>角色授权</h5>
+							<div class="ibox-tools">
+							</div>
 						</div>
 						<div class="ibox-content">
 							<div id="tree-div" class="ztree" style="overflow: auto; height: 300px; width: 250px;"></div>
+							
 							<div class="hr-line-dashed"></div>
 							<div class="form-group" style="text-align: right;">
-								<button id="btn_role_perm" disabled="disabled" class="btn btn-primary " onclick="saveRoleData()">保存</button>
+								<button id="btn_role_perm" class="btn btn-primary " onclick="saveRolePermData()">保存</button>
 							</div>
 						</div>
 					</div>
@@ -106,26 +109,25 @@
    var options={
    	//列模型	
    	columns:[
- 	         { "data": "roleid" },
- 	         { "data": "name" },
- 	         { "data": "code" },
- 	         { "data": null }
+	         { 
+	        	 "data": "roleid" ,
+	        	 visible:false
+	         },
+	         { 
+	        	 "data": "name" },
+	         { 
+	        	 "data": "code"
+	         },
+	         {   
+	        	 "data": null,
+	        	 "render": function ( data, type, full, meta ) {
+	                 var tpl = $("#tpl").html();  
+	                 //预编译模板  
+	                 var template = Handlebars.compile(tpl);  
+	                 return template(data);
+                 } 
+	         }
  	],
- 	     //列自定义 
-    columnDefs:[ {
-       "targets": 3,
-       "render": function ( data, type, full, meta ) {
-          var tpl = $("#tpl").html();  
-          //预编译模板  
-          var template = Handlebars.compile(tpl);  
-          return template(data);
-       }
-    },
-    {
-      "targets": [0],
-      "visible": false
-     }
-    ],
     //表格jquery selector
 	datatable_selector:'.dataTables-example',
 	url: "<c:url value='/sys/role/querylist'/>"
@@ -135,6 +137,8 @@
    	    datatable=rc.tableinit(options);
    	    //角色编辑
    		rc.validAndAjaxSubmit($("#myform"),callback);
+   	    //权限树加载
+    	treeinit();
    });
    
     //保存页面配置信息
@@ -156,11 +160,19 @@
    //角色编辑
    function editrole(roleid){
 	   rc.ajaxQuery("<c:url value='/sys/role/getRoleData/'/>"+roleid);
+	   var otherParam= { 'id':roleid }
+	   setting.async.otherParam=otherParam;
+	   treeinit();
    }
    
    //新增权限
    function addnewrole(){
-   	   rc.clean();
+   	   //右边编辑区域清空
+	   role_edit_div_clean();
+   }
+   
+   function role_edit_div_clean(){
+	   rc.clean($('#role_edit_div'));
    }
    
    //删除角色
@@ -171,7 +183,7 @@
    			rc.ajax(url, null,function (response) {
    				if(response.success){
    					datatable.ajax.reload();
-   					rc.clean();
+   					role_edit_div_clean();
    				}else{
    					alert(response.message);
    				}
@@ -188,12 +200,6 @@
       check: {
 		enable: true
 	  },
-   	  view: {
-   		nameIsHTML: true
-   	  },
-   	  check: {
-   		enable: false
-   	  },
    	  data: {
    		simpleData: {
    			enable: true,
@@ -203,10 +209,40 @@
    	  },
    	  async: {
    		 enable: true,
-   		 url: "<c:url value='/sys/perm/treedata'/> ",
+   		 url: "<c:url value='/sys/role/treedata'/>",
    		 autoParam:["id"],
+   		 otherParam: {"id":"0"}
    	  }
    };
+   
+   //树初绍化
+   function treeinit(){
+	  $.fn.zTree.init($("#tree-div"), setting);
+	  var zTree = $.fn.zTree.getZTreeObj("tree-div");
+	  zTree.expandAll(true)
+   }
+   
+   //保存角色-权限数据
+   function saveRolePermData() {
+	   var roleid=$('#roleid').val();
+	   if(roleid){
+		    var zTree = $.fn.zTree.getZTreeObj("tree-div");
+		    var nodes = zTree.getCheckedNodes(true);
+		    var selectnodes=",";
+		    for(i=0;i<nodes.length;i++){
+		       selectnodes+= nodes[i].id+",";
+		    }
+		    
+		    rc.ajax("<c:url value='/sys/role/saveroleperm'/>", {roleid:roleid,selectnodes:selectnodes},function (response) {
+		    	alert(response.message);
+		    	if(response.success){
+					treeinit();
+				}
+			});  
+	   }else{
+		   layer.alert('请先选择一个角色');
+	   }
+	}
 </script>
 </body>
 </html>

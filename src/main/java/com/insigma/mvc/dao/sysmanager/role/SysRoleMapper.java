@@ -16,7 +16,7 @@ public interface SysRoleMapper {
 	
 	public SRole getRoleDataById(String id);
 	
-	public SRole isRoleCodeExist(SRole spermission);
+	public SRole isRoleCodeExist(SRole srole);
 	
 	public SRole isRoleUsedbyUser(String roleid);
 	
@@ -25,5 +25,11 @@ public interface SysRoleMapper {
 	public void updateRoleData(SRole spermission);
 	
 	public void deleteRoleDataById(String id);
+	
+	public  List<SRole> getRolePermTreeData(String roleid);
+	
+	public void deleteRolePermbyRoleid(String roleid);
+	
+	public void saveRolePermData(SRole srole);
 
 }

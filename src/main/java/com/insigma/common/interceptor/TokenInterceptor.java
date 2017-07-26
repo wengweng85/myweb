@@ -1,7 +1,10 @@
 package com.insigma.common.interceptor;
 
+import java.io.PrintWriter;
 import java.lang.reflect.Method;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Vector;
 
 import javax.annotation.Resource;
@@ -17,10 +20,12 @@ import com.insigma.common.annotation.AddToken;
 import com.insigma.common.annotation.ValidateToken;
 import com.insigma.common.filter.CSRFTokenManager;
 import com.insigma.common.util.EhCacheUtil;
+import com.insigma.dto.AjaxReturnMsg;
 import com.insigma.mvc.model.CodeValue;
 import com.insigma.resolver.AppException;
 
 import net.sf.ehcache.Element;
+import net.sf.json.JSONObject;
 
 /**
  * 重复提交token检验器
@@ -36,6 +41,7 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		if (handler instanceof HandlerMethod) {
             HandlerMethod handlerMethod = (HandlerMethod) handler;
+            
             Method method = handlerMethod.getMethod();
             AddToken addtoken = method.getAnnotation(AddToken.class);
             ValidateToken validatetoken = method.getAnnotation(ValidateToken.class);
@@ -44,6 +50,20 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
             }
             if(validatetoken!=null){
             	if (validToken(request)) {
+            		 //生定向到重复提交页面
+            		 if(isAjax(request))
+            		 {
+            			 PrintWriter writer = response.getWriter();
+                         AjaxReturnMsg dto = new AjaxReturnMsg();
+                         Map<String, Object> map=new HashMap<String, Object>();
+                         map.put("statuscode", "resubmit");//重复提交
+                         dto.setObj(map);
+                         writer.write(JSONObject.fromObject(dto).toString());
+                         writer.flush();
+            		 }
+            		 else{
+            			 request.getRequestDispatcher("/resubmit").forward(request, response);
+            		 }
                      return false;
                 }else{
                 	CSRFTokenManager.removeTokenFromRequest(request,response);
@@ -136,4 +156,13 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
        
         return false;*/
     }
+    
+    /**
+	 * 是否是ajax请求
+	 * @param request
+	 * @return
+	 */
+	public boolean isAjax( HttpServletRequest request){
+	      return request.getHeader("accept").indexOf("application/json") > -1 || (request.getHeader("X-Requested-With")!= null && request.getHeader("X-Requested-With").indexOf("XMLHttpRequest") > -1); 
+	}
 }

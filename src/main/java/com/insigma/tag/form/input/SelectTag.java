@@ -55,13 +55,9 @@ public class SelectTag implements Tag {
 		return property;
 	}
 
-
-
 	public void setProperty(String property) {
 		this.property = property;
 	}
-
-
 
 	public String getValue() {
 		return value;
@@ -95,6 +91,7 @@ public class SelectTag implements Tag {
 				.get(codetype);
 		if (element != null) {
 			List<CodeValue> list = (List<CodeValue>) element.getValue();
+			sb.append("<option value=\"\"></option> ");
 			for (CodeValue codevalue : list) {
 				sb.append("<option ");
 				if (value != null && !value.equals("")) {

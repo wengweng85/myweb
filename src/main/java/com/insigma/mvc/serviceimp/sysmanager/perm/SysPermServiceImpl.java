@@ -1,14 +1,16 @@
 package com.insigma.mvc.serviceimp.sysmanager.perm;
 
-import java.util.List;
-
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.insigma.dto.AjaxReturnMsg;
+import com.insigma.mvc.MvcHelper;
 import com.insigma.mvc.dao.sysmanager.perm.SysPermMapper;
 import com.insigma.mvc.model.SPermission;
 import com.insigma.mvc.service.sysmanager.perm.SysPermService;
+import com.mysql.jdbc.StringUtils;
 
 
 /**
@@ -18,46 +20,73 @@ import com.insigma.mvc.service.sysmanager.perm.SysPermService;
  */
 
 @Service
-public class SysPermServiceImpl implements SysPermService {
+public class SysPermServiceImpl extends MvcHelper implements SysPermService {
 
-	//登录dao
 	@Resource
 	private SysPermMapper sysPermMapper;
-
+	
+	
+	/**
+	 * 获取权限数据
+	 */
 	@Override
-	public List<SPermission> getPermTreeList() {
+	public String getPermTreeList() {
 		// TODO Auto-generated method stub
-		return sysPermMapper.getPermTreeList();
+		return this.success_string_response (sysPermMapper.getPermTreeList());
 	}
 
+	/**
+	 * 通过权限id获取权限数据
+	 */
 	@Override
-	public SPermission getPermDataById(String id) {
-		return sysPermMapper.getPermDataById(id);
+	public AjaxReturnMsg getPermDataById(String id) {
+		return this.success(sysPermMapper.getPermDataById(id));
 	}
 
+	
+    /**
+     * 保存或更新权限数据
+     */
 	@Override
-	public void updatePermissionData(SPermission spermission) {
-		sysPermMapper.updatePermissionData(spermission);
+	@Transactional
+	public AjaxReturnMsg saveOrUpdatePermData(SPermission spermission) {
+		  SPermission ispermsionexist=sysPermMapper.isPermCodeExist(spermission);
+		   if(ispermsionexist!=null){
+			   return this.error("此权限"+spermission.getCode()+"编号已经存在,请重新输入一个新的权限编号");
+		   }else{
+			//判断是否更新操作
+			if(StringUtils.isNullOrEmpty(spermission.getPermissionid())){
+				sysPermMapper.savePermissionData(spermission);
+				 return this.success("新增成功");
+			}else{
+				sysPermMapper.updatePermissionData(spermission);
+				return this.success("更新成功");
+			}
+		}
+		   
 	}
 
+	/**
+	 * 通过父节点获取权限子节点数据
+	 */
 	@Override
-	public SPermission isPermCodeExist(SPermission spermission) {
-		return sysPermMapper.isPermCodeExist(spermission);
+	public AjaxReturnMsg getPermListDataByParentid(String parentid) {
+		return this.success( sysPermMapper.getPermListDataByParentid(parentid));
 	}
 
+	
+	/**
+	 * 通过权限id删除权限相关数据
+	 */
 	@Override
-	public void savePermissionData(SPermission spermission) {
-		sysPermMapper.savePermissionData(spermission);
-	}
-
-	@Override
-	public List<SPermission> getPermListDataByParentid(String parentid) {
-		return sysPermMapper.getPermListDataByParentid(parentid);
-	}
-
-	@Override
-	public void deletePermDataById(String id) {
-		sysPermMapper.deletePermDataById(id);
+	@Transactional
+	public AjaxReturnMsg deletePermDataById(String id) {
+		if(sysPermMapper.getPermListDataByParentid(id).size()>0){
+			return this.error("当前权限还存在子权限数据,请先删除子权限数据");
+		}else{
+			sysPermMapper.deletePermDataById(id);
+			return this.success("操作成功");
+		}
 	}
 
 }

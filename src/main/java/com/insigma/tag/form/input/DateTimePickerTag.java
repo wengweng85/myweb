@@ -8,12 +8,12 @@ import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.Tag;
 
 /**
- * 自定义标签之日期选择框
+ * 自定义标签之日期时间选择框
  * 
  * @author wengsh
  *
  */
-public class DatePickerTag implements Tag {
+public class DateTimePickerTag implements Tag {
 
 	private PageContext pageContext;
 
@@ -68,7 +68,7 @@ public class DatePickerTag implements Tag {
 	     value=(value==null)?"":value;
 	     JspWriter out = pageContext.getOut();
 	     StringBuffer sb=new StringBuffer();
-	     sb.append("<div class=\"input-group form_date date\">");
+	     sb.append("<div class=\"input-group form_datetime date\">");
 		 sb.append("<span class=\"input-group-addon\" draggable=\"false\"><i class=\"fa fa-calendar\"></i></span>");
 		 sb.append("<input type=\"text\" id=\""+property+"\" name=\""+property+"\" readonly   validate=\""+validate+"\" class=\"form-control\"  >");
 		 sb.append("</div>");
