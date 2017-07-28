@@ -17,7 +17,7 @@
                 <h5>查询条件</h5>
             </div>
             <div class="ibox-content">
-            <form  class="form-horizontal" id="query_form" >
+            <form  class="form-horizontal" id="query_form" action="<c:url value='/job/querylist'/>">
 		        <div class="form-group">
 		           <label class="col-sm-1 control-label">名称</label>
 		           <div class="col-sm-2">
@@ -57,55 +57,110 @@
                 <a  class="btn btn-danger" onclick="dd('{{job_name}}')" >删除</a> 
             </script>
             <div class="ibox-content">
-			    <table id="jobtable" data-url="<c:url value='/job/querylist'/>" >
-			    <thead>
-				    <tr>
-				        <th data-checkbox="true" ></th>
-				        <th data-formatter="indexFormatter">序号</th>
-	                    <th data-field="job_class_name" >任务执行类名称</th>
-	                    <th data-field="cron_expression" >cron表达式</th>
-	                    <th data-field="next_fire_time" >下一次执行时间</th>
-	                    <th data-field="pre_fire_time" >上一次执行时间</th>
-	                    <th data-field="trigger_state" data-sortable="true">执行状态</th>
-	                    <th data-field="trigger_type" >执行类型</th>
-	                    <th data-field="start_time" >开始时间</th>
-	                    <th data-field="end_time" >结束时间</th>
-	                    <th data-field="description" >描述</th>
-	                    <th data-formatter="jobnameFormatter">操作</th>
-				    </tr>
-			    </thead>
-			    </table>
+                <table class="table table-striped table-bordered table-hover " id="table_joblist">
+                    <thead>
+                        <tr>
+                            <th>
+				                <input type="checkbox" class="checkall" />
+				            </th>
+                            <th>任务名称</th>
+                            <th>任务执行类名称</th>
+                            <th>cron表达式</th>
+                            <th>下一次执行时间</th>
+                            <th>上一次执行时间</th>
+                            <th>执行状态</th>
+                            <th>执行类型</th>
+                            <th>开始时间</th>
+                            <th>结束时间</th>
+                            <th>描述</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
             </div>
         </div>
         <!-- End Panel Basic -->
     </div>
     <rc:jsfooter/>
     <script type="text/javascript">
+    var datatable;
+    //页面模型数据准备
     var options={
-    	formid:'query_form'
-    }
+    	//列模型	
+	   	columns:[
+			 {    
+				 "data":null,
+				 "sClass": "text-center",
+				 "render": function (data, type, full, meta ) {
+				     return "<input type='checkbox' name='' class='checkchild'  value='"+data.job_name+"'/>"
+		          }
+			 },    
+  	         { "data": "job_name" },
+  	         { "data": "job_class_name" }, 
+  	         { "data": "cron_expression" }, 
+  	         { "data": "next_fire_time" },
+  	         { "data": "pre_fire_time" },
+  	         { "data": "trigger_state" },
+  	         { "data": "trigger_type" },
+  	         { "data": "start_time" },
+	  	     { "data": "end_time" },
+	  	     { "data": "description" },
+	  	     { 
+	  	    	"data":null,
+	  	        "render": function ( data, type, full, meta ) {
+			       var tpl = $("#tpl").html();  
+			  	   //预编译模板  
+			  	   var template = Handlebars.compile(tpl);  
+			  	   return template(data);
+	  	         } 
+	  	     }
+   	     ],
+		 //对应查询form
+		 query_form_selector:'query_form'	   		
+    };
+    
+    //checkbox全选
+    $(".checkall").on('click',function () {
+	    var check = $(this).prop("checked");
+	    $(".checkchild").prop("checked", check);
+	});
+    
+    //批量删除
+    function batchdelete(){
+       if ($(".checkchild:checked").length > 0){         
+    	   var result = new Array();
+           (".checkchild:checked").each(function () {
+               if ($(this).is(":checked")) {
+                   result.push($(this).attr("value"));
+               }
+           });
+           ids=result.join(",");
+    	   rc.ajax("<c:url value='/job/batchdelete'/>", {ids:ids},function (response) {
+		    	alert(response.message);
+		    	if(response.success){
+		    		query();
+				}
+		   });  
+    	   
+	   }else{
+		   layer.alert("请至少选中一条记录");                
+		   return;
+	   }
+    }	 
+    
     //初始化
     $(function(){
-    	$('#jobtable').inittable(options);
+    	datatable=$('#table_joblist').tableinit(options);
     });
-  
-    //操作编辑
-    function jobnameFormatter(value, row, index) {
-        var tpl = $("#tpl").html();  
-	  	//预编译模板  
-	  	var template = Handlebars.compile(tpl);  
-	  	return template(row);
-    }
-    
-    function indexFormatter(value, row, index) {
-        return index+1;
-    }
     
     //查询
     function query(){
-    	$('#jobtable').refreshtable();
+    	datatable.dt.ajax.reload();
     }
     
+	
     //数据编辑
     function edit(id){
     	var url = "<c:url value='/job/gotoedit'/>";
@@ -129,31 +184,6 @@
     	var url = "<c:url value='/job/delete'/>"+"/"+id;
     	ajax(url,"确定删除此任务吗")
     }
-    
-    
-    //批量删除
-    function batchdelete(){
-       var selections=$('#jobtable').getAllTableSelections();
-       //选中的值
-       var ids='';
-       if(selections.length>0){
-		   for(i=0;i<selections.length;i++){
-        	   var item=selections[i];
-        	   ids+=item.job_name+',';
-           }
-    	   console.log(ids);
-    	   rc.ajax("<c:url value='/job/batchdelete'/>", {ids:ids},function (response) {
-		    	alert(response.message);
-		    	if(response.success){
-		    		query();
-				}
-		   });  
-       }else{
-    	   layer.alert("请至少选中一条记录");                
-		   return;
-       }
-    }	
-    
     
     function ajax(url,tip){
     	layer.confirm(tip,function(){
@@ -182,7 +212,6 @@
 	   		  content: "<c:url value='/job/toadd'/>" //iframe的url
    		});
     }    
-
     </script>
 </body>
 </html>

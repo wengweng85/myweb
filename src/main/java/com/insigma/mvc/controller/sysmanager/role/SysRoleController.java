@@ -1,5 +1,7 @@
 package com.insigma.mvc.controller.sysmanager.role;
 
+import java.util.HashMap;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,8 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.insigma.common.annotation.AddToken;
-import com.insigma.common.annotation.ValidateToken;
 import com.insigma.dto.AjaxReturnMsg;
 import com.insigma.mvc.MvcHelper;
 import com.insigma.mvc.model.SRole;
@@ -52,7 +52,7 @@ public class SysRoleController extends MvcHelper  {
 	@RequestMapping("/querylist")
 	@ResponseBody
 	@RequiresRoles("admin")
-	public AjaxReturnMsg querylist(HttpServletRequest request,Model model,SRole srole) throws Exception {
+	public HashMap<String,Object> querylist(HttpServletRequest request,Model model,SRole srole) throws Exception {
 		return sysRoleService.getAllRoleList(srole);
 	}
 	

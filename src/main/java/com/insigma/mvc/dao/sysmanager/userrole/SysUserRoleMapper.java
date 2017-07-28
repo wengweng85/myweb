@@ -3,6 +3,7 @@ package com.insigma.mvc.dao.sysmanager.userrole;
 import java.util.List;
 
 import com.insigma.mvc.model.SGroup;
+import com.insigma.mvc.model.SRole;
 import com.insigma.mvc.model.SUser;
 
 
@@ -19,9 +20,9 @@ public interface SysUserRoleMapper {
 	
 	public List<SUser> getUserListByGroupid(String groupid);
 	
-	//public List<SRole> getUserRoleByUserid(String userid);
+	public List<SRole> getUserRoleByUserId(String userid);
 	
-	//public void saveOrUpdateUserRole(SRole spermission);
+	public void deleteUserRoleByUserId(String userid);
 	
-
+	public void saveUserRole(SRole srole);
 }

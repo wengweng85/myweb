@@ -36,22 +36,20 @@
                         <span class="text-muted text-xs block">欢迎您:${suser.cnname}</span>
                     </li>
                     <shiro:user>
-                    <shiro:hasPermission  name="perm:jobindex">
+                     <shiro:hasRole name="admin">
                     <li>
                         <a href="#">
                             <i class="fa fa-bar-chart-o"></i>
                             <span class="nav-label">定时任务配置</span>
                             <span class="fa arrow"></span>
                         </a>
-                        <shiro:hasPermission  name="perm:joblist">
                         <ul class="nav nav-second-level">
                             <li>
                                 <a class="J_menuItem" href="<c:url value='/job/list'/>" data-index="1">定时任务配置</a>
                             </li>
                         </ul>
-                        </shiro:hasPermission>
                     </li>
-                    </shiro:hasPermission>
+                    </shiro:hasRole>
                     <!-- 管理员角色功能  -->
                     <shiro:hasRole name="admin">
                     <li>

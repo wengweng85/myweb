@@ -1,5 +1,7 @@
 package com.insigma.mvc.controller.quartzjob;
 
+import java.util.HashMap;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -54,9 +56,22 @@ public class QuartzJobController extends MvcHelper {
 	@RequestMapping("/job/querylist")
 	@ResponseBody
 	@RequiresRoles("admin")
-	public AjaxReturnMsg querylist(HttpServletRequest request,Model model,QrtzTrigger qrtztrigger) throws Exception {
+	public  HashMap<String,Object> querylist(HttpServletRequest request,Model model,QrtzTrigger qrtztrigger) throws Exception {
 		return quartzJobService.queryJobList(qrtztrigger);
 	}
+	
+	
+	/**
+	 * 跳转至列表页面
+	 * @param request
+	 * @return
+	 */
+	/*@RequestMapping("/job/querylist")
+	@ResponseBody
+	@RequiresRoles("admin")
+	public AjaxReturnMsg querylist(HttpServletRequest request,Model model,QrtzTrigger qrtztrigger) throws Exception {
+		return quartzJobService.queryJobList(qrtztrigger);
+	}*/
 	
 	/**
 	 * 跳转至列表页面

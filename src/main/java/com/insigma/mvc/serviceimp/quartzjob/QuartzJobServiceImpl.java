@@ -1,5 +1,6 @@
 package com.insigma.mvc.serviceimp.quartzjob;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -42,13 +43,17 @@ public class QuartzJobServiceImpl   extends MvcHelper implements QuartzJobServic
 	@Autowired
 	private Scheduler quartzScheduler;
 
+	
+	
 	@Override
-	public AjaxReturnMsg queryJobList( QrtzTrigger qrtztrigger) {
-		PageHelper.startPage(qrtztrigger.getCurpage(), qrtztrigger.getLimit());
+	public HashMap<String,Object> queryJobList( QrtzTrigger qrtztrigger) {
+		PageHelper.offsetPage(qrtztrigger.getOffset(), qrtztrigger.getLimit());
 		List<QrtzTrigger> list =quartzJobMapper.queryJobList(qrtztrigger);
 		PageInfo<QrtzTrigger> pageinfo = new PageInfo<QrtzTrigger>(list);
-		return this.success(pageinfo);
+		return this.success_hashmap_response(pageinfo);
 	}
+	
+	
 
 	/**
 	 * 增加任务

@@ -17,12 +17,12 @@
 				<div class="ibox-title">
 					<h5>权限列表树区</h5>
 					<div class="ibox-tools">
-                        <a onclick="addnewperm()" class="btn btn-primary btn-xs">新增权限</a>
-                        <a onclick="deleteperm()" class="btn btn-danger btn-xs">删除权限</a>
+                        <a onclick="_sys_perm_addnewperm()" class="btn btn-primary btn-xs">新增权限</a>
+                        <a onclick="_sys_perm_deleteperm()" class="btn btn-danger btn-xs">删除权限</a>
                     </div>
 				</div>
 				<div class="ibox-content">
-					<div id="tree-div" class="ztree" style="overflow: auto; height: 670px; width: 250px;"></div>
+					<ul id="tree-div" class="ztree" style="overflow: auto; height: 670px; "></<ul>
 				</div>
 			</div>
 		</div>
@@ -96,7 +96,7 @@
                            </div>
                            <div class="hr-line-dashed"></div>
 	                       <div class="form-group" style="text-align: right;">
-	                            <a class="btn btn-primary " onclick="savePermData()">保存</a>
+	                            <a class="btn btn-primary " onclick="_sys_perm_savePermData()">保存</a>
 	                       </div>
                  </form>
                 <div id="view"></div>
@@ -108,23 +108,27 @@
 <script type="text/javascript">
 $(function() {
 	//验证 ajax
-	rc.validAndAjaxSubmit($("#myform"),callback);
-	treeinit();
+	rc.validAndAjaxSubmit($("#myform"),_sys_perm_callback);
+	_sys_perm_treeinit();
 })
+
+function _sys_perm_treeinit(){
+	$.fn.zTree.init($("#tree-div"), _sys_perm_setting);
+}
 //回调函数
-function callback(response){
+function _sys_perm_callback(response){
 	if(response.success){
        	alert(response.message);
-       	treeinit();
+       	_sys_perm_treeinit();
 	}
 	else{
 		alert(response.message);
 	}
 }
 //树配置
-var setting = {
+var _sys_perm_setting = {
 	view: {
-		nameIsHTML: true
+       showLine: true
 	},
 	check: {
 		enable: false
@@ -132,12 +136,11 @@ var setting = {
 	data: {
 		simpleData: {
 			enable: true,
-			pIdKey: "pid",
-			rootPId: '0'
+			pIdKey: "pid"
 		}
 	},
 	callback: {
-		onClick: onClick
+		onClick: _sys_perm_onClick
 	},
 	async: {
 		enable: true,
@@ -147,20 +150,18 @@ var setting = {
 };
 
 
-function onClick(event, treeId, treeNode, clickFlag) {
+function _sys_perm_onClick(event, treeId, treeNode, clickFlag) {
 	rc.ajaxQuery("<c:url value='/sys/perm/getPermData/'/>"+treeNode.id);
 }
 
-function treeinit(){
-	$.fn.zTree.init($("#tree-div"), setting);
-}
+
 
 //保存页面配置信息
-function savePermData(){
+function _sys_perm_savePermData(){
    $('#myform').submit();
 }
 //新增权限
-function addnewperm(){
+function _sys_perm_addnewperm(){
 	var permissionid=$('#permissionid').val()||'0';
 	var name=$('#name').val()||'权限头结点';
 	rc.clean();
@@ -168,14 +169,14 @@ function addnewperm(){
 	$('#parentname').val(name);
 }
 //删除权限
-function deleteperm(){
+function _sys_perm_deleteperm(){
 	var permissionid=$('#permissionid').val();
 	if(permissionid){
 		layer.confirm('确定删除要此权限吗？', function(index){
 			var url= "<c:url value='/sys/perm/deletePermDataById/'/>"+permissionid;
 			rc.ajax(url, null,function (response) {
 				if(response.success){
-					treeinit();
+					_sys_perm_treeinit();
 					rc.clean();
 				}else{
 					alert(response.message);

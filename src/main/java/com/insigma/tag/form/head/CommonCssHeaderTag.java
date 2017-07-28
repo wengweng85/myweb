@@ -34,13 +34,11 @@ public class CommonCssHeaderTag implements Tag  {
 	  sb.append("<link href='"+contextpath+"/resource/hplus/css/bootstrap.min.css' rel='stylesheet'>");
 	  sb.append("<link href='"+contextpath+"/resource/hplus/css/font-awesome.min.css' rel='stylesheet'>");
 	  sb.append("<link href='"+contextpath+"/resource/hplus/css/animate.min.css' rel='stylesheet'>");
-	  sb.append("<link href='"+contextpath+"/resource/hplus/css/plugins/codemirror/codemirror.css' rel='stylesheet'>");
-	  sb.append("<link href='"+contextpath+"/resource/hplus/css/plugins/codemirror/ambiance.css' rel='stylesheet'>");
 	  sb.append("<link href='"+contextpath+"/resource/hplus/css/style.min.css' rel='stylesheet'>");
-	  //<!-- Data Tables -->
-	  sb.append("<link href='"+contextpath+"/resource/hplus/css/plugins/dataTables/dataTables.bootstrap.css' rel='stylesheet'>");
+	  //<!-- bootstrap-table -->
+	  sb.append("<link href='"+contextpath+"/resource/hplus/css/plugins/bootstrap-table/bootstrap-table.min.css' rel='stylesheet'>");
 	  //<!-- ztree -->
-	  sb.append("<link href='"+contextpath+"/resource/hplus/js/jQuery/ztree/css/zTreeStyle.css'  rel='stylesheet' >");
+	  sb.append("<link href='"+contextpath+"/resource/hplus/js/jQuery/ztree/css/metroStyle/metroStyle.css'  rel='stylesheet' >");
 	  //<!-- select -->
 	  sb.append("<link href='"+contextpath+"/resource/hplus/js/plugins/bootstrap-select/css/bootstrap-select.min.css' rel='stylesheet'>");
 	  //<!-- datapicker -->

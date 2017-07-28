@@ -15,6 +15,8 @@ public class SRole extends PageInfo implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private String id;
+	
+	private String userid;
    
 	private String roleid;
 	
@@ -30,15 +32,18 @@ public class SRole extends PageInfo implements java.io.Serializable {
 	private String pid;
 	private String open;
 	private String checked;
-	
 	@JsonIgnore
 	private String permissionid;
 	
-
 	@JsonIgnore
 	private String selectnodes;
-	
-	
+	public String getUserid() {
+		return userid;
+	}
+
+	public void setUserid(String userid) {
+		this.userid = userid;
+	}
 
 	public String getSelectnodes() {
 		return selectnodes;

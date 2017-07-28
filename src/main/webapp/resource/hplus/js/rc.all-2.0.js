@@ -59,97 +59,6 @@ $.fn.serializeObject = function()
 };
 
 var rc = {
-	//表格初始化
-    tableinit:function(options){
-    var t=$(options.datatable_selector).dataTable({
-	     autowidth:true,
-	     processing: false,  //隐藏加载提示,自行处理
-	     serverSide: true,  //启用服务器端分页
-	     searching: false,  //禁用原生搜索
-	     orderMulti: false,  //启用多列排序
-	     paging:true,
-	     ordering:false,
-	     order: [],  //取消默认排序查询,否则复选框一列会出现小箭头
-	     pagingType: "simple_numbers",  //分页样式：simple,simple_numbers,full,full_numbers
-	     //列表表头字段
-	     columns: options.columns,
-	     //columnDefs: options.columnDefs||[],
-	     ajax: function (data, callback, settings) {
-	     	var param ={};
-	     	if(options.param){
-	     		param=options.param;
-	     	}
-	     	var url='';
-	     	if(options.url){
-	     		url=options.url;
-	     	}
-	     	if(options.query_form_selector){
-	     		//封装请求参数
-	     		param = $(options.query_form_selector).serializeObject();
-	     		if($(options.query_form_selector).attr('action')){
-	     			url=$(options.query_form_selector).attr('action');
-	     		}
-	     	}
-	        param.limit = data.length;//页面显示记录条数，在页面显示每页显示多少项的时候
-	        param.curpage = (data.start / data.length)+1;//当前页码
-	        //ajax请求数据
-	        $.ajax({
-	            type: "post",
-	            url: url,
-	            cache: false,  //禁用缓存
-	            data: param,  //传入组装的参数
-	            dataType: "json",
-	            beforeSend:function(){
-	            	var index = layer.load(1);
-	            },
-	            complete:function(){
-	            	layer.closeAll();
-	            },
-	            success: function (response) {
-	            	try{
-					//session超时
-					if(response.obj&&response.obj.statuscode=='session expired'){
-						layer.open({
-		        			content : '没有登录或登录超时,请重新登录！',
-		        			closeBtn : 0,
-		        			yes : function(index, layero){
-		        				window.location.href=contextPath+response.obj.redirecturl;
-		        			}
-		        		});
-					}else if(response.obj&&response.obj.statuscode=='unauthorized'){
-						layer.open({
-		        			content : '您没有足够的权限执行该操作!',
-		        			closeBtn : 0,
-		        			yes : function(index, layero){
-		        				window.location.href=contextPath+response.obj.redirecturl;
-		        			}
-		        		});
-					}else if(response.obj&&response.obj.statuscode=='sqlinject'){
-						layer.alert('请求中存在sql注入关键字,属于非法请求,请确认参数中是否有 \" \' * % < > & 等字符');
-					}
-					else{
-		                //封装返回数据
-		                var returnData = {};
-		                returnData.recordsTotal = response.total;//返回数据全部记录
-		                returnData.recordsFiltered = response.total;//后台不实现过滤功能，每次查询均视作全部结果
-		                returnData.data = response.obj;//返回的数据列表
-	                    callback(returnData);
-					}
-				}catch (e) {
-					console.log(e);
-					rc.ajax_error(null, '解析返回的文本出错！');
-					return;
-				}
-	            },
-	            error : function(response) {
-	                layer.alert('发生错误了'+response.message);
-	            }
-	        });
-	    }
-	  }).api();
-	  return t;
-	},
-	
 	/**
 	 * rsa加密
 	 * @param {} value
@@ -1419,5 +1328,78 @@ function reset(str){
 	}
 }
 
-
-
+/**
+ * 
+ * jQuery 基于 bootstrape table 插件
+ * @author wengsh
+ */
+(function($){
+	/**
+	 * 表格初始化 
+	 * options
+	 */
+	$.fn.inittable = function(options) {
+		 var _this = $(this);
+		 _this.options=$.extend({},$.fn.inittable.defaults,options);
+	     _this.bootstrapTable({
+	        method: 'get',
+	        //url:_this.options.url,//要请求数据的文件路径
+	        //height:_this.css('height'),//高度调整
+	        //toolbar: '#toolbar',//指定工具栏
+	        striped: true, //是否显示行间隔色
+	        queryParams:function(params){
+	        	if(_this.options.formid){
+	        		var request_param=$.extend({},$('#'+_this.options.formid).serializeObject(),params);
+                    return request_param
+	        	}else{
+	        		return params;
+	        	}
+	        },
+	        pagination:true,//是否分页
+	        queryParamsType:'limit',//查询参数组织方式
+	        sidePagination:'server',//指定服务器端分页
+	        pageList:[5,10,20,30,50,100,'ALL'],//分页步进值
+	        showRefresh:false,//刷新按钮
+	        showColumns:false,//显示列选择框
+	        //clickToSelect: false,//是否启用点击选中行
+	        buttonsAlign:'right'//按钮对齐方式
+         })
+        //点击事件 
+        /*_this.on('click-row.bs.table', function (e, row, $element) {
+    		$('.success').removeClass('success');
+    		$($element).addClass('success');
+  	    });*/ 
+	}
+	
+	/**
+	 * 表格刷新
+	 * url
+	 */
+	$.fn.refreshtable=function(url){
+		var _this = $(this);
+		var param={};
+		if(url){
+		   param.url=url;
+		}
+		_this.bootstrapTable('refresh', param);
+	}
+	
+	
+	/**
+	 * 获取表格当前选中的checkbox、radio 值
+	 * url
+	 */
+	$.fn.getAllTableSelections=function(field){
+		var _this = $(this);
+		var  getAllSelections=_this.bootstrapTable('getAllSelections');
+		return getAllSelections;
+	}
+	
+	/**
+	 * 表格初始化默认参数
+	 */
+	$.fn.inittable.defaults={
+		formid:'',
+		url:''
+	}
+})(jQuery);

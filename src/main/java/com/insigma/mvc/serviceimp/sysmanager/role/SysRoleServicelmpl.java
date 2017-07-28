@@ -1,5 +1,6 @@
 package com.insigma.mvc.serviceimp.sysmanager.role;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -33,11 +34,11 @@ public class SysRoleServicelmpl extends MvcHelper  implements SysRoleService {
 	 * 获取所有角色数据
 	 */
 	@Override
-	public AjaxReturnMsg getAllRoleList( SRole srole) {
-		PageHelper.startPage(srole.getCurpage(), srole.getLimit());
+	public HashMap<String,Object> getAllRoleList( SRole srole) {
+		PageHelper.offsetPage(srole.getOffset(), srole.getLimit());
 		List<SRole> list=sysRoleMapper.getAllRoleList();
 		PageInfo<SRole> pageinfo = new PageInfo<SRole>(list);
-		return this.success(pageinfo);
+		return this.success_hashmap_response (pageinfo);
 	}
  
 	/**
@@ -108,6 +109,6 @@ public class SysRoleServicelmpl extends MvcHelper  implements SysRoleService {
 			temp.setPermissionid(selectnodes[i]);
 			sysRoleMapper.saveRolePermData(temp);
 		}
-		return this.success("角色授权成功");
+		return this.success("角色增加权限成功");
 	}
 }

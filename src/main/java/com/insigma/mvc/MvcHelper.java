@@ -1,6 +1,7 @@
 package com.insigma.mvc;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
 import net.sf.json.JSONArray;
@@ -79,6 +80,18 @@ public class MvcHelper {
         dto.setObj(pageinfo.getList());
         dto.setTotal(pageinfo.getTotal());
         return dto;
+    }
+    
+    /**
+     * ³É¹¦·µ»Ø
+     * @param PageInfo pageinfo
+     * @return
+     */
+    public HashMap<String,Object> success_hashmap_response(PageInfo pageinfo) {
+    	HashMap<String,Object> hashmap=new HashMap<String,Object>();
+    	hashmap.put("total", pageinfo.getTotal());
+    	hashmap.put("rows", pageinfo.getList());
+    	return hashmap;
     }
     
     /**

@@ -15,7 +15,6 @@ public class SGroup extends PageInfo implements java.io.Serializable {
 	private String groupid;
 	private String id;
 	private String open;
-	private String iconSkin;
 	private String name;
 	private String description;
 	private String isParent;
@@ -36,12 +35,6 @@ public class SGroup extends PageInfo implements java.io.Serializable {
 	}
 	public void setOpen(String open) {
 		this.open = open;
-	}
-	public String getIconSkin() {
-		return iconSkin;
-	}
-	public void setIconSkin(String iconSkin) {
-		this.iconSkin = iconSkin;
 	}
 	public String getName() {
 		return name;

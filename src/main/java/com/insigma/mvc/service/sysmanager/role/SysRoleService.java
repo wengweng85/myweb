@@ -1,5 +1,7 @@
 package com.insigma.mvc.service.sysmanager.role;
 
+import java.util.HashMap;
+
 import com.insigma.dto.AjaxReturnMsg;
 import com.insigma.mvc.model.SRole;
 
@@ -13,7 +15,7 @@ import com.insigma.mvc.model.SRole;
  */
 public interface SysRoleService {
 	
-    public AjaxReturnMsg  getAllRoleList( SRole role);
+    public HashMap<String,Object>  getAllRoleList( SRole role);
 	
 	public AjaxReturnMsg getRoleDataById(String id);
 	

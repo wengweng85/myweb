@@ -46,25 +46,22 @@ public class CommonJsFooterTag implements Tag  {
 	  sb.append("<script src='"+contextpath+"/resource/hplus/js/handlebars-v2.0.0-min.js'></script>");
 	  sb.append("<script src='"+contextpath+"/resource/hplus/js/bootstrap.min.js'></script>");
 	  sb.append("<script src='"+contextpath+"/resource/hplus/js/plugins/layer/layer.min.js'></script>");
-	  sb.append("<script src='"+contextpath+"/resource/hplus/js/plugins/codemirror/codemirror.js'></script>");
-	  sb.append("<script src='"+contextpath+"/resource/hplus/js/plugins/codemirror/mode/javascript/javascript.js'></script>");
-	  //<!-- data table  -->
-	  sb.append("<script src='"+contextpath+"/resource/hplus/js/plugins/dataTables/jquery.dataTables.js'></script>");
-	  sb.append("<script src='"+contextpath+"/resource/hplus/js/plugins/dataTables/dataTables.bootstrap.js'></script>");
+	  //<!--bootstrap-table  -->
+	  sb.append("<script src='"+contextpath+"/resource/hplus/js/plugins/bootstrap-table/bootstrap-table.min.js'></script>");
+	  sb.append("<script src='"+contextpath+"/resource/hplus/js/plugins/bootstrap-table/bootstrap-table-mobile.min.js'></script>");
+	  sb.append("<script src='"+contextpath+"/resource/hplus/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js'></script>");
 
 	  //<!-- ztree  -->
-	  sb.append("<script  src='"+contextpath+"/resource/hplus/js/jQuery/ztree/jquery.ztree.core.js'></script>");
-	  sb.append("<script  src='"+contextpath+"/resource/hplus/js/jQuery/ztree/jquery.ztree.excheck.js'></script>");
-	  sb.append("<script  src='"+contextpath+"/resource/hplus/js/jQuery/ztree/jquery.ztree.exedit.js'></script>");
+	  sb.append("<script  src='"+contextpath+"/resource/hplus/js/jQuery/ztree/jquery.ztree.all.min.js'></script>");
 	
 	  //<!-- select -->
 	  sb.append("<script src='"+contextpath+"/resource/hplus/js/plugins/bootstrap-select/js/bootstrap-select.min.js'></script>");
 	  sb.append("<script src='"+contextpath+"/resource/hplus/js/plugins/bootstrap-select/js/i18n/defaults-zh_CN.min.js'></script>");
-	  // <!-- datetimepicker -->
 	  
+	  // <!-- datetimepicker -->
 	  sb.append("<script src='"+contextpath+"/resource/hplus/js/plugins/datetimepicker/js/bootstrap-datetimepicker.min.js'></script>");
 	  sb.append("<script src='"+contextpath+"/resource/hplus/js/plugins/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js'></script>");
-	      
+	  //<!--rc about js-->   
 	  sb.append("<script src='"+contextpath+"/resource/hplus/js/rc.tag-1.0.js'></script>");
 	  sb.append("<script src='"+contextpath+"/resource/hplus/js/rc.all-2.0.js'></script>");
 	      

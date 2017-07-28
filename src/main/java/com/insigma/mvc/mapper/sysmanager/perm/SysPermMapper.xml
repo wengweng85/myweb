@@ -7,8 +7,7 @@
 		select 
 		permissionid id ,
 		name, 
-		parentid pid,
-		open 
+		parentid pid
 		from 
 		s_permission 
 		order by sortnum

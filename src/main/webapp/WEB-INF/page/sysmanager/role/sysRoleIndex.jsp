@@ -15,28 +15,28 @@
 		<div class="col-sm-4">
 			<div class="ibox float-e-margins">
 				<div class="ibox-title">
-					<h5>角色列表树区</h5>
+					<h5>角色列表区</h5>
 					<div class="ibox-tools">
 						<a onclick="addnewrole()" class="btn btn-primary btn-xs">新增角色</a>
 					</div>
 				</div>
 				<!-- 模型 tpl  -->
 	            <script id="tpl" type="text/x-handlebars-template" >
-                    <a class="btn btn-info" onclick="editrole('{{roleid}}')" >编辑</a> 
-	                <a class="btn btn-danger" onclick="deleterole('{{roleid}}')" >删除</a> 
+                    <!--
+                    <a class="btn btn-info" onclick="sys_role_editrole('{{roleid}}')" >编辑</a> 
+                    -->
+	                <a class="btn btn-danger" onclick="sys_role_deleterole('{{roleid}}')" >删除</a> 
                 </script>
 				<div class="ibox-content">
-					<table class="table table-striped table-bordered table-hover dataTables-example">
+					<table id="roletable" data-url="<c:url value='/sys/role/querylist'/>">
 						<thead>
-							<tr>
-								<th>编号</th>
-								<th>角色名称</th>
-								<th>角色编码</th>
-								<th>操作</th>
-							</tr>
-						</thead>
-						<tbody>
-						</tbody>
+						    <tr>
+						        <th data-formatter="sys_role_indexFormatter">序号</th>
+			                    <th data-field="name" >角色名称</th>
+			                    <th data-field="code" >角色编码</th>
+			                    <th data-formatter="sys_role_opFormatter">操作</th>
+						    </tr>
+				        </thead>
 					</table>
 				</div>
 			</div>
@@ -77,7 +77,7 @@
 								</div>
 								<div class="hr-line-dashed"></div>
 								<div class="form-group" style="text-align: right;">
-									<a class="btn btn-primary " onclick="saveRoleData()">保存</a>
+									<a class="btn btn-primary " onclick="sys_role_saveRoleData()">保存</a>
 								</div>
 							</form>
 						</div>
@@ -95,7 +95,7 @@
 							
 							<div class="hr-line-dashed"></div>
 							<div class="form-group" style="text-align: right;">
-								<button id="btn_role_perm" class="btn btn-primary " onclick="saveRolePermData()">保存</button>
+								<button id="btn_role_perm" class="btn btn-primary " onclick="sys_role_saveRolePermData()">保存</button>
 							</div>
 						</div>
 					</div>
@@ -104,99 +104,25 @@
 		</div>
 <rc:jsfooter />
 <script type="text/javascript">
-   var datatable;
-   //页面模型数据准备
-   var options={
-   	//列模型	
-   	columns:[
-	         { 
-	        	 "data": "roleid" ,
-	        	 visible:false
-	         },
-	         { 
-	        	 "data": "name" },
-	         { 
-	        	 "data": "code"
-	         },
-	         {   
-	        	 "data": null,
-	        	 "render": function ( data, type, full, meta ) {
-	                 var tpl = $("#tpl").html();  
-	                 //预编译模板  
-	                 var template = Handlebars.compile(tpl);  
-	                 return template(data);
-                 } 
-	         }
- 	],
-    //表格jquery selector
-	datatable_selector:'.dataTables-example',
-	url: "<c:url value='/sys/role/querylist'/>"
-   };
    //初始化
    $(function(){
-   	    datatable=rc.tableinit(options);
+	    $('#roletable').inittable();
    	    //角色编辑
-   		rc.validAndAjaxSubmit($("#myform"),callback);
+   		rc.validAndAjaxSubmit($("#myform"),sys_role_callback);
    	    //权限树加载
-    	treeinit();
+    	sys_role_treeinit();
    });
-   
-    //保存页面配置信息
-   function saveRoleData(){
-      $('#myform').submit();
-   }
-
-   //回调函数
-   function callback(response){
-	  if(response.success){
-       	  alert(response.message);
-       	  datatable.ajax.reload();
-	  }
-	  else{
-		  alert(response.message);
-	  }
-   }
-   
-   //角色编辑
-   function editrole(roleid){
-	   rc.ajaxQuery("<c:url value='/sys/role/getRoleData/'/>"+roleid);
-	   var otherParam= { 'id':roleid }
-	   setting.async.otherParam=otherParam;
-	   treeinit();
-   }
-   
-   //新增权限
-   function addnewrole(){
-   	   //右边编辑区域清空
-	   role_edit_div_clean();
-   }
-   
-   function role_edit_div_clean(){
-	   rc.clean($('#role_edit_div'));
-   }
-   
-   //删除角色
-   function deleterole(roleid){
-   	  if(roleid){
-   		layer.confirm('确定删除要此角色吗？', function(index){
-   			var url= "<c:url value='/sys/role/deleteRoleDataById/'/>"+roleid;
-   			rc.ajax(url, null,function (response) {
-   				if(response.success){
-   					datatable.ajax.reload();
-   					role_edit_div_clean();
-   				}else{
-   					alert(response.message);
-   				}
-   			});
-   		});
-   	  }else{
-   		layer.alert('请先选择一个你要删除的权限节点');
-   	  }
-   }
-   
+ //用户表格监听 
+   $('#roletable').on('click-row.bs.table', function (e, row, $element) {
+      	rc.evaluation(row);
+      	sys_role_editrole(row.roleid);
+   }); 
    
    //角色-权限树配置
-   var setting = {
+   var sys_role_setting = {
+	  view: {
+          showLine: true
+	  },	   
       check: {
 		enable: true
 	  },
@@ -215,15 +141,80 @@
    	  }
    };
    
+   //回调函数
+   function sys_role_callback(response){
+	  if(response.success){
+       	  alert(response.message);
+	  }
+	  else{
+		  alert(response.message);
+	  }
+   }
+   
+   //format区域
+   function sys_role_opFormatter(value, row, index) {
+        var tpl = $("#tpl").html();  
+	  	//预编译模板  
+	  	var template = Handlebars.compile(tpl);  
+	  	return template(row);
+   }
+ 
+   function sys_role_indexFormatter(value, row, index) {
+       return index+1;
+   }
+   
+    //保存页面配置信息
+   function sys_role_saveRoleData(){
+      $('#myform').submit();
+   }
+
+   
+   //角色编辑
+   function sys_role_editrole(roleid){
+	   //rc.ajaxQuery("<c:url value='/sys/role/getRoleData/'/>"+roleid);
+	   var otherParam= { 'id':roleid }
+	   sys_role_setting.async.otherParam=otherParam;
+	   sys_role_treeinit();
+   }
+   
+   //新增权限
+   function sys_role_addnewrole(){
+   	   //右边编辑区域清空
+	   role_edit_div_clean();
+   }
+   
+   function sys_role_role_edit_div_clean(){
+	   rc.clean($('#role_edit_div'));
+   }
+   
+   //删除角色
+   function sys_role_deleterole(roleid){
+   	  if(roleid){
+   		layer.confirm('确定删除要此角色吗？', function(index){
+   			var url= "<c:url value='/sys/role/deleteRoleDataById/'/>"+roleid;
+   			rc.ajax(url, null,function (response) {
+   				if(response.success){
+   					$('#roletable').refreshtable();
+   					role_edit_div_clean();
+   				}else{
+   					alert(response.message);
+   				}
+   			});
+   		});
+   	  }else{
+   		layer.alert('请先选择一个你要删除的权限节点');
+   	  }
+   }
+   
    //树初绍化
-   function treeinit(){
-	  $.fn.zTree.init($("#tree-div"), setting);
+   function sys_role_treeinit(){
+	  $.fn.zTree.init($("#tree-div"), sys_role_setting);
 	  var zTree = $.fn.zTree.getZTreeObj("tree-div");
 	  zTree.expandAll(true)
    }
    
    //保存角色-权限数据
-   function saveRolePermData() {
+   function sys_role_saveRolePermData() {
 	   var roleid=$('#roleid').val();
 	   if(roleid){
 		    var zTree = $.fn.zTree.getZTreeObj("tree-div");
@@ -232,11 +223,10 @@
 		    for(i=0;i<nodes.length;i++){
 		       selectnodes+= nodes[i].id+",";
 		    }
-		    
 		    rc.ajax("<c:url value='/sys/role/saveroleperm'/>", {roleid:roleid,selectnodes:selectnodes},function (response) {
 		    	alert(response.message);
 		    	if(response.success){
-					treeinit();
+		    		sys_role_treeinit();
 				}
 			});  
 	   }else{

@@ -4,7 +4,8 @@
 <mapper namespace="com.insigma.mvc.dao.sysmanager.userrole.SysUserRoleMapper">
     <!-- 查询机构树数据 -->
     <select id="getAllGroupList"  resultType="SGroup" parameterType="String">
-		select groupid id ,'true' open, isparent,decode(isparent,'true','parent','leaf')  iconSkin,t.name from (select a.groupid,a.name, decode(sign((select count(*) from s_group s where s.parentid=a.groupid)),'1','true','false') isparent from s_group a where a.parentid=#{parentid}  order by a.groupid ) t
+		 select groupid id ,'true' open, isparent,t.name
+		 from (select a.groupid,a.name, decode(sign((select count(*) from s_group s where s.parentid=a.groupid)),'1','true','false') isparent from s_group a where a.parentid=#{parentid}  order by a.groupid ) t
 	</select>
 	
 	<!-- 通过机构id获取机构信息 -->
@@ -12,6 +13,8 @@
 	    select groupid,name,description from s_group t where t.groupid=#{groupid}
 	</select>
 	
+	
+	<!-- 通过机构id获取用户列表 -->
 	<select id="getUserListByGroupid" resultType="SUser" parameterType="String">
 	    select b.userid,
 	    b.username,
@@ -24,5 +27,28 @@
 	    and  a.groupid=#{groupid}
 	</select>
 	
+	<!-- 判断用户是否选择对应的角色 -->
+	<select id="getUserRoleByUserId" resultType="SRole" parameterType="String">
+	    select 
+		    roleid,
+		    name,
+		    code,
+	        describe, 
+	        decode(sign((select count(*) from s_user_role s where s.roleid=t.roleid and  s.userid=#{userid})),'1','true','false') checked
+        from s_role t 
+	</select>
 	
+
+    <!-- 通过用户id删除用户对应角色 -->	
+	<delete id="deleteUserRoleByUserId" parameterType="String" >
+	   delete from s_user_role t where t.userid=#{userid}
+	</delete>
+	
+	<!-- 保存用户角色 -->
+	<insert id="saveUserRole" parameterType="SRole">
+	    <selectKey resultType="java.lang.String" order="BEFORE" keyProperty="id"> 
+            SELECT sys_guid() from dual 
+        </selectKey>
+	    insert into s_user_role(id,userid,roleid) values (#{id},#{userid},#{roleid})
+	</insert>
 </mapper>
