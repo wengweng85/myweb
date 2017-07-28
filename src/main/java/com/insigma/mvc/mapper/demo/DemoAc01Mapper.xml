@@ -1,0 +1,587 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.insigma.mvc.dao.demo.DemoAc01Mapper">
+  <!-- 基本sql片段 -->
+  <sql id="Base_Column_List">
+    AAC001, AAC003, AAC002, AAC004, AAC005, AAC006, AAC033, AAC017, AAC024, AAC011, AAE006, 
+    AAC067, AAE015, AAC007, AAC027, ADC100, AAF011, AAE011, AAE036, AAZ002, AAE100, EAE052, 
+    AAE200, AAE202, AAE201, AAE203, AAA148, ADC300, AAC127, AAC032, AAC034, AAC035, AAC036, 
+    AAE013, AAB301, AAE009, AAE010, AAE198, AAE199, AAE132, AAE133, AAE134, AAE135, AAE102, 
+    ID, AAC128
+  </sql>
+  
+  
+  <!-- ac01查询 -->
+  <select id="getAc01List" parameterType="Ac01" resultType="Ac01">
+    select 
+    aac001,
+    aac002,
+    aac003,
+    (select CODE_NAME from code_value t where t.code_type='AAC004' AND CODE_VALUE=aac004) aac004,
+    (select CODE_NAME from code_value t where t.code_type='AAC005' AND CODE_VALUE=aac005) aac005,
+    aac006,
+    (select CODE_NAME from code_value t where t.code_type='AAC033' AND CODE_VALUE=aac033) aac033,
+    (select CODE_NAME from code_value t where t.code_type='AAC017' AND CODE_VALUE=aac017) aac017,
+    (select CODE_NAME from code_value t where t.code_type='AAC024' AND CODE_VALUE=aac024) aac024,
+    (select CODE_NAME from code_value t where t.code_type='AAC011' AND CODE_VALUE=aac011) aac011,
+    aae006,
+    aae009 
+    from AC01 
+    <where>
+      <if test="aac002!=null">
+        aac002=#{aac002}
+      </if>
+      <if test="aac003!=null">
+        and aac003 like '%'||#{aac003}||'%' 
+      </if>
+      <if test="aac004!=null">
+        and aac004=#{aac004}
+      </if>
+      <if test="aac005!=null">
+        and aac005=#{aac005}
+      </if>
+      <if test="aac011!=null">
+        and aac011=#{aac011}
+      </if>
+      <if test="aac006_begin!=null">
+        and aac006 <![CDATA[>= ]]>#{aac006_begin,jdbcType=DATE}
+      </if>
+      <if test="aac006_end!=null">
+        and aac006 <![CDATA[<= ]]>#{aac006_end,jdbcType=DATE}
+      </if>
+      <if test="aae009!=null">
+        and aae009 like '%'||#{aae009}||'%' 
+      </if>
+    </where>
+  </select>
+  
+  <!-- 通过主键查询 -->
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultType="Ac01">
+    select 
+    <include refid="Base_Column_List" />
+    from AC01
+    where AAC001 = #{aac001,jdbcType=VARCHAR}
+  </select>
+  
+  <!-- 通过主键删除 -->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from AC01
+    where AAC001 = #{aac001,jdbcType=VARCHAR}
+  </delete>
+  
+  <!-- 增加 -->
+  <insert id="insert" parameterType="Ac01">
+    insert into AC01 (AAC001, AAC003, AAC002, 
+      AAC004, AAC005, AAC006, 
+      AAC033, AAC017, AAC024, 
+      AAC011, AAE006, AAC067, 
+      AAE015, AAC007, AAC027, 
+      ADC100, AAF011, AAE011, 
+      AAE036, AAZ002, AAE100, 
+      EAE052, AAE200, AAE202, 
+      AAE201, AAE203, AAA148, 
+      ADC300, AAC127, AAC032, 
+      AAC034, AAC035, AAC036, 
+      AAE013, AAB301, AAE009, 
+      AAE010, AAE198, AAE199, 
+      AAE132, AAE133, AAE134, 
+      AAE135, AAE102, ID, AAC128
+      )
+    values (#{aac001,jdbcType=VARCHAR}, #{aac003,jdbcType=VARCHAR}, #{aac002,jdbcType=VARCHAR}, 
+      #{aac004,jdbcType=VARCHAR}, #{aac005,jdbcType=VARCHAR}, #{aac006,jdbcType=DATE}, 
+      #{aac033,jdbcType=VARCHAR}, #{aac017,jdbcType=VARCHAR}, #{aac024,jdbcType=VARCHAR}, 
+      #{aac011,jdbcType=VARCHAR}, #{aae006,jdbcType=VARCHAR}, #{aac067,jdbcType=VARCHAR}, 
+      #{aae015,jdbcType=VARCHAR}, #{aac007,jdbcType=VARCHAR}, #{aac027,jdbcType=VARCHAR}, 
+      #{adc100,jdbcType=VARCHAR}, #{aaf011,jdbcType=VARCHAR}, #{aae011,jdbcType=VARCHAR}, 
+      #{aae036,jdbcType=DATE}, #{aaz002,jdbcType=DECIMAL}, #{aae100,jdbcType=VARCHAR}, 
+      #{eae052,jdbcType=VARCHAR}, #{aae200,jdbcType=VARCHAR}, #{aae202,jdbcType=DATE}, 
+      #{aae201,jdbcType=VARCHAR}, #{aae203,jdbcType=VARCHAR}, #{aaa148,jdbcType=VARCHAR}, 
+      #{adc300,jdbcType=VARCHAR}, #{aac127,jdbcType=VARCHAR}, #{aac032,jdbcType=VARCHAR}, 
+      #{aac034,jdbcType=DECIMAL}, #{aac035,jdbcType=DECIMAL}, #{aac036,jdbcType=VARCHAR}, 
+      #{aae013,jdbcType=VARCHAR}, #{aab301,jdbcType=VARCHAR}, #{aae009,jdbcType=VARCHAR}, 
+      #{aae010,jdbcType=VARCHAR}, #{aae198,jdbcType=VARCHAR}, #{aae199,jdbcType=VARCHAR}, 
+      #{aae132,jdbcType=VARCHAR}, #{aae133,jdbcType=VARCHAR}, #{aae134,jdbcType=VARCHAR}, 
+      #{aae135,jdbcType=VARCHAR}, #{aae102,jdbcType=DATE}, #{id,jdbcType=VARCHAR}, #{aac128,jdbcType=VARCHAR}
+      )
+  </insert>
+  
+  <!-- insertSelective -->
+  <insert id="insertSelective" parameterType="Ac01">
+    insert into AC01
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="aac001 != null">
+        AAC001,
+      </if>
+      <if test="aac003 != null">
+        AAC003,
+      </if>
+      <if test="aac002 != null">
+        AAC002,
+      </if>
+      <if test="aac004 != null">
+        AAC004,
+      </if>
+      <if test="aac005 != null">
+        AAC005,
+      </if>
+      <if test="aac006 != null">
+        AAC006,
+      </if>
+      <if test="aac033 != null">
+        AAC033,
+      </if>
+      <if test="aac017 != null">
+        AAC017,
+      </if>
+      <if test="aac024 != null">
+        AAC024,
+      </if>
+      <if test="aac011 != null">
+        AAC011,
+      </if>
+      <if test="aae006 != null">
+        AAE006,
+      </if>
+      <if test="aac067 != null">
+        AAC067,
+      </if>
+      <if test="aae015 != null">
+        AAE015,
+      </if>
+      <if test="aac007 != null">
+        AAC007,
+      </if>
+      <if test="aac027 != null">
+        AAC027,
+      </if>
+      <if test="adc100 != null">
+        ADC100,
+      </if>
+      <if test="aaf011 != null">
+        AAF011,
+      </if>
+      <if test="aae011 != null">
+        AAE011,
+      </if>
+      <if test="aae036 != null">
+        AAE036,
+      </if>
+      <if test="aaz002 != null">
+        AAZ002,
+      </if>
+      <if test="aae100 != null">
+        AAE100,
+      </if>
+      <if test="eae052 != null">
+        EAE052,
+      </if>
+      <if test="aae200 != null">
+        AAE200,
+      </if>
+      <if test="aae202 != null">
+        AAE202,
+      </if>
+      <if test="aae201 != null">
+        AAE201,
+      </if>
+      <if test="aae203 != null">
+        AAE203,
+      </if>
+      <if test="aaa148 != null">
+        AAA148,
+      </if>
+      <if test="adc300 != null">
+        ADC300,
+      </if>
+      <if test="aac127 != null">
+        AAC127,
+      </if>
+      <if test="aac032 != null">
+        AAC032,
+      </if>
+      <if test="aac034 != null">
+        AAC034,
+      </if>
+      <if test="aac035 != null">
+        AAC035,
+      </if>
+      <if test="aac036 != null">
+        AAC036,
+      </if>
+      <if test="aae013 != null">
+        AAE013,
+      </if>
+      <if test="aab301 != null">
+        AAB301,
+      </if>
+      <if test="aae009 != null">
+        AAE009,
+      </if>
+      <if test="aae010 != null">
+        AAE010,
+      </if>
+      <if test="aae198 != null">
+        AAE198,
+      </if>
+      <if test="aae199 != null">
+        AAE199,
+      </if>
+      <if test="aae132 != null">
+        AAE132,
+      </if>
+      <if test="aae133 != null">
+        AAE133,
+      </if>
+      <if test="aae134 != null">
+        AAE134,
+      </if>
+      <if test="aae135 != null">
+        AAE135,
+      </if>
+      <if test="aae102 != null">
+        AAE102,
+      </if>
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="aac128 != null">
+        AAC128,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="aac001 != null">
+        #{aac001,jdbcType=VARCHAR},
+      </if>
+      <if test="aac003 != null">
+        #{aac003,jdbcType=VARCHAR},
+      </if>
+      <if test="aac002 != null">
+        #{aac002,jdbcType=VARCHAR},
+      </if>
+      <if test="aac004 != null">
+        #{aac004,jdbcType=VARCHAR},
+      </if>
+      <if test="aac005 != null">
+        #{aac005,jdbcType=VARCHAR},
+      </if>
+      <if test="aac006 != null">
+        #{aac006,jdbcType=DATE},
+      </if>
+      <if test="aac033 != null">
+        #{aac033,jdbcType=VARCHAR},
+      </if>
+      <if test="aac017 != null">
+        #{aac017,jdbcType=VARCHAR},
+      </if>
+      <if test="aac024 != null">
+        #{aac024,jdbcType=VARCHAR},
+      </if>
+      <if test="aac011 != null">
+        #{aac011,jdbcType=VARCHAR},
+      </if>
+      <if test="aae006 != null">
+        #{aae006,jdbcType=VARCHAR},
+      </if>
+      <if test="aac067 != null">
+        #{aac067,jdbcType=VARCHAR},
+      </if>
+      <if test="aae015 != null">
+        #{aae015,jdbcType=VARCHAR},
+      </if>
+      <if test="aac007 != null">
+        #{aac007,jdbcType=VARCHAR},
+      </if>
+      <if test="aac027 != null">
+        #{aac027,jdbcType=VARCHAR},
+      </if>
+      <if test="adc100 != null">
+        #{adc100,jdbcType=VARCHAR},
+      </if>
+      <if test="aaf011 != null">
+        #{aaf011,jdbcType=VARCHAR},
+      </if>
+      <if test="aae011 != null">
+        #{aae011,jdbcType=VARCHAR},
+      </if>
+      <if test="aae036 != null">
+        #{aae036,jdbcType=DATE},
+      </if>
+      <if test="aaz002 != null">
+        #{aaz002,jdbcType=DECIMAL},
+      </if>
+      <if test="aae100 != null">
+        #{aae100,jdbcType=VARCHAR},
+      </if>
+      <if test="eae052 != null">
+        #{eae052,jdbcType=VARCHAR},
+      </if>
+      <if test="aae200 != null">
+        #{aae200,jdbcType=VARCHAR},
+      </if>
+      <if test="aae202 != null">
+        #{aae202,jdbcType=DATE},
+      </if>
+      <if test="aae201 != null">
+        #{aae201,jdbcType=VARCHAR},
+      </if>
+      <if test="aae203 != null">
+        #{aae203,jdbcType=VARCHAR},
+      </if>
+      <if test="aaa148 != null">
+        #{aaa148,jdbcType=VARCHAR},
+      </if>
+      <if test="adc300 != null">
+        #{adc300,jdbcType=VARCHAR},
+      </if>
+      <if test="aac127 != null">
+        #{aac127,jdbcType=VARCHAR},
+      </if>
+      <if test="aac032 != null">
+        #{aac032,jdbcType=VARCHAR},
+      </if>
+      <if test="aac034 != null">
+        #{aac034,jdbcType=DECIMAL},
+      </if>
+      <if test="aac035 != null">
+        #{aac035,jdbcType=DECIMAL},
+      </if>
+      <if test="aac036 != null">
+        #{aac036,jdbcType=VARCHAR},
+      </if>
+      <if test="aae013 != null">
+        #{aae013,jdbcType=VARCHAR},
+      </if>
+      <if test="aab301 != null">
+        #{aab301,jdbcType=VARCHAR},
+      </if>
+      <if test="aae009 != null">
+        #{aae009,jdbcType=VARCHAR},
+      </if>
+      <if test="aae010 != null">
+        #{aae010,jdbcType=VARCHAR},
+      </if>
+      <if test="aae198 != null">
+        #{aae198,jdbcType=VARCHAR},
+      </if>
+      <if test="aae199 != null">
+        #{aae199,jdbcType=VARCHAR},
+      </if>
+      <if test="aae132 != null">
+        #{aae132,jdbcType=VARCHAR},
+      </if>
+      <if test="aae133 != null">
+        #{aae133,jdbcType=VARCHAR},
+      </if>
+      <if test="aae134 != null">
+        #{aae134,jdbcType=VARCHAR},
+      </if>
+      <if test="aae135 != null">
+        #{aae135,jdbcType=VARCHAR},
+      </if>
+      <if test="aae102 != null">
+        #{aae102,jdbcType=DATE},
+      </if>
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="aac128 != null">
+        #{aac128,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <!-- 动态更新 -->
+  <update id="updateByPrimaryKeySelective" parameterType="Ac01">
+    update AC01
+    <set>
+      <if test="aac003 != null">
+        AAC003 = #{aac003,jdbcType=VARCHAR},
+      </if>
+      <if test="aac002 != null">
+        AAC002 = #{aac002,jdbcType=VARCHAR},
+      </if>
+      <if test="aac004 != null">
+        AAC004 = #{aac004,jdbcType=VARCHAR},
+      </if>
+      <if test="aac005 != null">
+        AAC005 = #{aac005,jdbcType=VARCHAR},
+      </if>
+      <if test="aac006 != null">
+        AAC006 = #{aac006,jdbcType=DATE},
+      </if>
+      <if test="aac033 != null">
+        AAC033 = #{aac033,jdbcType=VARCHAR},
+      </if>
+      <if test="aac017 != null">
+        AAC017 = #{aac017,jdbcType=VARCHAR},
+      </if>
+      <if test="aac024 != null">
+        AAC024 = #{aac024,jdbcType=VARCHAR},
+      </if>
+      <if test="aac011 != null">
+        AAC011 = #{aac011,jdbcType=VARCHAR},
+      </if>
+      <if test="aae006 != null">
+        AAE006 = #{aae006,jdbcType=VARCHAR},
+      </if>
+      <if test="aac067 != null">
+        AAC067 = #{aac067,jdbcType=VARCHAR},
+      </if>
+      <if test="aae015 != null">
+        AAE015 = #{aae015,jdbcType=VARCHAR},
+      </if>
+      <if test="aac007 != null">
+        AAC007 = #{aac007,jdbcType=VARCHAR},
+      </if>
+      <if test="aac027 != null">
+        AAC027 = #{aac027,jdbcType=VARCHAR},
+      </if>
+      <if test="adc100 != null">
+        ADC100 = #{adc100,jdbcType=VARCHAR},
+      </if>
+      <if test="aaf011 != null">
+        AAF011 = #{aaf011,jdbcType=VARCHAR},
+      </if>
+      <if test="aae011 != null">
+        AAE011 = #{aae011,jdbcType=VARCHAR},
+      </if>
+      <if test="aae036 != null">
+        AAE036 = #{aae036,jdbcType=DATE},
+      </if>
+      <if test="aaz002 != null">
+        AAZ002 = #{aaz002,jdbcType=DECIMAL},
+      </if>
+      <if test="aae100 != null">
+        AAE100 = #{aae100,jdbcType=VARCHAR},
+      </if>
+      <if test="eae052 != null">
+        EAE052 = #{eae052,jdbcType=VARCHAR},
+      </if>
+      <if test="aae200 != null">
+        AAE200 = #{aae200,jdbcType=VARCHAR},
+      </if>
+      <if test="aae202 != null">
+        AAE202 = #{aae202,jdbcType=DATE},
+      </if>
+      <if test="aae201 != null">
+        AAE201 = #{aae201,jdbcType=VARCHAR},
+      </if>
+      <if test="aae203 != null">
+        AAE203 = #{aae203,jdbcType=VARCHAR},
+      </if>
+      <if test="aaa148 != null">
+        AAA148 = #{aaa148,jdbcType=VARCHAR},
+      </if>
+      <if test="adc300 != null">
+        ADC300 = #{adc300,jdbcType=VARCHAR},
+      </if>
+      <if test="aac127 != null">
+        AAC127 = #{aac127,jdbcType=VARCHAR},
+      </if>
+      <if test="aac032 != null">
+        AAC032 = #{aac032,jdbcType=VARCHAR},
+      </if>
+      <if test="aac034 != null">
+        AAC034 = #{aac034,jdbcType=DECIMAL},
+      </if>
+      <if test="aac035 != null">
+        AAC035 = #{aac035,jdbcType=DECIMAL},
+      </if>
+      <if test="aac036 != null">
+        AAC036 = #{aac036,jdbcType=VARCHAR},
+      </if>
+      <if test="aae013 != null">
+        AAE013 = #{aae013,jdbcType=VARCHAR},
+      </if>
+      <if test="aab301 != null">
+        AAB301 = #{aab301,jdbcType=VARCHAR},
+      </if>
+      <if test="aae009 != null">
+        AAE009 = #{aae009,jdbcType=VARCHAR},
+      </if>
+      <if test="aae010 != null">
+        AAE010 = #{aae010,jdbcType=VARCHAR},
+      </if>
+      <if test="aae198 != null">
+        AAE198 = #{aae198,jdbcType=VARCHAR},
+      </if>
+      <if test="aae199 != null">
+        AAE199 = #{aae199,jdbcType=VARCHAR},
+      </if>
+      <if test="aae132 != null">
+        AAE132 = #{aae132,jdbcType=VARCHAR},
+      </if>
+      <if test="aae133 != null">
+        AAE133 = #{aae133,jdbcType=VARCHAR},
+      </if>
+      <if test="aae134 != null">
+        AAE134 = #{aae134,jdbcType=VARCHAR},
+      </if>
+      <if test="aae135 != null">
+        AAE135 = #{aae135,jdbcType=VARCHAR},
+      </if>
+      <if test="aae102 != null">
+        AAE102 = #{aae102,jdbcType=DATE},
+      </if>
+      <if test="id != null">
+        ID = #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="aac128 != null">
+        AAC128 = #{aac128,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where AAC001 = #{aac001,jdbcType=VARCHAR}
+  </update>
+  
+  <!-- 通过主键更新 -->
+  <update id="updateByPrimaryKey" parameterType="Ac01">
+    update AC01
+    set AAC003 = #{aac003,jdbcType=VARCHAR},
+      AAC002 = #{aac002,jdbcType=VARCHAR},
+      AAC004 = #{aac004,jdbcType=VARCHAR},
+      AAC005 = #{aac005,jdbcType=VARCHAR},
+      AAC006 = #{aac006,jdbcType=DATE},
+      AAC033 = #{aac033,jdbcType=VARCHAR},
+      AAC017 = #{aac017,jdbcType=VARCHAR},
+      AAC024 = #{aac024,jdbcType=VARCHAR},
+      AAC011 = #{aac011,jdbcType=VARCHAR},
+      AAE006 = #{aae006,jdbcType=VARCHAR},
+      AAC067 = #{aac067,jdbcType=VARCHAR},
+      AAE015 = #{aae015,jdbcType=VARCHAR},
+      AAC007 = #{aac007,jdbcType=VARCHAR},
+      AAC027 = #{aac027,jdbcType=VARCHAR},
+      ADC100 = #{adc100,jdbcType=VARCHAR},
+      AAF011 = #{aaf011,jdbcType=VARCHAR},
+      AAE011 = #{aae011,jdbcType=VARCHAR},
+      AAE036 = #{aae036,jdbcType=DATE},
+      AAZ002 = #{aaz002,jdbcType=DECIMAL},
+      AAE100 = #{aae100,jdbcType=VARCHAR},
+      EAE052 = #{eae052,jdbcType=VARCHAR},
+      AAE200 = #{aae200,jdbcType=VARCHAR},
+      AAE202 = #{aae202,jdbcType=DATE},
+      AAE201 = #{aae201,jdbcType=VARCHAR},
+      AAE203 = #{aae203,jdbcType=VARCHAR},
+      AAA148 = #{aaa148,jdbcType=VARCHAR},
+      ADC300 = #{adc300,jdbcType=VARCHAR},
+      AAC127 = #{aac127,jdbcType=VARCHAR},
+      AAC032 = #{aac032,jdbcType=VARCHAR},
+      AAC034 = #{aac034,jdbcType=DECIMAL},
+      AAC035 = #{aac035,jdbcType=DECIMAL},
+      AAC036 = #{aac036,jdbcType=VARCHAR},
+      AAE013 = #{aae013,jdbcType=VARCHAR},
+      AAB301 = #{aab301,jdbcType=VARCHAR},
+      AAE009 = #{aae009,jdbcType=VARCHAR},
+      AAE010 = #{aae010,jdbcType=VARCHAR},
+      AAE198 = #{aae198,jdbcType=VARCHAR},
+      AAE199 = #{aae199,jdbcType=VARCHAR},
+      AAE132 = #{aae132,jdbcType=VARCHAR},
+      AAE133 = #{aae133,jdbcType=VARCHAR},
+      AAE134 = #{aae134,jdbcType=VARCHAR},
+      AAE135 = #{aae135,jdbcType=VARCHAR},
+      AAE102 = #{aae102,jdbcType=DATE},
+      ID = #{id,jdbcType=VARCHAR},
+      AAC128 = #{aac128,jdbcType=VARCHAR}
+    where AAC001 = #{aac001,jdbcType=VARCHAR}
+  </update>
+  
+</mapper>

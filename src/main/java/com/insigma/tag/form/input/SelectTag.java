@@ -34,6 +34,75 @@ public class SelectTag implements Tag {
 
 	// 校验规则
 	private String validate;
+	
+	
+	//onclick事件
+	private String onclick;
+	
+	//onchange事件
+	private String onchange;
+	
+	//onblur事件
+	private String onblur;
+	
+	//onkeydown事件
+	private String onkeydown;
+	
+	//onkeypress事件
+	private String onkeypress;
+	
+	//onkeyup事件
+	private String onkeyup;
+	
+	
+
+	public String getOnclick() {
+		return onclick;
+	}
+
+	public void setOnclick(String onclick) {
+		this.onclick = onclick;
+	}
+
+	public String getOnchange() {
+		return onchange;
+	}
+
+	public void setOnchange(String onchange) {
+		this.onchange = onchange;
+	}
+
+	public String getOnblur() {
+		return onblur;
+	}
+
+	public void setOnblur(String onblur) {
+		this.onblur = onblur;
+	}
+
+	public String getOnkeydown() {
+		return onkeydown;
+	}
+
+	public void setOnkeydown(String onkeydown) {
+		this.onkeydown = onkeydown;
+	}
+
+	public String getOnkeypress() {
+		return onkeypress;
+	}
+
+	public void setOnkeypress(String onkeypress) {
+		this.onkeypress = onkeypress;
+	}
+
+	public String getOnkeyup() {
+		return onkeyup;
+	}
+
+	public void setOnkeyup(String onkeyup) {
+		this.onkeyup = onkeyup;
+	}
 
 	public void setCodetype(String codetype) {
 		this.codetype = codetype;
@@ -85,10 +154,36 @@ public class SelectTag implements Tag {
 		// TODO Auto-generated method stub
 		JspWriter out = pageContext.getOut();
 		StringBuffer sb = new StringBuffer();
-		sb.append("<select class=\"form-control selectpicker \" id=\"" + property+ "\" name=\"" + property + "\"  value=\"" + value+ "\"   data-live-search=\"true\"  validate=\"" + validate+ "\">");
+		sb.append("<select class=\"form-control selectpicker \" id=\"" + property+ "\" name=\"" + property + "\"  value=\"" + value+ "\"   data-live-search=\"true\"  validate=\"" + validate+ "\" ");
+		//onclick事件
+		 if(onclick!=null){
+			  sb.append(" onclick=\""+onclick+"\" ");
+		 }
+		 //onblur
+		 if(onblur!=null){
+			  sb.append(" onblur=\""+onblur+"\" ");
+		 }
+		 //onkeypress
+		 if(onkeypress!=null){
+			  sb.append(" onkeypress=\""+onkeypress+"\" ");
+		 }
+		//onkeydown
+		 if(onkeydown!=null){
+			  sb.append(" onkeydown=\""+onkeydown+"\" ");
+		 }
+		//onkeyup
+		 if(onkeyup!=null){
+			  sb.append(" onkeyup=\""+onkeyup+"\" ");
+		 }
+		//onchange
+		 if(onchange!=null){
+			  sb.append(" onchange=\""+onchange+"\" ");
+		 }
+		 sb.append(">");
+		
+		
 		// 从EhCache获取下载
-		Element element = EhCacheUtil.getManager().getCache("webcache")
-				.get(codetype);
+		Element element = EhCacheUtil.getManager().getCache("webcache").get(codetype);
 		if (element != null) {
 			List<CodeValue> list = (List<CodeValue>) element.getValue();
 			sb.append("<option value=\"\"></option> ");

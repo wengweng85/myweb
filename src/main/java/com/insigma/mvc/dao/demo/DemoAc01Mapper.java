@@ -1,0 +1,22 @@
+package com.insigma.mvc.dao.demo;
+
+import java.util.List;
+
+import com.insigma.mvc.model.Ac01;
+
+public interface DemoAc01Mapper {
+	
+	List<Ac01> getAc01List(Ac01 ac01 );
+	
+    int deleteByPrimaryKey(String aac001);
+
+    int insert(Ac01 record);
+
+    int insertSelective(Ac01 record);
+
+    Ac01 selectByPrimaryKey(String aac001);
+
+    int updateByPrimaryKeySelective(Ac01 record);
+
+    int updateByPrimaryKey(Ac01 record);
+}

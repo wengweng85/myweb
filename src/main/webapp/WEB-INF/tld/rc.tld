@@ -47,6 +47,42 @@
 	        <required>false</required>
 	        <rtexprvalue>true</rtexprvalue>
 	    </attribute>
+	    <attribute>
+	        <description>onchange</description>
+	        <name>onchange</name>
+	        <required>false</required>
+	        <rtexprvalue>true</rtexprvalue>
+	    </attribute>
+	    <attribute>
+	        <description>onclick</description>
+	        <name>onclick</name>
+	        <required>false</required>
+	        <rtexprvalue>true</rtexprvalue>
+	    </attribute>
+	    <attribute>
+	        <description>onblur</description>
+	        <name>onblur</name>
+	        <required>false</required>
+	        <rtexprvalue>true</rtexprvalue>
+	    </attribute>
+	    <attribute>
+	        <description>onkeypress</description>
+	        <name>onkeypress</name>
+	        <required>false</required>
+	        <rtexprvalue>true</rtexprvalue>
+	    </attribute>
+	    <attribute>
+	        <description>onkeydown</description>
+	        <name>onkeydown</name>
+	        <required>false</required>
+	        <rtexprvalue>true</rtexprvalue>
+	    </attribute>
+	    <attribute>
+	        <description>onkeyup</description>
+	        <name>onkeyup</name>
+	        <required>false</required>
+	        <rtexprvalue>true</rtexprvalue>
+	    </attribute>
 	    <body-content>empty</body-content>  
     </tag>  
     
@@ -150,6 +186,42 @@
 	    <attribute>
 	        <description>是否只读</description>
 	        <name>readonly</name>
+	        <required>false</required>
+	        <rtexprvalue>true</rtexprvalue>
+	    </attribute>
+	    <attribute>
+	        <description>onchange</description>
+	        <name>onchange</name>
+	        <required>false</required>
+	        <rtexprvalue>true</rtexprvalue>
+	    </attribute>
+	    <attribute>
+	        <description>onclick</description>
+	        <name>onclick</name>
+	        <required>false</required>
+	        <rtexprvalue>true</rtexprvalue>
+	    </attribute>
+	    <attribute>
+	        <description>onblur</description>
+	        <name>onblur</name>
+	        <required>false</required>
+	        <rtexprvalue>true</rtexprvalue>
+	    </attribute>
+	    <attribute>
+	        <description>onkeypress</description>
+	        <name>onkeypress</name>
+	        <required>false</required>
+	        <rtexprvalue>true</rtexprvalue>
+	    </attribute>
+	    <attribute>
+	        <description>onkeydown</description>
+	        <name>onkeydown</name>
+	        <required>false</required>
+	        <rtexprvalue>true</rtexprvalue>
+	    </attribute>
+	    <attribute>
+	        <description>onkeyup</description>
+	        <name>onkeyup</name>
 	        <required>false</required>
 	        <rtexprvalue>true</rtexprvalue>
 	    </attribute>

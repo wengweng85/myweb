@@ -3,6 +3,8 @@
 "http://mybatis.org/dtd/mybatis-3-config.dtd">  
 <configuration>
     <settings>
+        <!-- sql超时时间 -->
+        <setting name="defaultStatementTimeout" value="2"/> 
         <!-- 打印查询语句 -->
         <setting name="logImpl" value="STDOUT_LOGGING" />
         <setting name="cacheEnabled" value="true" />  

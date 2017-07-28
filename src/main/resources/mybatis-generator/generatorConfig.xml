@@ -7,7 +7,7 @@
             <property name="suppressDate" value="false"/>
             <property name="suppressAllComments" value="true"/>
         </commentGenerator>
-        <jdbcConnection driverClass="oracle.jdbc.driver.OracleDriver" connectionURL="jdbc:oracle:thin:@127.0.0.1:1521:orcl" userId="dragdemo"  password="dragdemo"/>
+        <jdbcConnection driverClass="oracle.jdbc.driver.OracleDriver" connectionURL="jdbc:oracle:thin:@127.0.0.1:1521:orcl" userId="sxjydsm"  password="sxjydsm"/>
 
         <javaModelGenerator targetPackage="com.insigma.mvc.model"  targetProject="src/main/java">
             <property name="enableSubPackages" value="true"/>
@@ -22,7 +22,7 @@
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
         
-        <table tableName="S_LOG" domainObjectName="SLog"
+        <table tableName="AC01" domainObjectName="Ac01"
                enableCountByExample="false" 
                enableUpdateByExample="false"
                enableDeleteByExample="false" 

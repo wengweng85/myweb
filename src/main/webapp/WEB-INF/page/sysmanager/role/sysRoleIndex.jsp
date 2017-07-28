@@ -180,7 +180,7 @@
    //新增权限
    function sys_role_addnewrole(){
    	   //右边编辑区域清空
-	   role_edit_div_clean();
+	   sys_role_role_edit_div_clean();
    }
    
    function sys_role_role_edit_div_clean(){

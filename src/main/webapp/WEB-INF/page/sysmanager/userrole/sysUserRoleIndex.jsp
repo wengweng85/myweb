@@ -34,12 +34,15 @@
 								<!-- 隐藏区域 -->
 								<rc:hidden property="groupid"/>
 								<div class="form-group">
-									<label class="col-sm-2 control-label">机构名称</label>
-									<div class="col-sm-3">
+									<label class="col-sm-3 control-label">机构名称</label>
+									<div class="col-sm-9">
 										<rc:textedit property="name" readonly="true" />
 									</div>
-									<label class="col-sm-2 control-label">机构描述</label>
-									<div class="col-sm-5">
+								</div>
+								<div class="hr-line-dashed"></div>
+								<div class="form-group">
+									<label class="col-sm-3 control-label">机构描述</label>
+									<div class="col-sm-9">
 										<rc:textedit property="description" readonly="true" />
 									</div>
 								</div>
@@ -98,16 +101,19 @@
 						<h5>用户信息</h5>
 					</div>
 					<div class="ibox-content" >
-						<form class="form-horizontal" id="group_form">
+						<form class="form-horizontal" id="user_form">
 							<!-- 隐藏区域 -->
 							<rc:hidden property="userid"/>
 							<div class="form-group">
-								<label class="col-sm-2 control-label">用户名</label>
-								<div class="col-sm-4">
+								<label class="col-sm-3 control-label">用户名</label>
+								<div class="col-sm-9">
 									<rc:textedit property="username" readonly="true" />
 								</div>
-								<label class="col-sm-2 control-label">姓名</label>
-								<div class="col-sm-4">
+							</div>
+							<div class="hr-line-dashed"></div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">姓名</label>
+								<div class="col-sm-9">
 									<rc:textedit property="cnname" readonly="true" />
 								</div>
 							</div>
@@ -240,8 +246,7 @@ function sys_user_role_batchAddUserRole(){
 			   for(i=0;i<selections.length;i++){
 	     	   var item=selections[i];
 	     	   selectnodes+=item.roleid+',';
-	        }
-	 	   console.log(selectnodes);
+	       }
 		   rc.ajax("<c:url value='/sys/userrole/saveUserRole'/>", {userid:userid,selectnodes:selectnodes},function (response) {
 		    	alert(response.message);
 		    	$('#usertable').refreshtable();

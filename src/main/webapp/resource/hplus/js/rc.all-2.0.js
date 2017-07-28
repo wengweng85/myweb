@@ -43,19 +43,13 @@ $(function() {
 
 $.fn.serializeObject = function()    
 {    
-   var o = {};    
-   var a = this.serializeArray(); 
-   $.each(a, function() {    
-       if (o[this.name]) {    
-           if (!o[this.name].push) {    
-               o[this.name] = [o[this.name]];    
-           }    
-           o[this.name].push(this.value || '');    
-       } else {    
-           o[this.name] = this.value || '';    
-       }    
-   });    
-   return o;    
+    var obj=new Object();  
+    $.each(this.serializeArray(),function(index,param){  
+        if(!(param.name in obj) && param.value){  
+            obj[param.name]=param.value;  
+        }  
+    });  
+    return obj;  
 };
 
 var rc = {
@@ -1319,15 +1313,6 @@ function jiangese_set(tabid,start,color1,color2){
 	};
 })(jQuery);
 
-
-//重置
-function reset(str){
-	var ids = str.split(',');
-	for(var i=0; i<ids.length; i++){
-		$('#'+ids[i]).val('');
-	}
-}
-
 /**
  * 
  * jQuery 基于 bootstrape table 插件
@@ -1342,7 +1327,7 @@ function reset(str){
 		 var _this = $(this);
 		 _this.options=$.extend({},$.fn.inittable.defaults,options);
 	     _this.bootstrapTable({
-	        method: 'get',
+	        method: 'post',
 	        //url:_this.options.url,//要请求数据的文件路径
 	        //height:_this.css('height'),//高度调整
 	        //toolbar: '#toolbar',//指定工具栏
@@ -1356,9 +1341,11 @@ function reset(str){
 	        	}
 	        },
 	        pagination:true,//是否分页
+	        async:false,
+	        contentType: "application/x-www-form-urlencoded",//必须要有！！！！
 	        queryParamsType:'limit',//查询参数组织方式
 	        sidePagination:'server',//指定服务器端分页
-	        pageList:[5,10,20,30,50,100,'ALL'],//分页步进值
+	        pageList:[5,10,20,30,50],//分页步进值
 	        showRefresh:false,//刷新按钮
 	        showColumns:false,//显示列选择框
 	        //clickToSelect: false,//是否启用点击选中行

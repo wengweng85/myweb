@@ -36,7 +36,20 @@
                         <span class="text-muted text-xs block">欢迎您:${suser.cnname}</span>
                     </li>
                     <shiro:user>
-                     <shiro:hasRole name="admin">
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-star"></i>
+                            <span class="nav-label">测试页面</span>
+                            <span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a class="J_menuItem" href="<c:url value='/demo/index'/>" data-index="1">测试页面</a>
+                            </li>
+                        </ul>
+                    </li>
+                    
+                    <shiro:hasRole name="admin">
                     <li>
                         <a href="#">
                             <i class="fa fa-bar-chart-o"></i>
