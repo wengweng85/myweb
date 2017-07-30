@@ -11,12 +11,6 @@
  *
  */
 $(function() {
-	
-	/**通用下拉框架配置*/
-	var select_config = {
-		".selectpicker" : {}
-	};
-	
 	/**通用日期配置*/
 	var date_config = {
 		".form_date" : {}
@@ -29,10 +23,6 @@ $(function() {
 	var time_config = {
 		".form_time" : {}
 	};
-	
-	for (var selector in select_config){
-		$(selector).selectpicker()
-	}
 	
 	for (var selector in date_config){
 		$(selector).datetimepicker({

@@ -142,7 +142,7 @@ public class TextEditIconTag implements Tag {
 	     sb.append("<input type=\"hidden\" id=\""+property+"\" name=\""+property+"\"  value=\""+value+"\" >");
 	     sb.append("<input type=\"text\" id=\""+property+"_value\" name=\""+property+"_value\"  value=\""+value_name+"\"  readonly=\"readonly\" class=\"form-control\"> ");
 	     sb.append("<span class=\"input-group-btn\"> ");
-	     sb.append("<button type=\"button\" onclick=\""+property+"_clean_select()\" class=\"btn btn-warning\"><i class=\"fa fa-remove\"></i></button>&nbsp;");
+	     sb.append("<button type=\"button\" onclick=\""+property+"_clean_select()\" class=\"btn btn-default\"><i class=\"fa fa-remove\"></i></button>&nbsp;");
 	     sb.append("<button type=\"button\" onclick=\""+property+"_open_select()\" class=\"btn btn-primary\"><i class=\"fa fa-search\"></i></button>");
 	     sb.append("</span>");
 	     sb.append("</div> </div>");

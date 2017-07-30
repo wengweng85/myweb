@@ -110,8 +110,13 @@ public class Ac01  extends PageInfo implements java.io.Serializable  {
 
     @NotNull(message="学历不能为空")
     private String aac011;
+    
+    private String [] a_aac011;
+    
 
-    @NotNull(message="联系电话不能为空")
+   
+
+	@NotNull(message="联系电话不能为空")
     private String aae006;
 
     private String aac067;
@@ -162,6 +167,14 @@ public class Ac01  extends PageInfo implements java.io.Serializable  {
     private Integer aac035;
     
     private String aab301;
+    
+    public String[] getA_aac011() {
+		return a_aac011;
+	}
+
+	public void setA_aac011(String[] a_aac011) {
+		this.a_aac011 = a_aac011;
+	}
 
     public String getAab301() {
 		return aab301;

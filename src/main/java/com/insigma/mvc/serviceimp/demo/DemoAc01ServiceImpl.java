@@ -38,6 +38,9 @@ public class DemoAc01ServiceImpl extends MvcHelper implements DemoAc01Service {
 	@Override
 	public HashMap<String, Object> getAc01List(Ac01 ac01) {
 		PageHelper.offsetPage(ac01.getOffset(), ac01.getLimit());
+		if(StringUtils.isNotEmpty(ac01.getAac011())){
+			ac01.setA_aac011(ac01.getAac011().split(","));
+		}
 		List<Ac01> list=demoAc01Mapper.getAc01List(ac01);
 		PageInfo<Ac01> pageinfo = new PageInfo<Ac01>(list);
 		return this.success_hashmap_response(pageinfo);
