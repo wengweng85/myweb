@@ -22,7 +22,7 @@ public interface LoginMapper {
 	 * @return 用户表
 	 * @throws Exception 
 	 */
-	public SUser getUser(String loginname) throws Exception ;
+	public SUser getUserAndGroupInfo(String loginname) throws Exception ;
 	
 	/**
 	 * 通过用户id获取用户角色集合

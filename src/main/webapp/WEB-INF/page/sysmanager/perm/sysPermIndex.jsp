@@ -1,13 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=gbk" pageEncoding="gbk"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"  pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c"%>
-<%@ taglib uri="http://www.rc.com/rctag" prefix="rc"%>
+<%@ taglib uri="http://www.epsoft.com/rctag" prefix="rc"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>È¨ÏŞ¹ÜÀí</title>
-<!-- cssÍ·ÎÄ¼ş  -->
+<title>æƒé™ç®¡ç†</title>
+<!-- csså¤´æ–‡ä»¶  -->
 <rc:csshead/>
 </head>
 <body class="gray-bg">
@@ -15,10 +15,10 @@
        <div class="col-sm-3">
 			<div class="ibox float-e-margins">
 				<div class="ibox-title">
-					<h5>È¨ÏŞÁĞ±íÊ÷Çø</h5>
+					<h5>æƒé™åˆ—è¡¨æ ‘åŒº</h5>
 					<div class="ibox-tools">
-                        <a onclick="_sys_perm_addnewperm()" class="btn btn-primary btn-xs">ĞÂÔöÈ¨ÏŞ</a>
-                        <a onclick="_sys_perm_deleteperm()" class="btn btn-danger btn-xs">É¾³ıÈ¨ÏŞ</a>
+                        <a onclick="sys_perm_addnewperm()" class="btn btn-primary btn-xs"><i class="fa fa-plus"></i>&nbsp;æ–°å¢æƒé™</a>
+                        <a onclick="sys_perm_deleteperm()" class="btn btn-danger btn-xs"><i class="fa fa-remove"></i>&nbsp;åˆ é™¤æƒé™</a>
                     </div>
 				</div>
 				<div class="ibox-content">
@@ -30,103 +30,77 @@
 		<div class="col-sm-9">
 			<div class="ibox float-e-margins">
 				<div class="ibox-title">
-					<h5>È¨ÏŞ±à¼­Çø</h5>
+					<h5>æƒé™ç¼–è¾‘åŒº</h5>
 				</div>
 				<div class="ibox-content">
 				<form action="<c:url value='/sys/perm/saveorupdate'/>"  class="form-horizontal" method="post" id="myform">
                            <rc:hidden property="permissionid"/>
                            <rc:hidden property="parentid" />
                            <div class="form-group">
-                               <label class="col-sm-2 control-label">ÉÏ¼¶È¨ÏŞÃû³Æ </label>
-                               <div class="col-sm-10">
-                                    <rc:textedit property="parentname" readonly="true"/>
-                               </div>
+                                <rc:textedit property="parentname" cols="1,11" label="ä¸Šçº§æƒé™åç§° " readonly="true"/>
                            </div>
                            <div class="hr-line-dashed"></div>
                            <div class="form-group">
-                               <label class="col-sm-2 control-label">È¨ÏŞ±àÂë <span class="require">*<span></label>
-                               <div class="col-sm-10">
-                                    <rc:textedit property="code"  validate="{required:true,messages:{required:'ÇëÊäÈëÈ¨ÏŞ±àÂë'}}"/>
-                               </div>
+                                <rc:textedit property="code"  required="true"  cols="1,11" label="æƒé™ç¼–ç  " validate="{required:true,messages:{required:'è¯·è¾“å…¥æƒé™ç¼–ç '}}"/>
                            </div>
                            <div class="hr-line-dashed"></div>
                            <div class="form-group">
-                               <label class="col-sm-2 control-label">È¨ÏŞÃû³Æ  <span class="require">*<span></label>
-                               <div class="col-sm-10">
-                                    <rc:textedit property="name"  validate="{required:true,messages:{required:'ÇëÊäÈëÈ¨ÏŞÃû³Æ'}}"/>
-                               </div>
+                                <rc:textedit property="name"  required="true"  cols="1,11" label="æƒé™åç§°" validate="{required:true,messages:{required:'è¯·è¾“å…¥æƒé™åç§°'}}"/>
                            </div>
                            <div class="hr-line-dashed"></div>
                            <div class="form-group">
-                               <label class="col-sm-2 control-label">È¨ÏŞÃèÊö <span class="require">*<span></label>
-                               <div class="col-sm-10">
-                                    <rc:textedit property="describe"  validate="{required:true,messages:{required:'ÇëÊäÈëÈ¨ÏŞÃèÊö'}}"/>
-                               </div>
+                                <rc:textedit property="describe" required="true"  cols="1,11" label="æƒé™æè¿°"  validate="{required:true,messages:{required:'è¯·è¾“å…¥æƒé™æè¿°'}}"/>
                            </div>
                            <div class="hr-line-dashed"></div>
                            
                            <div class="form-group">
-                               <label class="col-sm-2 control-label">È¨ÏŞÀàĞÍ <span class="require">*<span></label>
-                               <div class="col-sm-10">
-                                   <rc:select codetype="PERMTYPE" property="type"   validate="{required:true,messages:{required:'ÇëÑ¡ÔñÈ¨ÏŞÀàĞÍ'}}"/> 
-                               </div>
+                               <rc:select codetype="PERMTYPE" property="type"  label="æƒé™ç±»å‹" required="true"  cols="1,11" validate="{required:true,messages:{required:'è¯·é€‰æ‹©æƒé™ç±»å‹'}}"/> 
                            </div>
                            <div class="hr-line-dashed"></div>
                            
                            <div class="form-group">
-                               <label class="col-sm-2 control-label">È¨ÏŞµØÖ·url</label>
-                               <div class="col-sm-10">
-                                    <rc:textedit property="url"  />
-                               </div>
+                                <rc:textedit property="url" cols="1,11" label="æƒé™åœ°å€url " />
                            </div>
                            <div class="hr-line-dashed"></div>
                            
                            <div class="form-group">
-                               <label class="col-sm-2 control-label">ÅÅĞòºÅ<span class="require">*<span></label>
-                               <div class="col-sm-10">
-                                    <rc:textedit property="sortnum"  />
-                               </div>
+                                <rc:textedit property="sortnum" cols="1,11" label="æ’åºå·"/>
                            </div>
                            <div class="hr-line-dashed"></div>
                            <div class="form-group">
-                               <label class="col-sm-2 control-label">¸üĞÂÈÕÆÚ<span class="require">*<span></label>
-                               <div class="col-sm-10">
-                                   <rc:date property="updatetime" validate="{required:true,messages:{required:'ÇëÑ¡Ôñ¸üĞÂÈÕÆÚ'}}" />
-                               </div>
+                                <rc:date property="updatetime" label="æ›´æ–°æ—¥æœŸ" required="true"  cols="1,11" validate="{required:true,messages:{required:'è¯·é€‰æ‹©æ›´æ–°æ—¥æœŸ'}}" />
                            </div>
                            <div class="hr-line-dashed"></div>
 	                       <div class="form-group" style="text-align: right;">
-	                            <a class="btn btn-primary " onclick="_sys_perm_savePermData()">±£´æ</a>
+	                            <a class="btn btn-primary " onclick="sys_perm_savePermData()"><i class="fa fa-save"></i>&nbsp;ä¿å­˜</a>
 	                       </div>
                  </form>
-                <div id="view"></div>
-			    </div>
 			</div>
 		</div>		
 </div>
 <rc:jsfooter />
 <script type="text/javascript">
 $(function() {
-	//ÑéÖ¤ ajax
-	rc.validAndAjaxSubmit($("#myform"),_sys_perm_callback);
-	_sys_perm_treeinit();
+	//éªŒè¯ ajax
+	rc.validAndAjaxSubmit($("#myform"),sys_perm_callback);
+	sys_perm_treeinit();
 })
 
-function _sys_perm_treeinit(){
-	$.fn.zTree.init($("#tree-div"), _sys_perm_setting);
+function sys_perm_treeinit(){
+	$.fn.zTree.init($("#tree-div"), sys_perm_setting);
 }
-//»Øµ÷º¯Êı
-function _sys_perm_callback(response){
+//å›è°ƒå‡½æ•°
+function sys_perm_callback(response){
 	if(response.success){
        	alert(response.message);
-       	_sys_perm_treeinit();
+       	sys_perm_treeinit();
 	}
 	else{
 		alert(response.message);
 	}
 }
-//Ê÷ÅäÖÃ
-var _sys_perm_setting = {
+//æ ‘é…ç½®
+var sys_perm_setting = {
 	view: {
        showLine: true
 	},
@@ -140,7 +114,7 @@ var _sys_perm_setting = {
 		}
 	},
 	callback: {
-		onClick: _sys_perm_onClick
+		onClick: sys_perm_onClick
 	},
 	async: {
 		enable: true,
@@ -150,33 +124,33 @@ var _sys_perm_setting = {
 };
 
 
-function _sys_perm_onClick(event, treeId, treeNode, clickFlag) {
+function sys_perm_onClick(event, treeId, treeNode, clickFlag) {
 	rc.ajaxQuery("<c:url value='/sys/perm/getPermData/'/>"+treeNode.id);
 }
 
 
 
-//±£´æÒ³ÃæÅäÖÃĞÅÏ¢
-function _sys_perm_savePermData(){
+//ä¿å­˜é¡µé¢é…ç½®ä¿¡æ¯
+function sys_perm_savePermData(){
    $('#myform').submit();
 }
-//ĞÂÔöÈ¨ÏŞ
-function _sys_perm_addnewperm(){
+//æ–°å¢æƒé™
+function sys_perm_addnewperm(){
 	var permissionid=$('#permissionid').val()||'0';
-	var name=$('#name').val()||'È¨ÏŞÍ·½áµã';
+	var name=$('#name').val()||'æƒé™å¤´ç»“ç‚¹';
 	rc.clean();
 	$('#parentid').val(permissionid);
 	$('#parentname').val(name);
 }
-//É¾³ıÈ¨ÏŞ
-function _sys_perm_deleteperm(){
+//åˆ é™¤æƒé™
+function sys_perm_deleteperm(){
 	var permissionid=$('#permissionid').val();
 	if(permissionid){
-		layer.confirm('È·¶¨É¾³ıÒª´ËÈ¨ÏŞÂğ£¿', function(index){
+		layer.confirm('ç¡®å®šåˆ é™¤è¦æ­¤æƒé™å—ï¼Ÿ', function(index){
 			var url= "<c:url value='/sys/perm/deletePermDataById/'/>"+permissionid;
 			rc.ajax(url, null,function (response) {
 				if(response.success){
-					_sys_perm_treeinit();
+					sys_perm_treeinit();
 					rc.clean();
 				}else{
 					alert(response.message);
@@ -184,7 +158,7 @@ function _sys_perm_deleteperm(){
 			});
 		});
 	}else{
-		layer.alert('ÇëÏÈÑ¡ÔñÒ»¸öÄãÒªÉ¾³ıµÄÈ¨ÏŞ½Úµã');
+		layer.alert('è¯·å…ˆé€‰æ‹©ä¸€ä¸ªä½ è¦åˆ é™¤çš„æƒé™èŠ‚ç‚¹');
 	}
 }
 </script>

@@ -19,7 +19,17 @@ public class TextEditTag implements Tag {
 
 	// property
 	private String property;
+	
+	//label
+   private String label;
+			
+	//占位列数,包括label的一列
+   private String cols;
 
+	//是否必输
+	private String required;
+   
+	
 	// 值
 	private String value;
 
@@ -104,8 +114,6 @@ public class TextEditTag implements Tag {
 		this.readonly = readonly;
 	}
 
-	
-
 	public String getProperty() {
 		return property;
 	}
@@ -122,7 +130,30 @@ public class TextEditTag implements Tag {
 		return pageContext;
 	}
 
-	
+	public String getLabel() {
+		return label;
+	}
+
+	public void setLabel(String label) {
+		this.label = label;
+	}
+
+
+	public String getCols() {
+		return cols;
+	}
+
+	public void setCols(String cols) {
+		this.cols = cols;
+	}
+
+	public String getRequired() {
+		return required;
+	}
+
+	public void setRequired(String required) {
+		this.required = required;
+	}
 
 	public String getValue() {
 		return value;
@@ -135,6 +166,8 @@ public class TextEditTag implements Tag {
 	public void setValidate(String validate) {
 		this.validate = validate;
 	}
+	
+	
 
 	@Override
 	public int doEndTag() throws JspException {
@@ -147,10 +180,25 @@ public class TextEditTag implements Tag {
 	     //空值检查
 		 validate=(validate==null)?"":validate;
 	     value=(value==null)?"":value;
-	     boolean isreadonly=Boolean.parseBoolean(readonly=(readonly==null)?"false":readonly);
+	     readonly=(readonly==null)?"":readonly;
+	     required=(required==null)?"":required;
+	     
+	     String [] col=cols.split(",");
+	     int labelcol=Integer.parseInt(col[0]);
+	     int inputcol=Integer.parseInt(col[1]);
+	     //是否只读
+	     boolean isreadonly=Boolean.parseBoolean(readonly);
+	     //是否必输
+	     boolean isrequired=Boolean.parseBoolean(required);
 	     JspWriter out = pageContext.getOut();
 	     StringBuffer sb=new StringBuffer();
-		 sb.append("<input type=\"text\" id=\""+property+"\" name=\""+property+"\"  validate=\""+validate+"\" class=\"form-control\"");
+	     sb.append("<label class=\"col-sm-"+labelcol+"  col-xs-"+labelcol+"  control-label\">"+label);
+	     if(isrequired){
+	    	 sb.append("<span class=\"require\">*<span>");
+	     }
+	     sb.append("</label>");
+	     sb.append("<div class=\"col-sm-"+inputcol+" col-xs-"+inputcol+" \">");
+		 sb.append("<input type=\"text\" id=\""+property+"\" name=\""+property+"\"  value=\""+value+"\"  validate=\""+validate+"\" class=\"form-control\"");
 		 if(isreadonly){
 			 sb.append(" readonly=\"readonly\" ");
 		 }
@@ -180,6 +228,7 @@ public class TextEditTag implements Tag {
 		 }
 		
 		 sb.append(">");
+		 sb.append("</div>");
 		 try {  
 			   out.write(sb.toString());
 	     } catch (IOException e) {  

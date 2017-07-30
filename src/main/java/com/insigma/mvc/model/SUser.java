@@ -1,6 +1,7 @@
 package com.insigma.mvc.model;
 
 
+
 /**
  *  ”√ªß±Ì
  * 
@@ -10,14 +11,42 @@ public class SUser implements java.io.Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+	
 	private String userid;
-	private String username;
-	private String password;
 	private String cnname;
+	private String password;
+	private String username;
 	private String enabled;
+	private String groupid;
+	private String groupname;
+	private String groupparentid;
+	private String type;
 	private String isgrant;
 	
+	public String getGroupid() {
+		return groupid;
+	}
+	public void setGroupid(String groupid) {
+		this.groupid = groupid;
+	}
+	public String getGroupname() {
+		return groupname;
+	}
+	public void setGroupname(String groupname) {
+		this.groupname = groupname;
+	}
+	public String getGroupparentid() {
+		return groupparentid;
+	}
+	public void setGroupparentid(String groupparentid) {
+		this.groupparentid = groupparentid;
+	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
 	public String getIsgrant() {
 		return isgrant;
 	}

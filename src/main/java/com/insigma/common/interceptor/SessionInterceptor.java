@@ -12,17 +12,19 @@ import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.insigma.common.util.MD5Util;
+import com.insigma.mvc.model.SUser;
 import com.insigma.mvc.service.login.LoginService;
+import com.insigma.shiro.realm.SysUserUtil;
 
 /**
- * 登录hashcode相关信息校验
+ * 通用登录相关session Interceptor过滤器
  * @author wengsh
  * @date 2015-8-17
  *
  */
-public class SessionHashValidatorInterceptor extends HandlerInterceptorAdapter {
+public class SessionInterceptor extends HandlerInterceptorAdapter {
 
-	Log log=LogFactory.getLog(SessionHashValidatorInterceptor.class);
+	Log log=LogFactory.getLog(SessionInterceptor.class);
 
 	@Autowired
 	private LoginService loginservice;
@@ -30,13 +32,21 @@ public class SessionHashValidatorInterceptor extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 		if (handler instanceof HandlerMethod) {
+			request.setAttribute("contextpath", request.getContextPath());
 			Subject subject = SecurityUtils.getSubject();  
 			if(subject.isAuthenticated()){
+				//判断当前ThreadLocal中是否
+				if(SysUserUtil.getCurrentUser()==null){
+					log.info("SysUserUtil.getCurrentUser(）为空 null");
+					SysUserUtil.setCurrentUser ((SUser)subject.getSession().getAttribute(SysUserUtil.SHIRO_CURRENT_USER_INFO));  
+				}
+				
 				if(loginservice.findLoginInfoByhashcode(getReqeustHashcode(request))!=null){
 					return true;
 				}else{
 					return false;
 				}
+				
 			}
             return true;
         } else {

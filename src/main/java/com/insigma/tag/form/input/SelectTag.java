@@ -28,6 +28,17 @@ public class SelectTag implements Tag {
 
 	// property
 	private String property;
+	
+	
+	
+	//label
+	private String label;
+				
+	//占位列数,包括label的一列
+	private String cols;
+
+    //是否必输
+    private String required;
 
 	// 值
 	private String value;
@@ -35,6 +46,8 @@ public class SelectTag implements Tag {
 	// 校验规则
 	private String validate;
 	
+	//是否多选
+	private String multiple;
 	
 	//onclick事件
 	private String onclick;
@@ -55,6 +68,34 @@ public class SelectTag implements Tag {
 	private String onkeyup;
 	
 	
+	
+	
+
+	public String getLabel() {
+		return label;
+	}
+
+	public void setLabel(String label) {
+		this.label = label;
+	}
+
+	
+
+	public String getCols() {
+		return cols;
+	}
+
+	public void setCols(String cols) {
+		this.cols = cols;
+	}
+
+	public String getRequired() {
+		return required;
+	}
+
+	public void setRequired(String required) {
+		this.required = required;
+	}
 
 	public String getOnclick() {
 		return onclick;
@@ -116,6 +157,8 @@ public class SelectTag implements Tag {
 		return pageContext;
 	}
 
+	
+	
 	public String getCodetype() {
 		return codetype;
 	}
@@ -139,6 +182,16 @@ public class SelectTag implements Tag {
 	public void setValidate(String validate) {
 		this.validate = validate;
 	}
+	
+	
+	public String getMultiple() {
+		return multiple;
+	}
+
+	public void setMultiple(String multiple) {
+		this.multiple = multiple;
+	}
+
 
 	@Override
 	public int doEndTag() throws JspException {
@@ -149,12 +202,24 @@ public class SelectTag implements Tag {
 	@Override
 	public int doStartTag() throws JspException {
 		// 空值检查
-		validate = (validate == null) ? "" : validate;
-		value = (value == null) ? "" : value;
-		// TODO Auto-generated method stub
-		JspWriter out = pageContext.getOut();
-		StringBuffer sb = new StringBuffer();
-		sb.append("<select class=\"form-control selectpicker \" id=\"" + property+ "\" name=\"" + property + "\"  value=\"" + value+ "\"   data-live-search=\"true\"  validate=\"" + validate+ "\" ");
+		 validate = (validate == null) ? "" : validate;
+		 value = (value == null) ? "" : value;
+		 multiple=(multiple==null)?"false":multiple;
+		 required=(required==null)?"":required;
+		 String [] col=cols.split(",");
+	     int labelcol=Integer.parseInt(col[0]);
+	     int inputcol=Integer.parseInt(col[1]);
+	     //是否必输
+	     boolean isrequired=Boolean.parseBoolean(required);
+	     JspWriter out = pageContext.getOut();
+	     StringBuffer sb=new StringBuffer();
+	     sb.append("<label class=\"col-sm-"+labelcol+"  col-xs-"+labelcol+" control-label\">"+label);
+	     if(isrequired){
+	    	 sb.append("<span class=\"require\">*<span>");
+	     }
+	     sb.append("</label>");
+	     sb.append("<div class=\"col-sm-"+inputcol+" col-xs-"+inputcol+" \">");
+		 sb.append("<select class=\"form-control selectpicker \" id=\"" + property+ "\" name=\"" + property + "\"  value=\"" + value+ "\"   data-live-search=\"true\"  validate=\"" + validate+ "\" ");
 		//onclick事件
 		 if(onclick!=null){
 			  sb.append(" onclick=\""+onclick+"\" ");
@@ -179,6 +244,9 @@ public class SelectTag implements Tag {
 		 if(onchange!=null){
 			  sb.append(" onchange=\""+onchange+"\" ");
 		 }
+		 if(Boolean.parseBoolean(multiple)){
+			  sb.append(" multiple ");
+		 }
 		 sb.append(">");
 		
 		
@@ -198,6 +266,7 @@ public class SelectTag implements Tag {
 			}
 		}
 		sb.append("</select>");
+		sb.append("</div>");
 
 		// 从redis获取下载
 		/*

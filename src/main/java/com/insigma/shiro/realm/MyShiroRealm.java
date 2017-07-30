@@ -37,7 +37,8 @@ import com.insigma.shiro.token.CustomUsernamePasswordToken;
 @Transactional
 public class MyShiroRealm extends AuthorizingRealm  implements Realm, InitializingBean {
 	
-
+	
+	
 	@Autowired
 	private LoginService loginservice;
 	
@@ -50,7 +51,7 @@ public class MyShiroRealm extends AuthorizingRealm  implements Realm, Initializi
      */
 	public AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken) throws AuthenticationException {
 		CustomUsernamePasswordToken token = (CustomUsernamePasswordToken) authcToken;
-		SUser suser = loginservice.getUser(token.getUsername());
+		SUser suser = loginservice.getUserAndGroupInfo(token.getUsername());
 		if (suser == null) {
             throw new UnknownAccountException();//没找到帐号
         }
@@ -63,7 +64,8 @@ public class MyShiroRealm extends AuthorizingRealm  implements Realm, Initializi
 		suser.getUsername(), 
 		suser.getPassword(), 
         getName() ); //realm name
-    	setSession("suser",suser);
+    	setSession(SysUserUtil.SHIRO_CURRENT_USER_INFO,suser);
+    	SysUserUtil.setCurrentUser(suser);
     	//清理缓存
     	clearCachedAuthorizationInfo(authenticationInfo.getPrincipals());
 	    return authenticationInfo;

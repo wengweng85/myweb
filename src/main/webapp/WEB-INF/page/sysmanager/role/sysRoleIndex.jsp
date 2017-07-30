@@ -1,13 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=gbk" pageEncoding="gbk"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"  pageEncoding="utf-8"%>%>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c"%>
-<%@ taglib uri="http://www.rc.com/rctag" prefix="rc"%>
+<%@ taglib uri="http://www.epsoft.com/rctag" prefix="rc"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>½ÇÉ«¹ÜÀí</title>
-<!-- cssÍ·ÎÄ¼ş  -->
+<title>è§’è‰²ç®¡ç†</title>
+<!-- csså¤´æ–‡ä»¶  -->
 <rc:csshead />
 </head>
 <body class="gray-bg">
@@ -15,26 +15,23 @@
 		<div class="col-sm-4">
 			<div class="ibox float-e-margins">
 				<div class="ibox-title">
-					<h5>½ÇÉ«ÁĞ±íÇø</h5>
+					<h5>è§’è‰²åˆ—è¡¨åŒº</h5>
 					<div class="ibox-tools">
-						<a onclick="addnewrole()" class="btn btn-primary btn-xs">ĞÂÔö½ÇÉ«</a>
+						<a onclick="addnewrole()" class="btn btn-primary btn-xs"><i class="fa fa-plus"></i>&nbsp;æ–°å¢è§’è‰²</a>
 					</div>
 				</div>
-				<!-- Ä£ĞÍ tpl  -->
+				<!-- æ¨¡å‹ tpl  -->
 	            <script id="tpl" type="text/x-handlebars-template" >
-                    <!--
-                    <a class="btn btn-info" onclick="sys_role_editrole('{{roleid}}')" >±à¼­</a> 
-                    -->
-	                <a class="btn btn-danger" onclick="sys_role_deleterole('{{roleid}}')" >É¾³ı</a> 
+	                <a class="btn btn-danger" onclick="sys_role_deleterole('{{roleid}}')" ><i class="fa fa-remove"></i>&nbsp;åˆ é™¤</a> 
                 </script>
 				<div class="ibox-content">
 					<table id="roletable" data-url="<c:url value='/sys/role/querylist'/>">
 						<thead>
 						    <tr>
-						        <th data-formatter="sys_role_indexFormatter">ĞòºÅ</th>
-			                    <th data-field="name" >½ÇÉ«Ãû³Æ</th>
-			                    <th data-field="code" >½ÇÉ«±àÂë</th>
-			                    <th data-formatter="sys_role_opFormatter">²Ù×÷</th>
+						        <th data-formatter="sys_role_indexFormatter">åºå·</th>
+			                    <th data-field="name" >è§’è‰²åç§°</th>
+			                    <th data-field="code" >è§’è‰²ç¼–ç </th>
+			                    <th data-formatter="sys_role_opFormatter">æ“ä½œ</th>
 						    </tr>
 				        </thead>
 					</table>
@@ -47,37 +44,25 @@
 				<div class="col-sm-12">
 					<div class="ibox float-e-margins">
 						<div class="ibox-title">
-							<h5>½ÇÉ«±à¼­Çø</h5>
+							<h5>è§’è‰²ç¼–è¾‘åŒº</h5>
 						</div>
 						<div class="ibox-content" id="role_edit_div">
 							<form action="<c:url value='/sys/role/saveorupdate'/>" class="form-horizontal" method="post" id="myform">
 								<rc:hidden property="roleid"/>
 								<div class="form-group">
-									<label class="col-sm-2 control-label">½ÇÉ«±àÂë <span
-										class="require">*<span></label>
-									<div class="col-sm-10">
-										<rc:textedit property="code" validate="{required:true,messages:{required:'ÇëÊäÈë½ÇÉ«±àÂë'}}" />
-									</div>
+									 <rc:textedit property="code" label="è§’è‰²ç¼–ç  " required="true"  cols="2,10" validate="{required:true,messages:{required:'è¯·è¾“å…¥è§’è‰²ç¼–ç '}}" />
 								</div>
 								<div class="hr-line-dashed"></div>
 								<div class="form-group">
-									<label class="col-sm-2 control-label">½ÇÉ«Ãû³Æ <span
-										class="require">*<span></label>
-									<div class="col-sm-10">
-										<rc:textedit property="name"  validate="{required:true,messages:{required:'ÇëÊäÈë½ÇÉ«Ãû³Æ'}}" />
-									</div>
+									<rc:textedit property="name" label="è§’è‰²åç§°" required="true"  cols="2,10" validate="{required:true,messages:{required:'è¯·è¾“å…¥è§’è‰²åç§°'}}" />
 								</div>
 								<div class="hr-line-dashed"></div>
 								<div class="form-group">
-									<label class="col-sm-2 control-label">½ÇÉ«ÃèÊö <span
-										class="require">*<span></label>
-									<div class="col-sm-10">
-										<rc:textedit property="describe" validate="{required:true,messages:{required:'ÇëÊäÈë½ÇÉ«ÃèÊö'}}" />
-									</div>
+									<rc:textedit property="describe" label="è§’è‰²æè¿°" required="true"  cols="2,10"  validate="{required:true,messages:{required:'è¯·è¾“å…¥è§’è‰²æè¿°'}}" />
 								</div>
 								<div class="hr-line-dashed"></div>
 								<div class="form-group" style="text-align: right;">
-									<a class="btn btn-primary " onclick="sys_role_saveRoleData()">±£´æ</a>
+									<a class="btn btn-primary " onclick="sys_role_saveRoleData()"><i class="fa fa-save"></i>&nbsp;ä¿å­˜</a>
 								</div>
 							</form>
 						</div>
@@ -86,7 +71,7 @@
 				<div class="col-sm-12">
 					<div class="ibox float-e-margins">
 						<div class="ibox-title">
-							<h5>½ÇÉ«ÊÚÈ¨</h5>
+							<h5>è§’è‰²æˆæƒ</h5>
 							<div class="ibox-tools">
 							</div>
 						</div>
@@ -95,7 +80,7 @@
 							
 							<div class="hr-line-dashed"></div>
 							<div class="form-group" style="text-align: right;">
-								<button id="btn_role_perm" class="btn btn-primary " onclick="sys_role_saveRolePermData()">±£´æ</button>
+								<button id="btn_role_perm" class="btn btn-primary " onclick="sys_role_saveRolePermData()"><i class="fa fa-save"></i>&nbsp;ä¿å­˜</button>
 							</div>
 						</div>
 					</div>
@@ -104,21 +89,21 @@
 		</div>
 <rc:jsfooter />
 <script type="text/javascript">
-   //³õÊ¼»¯
+   //åˆå§‹åŒ–
    $(function(){
 	    $('#roletable').inittable();
-   	    //½ÇÉ«±à¼­
+   	    //è§’è‰²ç¼–è¾‘
    		rc.validAndAjaxSubmit($("#myform"),sys_role_callback);
-   	    //È¨ÏŞÊ÷¼ÓÔØ
+   	    //æƒé™æ ‘åŠ è½½
     	sys_role_treeinit();
    });
- //ÓÃ»§±í¸ñ¼àÌı 
+ //ç”¨æˆ·è¡¨æ ¼ç›‘å¬ 
    $('#roletable').on('click-row.bs.table', function (e, row, $element) {
       	rc.evaluation(row);
       	sys_role_editrole(row.roleid);
    }); 
    
-   //½ÇÉ«-È¨ÏŞÊ÷ÅäÖÃ
+   //è§’è‰²-æƒé™æ ‘é…ç½®
    var sys_role_setting = {
 	  view: {
           showLine: true
@@ -141,7 +126,7 @@
    	  }
    };
    
-   //»Øµ÷º¯Êı
+   //å›è°ƒå‡½æ•°
    function sys_role_callback(response){
 	  if(response.success){
        	  alert(response.message);
@@ -151,10 +136,10 @@
 	  }
    }
    
-   //formatÇøÓò
+   //formatåŒºåŸŸ
    function sys_role_opFormatter(value, row, index) {
         var tpl = $("#tpl").html();  
-	  	//Ô¤±àÒëÄ£°å  
+	  	//é¢„ç¼–è¯‘æ¨¡æ¿  
 	  	var template = Handlebars.compile(tpl);  
 	  	return template(row);
    }
@@ -163,13 +148,13 @@
        return index+1;
    }
    
-    //±£´æÒ³ÃæÅäÖÃĞÅÏ¢
+    //ä¿å­˜é¡µé¢é…ç½®ä¿¡æ¯
    function sys_role_saveRoleData(){
       $('#myform').submit();
    }
 
    
-   //½ÇÉ«±à¼­
+   //è§’è‰²ç¼–è¾‘
    function sys_role_editrole(roleid){
 	   //rc.ajaxQuery("<c:url value='/sys/role/getRoleData/'/>"+roleid);
 	   var otherParam= { 'id':roleid }
@@ -177,9 +162,9 @@
 	   sys_role_treeinit();
    }
    
-   //ĞÂÔöÈ¨ÏŞ
+   //æ–°å¢æƒé™
    function sys_role_addnewrole(){
-   	   //ÓÒ±ß±à¼­ÇøÓòÇå¿Õ
+   	   //å³è¾¹ç¼–è¾‘åŒºåŸŸæ¸…ç©º
 	   sys_role_role_edit_div_clean();
    }
    
@@ -187,10 +172,10 @@
 	   rc.clean($('#role_edit_div'));
    }
    
-   //É¾³ı½ÇÉ«
+   //åˆ é™¤è§’è‰²
    function sys_role_deleterole(roleid){
    	  if(roleid){
-   		layer.confirm('È·¶¨É¾³ıÒª´Ë½ÇÉ«Âğ£¿', function(index){
+   		layer.confirm('ç¡®å®šåˆ é™¤è¦æ­¤è§’è‰²å—ï¼Ÿ', function(index){
    			var url= "<c:url value='/sys/role/deleteRoleDataById/'/>"+roleid;
    			rc.ajax(url, null,function (response) {
    				if(response.success){
@@ -202,18 +187,18 @@
    			});
    		});
    	  }else{
-   		layer.alert('ÇëÏÈÑ¡ÔñÒ»¸öÄãÒªÉ¾³ıµÄÈ¨ÏŞ½Úµã');
+   		layer.alert('è¯·å…ˆé€‰æ‹©ä¸€ä¸ªä½ è¦åˆ é™¤çš„æƒé™èŠ‚ç‚¹');
    	  }
    }
    
-   //Ê÷³õÉÜ»¯
+   //æ ‘åˆç»åŒ–
    function sys_role_treeinit(){
 	  $.fn.zTree.init($("#tree-div"), sys_role_setting);
 	  var zTree = $.fn.zTree.getZTreeObj("tree-div");
 	  zTree.expandAll(true)
    }
    
-   //±£´æ½ÇÉ«-È¨ÏŞÊı¾İ
+   //ä¿å­˜è§’è‰²-æƒé™æ•°æ®
    function sys_role_saveRolePermData() {
 	   var roleid=$('#roleid').val();
 	   if(roleid){
@@ -230,7 +215,7 @@
 				}
 			});  
 	   }else{
-		   layer.alert('ÇëÏÈÑ¡ÔñÒ»¸ö½ÇÉ«');
+		   layer.alert('è¯·å…ˆé€‰æ‹©ä¸€ä¸ªè§’è‰²');
 	   }
 	}
 </script>

@@ -56,11 +56,19 @@ public class SysPermServiceImpl extends MvcHelper implements SysPermService {
 		   }else{
 			//判断是否更新操作
 			if(StringUtils.isNullOrEmpty(spermission.getPermissionid())){
-				sysPermMapper.savePermissionData(spermission);
-				 return this.success("新增成功");
+				 int insertnum=sysPermMapper.savePermissionData(spermission);
+				 if(insertnum==1){
+					 return this.success("新增成功");
+				 }else{
+					 return this.error("新增失败");
+				 }
 			}else{
-				sysPermMapper.updatePermissionData(spermission);
-				return this.success("更新成功");
+				 int updatenum=sysPermMapper.updatePermissionData(spermission);
+				 if(updatenum==1){
+					 return this.success("更新成功");
+				 }else{
+					 return this.error("更新失败");
+				 }
 			}
 		}
 		   
@@ -84,8 +92,13 @@ public class SysPermServiceImpl extends MvcHelper implements SysPermService {
 		if(sysPermMapper.getPermListDataByParentid(id).size()>0){
 			return this.error("当前权限还存在子权限数据,请先删除子权限数据");
 		}else{
-			sysPermMapper.deletePermDataById(id);
-			return this.success("操作成功");
+			int deletenum=sysPermMapper.deletePermDataById(id);
+			if(deletenum==1){
+				return this.success("删除成功");
+			}else{
+				return this.success("删除失败");
+			}
+			
 		}
 	}
 

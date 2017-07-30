@@ -1,60 +1,60 @@
-<%@ page language="java" contentType="text/html; charset=gbk"  pageEncoding="gbk"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"  pageEncoding="utf-8"%>
 <%@taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
-<%@ taglib uri="http://www.rc.com/rctag" prefix="rc"%>
+<%@ taglib uri="http://www.epsoft.com/rctag" prefix="rc"%>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ò³ÃæÁĞ±í</title>
+    <title>é¡µé¢åˆ—è¡¨</title>
     <rc:csshead/>
 </head>
 <body class="gray-bg">
     <div class="wrapper wrapper-content animated fadeInRight">
-         <!-- ²éÑ¯Ìõ¼ş -->
+         <!-- æŸ¥è¯¢æ¡ä»¶ -->
          <div class="ibox float-e-margins">
             <div class="ibox-title">
-                <h5>²éÑ¯Ìõ¼ş</h5>
+                <h5>æŸ¥è¯¢æ¡ä»¶</h5>
             </div>
             <div class="ibox-content">
             <form  class="form-horizontal" id="query_form" action="<c:url value='/job/querylist'/>">
 		        <div class="form-group">
-		           <label class="col-sm-1 control-label">Ãû³Æ</label>
+		           <label class="col-sm-1 control-label">åç§°</label>
 		           <div class="col-sm-2">
 		               <input type="text" name="page_name" class="form-control">
 		           </div>
-		           <label class="col-sm-1 control-label">ÃèÊö</label>
+		           <label class="col-sm-1 control-label">æè¿°</label>
 		           <div class="col-sm-2">
 		               <input type="text" name="page_describe" class="form-control"> 
 		           </div>
 	               <div class="col-sm-4">
-	                  <a class="btn btn-info" onclick="query()">²éÑ¯</a>
-	                  <a class="btn btn-info" onclick="document.getElementById('query_form').reset()">ÖØÖÃ</a>
-	                  <a class="btn btn-info" onclick="add_page()">ĞÂÔö</a>
+	                  <a class="btn btn-info" onclick="query()">æŸ¥è¯¢</a>
+	                  <a class="btn btn-info" onclick="document.getElementById('query_form').reset()">é‡ç½®</a>
+	                  <a class="btn btn-info" onclick="add_page()">æ–°å¢</a>
 	               </div>
 		       </div>
 	       </form>
 	       </div>
         </div>
             
-        <!-- ²éÑ¯½á¹û -->    
+        <!-- æŸ¥è¯¢ç»“æœ -->    
         <div class="ibox float-e-margins">
             <div class="ibox-title">
-                <h5>²éÑ¯½á¹ûÁĞ±í</h5>
+                <h5>æŸ¥è¯¢ç»“æœåˆ—è¡¨</h5>
                 <div class="ibox-tools">
-                    <a onclick="batchdelete()" class="btn btn-danger btn-xs">ÅúÁ¿É¾³ı</a>
+                    <a onclick="batchdelete()" class="btn btn-danger btn-xs">æ‰¹é‡åˆ é™¤</a>
                 </div>
             </div>
-            <!-- Ä£ĞÍ -->
+            <!-- æ¨¡å‹ -->
             <script id="tpl" type="text/x-handlebars-template" >
-                <a  class="btn btn-info" onclick="gotoedit('{{job_name}}')">±à¼­</a> 
+                <a  class="btn btn-info" onclick="gotoedit('{{job_name}}')">ç¼–è¾‘</a> 
                 {{#equals trigger_state 'WAITING'}}
-	                 <a class="btn btn-danger" onclick="pause('{{job_name}}')" >ÔİÍ£</a>
+	                 <a class="btn btn-danger" onclick="pause('{{job_name}}')" >æš‚åœ</a>
                 {{/equals}} 
                 {{#equals trigger_state 'PAUSED'}}
-                     <a  class="btn btn-info" onclick="resume('{{job_name}}')" >»Ö¸´</a>
+                     <a  class="btn btn-info" onclick="resume('{{job_name}}')" >æ¢å¤</a>
                 {{/equals}} 
-                <a  class="btn btn-danger" onclick="dd('{{job_name}}')" >É¾³ı</a> 
+                <a  class="btn btn-danger" onclick="dd('{{job_name}}')" >åˆ é™¤</a> 
             </script>
             <div class="ibox-content">
                 <table class="table table-striped table-bordered table-hover " id="table_joblist">
@@ -63,17 +63,17 @@
                             <th>
 				                <input type="checkbox" class="checkall" />
 				            </th>
-                            <th>ÈÎÎñÃû³Æ</th>
-                            <th>ÈÎÎñÖ´ĞĞÀàÃû³Æ</th>
-                            <th>cron±í´ïÊ½</th>
-                            <th>ÏÂÒ»´ÎÖ´ĞĞÊ±¼ä</th>
-                            <th>ÉÏÒ»´ÎÖ´ĞĞÊ±¼ä</th>
-                            <th>Ö´ĞĞ×´Ì¬</th>
-                            <th>Ö´ĞĞÀàĞÍ</th>
-                            <th>¿ªÊ¼Ê±¼ä</th>
-                            <th>½áÊøÊ±¼ä</th>
-                            <th>ÃèÊö</th>
-                            <th>²Ù×÷</th>
+                            <th>ä»»åŠ¡åç§°</th>
+                            <th>ä»»åŠ¡æ‰§è¡Œç±»åç§°</th>
+                            <th>cronè¡¨è¾¾å¼</th>
+                            <th>ä¸‹ä¸€æ¬¡æ‰§è¡Œæ—¶é—´</th>
+                            <th>ä¸Šä¸€æ¬¡æ‰§è¡Œæ—¶é—´</th>
+                            <th>æ‰§è¡ŒçŠ¶æ€</th>
+                            <th>æ‰§è¡Œç±»å‹</th>
+                            <th>å¼€å§‹æ—¶é—´</th>
+                            <th>ç»“æŸæ—¶é—´</th>
+                            <th>æè¿°</th>
+                            <th>æ“ä½œ</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -86,9 +86,9 @@
     <rc:jsfooter/>
     <script type="text/javascript">
     var datatable;
-    //Ò³ÃæÄ£ĞÍÊı¾İ×¼±¸
+    //é¡µé¢æ¨¡å‹æ•°æ®å‡†å¤‡
     var options={
-    	//ÁĞÄ£ĞÍ	
+    	//åˆ—æ¨¡å‹	
 	   	columns:[
 			 {    
 				 "data":null,
@@ -111,23 +111,23 @@
 	  	    	"data":null,
 	  	        "render": function ( data, type, full, meta ) {
 			       var tpl = $("#tpl").html();  
-			  	   //Ô¤±àÒëÄ£°å  
+			  	   //é¢„ç¼–è¯‘æ¨¡æ¿  
 			  	   var template = Handlebars.compile(tpl);  
 			  	   return template(data);
 	  	         } 
 	  	     }
    	     ],
-		 //¶ÔÓ¦²éÑ¯form
+		 //å¯¹åº”æŸ¥è¯¢form
 		 query_form_selector:'query_form'	   		
     };
     
-    //checkboxÈ«Ñ¡
+    //checkboxå…¨é€‰
     $(".checkall").on('click',function () {
 	    var check = $(this).prop("checked");
 	    $(".checkchild").prop("checked", check);
 	});
     
-    //ÅúÁ¿É¾³ı
+    //æ‰¹é‡åˆ é™¤
     function batchdelete(){
        if ($(".checkchild:checked").length > 0){         
     	   var result = new Array();
@@ -145,44 +145,44 @@
 		   });  
     	   
 	   }else{
-		   layer.alert("ÇëÖÁÉÙÑ¡ÖĞÒ»Ìõ¼ÇÂ¼");                
+		   layer.alert("è¯·è‡³å°‘é€‰ä¸­ä¸€æ¡è®°å½•");                
 		   return;
 	   }
     }	 
     
-    //³õÊ¼»¯
+    //åˆå§‹åŒ–
     $(function(){
     	datatable=$('#table_joblist').tableinit(options);
     });
     
-    //²éÑ¯
+    //æŸ¥è¯¢
     function query(){
     	datatable.dt.ajax.reload();
     }
     
 	
-    //Êı¾İ±à¼­
+    //æ•°æ®ç¼–è¾‘
     function edit(id){
     	var url = "<c:url value='/job/gotoedit'/>";
     	openwindow('editwindow',url+'/'+id); 
     }
      
-    //ÔİÍ£
+    //æš‚åœ
     function pause(id){
     	var url = "<c:url value='/job/pause'/>"+"/"+id;
-    	ajax(url,"È·¶¨ÔİÍ£´ËÈÎÎñÂğ")
+    	ajax(url,"ç¡®å®šæš‚åœæ­¤ä»»åŠ¡å—")
     }
   
-    //»Ö¸´
+    //æ¢å¤
     function resume(id){
     	var url = "<c:url value='/job/resume'/>"+"/"+id;
-    	ajax(url,"È·¶¨»Ö¸´´ËÈÎÎñÂğ")
+    	ajax(url,"ç¡®å®šæ¢å¤æ­¤ä»»åŠ¡å—")
     }
     
-    //É¾³ı
+    //åˆ é™¤
     function dd(id){
     	var url = "<c:url value='/job/delete'/>"+"/"+id;
-    	ajax(url,"È·¶¨É¾³ı´ËÈÎÎñÂğ")
+    	ajax(url,"ç¡®å®šåˆ é™¤æ­¤ä»»åŠ¡å—")
     }
     
     function ajax(url,tip){
@@ -196,20 +196,20 @@
                 	query();
                 },
                 error : function() {
-                    layer.msg('·¢Éú´íÎóÁË');
+                    layer.msg('å‘ç”Ÿé”™è¯¯äº†');
                 }
             });
     	})
     }
-    //ĞÂÔö
+    //æ–°å¢
     function add_page(){
     	layer.open({
 	   		  type: 2,
-	   		  title: 'ĞÂÔöÒ³Ãæ',
+	   		  title: 'æ–°å¢é¡µé¢',
 	   		  shadeClose: true,
 	   		  shade: 0.8,
 	   		  area: ['50%', '90%'],
-	   		  content: "<c:url value='/job/toadd'/>" //iframeµÄurl
+	   		  content: "<c:url value='/job/toadd'/>" //iframeçš„url
    		});
     }    
     </script>

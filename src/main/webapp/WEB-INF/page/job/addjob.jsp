@@ -1,12 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=gbk"  pageEncoding="gbk"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"  pageEncoding="utf-8"%>
 <%@taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!--360ä¯ÀÀÆ÷ÓÅÏÈÒÔwebkitÄÚºË½âÎö-->
-     <title>ĞÂÔö¼Ó¼°±à¼­Ò³Ãæ</title>
+    <!--360æµè§ˆå™¨ä¼˜å…ˆä»¥webkitå†…æ ¸è§£æ-->
+     <title>æ–°å¢åŠ åŠç¼–è¾‘é¡µé¢</title>
     <link href="<c:url value='/resource/hplus/css/bootstrap.min.css'/>" rel="stylesheet">
     <link href="<c:url value='/resource/hplus/css/font-awesome.min.css'/>" rel="stylesheet">
     <link href="<c:url value='/resource/hplus/css/animate.min.css'/>" rel="stylesheet">
@@ -24,20 +24,20 @@
                         <div class="row">
                             <div class="col-sm-12 b-r">
                             <div class="form-group">
-                                <label>ÈÎÎñÃèÊö</label>
+                                <label>ä»»åŠ¡æè¿°</label>
                                 <textarea id="description" name="description" class="form-control"></textarea>
                             </div>
                             <div class="form-group">
-                                <label>ÀàÃû</label>
-                                <input type="describe" id="job_class_name"  name="job_class_name" placeholder="ÀàÈ«Ãû" class="form-control" >
+                                <label>ç±»å</label>
+                                <input type="describe" id="job_class_name"  name="job_class_name" placeholder="ç±»å…¨å" class="form-control" >
                             </div>
                             <div class="form-group">
-                                <label>±í´ïÊ½</label>
-                                <input type="describe" id="cron_expression"  name="cron_expression" placeholder="±í´ïÊ½" class="form-control" >
+                                <label>è¡¨è¾¾å¼</label>
+                                <input type="describe" id="cron_expression"  name="cron_expression" placeholder="è¡¨è¾¾å¼" class="form-control" >
                             </div>
 	                        <div class="form-group" style="text-align: right;">
-	                           <button class="btn btn-primary " onclick="savePage()" type="submit">±£´æÄÚÈİ</button>
-	                           <button class="btn btn-danger "  onclick="cc()">¹Ø±Õ</button>
+	                           <button class="btn btn-primary " onclick="savePage()" type="submit">ä¿å­˜å†…å®¹</button>
+	                           <button class="btn btn-danger "  onclick="cc()">å…³é—­</button>
 	                        </div>
                         </div>
                     </div>
@@ -53,7 +53,7 @@
     <script src="<c:url value='/resource/drag/dragcommon.js'/>"></script>
     <script>
 
-  //±£´æÒ³ÃæÅäÖÃĞÅÏ¢
+  //ä¿å­˜é¡µé¢é…ç½®ä¿¡æ¯
     function savePage(){
     	var url="<c:url value='/job/saveorupdate'/>";
     	//if(cronValidate($('#cron_expression').val())){
@@ -77,13 +77,13 @@
               }
           });
     	/* }else{
-    		 layer.msg('±í´ïÊ½¸ñÊ½´íÎó');
+    		 layer.msg('è¡¨è¾¾å¼æ ¼å¼é”™è¯¯');
     	} */
     }
-    //¹Ø±Õ¸¸Ò³Ãæ
-    var index = parent.layer.getFrameIndex(window.name); //ÏÈµÃµ½µ±Ç°iframe²ãµÄË÷Òı
+    //å…³é—­çˆ¶é¡µé¢
+    var index = parent.layer.getFrameIndex(window.name); //å…ˆå¾—åˆ°å½“å‰iframeå±‚çš„ç´¢å¼•
     function cc(){
-    	parent.layer.close(index); //ÔÙÖ´ĞĞ¹Ø±Õ
+    	parent.layer.close(index); //å†æ‰§è¡Œå…³é—­
     }
     </script>
 </body>

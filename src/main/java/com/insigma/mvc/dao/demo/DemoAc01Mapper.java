@@ -10,13 +10,13 @@ public interface DemoAc01Mapper {
 	
     int deleteByPrimaryKey(String aac001);
 
-    int insert(Ac01 record);
-
     int insertSelective(Ac01 record);
 
     Ac01 selectByPrimaryKey(String aac001);
 
     int updateByPrimaryKeySelective(Ac01 record);
-
-    int updateByPrimaryKey(Ac01 record);
+    
+    int batDeleteData(String []  ids);
+    
+    int selectByAac002(Ac01 ac01);
 }

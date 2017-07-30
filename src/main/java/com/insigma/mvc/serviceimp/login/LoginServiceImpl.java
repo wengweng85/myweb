@@ -29,9 +29,9 @@ public class LoginServiceImpl implements LoginService {
 	private LoginMapper loginmapper;
 	
 	@Override
-	public SUser getUser(String loginname) {
+	public SUser getUserAndGroupInfo(String loginname) {
 		try {
-			return loginmapper.getUser(loginname);
+			return loginmapper.getUserAndGroupInfo(loginname);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

@@ -57,7 +57,7 @@ public class HiddenEditTag implements Tag {
 	     value=(value==null)?"":value;
 	     JspWriter out = pageContext.getOut();
 	     StringBuffer sb=new StringBuffer();
-		 sb.append("<input type=\"hidden\" id=\""+property+"\" name=\""+property+"\">");
+		 sb.append("<input type=\"hidden\" id=\""+property+"\" name=\""+property+"\" value=\""+value+"\" >");
 		 try {  
 			   out.write(sb.toString());
 	     } catch (IOException e) {  

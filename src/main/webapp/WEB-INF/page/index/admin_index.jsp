@@ -33,7 +33,7 @@
                 <ul class="nav" id="side-menu">
                     <li class="nav-header">
                         <span class="text-muted text-xs block" style="color: #f9f9f9"><strong> 陕西省人力资源市场管理信息系统</strong></span>
-                        <span class="text-muted text-xs block">欢迎您:${suser.cnname}</span>
+                        <span class="text-muted text-xs block">${suser.groupname}(${suser.cnname})</span>
                     </li>
                     <shiro:user>
                     <li>
@@ -44,11 +44,13 @@
                         </a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a class="J_menuItem" href="<c:url value='/demo/index'/>" data-index="1">测试页面</a>
+                                <a class="J_menuItem" href="<c:url value='/demo/toquery'/>" data-index="1">查询页面</a>
+                            </li>
+                            <li>
+                                <a class="J_menuItem" href="<c:url value='/demo/toadd'/>" data-index="1">编辑页面</a>
                             </li>
                         </ul>
                     </li>
-                    
                     <shiro:hasRole name="admin">
                     <li>
                         <a href="#">

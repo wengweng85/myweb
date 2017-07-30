@@ -23,6 +23,15 @@ public class DateTimePickerTag implements Tag {
 
 	// 校验规则
 	private String validate;
+	
+	//label
+    private String label;
+					
+	//占位列数,包括label的一列
+    private String cols;
+
+	//是否必输
+	private String required;
 
 
 	public void setValue(String value) {
@@ -51,8 +60,36 @@ public class DateTimePickerTag implements Tag {
 		return validate;
 	}
 
+	
+	
+	public String getCols() {
+		return cols;
+	}
+
+	public void setCols(String cols) {
+		this.cols = cols;
+	}
+
 	public void setValidate(String validate) {
 		this.validate = validate;
+	}
+	
+	
+
+	public String getLabel() {
+		return label;
+	}
+
+	public void setLabel(String label) {
+		this.label = label;
+	}
+
+	public String getRequired() {
+		return required;
+	}
+
+	public void setRequired(String required) {
+		this.required = required;
 	}
 
 	@Override
@@ -66,11 +103,23 @@ public class DateTimePickerTag implements Tag {
 	     //空值检查
 		 validate=(validate==null)?"":validate;
 	     value=(value==null)?"":value;
+	     String [] col=cols.split(",");
+	     int labelcol=Integer.parseInt(col[0]);
+	     int inputcol=Integer.parseInt(col[1]);
+	     //是否必输
+	     boolean isrequired=Boolean.parseBoolean(required);
 	     JspWriter out = pageContext.getOut();
 	     StringBuffer sb=new StringBuffer();
+	     sb.append("<label class=\"col-sm-"+labelcol+"  col-xs-"+labelcol+" control-label\">"+label);
+	     if(isrequired){
+	    	 sb.append("<span class=\"require\">*<span>");
+	     }
+	     sb.append("</label>");
+	     sb.append("<div class=\"col-sm-"+inputcol+" col-xs-"+inputcol+" \">");
 	     sb.append("<div class=\"input-group form_datetime date\">");
+		 sb.append("<input type=\"text\" id=\""+property+"\" name=\""+property+"\" value=\""+value+"\"  readonly   validate=\""+validate+"\" class=\"form-control\"  >");
 		 sb.append("<span class=\"input-group-addon\" draggable=\"false\"><i class=\"fa fa-calendar\"></i></span>");
-		 sb.append("<input type=\"text\" id=\""+property+"\" name=\""+property+"\" readonly   validate=\""+validate+"\" class=\"form-control\"  >");
+		 sb.append("</div>");
 		 sb.append("</div>");
 		 try {  
 			   out.write(sb.toString());

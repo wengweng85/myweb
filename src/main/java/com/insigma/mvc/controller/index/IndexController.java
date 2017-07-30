@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.insigma.mvc.MvcHelper;
 import com.insigma.mvc.service.index.IndexService;
+import com.insigma.shiro.realm.SysUserUtil;
 
 
 
@@ -26,18 +27,19 @@ public class IndexController extends MvcHelper {
     private IndexService indexService;
 	
 	/**
-	 * 主页
+	 * 管理功能主页面
 	 * @param request
 	 * @return
 	 */
 	@RequestMapping("/")
 	public ModelAndView gotoAdminIndex(HttpServletRequest request,Model model) throws Exception {
 		ModelAndView modelAndView=new ModelAndView("index/admin_index");
+		modelAndView.addObject("suser", SysUserUtil.getCurrentUser());
         return modelAndView;
 	}
 	
 	/**
-	 * 主页
+	 * 系统主页
 	 * @param request
 	 * @return
 	 */

@@ -65,7 +65,7 @@
         </mvc:interceptor>
         <mvc:interceptor>
             <mvc:mapping path="/**" />
-            <bean class="com.insigma.common.interceptor.SessionHashValidatorInterceptor" />
+            <bean class="com.insigma.common.interceptor.SessionInterceptor" />
         </mvc:interceptor>
         
      </mvc:interceptors>

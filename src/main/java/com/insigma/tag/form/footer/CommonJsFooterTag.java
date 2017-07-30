@@ -42,13 +42,11 @@ public class CommonJsFooterTag implements Tag  {
 	  String csrf=(String)request.getAttribute("csrf" );
 	  
 	  //<!--css及javascript引入开始-->
-	  sb.append("<script src='"+contextpath+"/resource/hplus/js/jQuery/all/jquery.js'></script>");
-	  sb.append("<script src='"+contextpath+"/resource/hplus/js/handlebars-v2.0.0-min.js'></script>");
+	  sb.append("<script src='"+contextpath+"/resource/hplus/js/jQuery/all/jquery.js' charset ='utf-8'></script>");
 	  sb.append("<script src='"+contextpath+"/resource/hplus/js/bootstrap.min.js'></script>");
 	  sb.append("<script src='"+contextpath+"/resource/hplus/js/plugins/layer/layer.min.js'></script>");
 	  //<!--bootstrap-table  -->
 	  sb.append("<script src='"+contextpath+"/resource/hplus/js/plugins/bootstrap-table/bootstrap-table.min.js'></script>");
-	  sb.append("<script src='"+contextpath+"/resource/hplus/js/plugins/bootstrap-table/bootstrap-table-mobile.min.js'></script>");
 	  sb.append("<script src='"+contextpath+"/resource/hplus/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js'></script>");
 
 	  //<!-- ztree  -->

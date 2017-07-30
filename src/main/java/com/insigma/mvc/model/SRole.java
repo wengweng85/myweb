@@ -1,5 +1,7 @@
 package com.insigma.mvc.model;
 
+import javax.validation.constraints.NotNull;
+
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -20,13 +22,13 @@ public class SRole extends PageInfo implements java.io.Serializable {
    
 	private String roleid;
 	
-	@NotEmpty(message="角色名称不能为空")
+	@NotNull(message="角色名称不能为空")
 	private String name;
 	
-	@NotEmpty(message="角色编码不能为空")
+	@NotNull(message="角色编码不能为空")
     private String code;
 	
-	@NotEmpty(message="角色描述不能为空")
+	@NotNull(message="角色描述不能为空")
     private String describe;
 	
 	private String pid;

@@ -2,21 +2,25 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.insigma.mvc.dao.login.LoginMapper">
-    <select id="getUser" parameterType="String" resultType="SUser" >
-		select 
-		 t.username,
-		 t.password,
-		 t.cnname,
-		 t.enabled
-		 from s_user  t 
-		 where t.username=#{username}
+    <select id="getUserAndGroupInfo" parameterType="String" resultType="SUser" >
+     select 
+         a.userid,
+	     a.username,
+	     a.password,
+	     a.cnname,
+	     a.enabled,
+	     b.groupid,
+	     b.name groupname,
+	     b.parentid groupparentid
+     from s_user a,s_group b,s_usergroupref c 
+     where a.userid=c.userid and b.groupid=c.groupid 
+     and a.username=#{username}
 	</select>
 	
 	<!-- 个人用户角色查询  -->
 	<select id="findRolesStr" parameterType="String" resultType="SRole">
 		select b.code from s_user a,s_role b ,s_user_role c where a.username=#{username}  and a.userid=c.userid and b.roleid=c.roleid  and b.code is not null
 	</select>
-	
 	
 	
 	<!-- 个人用户权限查询  -->
@@ -32,13 +36,11 @@
 	    and a.userid = b.userid and c.permissionid=b.permissionid and c.code is not null
 	</select>
 	
-	
 	<!-- 保存 -->
 	<insert id="saveLoginHashInfo"  parameterType="LoginInf">
 		insert into LOGININF(loginhash,logintime,ip,usergent,sessionid)
 		values (#{loginhash},sysdate,#{ip},#{usergent},#{sessionid})
 	</insert>
-	
 	
 	<!-- 检验登录权限 -->
 	<select id="findLoginInfoByhashcode" parameterType="String" resultType="LoginInf">

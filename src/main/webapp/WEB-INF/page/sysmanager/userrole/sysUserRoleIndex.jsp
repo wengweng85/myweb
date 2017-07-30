@@ -1,13 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=gbk" pageEncoding="gbk"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"  pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c"%>
-<%@ taglib uri="http://www.rc.com/rctag" prefix="rc"%>
+<%@ taglib uri="http://www.epsoft.com/rctag" prefix="rc"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ÓÃ»§½ÇÉ«ÊÚÈ¨¹ÜÀí</title>
-<!-- cssÍ·ÎÄ¼ş  -->
+<title>ç”¨æˆ·è§’è‰²æˆæƒç®¡ç†</title>
+<!-- csså¤´æ–‡ä»¶  -->
 <rc:csshead />
 </head>
 <body class="gray-bg">
@@ -15,7 +15,7 @@
 		<div class="col-sm-3">
 			<div class="ibox float-e-margins">
 				<div class="ibox-title">
-					<h5>»ú¹¹ÓÃ»§Ê÷</h5>
+					<h5>æœºæ„ç”¨æˆ·æ ‘</h5>
 				</div>
 				<div class="ibox-content">
 					<div id="tree-div" class="ztree" style="overflow: auto; height: 750px; "></div>
@@ -27,24 +27,18 @@
 			    <div class="col-sm-12">
 					<div class="ibox float-e-margins">
 						<div class="ibox-title">
-							<h5>»ú¹¹ĞÅÏ¢</h5>
+							<h5>æœºæ„ä¿¡æ¯</h5>
 						</div>
 						<div class="ibox-content" >
 							<form class="form-horizontal" id="group_form">
-								<!-- Òş²ØÇøÓò -->
+								<!-- éšè—åŒºåŸŸ -->
 								<rc:hidden property="groupid"/>
 								<div class="form-group">
-									<label class="col-sm-3 control-label">»ú¹¹Ãû³Æ</label>
-									<div class="col-sm-9">
-										<rc:textedit property="name" readonly="true" />
-									</div>
+									<rc:textedit property="name" label="æœºæ„åç§°"  cols="2,10"  readonly="true" />
 								</div>
 								<div class="hr-line-dashed"></div>
 								<div class="form-group">
-									<label class="col-sm-3 control-label">»ú¹¹ÃèÊö</label>
-									<div class="col-sm-9">
-										<rc:textedit property="description" readonly="true" />
-									</div>
+									<rc:textedit property="description"  label="æœºæ„æè¿°"  cols="2,10"  readonly="true" />
 								</div>
 							</form>
 						</div>
@@ -54,20 +48,20 @@
 				<div class="col-sm-12">
 					<div class="ibox float-e-margins">
 						<div class="ibox-title">
-							<h5>ÓÃ»§ÁĞ±í</h5>
+							<h5>ç”¨æˆ·åˆ—è¡¨</h5>
 						</div>
-						<!-- Ä£ĞÍ -->
+						<!-- æ¨¡å‹ -->
 			            <script id="tpl" type="text/x-handlebars-template" >
                             {{#equals isgrant 'false' }}			                
-				                 <a class="btn btn-danger">Î´ÊÚÈ¨</a>
+				                 <button class="btn btn-outline btn-danger">æœªæˆæƒ</button>
 			                {{/equals}} 
 			                {{#equals isgrant 'true'}}
-			                     <a class="btn btn-info">ÒÑÊÚÈ¨</a>
+			                     <button class="btn btn-outline  btn-info">å·²æˆæƒ</button>
 			                {{/equals}} 
 			            </script>
 			            
 			            <script id="tpl_op" type="text/x-handlebars-template" >
-				             <a class="btn btn-info" onclick="sys_user_role_grant('{{userid}}')">½ÇÉ«ÊÚÈ¨</a>
+				             <a class="btn btn-info" onclick="sys_user_role_grant('{{userid}}')">è§’è‰²æˆæƒ</a>
 			            </script>
 						<div class="ibox-content" >
 							<table id="usertable" 
@@ -79,12 +73,12 @@
 								<thead>
 								    <tr>
 								        <th data-checkbox="true" ></th>
-								        <th data-formatter="sys_user_role_indexFormatter">ĞòºÅ</th>
-					                    <th data-field="username">ÓÃ»§Ãû</th>
-					                    <th data-field="cnname">ĞÕÃû</th>
-					                    <th data-formatter="sys_user_role_grantStatusFormatter">ÊÇ·ñÒÑÊÚÈ¨</th>
+								        <th data-formatter="sys_user_role_indexFormatter">åºå·</th>
+					                    <th data-field="username">ç”¨æˆ·å</th>
+					                    <th data-field="cnname">å§“å</th>
+					                    <th data-formatter="sys_user_role_grantStatusFormatter">æ˜¯å¦å·²æˆæƒ</th>
 					                    <!--  
-					                    <th data-formatter="sys_user_role_opFormatter">ÊÚÈ¨</th>
+					                    <th data-formatter="sys_user_role_opFormatter">æˆæƒ</th>
 					                    -->
 								    </tr>
 						        </thead>
@@ -98,24 +92,18 @@
 			<div class="col-sm-12">
 				<div class="ibox float-e-margins">
 					<div class="ibox-title">
-						<h5>ÓÃ»§ĞÅÏ¢</h5>
+						<h5>ç”¨æˆ·ä¿¡æ¯</h5>
 					</div>
 					<div class="ibox-content" >
 						<form class="form-horizontal" id="user_form">
-							<!-- Òş²ØÇøÓò -->
+							<!-- éšè—åŒºåŸŸ -->
 							<rc:hidden property="userid"/>
 							<div class="form-group">
-								<label class="col-sm-3 control-label">ÓÃ»§Ãû</label>
-								<div class="col-sm-9">
-									<rc:textedit property="username" readonly="true" />
-								</div>
+								<rc:textedit property="username" label="ç”¨æˆ·å"  cols="3,9"  readonly="true" />
 							</div>
 							<div class="hr-line-dashed"></div>
 							<div class="form-group">
-								<label class="col-sm-3 control-label">ĞÕÃû</label>
-								<div class="col-sm-9">
-									<rc:textedit property="cnname" readonly="true" />
-								</div>
+								<rc:textedit property="cnname" label="å§“å" cols="3,9"  readonly="true" />
 							</div>
 						</form>
 					</div>
@@ -125,7 +113,7 @@
 			<div class="col-sm-12">
 			<div class="ibox float-e-margins">
 				<div class="ibox-title">
-					<h5>½ÇÉ«ÁĞ±í</h5>
+					<h5>è§’è‰²åˆ—è¡¨</h5>
 				</div>
 				<div class="ibox-content" >
 					<table id="roletable" data-url="<c:url value='/sys/userrole/getRoleByUserId'/>"
@@ -134,15 +122,15 @@
 						<thead>
 						    <tr>
 						        <th data-checkbox="true"  data-formatter="sys_user_role_checkedFormatter"></th>
-						        <th data-formatter="sys_user_role_indexFormatter">ĞòºÅ</th>
-			                    <th data-field="name">½ÇÉ«Ãû³Æ</th>
-			                    <th data-field="code">½ÇÉ«ÃèÊö</th>
+						        <th data-formatter="sys_user_role_indexFormatter">åºå·</th>
+			                    <th data-field="name">è§’è‰²åç§°</th>
+			                    <th data-field="code">è§’è‰²æè¿°</th>
 						    </tr>
 				        </thead>
 					</table>
 					<div class="hr-line-dashed"></div>
 					<div class="form-group" style="text-align: right;">
-						<a  class="btn btn-primary " onclick="sys_user_role_batchAddUserRole()">±£´æ</a>
+						<a  class="btn btn-primary " onclick="sys_user_role_batchAddUserRole()"><i class="fa fa-save"></i>&nbsp;ä¿å­˜</a>
 					</div>
 				</div>
 			</div>
@@ -157,12 +145,12 @@ $(function() {
 	 $('#roletable').inittable();
 })
     
-//ÓÃ»§±í¸ñ¼àÌı 
+//ç”¨æˆ·è¡¨æ ¼ç›‘å¬ 
 $('#usertable').on('click-row.bs.table', function (e, row, $element) {
-   	rc.evaluation(row);
+   	rc.evaluation(row,$('#user_form'));
    	sys_user_role_grant(row.userid);
 });   
-//Ê÷ÅäÖÃ
+//æ ‘é…ç½®
 var sys_user_role_setting = {
 	  view: {
           dblClickExpand: false,
@@ -187,26 +175,26 @@ var sys_user_role_setting = {
 	  }
 };
 //format
-//×´Ì¬
+//çŠ¶æ€
 function sys_user_role_grantStatusFormatter(value, row, index) {
 	var tpl = $("#tpl").html();  
-  	//Ô¤±àÒëÄ£°å  
+  	//é¢„ç¼–è¯‘æ¨¡æ¿  
   	var template = Handlebars.compile(tpl);  
   	return template(row);
 }
-//ÇøÓò
+//åŒºåŸŸ
 function sys_user_role_opFormatter(value, row, index) {
 	var tpl = $("#tpl_op").html();  
-  	//Ô¤±àÒëÄ£°å  
+  	//é¢„ç¼–è¯‘æ¨¡æ¿  
   	var template = Handlebars.compile(tpl);  
   	return template(row);
 }
 
-//ÊÇ·ñÑ¡ÖĞ
+//æ˜¯å¦é€‰ä¸­
 function sys_user_role_checkedFormatter(value,row,index){
    if (row.checked == 'true')
        return {
-           checked : true//ÉèÖÃÑ¡ÖĞ
+           checked : true//è®¾ç½®é€‰ä¸­
        };
    return value;
 }
@@ -214,20 +202,20 @@ function sys_user_role_indexFormatter(value, row, index) {
     return index+1;
 }
 
-//µã»÷ÊÂ¼ş
+//ç‚¹å‡»äº‹ä»¶
 function onClick(event, treeId, treeNode, clickFlag) {
-	//»ú¹¹ĞÅÏ¢²éÑ¯
+	//æœºæ„ä¿¡æ¯æŸ¥è¯¢
 	rc.ajaxQuery("<c:url value='/sys/userrole/getgroupdatabyid/'/>"+treeNode.id);
 	sys_user_role_queryuser(treeNode.id);
 }
 
-//²éÑ¯
+//æŸ¥è¯¢
 function sys_user_role_queryuser(groupid){
 	var url="<c:url value='/sys/userrole/getUserListDataByid'/>"+'?groupid='+groupid;
 	$('#usertable').refreshtable(url);
 }
 
-//ÈËÔ±Ñ¡ÖĞ¼ÓÔØ½ÇÉ«
+//äººå‘˜é€‰ä¸­åŠ è½½è§’è‰²
 function sys_user_role_grant(userid){
 	$('#userid').val(userid);
 	var url="<c:url value='/sys/userrole/getRoleByUserId'/>"+'?userid='+userid;
@@ -235,12 +223,12 @@ function sys_user_role_grant(userid){
 }
 
 
-//ÅúÁ¿Ôö¼ÓÓÃ»§½ÇÉ«
+//æ‰¹é‡å¢åŠ ç”¨æˆ·è§’è‰²
 function sys_user_role_batchAddUserRole(){
 	var userid=$('#userid').val();
 	if(userid){
 		var selections=$('#roletable').getAllTableSelections();
-	    //Ñ¡ÖĞµÄÖµ
+	    //é€‰ä¸­çš„å€¼
 	    var selectnodes='';
 	    if(selections.length>0){
 			   for(i=0;i<selections.length;i++){
@@ -252,11 +240,11 @@ function sys_user_role_batchAddUserRole(){
 		    	$('#usertable').refreshtable();
 		   }); 
 	    }else{
-	 	   layer.alert("ÇëÖÁÉÙÑ¡ÖĞÒ»Ìõ¼ÇÂ¼");                
+	 	   layer.alert("è¯·è‡³å°‘é€‰ä¸­ä¸€æ¡è®°å½•");                
 			   return;
 	    }
 	}else{
-		layer.alert('ÇëÏÈÑ¡ÔñÒªÔö¼Ó½ÇÉ«µÄÓÃ»§');
+		layer.alert('è¯·å…ˆé€‰æ‹©è¦å¢åŠ è§’è‰²çš„ç”¨æˆ·');
 	}
 }	 
 </script>

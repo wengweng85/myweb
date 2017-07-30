@@ -22,7 +22,7 @@ public interface LoginService {
 	 * @return
 	 * @throws Exception 
 	 */
-	public SUser getUser(String loginname);
+	public SUser getUserAndGroupInfo(String loginname);
 	
 	/**
 	 * 通过用户id获取用户角色集合

@@ -38,16 +38,35 @@ $(function() {
 	});
 
 	//浏览器尺寸变化响应事件时，重新设置遮盖层
-	window.onresize=rc.updateBody;
+	//window.onresize=rc.updateBody;
+	
+	//collapse监听
+	$(".collapse-link")
+		.click(function() {
+			var o = $(this).closest("div.ibox"), 
+			e = $(this).find("i"), 
+			i = o.find("div.ibox-content");
+			i.slideToggle(200), 
+			e.toggleClass("fa-chevron-up").toggleClass("fa-chevron-down"), 
+			o.toggleClass("").toggleClass("border-bottom"), 
+			setTimeout(function() {
+				o.resize(), o.find("[id^=map-]").resize()
+			}, 50)
+		})
 });
 
 $.fn.serializeObject = function()    
 {    
     var obj=new Object();  
     $.each(this.serializeArray(),function(index,param){  
-        if(!(param.name in obj) && param.value){  
-            obj[param.name]=param.value;  
-        }  
+        if( param.value){
+        	if(!(param.name in obj) ){  
+                obj[param.name]=param.value;  
+	        }else{
+	        	obj[param.name]+=","+param.value
+	        }  
+        }
+       
     });  
     return obj;  
 };
@@ -94,7 +113,7 @@ var rc = {
 	validAndAjaxSubmit:function(_form,callback,param,istokenreload){
 		param= $.extend(rc.submitparam,param);
 		_form.validate({
-			onblur:true,
+			onblur:false,
 			submitHandler : function(form) {
 				rc.ajaxsubmit($(form),callback,param.ismask,istokenreload);
 			},
@@ -147,13 +166,13 @@ var rc = {
 	ajaxsubmit : function(_form, callback,ismask,istokenreload) {
 		var param=_form.serialize();
 		if($('#CSRFToken').length>0) {
-			if (param) {
-				param += "&CSRFToken=" + $('#CSRFToken').val();
-			} else {
-				param += "CSRFToken=" + $('#CSRFToken').val();
-			}
+			param.CSRFToken=$('#CSRFToken').val()
 		}
-		rc.ajax(_form.attr('action'),param,callback,'post',null,true,true,istokenreload);
+		if(_form.attr('action')){
+		    rc.ajax(_form.attr('action'),param,callback,'post',null,true,true,istokenreload);	
+		}else{
+			layer.alert('请给要提交的表单提供正确的保存路径');
+		}
 	},
 	ajaxdelete:function(url,callback){
 		rc.ajax(url,null,callback);
@@ -317,43 +336,37 @@ var rc = {
 	evaluation : function(obj,dom_selector) {
 		var inputs = $("form :input");
 		if(dom_selector){
-			inputs=dom_selector.find("form :input");
+			inputs=dom_selector.find(":input");
 		}
 		inputs.each(function(i, dom) {
 			var type = dom.type;
 			var name = dom.name;
+			console.log(name+''+type);
 			if (name) {
 				eval('var res=obj.' + name||'');
 				//if (res) {
-					if (type == 'text'||type=='hidden') {
-						$(dom).val(res);
-					} else if (type == 'checkbox') {
-						var checkboxvalues = res.split(',');
-						for (var i = 0; i < checkboxvalues.length; i++) {
-							if ($(dom).val() === checkboxvalues[i]) {
-								$(dom).attr('checked', 'checked');
-							}
-						}
-					} else if (type == 'radio') {
-						if ($(dom).val() === res) {
+				if (type == 'text'||type=='hidden') {
+					$(dom).val(res);
+				} else if (type == 'checkbox') {
+					var checkboxvalues = res.split(',');
+					for (var i = 0; i < checkboxvalues.length; i++) {
+						if ($(dom).val() === checkboxvalues[i]) {
 							$(dom).attr('checked', 'checked');
 						}
-					} else if (type == 'select-one') {
-						var options = $(dom).children();
-						//options.each(function(i, d) {
-							//if ($(d).val() === res) {
-								//$(d).attr('selected','selected');
-								$(dom).selectpicker('val',res);
-							//}
-						//})
-					} else if (type == 'select-multiple') {
-						var a = new Array();
-						for (var i = 0; i < selectvalues.length; i++) {
-							a.push(selectvalues[i]);
-						}
-						$(dom).val(a);
 					}
-				//}
+				} else if (type == 'radio') {
+					if ($(dom).val() === res) {
+						$(dom).attr('checked', 'checked');
+					}
+				} else if (type == 'select-one') {
+					$(dom).selectpicker('val',res);
+				} else if (type == 'select-multiple' ) {
+					try{
+						$(dom).selectpicker('val',res.split(','));
+					} catch(error) {
+						$(dom).selectpicker('val',res);
+					}
+				} 
 			}
 		});
 	},
@@ -372,29 +385,22 @@ var rc = {
 			var type = dom.type;
 			var name = dom.name;
 			if (name) {
-					if (type == 'text'||type=='hidden') {
-						$(dom).val('');
-					} else if (type == 'checkbox') {
-						var checkboxvalues = res.split(',');
-						for (var i = 0; i < checkboxvalues.length; i++) {
-							if ($(dom).val() === checkboxvalues[i]) {
-								$(dom).attr('checked', '');
-							}
-						}
-					} else if (type == 'radio') {
-						if ($(dom).val() === res) {
+				if (type == 'text'||type=='hidden') {
+					$(dom).val('');
+				} else if (type == 'checkbox') {
+					var checkboxvalues = res.split(',');
+					for (var i = 0; i < checkboxvalues.length; i++) {
+						if ($(dom).val() === checkboxvalues[i]) {
 							$(dom).attr('checked', '');
 						}
-					} else if (type == 'select-one') {
-						var options = $(dom).children();
-								$(dom).selectpicker('val','');
-					} else if (type == 'select-multiple') {
-						var a = new Array();
-						for (var i = 0; i < selectvalues.length; i++) {
-							a.push(selectvalues[i]);
-						}
-						$(dom).val(a);
 					}
+				} else if (type == 'radio') {
+					if ($(dom).val() === res) {
+						$(dom).attr('checked', '');
+					}
+				} else if (type == 'select-one' || type == 'select-multiple') {
+					$(dom).selectpicker('val','');
+				} 
 			}
 		});
 	},
@@ -1346,16 +1352,18 @@ function jiangese_set(tabid,start,color1,color2){
 	        queryParamsType:'limit',//查询参数组织方式
 	        sidePagination:'server',//指定服务器端分页
 	        pageList:[5,10,20,30,50],//分页步进值
+	        showToggle:false,
 	        showRefresh:false,//刷新按钮
 	        showColumns:false,//显示列选择框
-	        //clickToSelect: false,//是否启用点击选中行
+	        //singleSelect:true,
+	        clickToSelect: true,//是否启用点击选中行
 	        buttonsAlign:'right'//按钮对齐方式
          })
         //点击事件 
-        /*_this.on('click-row.bs.table', function (e, row, $element) {
+        _this.on('click-row.bs.table', function (e, row, $element) {
     		$('.success').removeClass('success');
     		$($element).addClass('success');
-  	    });*/ 
+  	    });
 	}
 	
 	/**

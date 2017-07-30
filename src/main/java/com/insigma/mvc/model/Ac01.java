@@ -2,17 +2,95 @@ package com.insigma.mvc.model;
 
 import java.util.Date;
 
-public class Ac01  extends PageInfo implements java.io.Serializable  {
-    private String aac001;
+import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.Length;
+
+public class Ac01  extends PageInfo implements java.io.Serializable  {
+    
+	/**
+	 * 在JSR303中已经定义的Constraint如下：
+		空检查
+		
+		@Null       验证对象是否为null
+		
+		@NotNull      验证对象是否不为null, 无法查检长度为0的字符串
+		
+		@NotBlank 检查约束字符串是不是Null还有被Trim的长度是否大于0,只对字符串,且会去掉前后空格.
+		
+		@NotNull 检查约束元素是否为NULL或者是EMPTY.
+		
+		Booelan检查
+		
+		@AssertTrue     验证 Boolean 对象是否为 true  
+		
+		@AssertFalse    验证 Boolean 对象是否为 false  
+		 
+		
+		长度检查
+		
+		@Size(min=, max=) 验证对象（Array,Collection,Map,String）长度是否在给定的范围之内  
+		
+		@Length(min=, max=) 
+		验证字符串的长度是否在给定的范围之内，包含两端
+		
+		日期检查
+		
+		@Past        验证 Date 和 Calendar 对象是否在当前时间之前  
+		
+		@Future     验证 Date 和 Calendar 对象是否在当前时间之后  
+		
+		@Pattern    验证 String 对象是否符合正则表达式的规则
+		 
+		
+		数值检查：建议使用在Stirng,Integer类型，不建议使用在int类型上，因为表单值为“”时无法转换为int，但可以转换为Stirng为"",Integer为null
+		
+		@Min            验证 Number 和 String 对象是否大等于指定的值  
+		
+		@Max            验证 Number 和 String 对象是否小等于指定的值  
+		
+		@DecimalMax 被标注的值必须不大于约束中指定的最大值. 这个约束的参数是一个通过BigDecimal定义的最大值的字符串表示.小数存在精度
+		
+		@DecimalMin 被标注的值必须不小于约束中指定的最小值. 这个约束的参数是一个通过BigDecimal定义的最小值的字符串表示.小数存在精度
+		
+		@Digits     验证 Number 和 String 的构成是否合法  
+		
+		@Digits(integer=,fraction=) 验证字符串是否是符合指定格式的数字，interger指定整数精度，fraction指定小数精度。
+		 
+		
+		@Range(min=, max=) Checks whether the annotated value lies between (inclusive) the specified minimum and maximum.
+		
+		@Range(min=10000,max=50000,message="range.bean.wage")
+		private BigDecimal wage;
+		
+		@Valid递归的对关联对象进行校验, 如果关联对象是个集合或者数组,那么对其中的元素进行递归校验,如果是一个map,则对其中的值部分进行校验.(是否进行递归验证)
+		
+		@CreditCardNumber信用卡验证
+		
+		@Email 验证是否是邮件地址，如果为null,不进行验证，算通过验证。
+		
+		@ScriptAssert(lang= ,script=, alias=)
+		
+		@URL(protocol=,host=, port=,regexp=, flags=)
+	 */
+	
+	private String aac001;
+    
+	@NotNull(message="姓名不能为空")
+	@Length (min=2, max=5, message="姓名长度只能在3-5之间")
     private String aac003;
 
+	@NotNull(message="身份证号码不能为空")
     private String aac002;
 
+	@NotNull(message="性别不能为空")
     private String aac004;
 
+	@NotNull(message="民族不能为空")
     private String aac005;
 
+	@NotNull(message="出生日期不能为空")
     private Date aac006;
     
     private Date aac006_begin;
@@ -21,18 +99,25 @@ public class Ac01  extends PageInfo implements java.io.Serializable  {
     
     private String aae009;
 
+    @NotNull(message="健康状况不能为空")
 	private String aac033;
 
+    @NotNull(message="婚姻状况不能为空")
     private String aac017;
 
+    @NotNull(message="政治面貌不能为空")
     private String aac024;
 
+    @NotNull(message="学历不能为空")
     private String aac011;
 
+    @NotNull(message="联系电话不能为空")
     private String aae006;
 
     private String aac067;
 
+    @NotNull(message="邮箱不能为空")
+    @Email (message="邮件格式错误")
     private String aae015;
 
     private String aac007;
@@ -42,10 +127,13 @@ public class Ac01  extends PageInfo implements java.io.Serializable  {
     private String adc100;
 
     private String aaf011;
-
+    
     private String aae011;
+    
+    private String aae010;
 
-    private Date aae036;
+
+	private Date aae036;
 
     private Long aaz002;
 
@@ -72,13 +160,40 @@ public class Ac01  extends PageInfo implements java.io.Serializable  {
     private Integer aac034;
 
     private Integer aac035;
+    
+    private String aab301;
 
-    private String aac036;
+    public String getAab301() {
+		return aab301;
+	}
+
+	public void setAab301(String aab301) {
+		this.aab301 = aab301;
+	}
+
+	public String getSelectnodes() {
+		return selectnodes;
+	}
+
+	public void setSelectnodes(String selectnodes) {
+		this.selectnodes = selectnodes;
+	}
+
+	private String aac036;
 
     private String aae013;
     
+    private String selectnodes;
     
+    
+    public String getAae010() {
+		return aae010;
+	}
 
+	public void setAae010(String aae010) {
+		this.aae010 = aae010;
+	}
+	
     public Date getAac006_begin() {
 		return aac006_begin;
 	}

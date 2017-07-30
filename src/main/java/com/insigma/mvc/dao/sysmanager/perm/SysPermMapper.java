@@ -18,13 +18,13 @@ public interface SysPermMapper {
 	
 	public SPermission isPermCodeExist(SPermission spermission);
 	
-	public void savePermissionData(SPermission spermission);
+	public int savePermissionData(SPermission spermission);
 	
-	public void updatePermissionData(SPermission spermission);
+	public int updatePermissionData(SPermission spermission);
 	
 	public List<SPermission> getPermListDataByParentid(String parentid);
 	
-	public void deletePermDataById(String id);
+	public int deletePermDataById(String id);
 	
 	
 

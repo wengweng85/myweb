@@ -22,7 +22,7 @@ public interface SysUserRoleMapper {
 	
 	public List<SRole> getUserRoleByUserId(String userid);
 	
-	public void deleteUserRoleByUserId(String userid);
+	public int deleteUserRoleByUserId(String userid);
 	
-	public void saveUserRole(SRole srole);
+	public int saveUserRole(SRole srole);
 }
