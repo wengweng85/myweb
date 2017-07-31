@@ -40,9 +40,17 @@ public class CommonCssHeaderTag implements Tag  {
 	  //<!-- ztree -->
 	  sb.append("<link href='"+contextpath+"/resource/hplus/js/jQuery/ztree/css/metroStyle/metroStyle.css'  rel='stylesheet' >");
 	  //<!-- select -->
-	  sb.append("<link href='"+contextpath+"/resource/hplus/js/plugins/bootstrap-select/css/bootstrap-select.min.css' rel='stylesheet'>");
+	  sb.append("<link href='"+contextpath+"/resource/hplus/js/plugins/bootstrap-select/css/bootstrap-select.css' rel='stylesheet'>");
+	  
+	  //<!--select2-->
+	  //sb.append("<link href='"+contextpath+"/resource/hplus/js/plugins/select2/css/select2.css' rel='stylesheet'>");
 	  //<!-- datapicker -->
 	  sb.append("<link href='"+contextpath+"/resource/hplus/js/plugins/datetimepicker/css/bootstrap-datetimepicker.min.css' rel='stylesheet'>");
+	  
+	  sb.append("<link href='"+contextpath+"/resource/hplus/css/plugins/jasny/jasny-bootstrap.min.css' rel='stylesheet'>");
+	  
+	  sb.append("<link href='"+contextpath+"/resource/hplus/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css' rel='stylesheet'>");
+	  
 	  //<!-- rc.css -->
 	  sb.append("<link href='"+contextpath+"/resource/hplus/css/rc.css' rel='stylesheet'>");
 	  

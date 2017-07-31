@@ -37,8 +37,8 @@
 				        <div class="form-group">
 			               <rc:textedit  property="aac003" required="true" label="姓名" validate="{required:true,chinese:true,maxlength:10,messages:{required:'姓名不能为空'}}" cols="1,2" />
 			               <rc:textedit  property="aac002" required="true"  label="身份证" cols="1,2" validate="{required:true,idcard:true,messages:{required:'身份证不能为空'}}"/>
-			               <rc:select property="aac004" required="true"  label="性别" cols="1,2"  codetype="AAC004"  onchange="demo_aac004_change_test()" validate="{required:true,messages:{required:'性别不能为空'}}"/>
-			               <rc:select property="aac005" required="true"  label="民族" cols="1,2"  codetype="AAC005"  onchange="demo_aac004_change_test()" validate="{required:true,messages:{required:'民族不能为空'}}"/>
+			               <rc:select property="aac004" required="true"  multiple="true"  label="性别" cols="1,2"  codetype="AAC004"  validate="{required:true,messages:{required:'性别不能为空'}}"/>
+			               <rc:select property="aac005" required="true"  label="民族" cols="1,2"  codetype="AAC005"  validate="{required:true,messages:{required:'民族不能为空'}}"/>
 			           </div>
 				       <div class="hr-line-dashed"></div>
 				       <div class="form-group">
@@ -65,7 +65,19 @@
 	                <h5>附加信息</h5>
 	            </div>
 	            <div class="ibox-content">
-		            
+		            <div class="form-horizontal"  >
+				        <div class="form-group">
+			               <rc:select property="aab800" required="true"  label="户籍所在省"  onchange="rc.code_value_select_data_change(this.value,'AAB801',['#aab801','#aab802'])"  cols="1,2"  codetype="AAB800"  validate="{required:true,messages:{required:'户籍所在省不能为空'}}"/>
+			               <rc:select property="aab801" required="true"  readonly="true" label="户籍所在市"  onchange="rc.code_value_select_data_change(this.value,'AAB802',['#aab802'])"  cols="1,2"   codetype="AAB801" validate="{required:true,messages:{required:'户籍所在市不能为空'}}"/>
+			               <rc:select property="aab802" required="true"  readonly="true"  label="户籍所在县"  cols="1,2"  codetype="AAB802"  validate="{required:true,messages:{required:'户籍所在县不能为空'}}"/>
+			            </div>
+			            <div class="hr-line-dashed"></div>
+			            <div class="form-group">
+			               <rc:checkbox label="就失业状态" required="true"  property="adc300" cols="1,5" codetype="ADC300" />
+			               <rc:radio label="就业状态" required="true" property="adc100" cols="1,5" codetype="ADC100" />
+			            </div>
+			            <div class="hr-line-dashed"></div>
+			       </div>
 		       </div>
 	        </div>
 	        <!-- 人员附加信息结束-->
@@ -97,9 +109,11 @@
     	else{
     		alert(response.message);
     	}
-    	
     }
-
+    
+    function aab800_change(aab800){
+    	alert(aab800);
+    }
     </script>
 </body>
 </html>

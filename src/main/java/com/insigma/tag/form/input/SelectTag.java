@@ -30,7 +30,6 @@ public class SelectTag implements Tag {
 	private String property;
 	
 	
-	
 	//label
 	private String label;
 				
@@ -39,6 +38,8 @@ public class SelectTag implements Tag {
 
     //是否必输
     private String required;
+    
+    private String readonly;
 
 	// 值
 	private String value;
@@ -68,8 +69,15 @@ public class SelectTag implements Tag {
 	private String onkeyup;
 	
 	
+
 	
-	
+	public String getReadonly() {
+		return readonly;
+	}
+
+	public void setReadonly(String readonly) {
+		this.readonly = readonly;
+	}
 
 	public String getLabel() {
 		return label;
@@ -206,9 +214,13 @@ public class SelectTag implements Tag {
 		 value = (value == null) ? "" : value;
 		 multiple=(multiple==null)?"false":multiple;
 		 required=(required==null)?"":required;
+		 readonly=(readonly==null)?"":readonly;
+		 codetype=(codetype==null)?"":codetype;
 		 String [] col=cols.split(",");
 	     int labelcol=Integer.parseInt(col[0]);
 	     int inputcol=Integer.parseInt(col[1]);
+	   //是否只读
+	     boolean isreadonly=Boolean.parseBoolean(readonly);
 	     //是否必输
 	     boolean isrequired=Boolean.parseBoolean(required);
 	     JspWriter out = pageContext.getOut();
@@ -219,8 +231,13 @@ public class SelectTag implements Tag {
 	     }
 	     sb.append("</label>");
 	     sb.append("<div class=\"col-sm-"+inputcol+" col-xs-"+inputcol+" \">");
-		 sb.append("<select class=\"form-control selectpicker \" id=\"" + property+ "\" name=\"" + property + "\"  value=\"" + value+ "\"   data-live-search=\"true\"  validate=\"" + validate+ "\" ");
-		//onclick事件
+		 sb.append("<select class=\"form-control selectpicker \" id=\"" + property+ "\" name=\"" + property + "\"  title=\"请选择"+label+"\" value=\"" + value+ "\"  selectOnTab=\"true\" data-size=\"5\" data-live-search=\"true\" validate=\"" + validate+ "\"   data-selected-text-format=\"count > 2\"");
+		 
+		 if(isreadonly){
+			 sb.append(" disabled ");
+		 }
+		 
+		 //onclick事件
 		 if(onclick!=null){
 			  sb.append(" onclick=\""+onclick+"\" ");
 		 }
@@ -247,23 +264,25 @@ public class SelectTag implements Tag {
 		 if(Boolean.parseBoolean(multiple)){
 			  sb.append(" multiple ");
 		 }
-		 sb.append(">");
+		sb.append(">");
 		
-		
-		// 从EhCache获取下载
-		Element element = EhCacheUtil.getManager().getCache("webcache").get(codetype);
-		if (element != null) {
-			List<CodeValue> list = (List<CodeValue>) element.getValue();
-			sb.append("<option value=\"\"></option> ");
-			for (CodeValue codevalue : list) {
-				sb.append("<option ");
-				if (value != null && !value.equals("")) {
-					if (value.equals(codevalue.getCode_value())) {
-						sb.append(" selected ");
+		//如果codetype不为空
+		if(!codetype.equals("")){
+			// 从EhCache获取下载
+			Element element = EhCacheUtil.getManager().getCache("webcache").get(codetype);
+			if (element != null) {
+				List<CodeValue> list = (List<CodeValue>) element.getValue();
+				//sb.append("<option value=\"\"></option> ");
+				for (CodeValue codevalue : list) {
+					sb.append("<option ");
+					if (value != null && !value.equals("")) {
+						if (value.equals(codevalue.getCode_value())) {
+							sb.append(" selected ");
+						}
 					}
+					sb.append("  value=\"" + codevalue.getCode_value() + "\">"+ codevalue.getCode_name() + "</option>");
 				}
-				sb.append("  value=\"" + codevalue.getCode_value() + "\">"+ codevalue.getCode_name() + "</option>");
-			}
+			}	
 		}
 		sb.append("</select>");
 		sb.append("</div>");

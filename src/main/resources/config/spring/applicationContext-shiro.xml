@@ -29,6 +29,8 @@
 			    /=authc
 			    /index=authc
 				/drag/**=authc
+				/codetype/**=authc
+				/token/**=authc
 				/job/**=authc
 				/sys/**=authc,roles[admin]
 			</value>

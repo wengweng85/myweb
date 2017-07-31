@@ -16,6 +16,7 @@ public interface InitService {
 	
 	public List<CodeType> getInitcodetypeList();
 	public List<CodeValue> getInitCodeValueList(String code_type);
+	public List<CodeValue> queryCodeValueByParam(CodeValue codevalue);
 	public List<Aa01> getInitParamList();
 	public Aa01 getInitParamById(String aaa001);
 	

@@ -4,9 +4,7 @@
   <!-- 基本sql片段 -->
   <sql id="Base_Column_List">
     AAC001, AAC003, AAC002, AAC004, AAC005, AAC006, AAC033, AAC017, AAC024, AAC011, AAE006, 
-    AAC067, AAE015, AAC007, AAC027, ADC100, AAF011, AAE011, AAE036, AAZ002, AAE100, EAE052, 
-    AAE200, AAE202, AAE201, AAE203, AAA148, ADC300, AAC127, AAC032, AAC034, AAC035
-    ID, AAC128
+    AAC067, AAE015, AAC007, AAC027, ADC100, AAF011, AAE011, AAE036, AAA148, ADC300, aab800,aab801,aab802 
   </sql>
   
   
@@ -16,17 +14,18 @@
     aac001,
     aac002,
     aac003,
-    (select CODE_NAME from code_value t where t.code_type='AAC004' AND CODE_VALUE=aac004) aac004,
-    (select CODE_NAME from code_value t where t.code_type='AAC005' AND CODE_VALUE=aac005) aac005,
+    (select aaa103 from v_aa10 t where t.aaa100='AAC004' AND aaa102=aac004) aac004,
+    (select aaa103 from v_aa10 t where t.aaa100='AAC005' AND aaa102=aac005) aac005,
     aac006,
-    (select CODE_NAME from code_value t where t.code_type='AAC033' AND CODE_VALUE=aac033) aac033,
-    (select CODE_NAME from code_value t where t.code_type='AAC017' AND CODE_VALUE=aac017) aac017,
-    (select CODE_NAME from code_value t where t.code_type='AAC024' AND CODE_VALUE=aac024) aac024,
-    (select CODE_NAME from code_value t where t.code_type='AAC011' AND CODE_VALUE=aac011) aac011,
+    (select aaa103 from v_aa10 t where t.aaa100='AAC033' AND aaa102=aac033) aac033,
+    (select aaa103 from v_aa10 t where t.aaa100='AAC017' AND aaa102=aac017) aac017,
+    (select aaa103 from v_aa10 t where t.aaa100='AAC024' AND aaa102=aac024) aac024,
+    (select aaa103 from v_aa10 t where t.aaa100='AAC011' AND aaa102=aac011) aac011,
     aae006,
     aae010,
     aae009,
-    aae036  
+    aae036,
+    (select aaa103 from v_aa10 t where t.aaa100='AAB800' AND aaa102=aab800) aab800  
     from DEMO_AC01 
     <where>
       <if test="aac002!=null">
@@ -148,6 +147,9 @@
       <if test="adc100 != null">
         ADC100,
       </if>
+      <if test="adc300 != null">
+        ADC300,
+      </if>
       <if test="aaf011 != null">
         AAF011,
       </if>
@@ -162,6 +164,15 @@
       </if>
       <if test="aae010 != null">
         aae010,
+      </if>
+       <if test="aab800 != null">
+        aab800,
+      </if>
+       <if test="aab801 != null">
+        aab801,
+      </if>
+       <if test="aab802 != null">
+        aab802,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -213,6 +224,9 @@
       <if test="adc100 != null">
         #{adc100,jdbcType=VARCHAR},
       </if>
+      <if test="adc300 != null">
+        #{adc300,jdbcType=VARCHAR},
+      </if>
       <if test="aaf011 != null">
         #{aaf011,jdbcType=VARCHAR},
       </if>
@@ -227,6 +241,15 @@
       </if>
       <if test="aae010 != null">
         #{aae010,jdbcType=VARCHAR},
+      </if>
+      <if test="aab800 != null">
+        #{aab800,jdbcType=VARCHAR},
+      </if>
+      <if test="aab801 != null">
+        #{aab801,jdbcType=VARCHAR},
+      </if>
+      <if test="aab802 != null">
+        #{aab802,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -280,6 +303,9 @@
       <if test="adc100 != null">
         ADC100 = #{adc100,jdbcType=VARCHAR},
       </if>
+      <if test="adc300 != null">
+        adc300 = #{adc300,jdbcType=VARCHAR},
+      </if>
       <if test="aaf011 != null">
         AAF011 = #{aaf011,jdbcType=VARCHAR},
       </if>
@@ -294,6 +320,15 @@
       </if>
       <if test="aae010 != null">
         aae010 = #{aae010,jdbcType=VARCHAR},
+      </if>
+      <if test="aab800 != null">
+        aab800 = #{aab800,jdbcType=VARCHAR},
+      </if>
+       <if test="aab801 != null">
+        aab801 = #{aab801,jdbcType=VARCHAR},
+      </if>
+       <if test="aab802 != null">
+        aab802 = #{aab802,jdbcType=VARCHAR},
       </if>
     </set>
     where AAC001 = #{aac001,jdbcType=VARCHAR}

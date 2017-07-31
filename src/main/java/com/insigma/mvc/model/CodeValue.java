@@ -1,5 +1,7 @@
 package com.insigma.mvc.model;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 
 public class CodeValue implements java.io.Serializable{
 	
@@ -8,16 +10,78 @@ public class CodeValue implements java.io.Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 
+	@JsonIgnore
 	private String code_type;
+	@JsonIgnore
+	private String q;
+	private String id;
+	private String text;
+	@JsonIgnore
 	private String code_value;
+	@JsonIgnore
 	private String code_name;
+	@JsonIgnore
+	private String aaa102;
+	@JsonIgnore
+	private String aaa103;
+	@JsonIgnore
 	private String par_code_value;
+	@JsonIgnore
 	private String code_describe;
+	@JsonIgnore
 	private String code_spelling;
+	@JsonIgnore
 	private String code_level;
+	
+	
+	public String getQ() {
+		return q;
+	}
+
+	public void setQ(String q) {
+		this.q = q;
+	}
+
+	public String getAaa102() {
+		return aaa102;
+	}
+
+	public void setAaa102(String aaa102) {
+		this.aaa102 = aaa102;
+	}
+
+	public String getAaa103() {
+		return aaa103;
+	}
+
+	public void setAaa103(String aaa103) {
+		this.aaa103 = aaa103;
+	}
+
 	public String getCode_type() {
 		return code_type;
 	}
+	
+	public String getId() {
+		return id;
+	}
+
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+
+	public String getText() {
+		return text;
+	}
+
+
+	public void setText(String text) {
+		this.text = text;
+	}
+
+
 	public void setCode_type(String code_type) {
 		this.code_type = code_type;
 	}

@@ -2,14 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.insigma.mvc.dao.init.InitMapper">
+    <!-- 获取全部代码类型 -->
     <select id="getInitcodetypeList"  resultType="CodeType" >
-		select code_type from code_type
+		select aaa100 code_type from v_code_type
 	</select>
 	
+	<!-- 通过代码类型获取对应代码   -->
 	<select id="getInitCodeValueList" parameterType="String" resultType="CodeValue" >
-		 select code_value,code_name from code_value where code_type=#{code_type} order by code_value
+		 select aaa102 code_value ,aaa103 code_name  from v_aa10 where aaa100=#{code_type}  order by aaa102
 	</select>
 	
+	<!-- 通过代码类型获取对应代码 -->
+	<select id="queryCodeValueByParam" parameterType="CodeValue" resultType="CodeValue" >
+		 select aaa102 id ,aaa103 text  from v_aa10 where aaa100=#{code_type} and aaa105=#{par_code_value} order by aaa102
+	</select>
+	
+	<!-- 获取初始化参数 -->
 	<select id="getInitParamList" parameterType="String" resultType="Aa01" >
 		 select aaa001,aaa005 from Aa01 
 	</select>

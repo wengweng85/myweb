@@ -341,31 +341,34 @@ var rc = {
 		inputs.each(function(i, dom) {
 			var type = dom.type;
 			var name = dom.name;
-			console.log(name+''+type);
 			if (name) {
 				eval('var res=obj.' + name||'');
 				//if (res) {
 				if (type == 'text'||type=='hidden') {
 					$(dom).val(res);
 				} else if (type == 'checkbox') {
-					var checkboxvalues = res.split(',');
-					for (var i = 0; i < checkboxvalues.length; i++) {
-						if ($(dom).val() === checkboxvalues[i]) {
-							$(dom).attr('checked', 'checked');
+					if(res){
+						var checkboxvalues = res.split(',');
+						for (var i = 0; i < checkboxvalues.length; i++) {
+							if ($(dom).val() == checkboxvalues[i]) {
+								$(dom).attr('checked', true);
+							}
 						}
 					}
 				} else if (type == 'radio') {
-					if ($(dom).val() === res) {
-						$(dom).attr('checked', 'checked');
+					if ($(dom).val() == res) {
+						$(dom).attr('checked', true);
 					}
 				} else if (type == 'select-one') {
 					$(dom).selectpicker('val',res);
+					//$(dom).val(res).trigger('change');
 				} else if (type == 'select-multiple' ) {
 					try{
 						$(dom).selectpicker('val',res.split(','));
 					} catch(error) {
 						$(dom).selectpicker('val',res);
 					}
+					//$(dom).val(res.split(',')).trigger('change');
 				} 
 			}
 		});
@@ -379,7 +382,7 @@ var rc = {
 	clean : function(dom_selector) {
 		var inputs = $("form :input");
 		if(dom_selector>0){
-			inputs=dom_selector.find("form :input");
+			inputs=dom_selector.find(":input");
 		}
 		inputs.each(function(i, dom) {
 			var type = dom.type;
@@ -387,19 +390,11 @@ var rc = {
 			if (name) {
 				if (type == 'text'||type=='hidden') {
 					$(dom).val('');
-				} else if (type == 'checkbox') {
-					var checkboxvalues = res.split(',');
-					for (var i = 0; i < checkboxvalues.length; i++) {
-						if ($(dom).val() === checkboxvalues[i]) {
-							$(dom).attr('checked', '');
-						}
-					}
-				} else if (type == 'radio') {
-					if ($(dom).val() === res) {
-						$(dom).attr('checked', '');
-					}
+				} else if (type == 'checkbox'||type == 'radio') {
+				    $(dom).attr('checked', false);
 				} else if (type == 'select-one' || type == 'select-multiple') {
 					$(dom).selectpicker('val','');
+					//$(dom).val('').trigger('change');
 				} 
 			}
 		});
@@ -929,6 +924,28 @@ var rc = {
 	/**页面端发出的数据作两次encodeURI,防止中文乱码*/
 	encodeURITwice:function(value){
 		return  encodeURI(encodeURI(value));
+	},
+	/**
+	 * codetype值变化后多级联动
+	 * @param {} codetype
+	 * @param {} currentvalue
+	 * @param {} next_selector
+	 */
+	code_value_select_data_change:function(currentvalue,next_code_type,next_selector){
+		var url=contextPath+'/codetype/query';
+		rc.ajax(url,{par_code_value:currentvalue,code_type:next_code_type},function(response){
+			//将当前节点后的所有子选择框清空
+			$.each(next_selector,function(index, value, array){
+				 $(value).removeAttr("disabled");
+			     $(value).empty();
+			     $(value).selectpicker('refresh');
+			})
+			//数据加模型生成新的option数组
+			var modeldata=Handlebars.compile($('#tpl_option').html());
+			var views = modeldata(response);
+		    $(next_selector[0]).append(views);
+		    $(next_selector[0]).selectpicker('refresh');
+		})
 	}
 }
 
@@ -1397,4 +1414,6 @@ function jiangese_set(tabid,start,color1,color2){
 		formid:'',
 		url:''
 	}
+	
+	
 })(jQuery);

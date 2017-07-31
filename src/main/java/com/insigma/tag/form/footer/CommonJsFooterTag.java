@@ -56,12 +56,26 @@ public class CommonJsFooterTag implements Tag  {
 	  sb.append("<script src='"+contextpath+"/resource/hplus/js/plugins/bootstrap-select/js/bootstrap-select.min.js'></script>");
 	  sb.append("<script src='"+contextpath+"/resource/hplus/js/plugins/bootstrap-select/js/i18n/defaults-zh_CN.min.js'></script>");
 	  
+	  //<!--select2-->
+	  //sb.append("<script src='"+contextpath+"/resource/hplus/js/plugins/select2/js/select2.full.min.js'></script>");
+	  //sb.append("<script src='"+contextpath+"/resource/hplus/js/plugins/select2/js/i18n/zh-CN.js'></script>");
+	  
 	  // <!-- datetimepicker -->
 	  sb.append("<script src='"+contextpath+"/resource/hplus/js/plugins/datetimepicker/js/bootstrap-datetimepicker.min.js'></script>");
 	  sb.append("<script src='"+contextpath+"/resource/hplus/js/plugins/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js'></script>");
-	  //<!--rc about js-->   
-	  sb.append("<script src='"+contextpath+"/resource/hplus/js/rc.tag-1.0.js'></script>");
+	  
+	  sb.append("<script src='"+contextpath+"/resource/hplus/js/plugins/jasny/jasny-bootstrap.min.js'></script>");
+	  
+	  //<!--rc about js--> 
 	  sb.append("<script src='"+contextpath+"/resource/hplus/js/rc.all-2.0.js'></script>");
+	  sb.append("<script src='"+contextpath+"/resource/hplus/js/rc.tag-1.0.js'></script>");
+	  
+	  //<!-- 模型 -->
+	  sb.append("<script id=\"tpl_option\" type=\"text/x-handlebars-template\" >");
+	  sb.append("   {{#each this}}");
+	  sb.append("  <option value='{{id}}'>{{text}}</option>");
+	  sb.append("  {{/each}}");
+	  sb.append("</script>");
 	      
 	  //<!-- 用于记录当前项目根目录供js调用 -->
 	  sb.append("<input type='hidden' id='contextPath' name='contextPath' value='"+contextpath+"'>");

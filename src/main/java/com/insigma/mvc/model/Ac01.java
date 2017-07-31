@@ -168,7 +168,39 @@ public class Ac01  extends PageInfo implements java.io.Serializable  {
     
     private String aab301;
     
-    public String[] getA_aac011() {
+    private String aab800;
+    
+    private String aab801;
+    
+    private String aab802;
+    
+    
+    
+    public String getAab800() {
+		return aab800;
+	}
+
+	public void setAab800(String aab800) {
+		this.aab800 = aab800;
+	}
+
+	public String getAab801() {
+		return aab801;
+	}
+
+	public void setAab801(String aab801) {
+		this.aab801 = aab801;
+	}
+
+	public String getAab802() {
+		return aab802;
+	}
+
+	public void setAab802(String aab802) {
+		this.aab802 = aab802;
+	}
+
+	public String[] getA_aac011() {
 		return a_aac011;
 	}
 

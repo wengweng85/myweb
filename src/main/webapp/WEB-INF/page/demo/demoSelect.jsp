@@ -31,7 +31,7 @@
 			           <!-- 隐藏域 结束 -->
                        <rc:textedit property="aac002" cols="1,3" label="身份证"/>
 			           <rc:textedit property="aac003" cols="1,3" label="姓名"/>
-			           <rc:select property="aac004" codetype="AAC004" cols="1,3" label="性别"/>
+			           <rc:select property="aab301" codetype="AAB301" cols="1,3" label="地区"/>
 			       </div>
 			       <div class="hr-line-dashed"></div>
 			       <div class="form-group">

@@ -27,7 +27,7 @@
 			        <div class="form-group">
                         <rc:textedit property="aac002" label="身份证" cols="1,2"/>
 			            <rc:textedit property="aac003" label="姓名" cols="1,2"/>
-			            <rc:select property="aac004" label="性别" cols="1,2" codetype="AAC004" multiple="true" onchange="demo_aac004_change_test()"/>
+			            <rc:select property="aac004" label="性别" cols="1,2" codetype="AAC004" multiple="true" />
 			            <rc:select property="aac011" label="学历" cols="1,2" codetype="AAC011" multiple="true"/>
 			       </div>
 			       <div class="hr-line-dashed"></div>
@@ -88,6 +88,7 @@
 	                    <th data-field="aae010" >经办人</th>
 	                    <th data-field="aae009" >经办机构</th>
 	                    <th data-field="aae036" >经办时间</th>
+	                    <th data-field="aab800" >户籍所在省</th>
 	                    <th data-formatter="demo_jobnameFormatter">操作</th>
 				    </tr>
 			    </thead>
@@ -168,15 +169,6 @@
    			   return;
    	    }
     }
-    
-    <!--onchange事件-->
-    function demo_aac004_change_test(){
-    	aac004=$('#aac004').val();
-    	layer.msg('性别onchange,值为'+aac004)
-    }
-    
-    
-   
     </script>
 </body>
 </html>
