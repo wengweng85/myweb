@@ -35,28 +35,37 @@ public class SimpleFormAuthenticationFilter extends FormAuthenticationFilter {
         if (subject.getPrincipal() == null) {  
         	//如果是ajax请求
         	if (isAjax(request)){
-        		PrintWriter writer = response.getWriter();
+        		/*PrintWriter writer = response.getWriter();
                 AjaxReturnMsg dto = new AjaxReturnMsg();
                 Map<String, Object> map=new HashMap<String, Object>();
-                map.put("statuscode", "session expired");//您尚未登录或登录时间过长,请重新登录!
+                map.put("statuscode", "session_expired");//您尚未登录或登录时间过长,请重新登录!
                 map.put("redirecturl", "/gotologin");;
                 dto.setObj(map);
                 writer.write(JSONObject.fromObject(dto).toString());
-                writer.flush();
+                writer.flush();*/
+        		
+        		//未登录将强制跳转到登录页面
+                response.setHeader("statuscode", "session_expired");
+                response.setHeader("redirecturl", "/gotologin");
+                response.setStatus(HttpServletResponse.SC_FORBIDDEN);
             } else {  
                 saveRequestAndRedirectToLogin(request, response);  
             } 
         }else{
         	//如果是ajax请求
         	if (isAjax(request)){
-        		PrintWriter writer = response.getWriter();
+        		/*PrintWriter writer = response.getWriter();
                 AjaxReturnMsg dto = new AjaxReturnMsg();
                 Map<String, Object> map=new HashMap<String, Object>();
                 map.put("statuscode", "unauthorized");//您没有足够的权限执行该操作
                 map.put("redirecturl", "/index");;
                 dto.setObj(map);
                 writer.write(JSONObject.fromObject(dto).toString());
-                writer.flush();
+                writer.flush();*/
+                
+                response.setHeader("statuscode", "unauthorized");
+                response.setHeader("redirecturl", "/index");
+                response.setStatus(HttpServletResponse.SC_FORBIDDEN);
             } else {  
                 saveRequestAndRedirectToLogin(request, response);  
             } 

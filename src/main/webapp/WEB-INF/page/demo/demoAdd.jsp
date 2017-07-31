@@ -36,7 +36,7 @@
 		            <div class="form-horizontal"  >
 				        <div class="form-group">
 			               <rc:textedit  property="aac003" required="true" label="姓名" validate="{required:true,chinese:true,maxlength:10,messages:{required:'姓名不能为空'}}" cols="1,2" />
-			               <rc:textedit  property="aac002" required="true"  label="身份证" cols="1,2" validate="{required:true,idcard:true,messages:{required:'身份证不能为空'}}"/>
+			               <rc:textedit  property="aac002" required="true" datamask="999999999999999999" label="身份证" cols="1,2" validate="{required:true,idcard:true,messages:{required:'身份证不能为空'}}"/>
 			               <rc:select property="aac004" required="true"  multiple="true"  label="性别" cols="1,2"  codetype="AAC004"  validate="{required:true,messages:{required:'性别不能为空'}}"/>
 			               <rc:select property="aac005" required="true"  label="民族" cols="1,2"  codetype="AAC005"  validate="{required:true,messages:{required:'民族不能为空'}}"/>
 			           </div>

@@ -25,7 +25,7 @@
             <div class="ibox-content">
 	            <form class="form-horizontal" id="query_form" >
 			        <div class="form-group">
-                        <rc:textedit property="aac002" label="身份证" cols="1,2"/>
+                        <rc:textedit property="aac002" label="身份证" datamask="99.99" cols="1,2"/>
 			            <rc:textedit property="aac003" label="姓名" cols="1,2"/>
 			            <rc:select property="aac004" label="性别" cols="1,2" codetype="AAC004" multiple="true" />
 			            <rc:select property="aac011" label="学历" cols="1,2" codetype="AAC011" multiple="true"/>

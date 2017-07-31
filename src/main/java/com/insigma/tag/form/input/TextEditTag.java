@@ -29,6 +29,8 @@ public class TextEditTag implements Tag {
 	//是否必输
 	private String required;
    
+	//数据格式要求
+	private String datamask;
 	
 	// 值
 	private String value;
@@ -168,6 +170,15 @@ public class TextEditTag implements Tag {
 	}
 	
 	
+	
+
+	public String getDatamask() {
+		return datamask;
+	}
+
+	public void setDatamask(String datamask) {
+		this.datamask = datamask;
+	}
 
 	@Override
 	public int doEndTag() throws JspException {
@@ -182,6 +193,7 @@ public class TextEditTag implements Tag {
 	     value=(value==null)?"":value;
 	     readonly=(readonly==null)?"":readonly;
 	     required=(required==null)?"":required;
+	     datamask=(datamask==null)?"":datamask;
 	     
 	     String [] col=cols.split(",");
 	     int labelcol=Integer.parseInt(col[0]);
@@ -201,6 +213,9 @@ public class TextEditTag implements Tag {
 		 sb.append("<input type=\"text\" id=\""+property+"\" name=\""+property+"\"  value=\""+value+"\"  validate=\""+validate+"\" class=\"form-control\"");
 		 if(isreadonly){
 			 sb.append(" readonly=\"readonly\" ");
+		 }
+		 if(!datamask.equals("")){
+			 sb.append(" data-mask=\""+datamask+"\" ");
 		 }
 		 //onclick事件
 		 if(onclick!=null){

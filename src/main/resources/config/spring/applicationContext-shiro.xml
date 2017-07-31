@@ -28,6 +28,7 @@
 			<value>
 			    /=authc
 			    /index=authc
+			    /demo/**=authc
 				/drag/**=authc
 				/codetype/**=authc
 				/token/**=authc

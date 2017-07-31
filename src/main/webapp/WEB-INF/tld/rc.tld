@@ -275,6 +275,12 @@
 	        <required>false</required>
 	        <rtexprvalue>true</rtexprvalue>
 	    </attribute>
+	     <attribute>
+	        <description>数据格式要求,形如999 99 999 9999 9</description>
+	        <name>datamask</name>
+	        <required>false</required>
+	        <rtexprvalue>true</rtexprvalue>
+	    </attribute>
 	    <attribute>
 	        <description>input输入对应自适应列数,形如1,3逗号前代表列占位列数据,逗号后代码输入框占位列数</description>
 	        <name>cols</name>

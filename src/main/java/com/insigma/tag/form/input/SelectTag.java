@@ -231,7 +231,7 @@ public class SelectTag implements Tag {
 	     }
 	     sb.append("</label>");
 	     sb.append("<div class=\"col-sm-"+inputcol+" col-xs-"+inputcol+" \">");
-		 sb.append("<select class=\"form-control selectpicker \" id=\"" + property+ "\" name=\"" + property + "\"  title=\"ÇëÑ¡Ôñ"+label+"\" value=\"" + value+ "\"  selectOnTab=\"true\" data-size=\"5\" data-live-search=\"true\" validate=\"" + validate+ "\"   data-selected-text-format=\"count > 2\"");
+		 sb.append("<select class=\"form-control selectpicker \" id=\"" + property+ "\" name=\"" + property + "\"  title=\"ÇëÑ¡Ôñ"+label+"\" value=\"" + value+ "\"  selectOnTab=\"true\" data-size=\"10\" data-live-search=\"true\" validate=\"" + validate+ "\"   data-selected-text-format=\"count > 2\"");
 		 
 		 if(isreadonly){
 			 sb.append(" disabled ");

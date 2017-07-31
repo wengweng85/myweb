@@ -29,7 +29,24 @@ $(function() {
 		/*rc.debug('contextPath'+contextPath);*/
 	}
 	
-	$.ajaxSetup ({ cache: false });
+    //ajax如果session超时,强制跳转到登录页面	
+	$.ajaxSetup( {
+		cache: false ,
+		//设置ajax请求结束后的执行动作
+		complete:
+		function(XMLHttpRequest, textStatus) {
+			// 通过XMLHttpRequest取得响应头，sessionstatus
+			var sessionstatus = XMLHttpRequest.getResponseHeader("statuscode");
+			//登录超时或访问了未授权的信息
+			if (sessionstatus == "session_expired"||sessionstatus == "unauthorized") {
+				var win = window;
+				while (win != win.top){
+					win = win.top;
+				}
+				win.location.href= contextPath+XMLHttpRequest.getResponseHeader("redirecturl");
+			}
+		}
+	});
 	
 	/**
 	 * 防止退格
@@ -214,13 +231,23 @@ var rc = {
 			//rc.ajax_beforeSend(_ismask,maskdom_selector);
 			var index = layer.load(1);
 		},
-		options.complete=function(){
+		options.complete=function(xhr, textStatus){
+			// 通过XMLHttpRequest取得响应头，sessionstatus
+			// 登录超时或访问了未授权的信息
+			var sessionstatus = xhr.getResponseHeader("statuscode");
+			if (sessionstatus == "session_expired"||sessionstatus == "unauthorized") {
+				var win = window;
+				while (win != win.top){
+					win = win.top;
+				}
+				win.location.href= contextPath+xhr.getResponseHeader("redirecturl");
+			}
         	layer.closeAll();
         },
 		options.success=function(response,textStatus){
 			try{
 				//session超时
-				if(response.obj&&response.obj.statuscode=='session expired'){
+				/*if(response.obj&&response.obj.statuscode=='session_expired'){
 					layer.open({
 	        			content : '没有登录或登录超时,请重新登录！',
 	        			closeBtn : 0,
@@ -236,8 +263,9 @@ var rc = {
 	        				window.location.href=contextPath+response.obj.redirecturl;
 	        			}
 	        		});
-				}else if(response.obj&&response.obj.statuscode=='sqlinject'){
-					layer.alert('请求中存在sql注入关键字,属于非法请求,请确认参数中是否有 \" \' * % < > & 等字符');
+				}else */
+				if(response.obj&&response.obj.statuscode=='sqlinject'){
+					alert('请求中存在sql注入关键字,属于非法请求,请确认参数中是否有 \" \' * % < > & 等字符');
 					//rc.hideMask();
 				}else if(response.obj&&response.obj.statuscode=='resubmit'){
 					alert('请勿重复提交数据');
