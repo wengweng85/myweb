@@ -10,7 +10,7 @@
     <rc:csshead/>
 </head>
 <body class="gray-bg">
-    <div class="wrapper wrapper-content animated fadeInRight">
+    <div class="wrapper">
          <!-- 查询条件 -->
          <div class="ibox float-e-margins">
             <div class="ibox-title">

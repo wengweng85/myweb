@@ -2,21 +2,23 @@ package com.insigma.tag.form.input;
 
 import java.io.IOException;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.Tag;
 
 /**
- * 自定义标签之文本自定义选择
+ * 自定义标签之代码选择框为代码选择
  * 
  * @author wengsh
  *
  */
-public class TextEditIconTag implements Tag {
+public class TextEditIconCodeValueTag implements Tag {
 
 	private PageContext pageContext;
-
+	
+	
 	// property
 	private String property;
 	
@@ -25,10 +27,8 @@ public class TextEditIconTag implements Tag {
 	
 	private String area;
 	
-		
 	//占位列数,包括label的一列
 	private String cols;
-	
 
 	// 值
 	private String value;
@@ -38,6 +38,8 @@ public class TextEditIconTag implements Tag {
 
     //页面弹出框url
 	private String url;
+	
+	private String codetype;
 	
 	//自定义回调函数
 	private String callback;
@@ -63,12 +65,25 @@ public class TextEditIconTag implements Tag {
 		return cols;
 	}
 
+	public String getCodetype() {
+		return codetype;
+	}
 
+	public void setCodetype(String codetype) {
+		this.codetype = codetype;
+	}
 
 	public void setCols(String cols) {
 		this.cols = cols;
 	}
 
+	public String getname_value() {
+		return name_value;
+	}
+
+	public void setname_value(String name_value) {
+		this.name_value = name_value;
+	}
 
 	public void setTitle(String title) {
 		this.title = title;
@@ -117,15 +132,6 @@ public class TextEditIconTag implements Tag {
 		return value;
 	}
 
-	
-
-	public String getName_value() {
-		return name_value;
-	}
-
-	public void setName_value(String name_value) {
-		this.name_value = name_value;
-	}
 
 	@Override
 	public int doEndTag() throws JspException {
@@ -135,16 +141,20 @@ public class TextEditIconTag implements Tag {
 
 	@Override
 	public int doStartTag() throws JspException {
-	     //空值检查
+		 HttpServletRequest requet=(HttpServletRequest)pageContext.getRequest();
+		 String contextPath=requet.getContextPath();
+		//空值检查
 	     value=(value==null)?"":value;
 	     name_value=(name_value==null)?"":name_value;
-	     area=(area==null)?" ['70%', '90%']":area;
-	     title=(title==null)?label+"搜索框":title;
+	     area=(area==null)?" ['40%', '80%']":area;
+	     url=(url==null)? contextPath+"/codetype/toCodeValuesuggest"  :url;//如果url不输入有一个默认的地址
+	     title=(title==null)?label+"代码搜索框":title;
 	     cols=(cols==null)?"1,2":cols;
 	     
 	     String [] col=cols.split(",");
 	     int labelcol=Integer.parseInt(col[0]);
 	     int inputcol=Integer.parseInt(col[1]);
+	    
 	     JspWriter out = pageContext.getOut();
 	     StringBuffer sb=new StringBuffer();
 	     
@@ -155,13 +165,15 @@ public class TextEditIconTag implements Tag {
 	     sb.append("<input type=\"hidden\" id=\""+property+"\" name=\""+property+"\"  value=\""+value+"\" >");
 	     sb.append("<input type=\"text\" id=\""+property+"_name\" name=\""+property+"_name\"  placeholder=\"请点击右侧放大镜选择\"  value=\""+name_value+"\"  readonly=\"readonly\" class=\"form-control\"> ");
 	     sb.append("<span class=\"input-group-btn\"> ");
-	     sb.append("<a type=\"button\" onclick=\""+property+"_clean_select()\" class=\"btn btn-default\"><i class=\"fa fa-remove\"></i></a>&nbsp;");
 	     sb.append("<a type=\"button\" onclick=\""+property+"_open_select()\" class=\"btn btn-primary\"><i class=\"fa fa-search\"></i></a>");
 	     sb.append("</span>");
 	     sb.append("</div> </div>");
 	     
 	     //对应javascript
 	     String url=getUrl()+"?callback_fun_name="+property+"_callback";
+	     if(codetype!=null){
+	    	 url+="&codetype="+codetype;
+	     }
 	     
 	     sb.append("<script type=\"text/javascript\">");
 	     sb.append(" function "+property+"_open_select(){");
@@ -173,7 +185,6 @@ public class TextEditIconTag implements Tag {
 			  sb.append(callback+"(code)");
 		 }
 	     sb.append("}");
-	     sb.append("function "+property+"_clean_select(){$('#"+property+"').val('');$('#"+property+"_value').val('');rc.clean();}");
 	     sb.append("</script>");
 		
 		 try {  

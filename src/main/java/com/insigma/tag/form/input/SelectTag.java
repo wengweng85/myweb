@@ -216,6 +216,8 @@ public class SelectTag implements Tag {
 		 required=(required==null)?"":required;
 		 readonly=(readonly==null)?"":readonly;
 		 codetype=(codetype==null)?"":codetype;
+		 cols=(cols==null)?"1,2":cols;
+		 
 		 String [] col=cols.split(",");
 	     int labelcol=Integer.parseInt(col[0]);
 	     int inputcol=Integer.parseInt(col[1]);
@@ -269,7 +271,7 @@ public class SelectTag implements Tag {
 		//如果codetype不为空
 		if(!codetype.equals("")){
 			// 从EhCache获取下载
-			Element element = EhCacheUtil.getManager().getCache("webcache").get(codetype);
+			Element element = EhCacheUtil.getManager().getCache("webcache").get(codetype.toUpperCase());
 			if (element != null) {
 				List<CodeValue> list = (List<CodeValue>) element.getValue();
 				//sb.append("<option value=\"\"></option> ");

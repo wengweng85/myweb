@@ -25,16 +25,16 @@
             <div class="ibox-content">
 	            <form class="form-horizontal" id="query_form" >
 			        <div class="form-group">
-                        <rc:textedit property="aac002" label="身份证" datamask="99.99" cols="1,2"/>
-			            <rc:textedit property="aac003" label="姓名" cols="1,2"/>
-			            <rc:select property="aac004" label="性别" cols="1,2" codetype="AAC004" multiple="true" />
-			            <rc:select property="aac011" label="学历" cols="1,2" codetype="AAC011" multiple="true"/>
+                        <rc:textedit property="aac002" label="身份证" datamask="99.99" />
+			            <rc:textedit property="aac003" label="姓名" />
+			            <rc:select property="aac004" label="性别"  codetype="AAC004" multiple="true" />
+			            <rc:select property="aac011" label="学历"  codetype="AAC011" multiple="true"/>
 			       </div>
 			       <div class="hr-line-dashed"></div>
 			       <div class="form-group">
-			            <rc:date property="aac006_begin" label="出生日期(开始)" cols="1,2"/>
-			            <rc:date property="aac006_end" label="出生日期(结束)" cols="1,2"/>
-			            <rc:textedit property="aae009" label="经办机构" cols="1,2"/>
+			            <rc:date property="aac006_begin" label="出生日期(开始)" />
+			            <rc:date property="aac006_end" label="出生日期(结束)" />
+			            <rc:textedit property="aae009" label="经办机构" />
 			           <div class="col-sm-3" align="right">
 		                  <a class="btn btn-info" onclick="demo_query()"><i class="fa fa-search"></i>&nbsp;查询</a>
 		                  <a class="btn btn-info" onclick="rc.clean($('query_form'))"><i class="fa fa-refresh"></i>&nbsp;重置</a>
@@ -55,7 +55,7 @@
             </div>
             <!-- 模型 -->
             <script id="tpl" type="text/x-handlebars-template" >
-                <a class="btn btn-info" ><i class="fa fa-edit"></i>&nbsp;编辑</a> 
+                <a class="btn btn-info"   onclick="demo_edit_by_id('{{aac001}}')"><i class="fa fa-edit"></i>&nbsp;编辑</a> 
                 <a class="btn btn-danger" onclick="demo_delete_by_id('{{aac001}}')" ><i class="fa fa-remove"></i>&nbsp;删除</a> 
             </script>
             
@@ -89,6 +89,7 @@
 	                    <th data-field="aae009" >经办机构</th>
 	                    <th data-field="aae036" >经办时间</th>
 	                    <th data-field="aab800" >户籍所在省</th>
+	                    <th data-field="aac007_name" >弹出框数据测试</th>
 	                    <th data-formatter="demo_jobnameFormatter">操作</th>
 				    </tr>
 			    </thead>
@@ -111,7 +112,8 @@
   
     
     //用户表格监听 
-    $('#ac01table').on('click-row.bs.table', function (e, row, $element) {
+    $('#ac01table').on('dbl-click-row.bs.table', function (e, row, $element) {
+    	demo_edit_by_id(row.aac001)
     });  
     //操作编辑
     function demo_jobnameFormatter(value, row, index) {
@@ -149,6 +151,18 @@
    	  }
     }
     
+    
+    function demo_edit_by_id(aac001){
+    	layer.open({
+	   		  type: 2,
+	   		  title: '编辑页面',
+	   		  shadeClose: false,
+	   		maxmin:true,
+	   		  shade: 0.8,
+	   		  area: ['80%', '90%'],
+	   		  content: "<c:url value='/demo/toedit'/>/"+aac001 //iframe的url
+ 		});
+    }
     
     //批量删除
     function demo_bat_delete(){

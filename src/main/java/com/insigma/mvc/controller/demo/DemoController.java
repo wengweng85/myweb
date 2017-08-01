@@ -7,7 +7,6 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
-import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -74,6 +73,19 @@ public class DemoController extends MvcHelper {
 	
 	
 	/**
+	 * 跳转至编辑页面
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/toedit/{id}")
+	public ModelAndView toedit(HttpServletRequest request,Model model,@PathVariable String id) throws Exception {
+		ModelAndView modelAndView=new ModelAndView("demo/demoEdit");
+		Ac01 ac01=demoAc01Service.getDemoById(id);
+		modelAndView.addObject("ac01",ac01);  
+        return modelAndView;
+	}
+	
+	/**
 	 * 批量删除
 	 * @param request
 	 * @param model
@@ -85,7 +97,6 @@ public class DemoController extends MvcHelper {
 	public AjaxReturnMsg batDeleteDemodata(HttpServletRequest request,Model model,Ac01 ac01){
 		return demoAc01Service.batDeleteDemoData(ac01);
 	}
-	
 	
 	
 	/**
@@ -108,10 +119,7 @@ public class DemoController extends MvcHelper {
 	public ModelAndView selectindex(HttpServletRequest request,Model model) throws Exception {
 		String callback_fun_name=request.getParameter("callback_fun_name");
 		ModelAndView modelAndView=new ModelAndView("demo/demoSelect");
-		// 构造填充数据的Map
-        Map modelMap = new HashMap();
-        modelMap.put("callback_fun_name", callback_fun_name);
-        modelAndView.addAllObjects(modelMap);
+        modelAndView.addObject("callback_fun_name", callback_fun_name);
         return modelAndView;
 	}
 	
@@ -123,7 +131,7 @@ public class DemoController extends MvcHelper {
 	@RequestMapping("/getDemoById/{id}")
 	@ResponseBody
 	public AjaxReturnMsg getDemoById(HttpServletRequest request,Model model,@PathVariable String id) throws Exception {
-		return demoAc01Service.getDemoById(id);
+		return this.success(demoAc01Service.getDemoById(id));
 	}
 	
 	

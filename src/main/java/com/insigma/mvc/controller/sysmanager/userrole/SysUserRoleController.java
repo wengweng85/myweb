@@ -1,6 +1,7 @@
 package com.insigma.mvc.controller.sysmanager.userrole;
 
 import java.util.HashMap;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -52,7 +53,7 @@ public class SysUserRoleController extends MvcHelper {
 	@RequestMapping("/treedata")
 	@RequiresRoles("admin")
 	@ResponseBody
-	public String getGroupTreeData(HttpServletRequest request,Model model) throws Exception {
+	public  List<SGroup>  getGroupTreeData(HttpServletRequest request,Model model) throws Exception {
 		String parentid=request.getParameter("id");
 		if(parentid.equals("")){
 			parentid="G001";

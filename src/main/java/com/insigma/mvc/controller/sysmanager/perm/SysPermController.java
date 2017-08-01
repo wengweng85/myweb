@@ -1,5 +1,7 @@
 package com.insigma.mvc.controller.sysmanager.perm;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -53,7 +55,7 @@ public class SysPermController extends MvcHelper {
 	@RequestMapping("/treedata")
 	@RequiresRoles("admin")
 	@ResponseBody
-	public String treedata(HttpServletRequest request, HttpServletResponse response,Model model) throws Exception {
+	public List<SPermission> treedata(HttpServletRequest request, HttpServletResponse response,Model model) throws Exception {
 		return sysPermService.getPermTreeList();
 	}
 	

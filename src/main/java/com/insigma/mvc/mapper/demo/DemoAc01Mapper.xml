@@ -3,8 +3,32 @@
 <mapper namespace="com.insigma.mvc.dao.demo.DemoAc01Mapper">
   <!-- 基本sql片段 -->
   <sql id="Base_Column_List">
-    AAC001, AAC003, AAC002, AAC004, AAC005, AAC006, AAC033, AAC017, AAC024, AAC011, AAE006, 
-    AAC067, AAE015, AAC007, AAC027, ADC100, AAF011, AAE011, AAE036, AAA148, ADC300, aab800,aab801,aab802 
+    AAC001, 
+    AAC003, 
+    AAC002, 
+    AAC004, 
+    AAC005, 
+    aac006,
+    to_char(aac006,'yyyy-MM-dd HH:mm:ss') aac006_string, 
+    AAC033, 
+    AAC017, 
+    AAC024, 
+    AAC011, 
+    AAE006, 
+    AAC067, 
+    AAE015, 
+    AAC007, 
+    (select aaa103 from v_aa10 t where t.aaa100='AAC200' AND aaa102=aac007) aac007_name,
+    AAC027, 
+    ADC100, 
+    AAF011, 
+    AAE011, 
+    AAE036, 
+    AAA148, 
+    ADC300, 
+    aab800,
+    aab801,
+    aab802 
   </sql>
   
   
@@ -17,6 +41,7 @@
     (select aaa103 from v_aa10 t where t.aaa100='AAC004' AND aaa102=aac004) aac004,
     (select aaa103 from v_aa10 t where t.aaa100='AAC005' AND aaa102=aac005) aac005,
     aac006,
+    (select aaa103 from v_aa10 t where t.aaa100='AAC200' AND aaa102=aac007) aac007_name,
     (select aaa103 from v_aa10 t where t.aaa100='AAC033' AND aaa102=aac033) aac033,
     (select aaa103 from v_aa10 t where t.aaa100='AAC017' AND aaa102=aac017) aac017,
     (select aaa103 from v_aa10 t where t.aaa100='AAC024' AND aaa102=aac024) aac024,

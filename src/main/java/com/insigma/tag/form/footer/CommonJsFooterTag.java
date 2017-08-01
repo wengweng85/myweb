@@ -1,18 +1,12 @@
 package com.insigma.tag.form.footer;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.PageContext;
 import javax.servlet.jsp.tagext.Tag;
-
-import net.sf.ehcache.Element;
-
-import com.insigma.common.util.EhCacheUtil;
-import com.insigma.mvc.model.CodeValue;
 
 
 /**
@@ -65,6 +59,8 @@ public class CommonJsFooterTag implements Tag  {
 	  sb.append("<script src='"+contextpath+"/resource/hplus/js/plugins/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js'></script>");
 	  
 	  sb.append("<script src='"+contextpath+"/resource/hplus/js/plugins/jasny/jasny-bootstrap.min.js'></script>");
+	  
+	  sb.append("<script src='"+contextpath+"/resource/hplus/js/plugins/suggest/bootstrap-suggest.min.js'></script>");
 	  
 	  //<!--rc about js--> 
 	  sb.append("<script src='"+contextpath+"/resource/hplus/js/rc.all-2.0.js'></script>");

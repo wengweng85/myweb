@@ -194,6 +194,7 @@ public class TextEditTag implements Tag {
 	     readonly=(readonly==null)?"":readonly;
 	     required=(required==null)?"":required;
 	     datamask=(datamask==null)?"":datamask;
+	     cols=(cols==null)?"1,2":cols;
 	     
 	     String [] col=cols.split(",");
 	     int labelcol=Integer.parseInt(col[0]);
@@ -210,7 +211,7 @@ public class TextEditTag implements Tag {
 	     }
 	     sb.append("</label>");
 	     sb.append("<div class=\"col-sm-"+inputcol+" col-xs-"+inputcol+" \">");
-		 sb.append("<input type=\"text\" id=\""+property+"\" name=\""+property+"\"  value=\""+value+"\"  validate=\""+validate+"\" class=\"form-control\"");
+		 sb.append("<input type=\"text\" id=\""+property+"\" name=\""+property+"\"  placeholder=\"ÇëÊäÈë"+label+"\" value=\""+value+"\"  validate=\""+validate+"\" class=\"form-control\"");
 		 if(isreadonly){
 			 sb.append(" readonly=\"readonly\" ");
 		 }

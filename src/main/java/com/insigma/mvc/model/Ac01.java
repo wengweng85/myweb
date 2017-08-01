@@ -6,6 +6,9 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class Ac01  extends PageInfo implements java.io.Serializable  {
     
@@ -91,10 +94,16 @@ public class Ac01  extends PageInfo implements java.io.Serializable  {
     private String aac005;
 
 	@NotNull(message="出生日期不能为空")
+	//从前端向后端传递日期格式转换器
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date aac006;
+	
+	private String aac006_string;
     
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date aac006_begin;
     
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date aac006_end;
     
     private String aae009;
@@ -126,8 +135,19 @@ public class Ac01  extends PageInfo implements java.io.Serializable  {
     private String aae015;
 
     private String aac007;
+    
+    private String aac007_name;
+    
 
-    private String aac027;
+    public String getAac006_string() {
+		return aac006_string;
+	}
+
+	public void setAac006_string(String aac006_string) {
+		this.aac006_string = aac006_string;
+	}
+
+	private String aac027;
 
     private String adc100;
 
@@ -176,7 +196,15 @@ public class Ac01  extends PageInfo implements java.io.Serializable  {
     
     
     
-    public String getAab800() {
+    public String getAac007_name() {
+		return aac007_name;
+	}
+
+	public void setAac007_name(String aac007_name) {
+		this.aac007_name = aac007_name;
+	}
+
+	public String getAab800() {
 		return aab800;
 	}
 

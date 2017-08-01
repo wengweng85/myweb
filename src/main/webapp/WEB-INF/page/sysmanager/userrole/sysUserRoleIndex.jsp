@@ -34,11 +34,11 @@
 								<!-- 隐藏区域 -->
 								<rc:hidden property="groupid"/>
 								<div class="form-group">
-									<rc:textedit property="name" label="机构名称"  cols="2,10"  readonly="true" />
+									<rc:textedit property="name" label="机构名称"  cols="3,9"  readonly="true" />
 								</div>
 								<div class="hr-line-dashed"></div>
 								<div class="form-group">
-									<rc:textedit property="description"  label="机构描述"  cols="2,10"  readonly="true" />
+									<rc:textedit property="description"  label="机构描述"  cols="3,9"  readonly="true" />
 								</div>
 							</form>
 						</div>

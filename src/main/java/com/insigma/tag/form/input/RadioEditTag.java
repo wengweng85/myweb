@@ -109,6 +109,7 @@ public class RadioEditTag implements Tag {
 	public int doStartTag() throws JspException {
 	     value=(value==null)?"":value;
 	     required=(required==null)?"":required;
+	     cols=(cols==null)?"1,2":cols;
 	     
 	     String [] col=cols.split(",");
 	     int labelcol=Integer.parseInt(col[0]);
@@ -126,7 +127,7 @@ public class RadioEditTag implements Tag {
 	    
 		 
 		 // 从EhCache获取下载
-		 Element element = EhCacheUtil.getManager().getCache("webcache").get(codetype);
+		 Element element = EhCacheUtil.getManager().getCache("webcache").get(codetype.toUpperCase());
 			if (element != null) {
 				List<CodeValue> list = (List<CodeValue>) element.getValue();
 				for (CodeValue codevalue : list) {

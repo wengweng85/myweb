@@ -93,29 +93,7 @@ public class MvcHelper {
     	hashmap.put("rows", pageinfo.getList());
     	return hashmap;
     }
-    
-    /**
-     * 成功返回
-     * @param response
-     * @param o
-     * @throws IOException
-     */
-    public String success_string_response(List list) {
-        JSONArray jsonarray=JSONArray.fromObject(list);
-        return jsonarray.toString();
-    }
-    
-    
-    /**
-     * 成功返回
-     * @param response
-     * @param o
-     * @throws IOException
-     */
-    public String success_string_response(Object o) {
-        JSONObject jsonObject=JSONObject.fromObject(o);
-        return jsonObject.toString();
-    }
+
     
     /**
      * 错误返回

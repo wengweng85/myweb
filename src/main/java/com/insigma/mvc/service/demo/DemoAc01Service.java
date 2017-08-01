@@ -22,7 +22,7 @@ public interface DemoAc01Service {
 	
 	public AjaxReturnMsg batDeleteDemoData(Ac01 ac01);
 	
-	public AjaxReturnMsg getDemoById(String aac001);
+	public Ac01 getDemoById(String aac001);
 	
 	public AjaxReturnMsg saveDemoData(Ac01 ac01);
 

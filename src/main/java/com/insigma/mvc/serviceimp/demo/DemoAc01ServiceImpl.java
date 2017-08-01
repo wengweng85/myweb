@@ -82,8 +82,8 @@ public class DemoAc01ServiceImpl extends MvcHelper implements DemoAc01Service {
 	 * 通过个人编号获取信息
 	 */
 	@Override
-	public AjaxReturnMsg getDemoById(String aac001) {
-		return this.success(demoAc01Mapper.selectByPrimaryKey(aac001));
+	public Ac01 getDemoById(String aac001) {
+		return demoAc01Mapper.selectByPrimaryKey(aac001);
 	}
 
 	/**

@@ -131,6 +131,7 @@ var rc = {
 		param= $.extend(rc.submitparam,param);
 		_form.validate({
 			onblur:false,
+			onkeyup:false,
 			submitHandler : function(form) {
 				rc.ajaxsubmit($(form),callback,param.ismask,istokenreload);
 			},
@@ -157,7 +158,8 @@ var rc = {
 	validAndNormalSubmit:function(_form,param){
 		param= $.extend(rc.submitparam,param);
 		_form.validate({
-			onblur:true,
+			onblur:false,
+			onkeyup:false,
 			submitHandler : function(form) {
 				form.submit();
 			},
@@ -1445,3 +1447,6 @@ function jiangese_set(tabid,start,color1,color2){
 	
 	
 })(jQuery);
+
+
+

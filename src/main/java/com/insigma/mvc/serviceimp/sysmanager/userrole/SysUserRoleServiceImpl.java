@@ -33,9 +33,8 @@ public class SysUserRoleServiceImpl extends MvcHelper implements SysUserRoleServ
 	 * 获取机构信息树
 	 */
 	@Override
-	public String getAllGroupList(String parentid) {
-		 String result= this.success_string_response(sysUserRoleMapper.getAllGroupList(parentid));
-		 return result;
+	public List<SGroup> getAllGroupList(String parentid) {
+		 return sysUserRoleMapper.getAllGroupList(parentid);
 	}
 	
 	

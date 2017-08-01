@@ -1,6 +1,7 @@
 package com.insigma.mvc.service.sysmanager.role;
 
 import java.util.HashMap;
+import java.util.List;
 
 import com.insigma.dto.AjaxReturnMsg;
 import com.insigma.mvc.model.SRole;
@@ -23,7 +24,7 @@ public interface SysRoleService {
 	
 	public AjaxReturnMsg deleteRoleDataById(String id);
 	
-	public String getRolePermTreeData(String roleid);
+	public List<SRole> getRolePermTreeData(String roleid);
 	
 	public AjaxReturnMsg saveRolePermData(SRole srole);
 

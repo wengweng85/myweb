@@ -1,5 +1,7 @@
 package com.insigma.mvc.serviceimp.sysmanager.perm;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -30,9 +32,9 @@ public class SysPermServiceImpl extends MvcHelper implements SysPermService {
 	 * 获取权限数据
 	 */
 	@Override
-	public String getPermTreeList() {
+	public List<SPermission> getPermTreeList() {
 		// TODO Auto-generated method stub
-		return this.success_string_response (sysPermMapper.getPermTreeList());
+		return  sysPermMapper.getPermTreeList();
 	}
 
 	/**

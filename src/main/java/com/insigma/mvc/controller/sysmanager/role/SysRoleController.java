@@ -1,6 +1,7 @@
 package com.insigma.mvc.controller.sysmanager.role;
 
 import java.util.HashMap;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -105,7 +106,7 @@ public class SysRoleController extends MvcHelper  {
 	@RequestMapping("/treedata")
 	@RequiresRoles("admin")
 	@ResponseBody
-	public String treedata(HttpServletRequest request, HttpServletResponse response,Model model) throws Exception {
+	public  List<SRole> treedata(HttpServletRequest request, HttpServletResponse response,Model model) throws Exception {
 		String id=request.getParameter("id");
 		return sysRoleService.getRolePermTreeData(id);
 	}

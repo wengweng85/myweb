@@ -109,8 +109,10 @@ public class CheckboxEditTag implements Tag {
 	public int doStartTag() throws JspException {
 	     value=(value==null)?"":value;
 	     required=(required==null)?"":required;
+	     cols=(cols==null)?"1,2":cols;
 	     
 	     String [] col=cols.split(",");
+	     String [] vals=value.split(",");
 	     int labelcol=Integer.parseInt(col[0]);
 	     int inputcol=Integer.parseInt(col[1]);
 	     //是否必输
@@ -126,18 +128,22 @@ public class CheckboxEditTag implements Tag {
 	    
 		 
 		 // 从EhCache获取下载
-		 Element element = EhCacheUtil.getManager().getCache("webcache").get(codetype);
+		 Element element = EhCacheUtil.getManager().getCache("webcache").get(codetype.toUpperCase());
 			if (element != null) {
 				List<CodeValue> list = (List<CodeValue>) element.getValue();
 				for (CodeValue codevalue : list) {
 					 String id="inlineCheckbox1_"+UUID.randomUUID();
 					 sb.append("<div class=\"checkbox checkbox-info checkbox-inline\">");
 					 sb.append("<input name=\""+property+"\" type=\"checkbox\" id=\""+id+"\" value=\""+codevalue.getCode_value()+"\"");
-					 if (value != null && !value.equals("")) {
-							if (value.equals(codevalue.getCode_value())) {
-								sb.append(" checked=\"checked\" ");
-							}
-					}
+					 
+					 for(int j=0;j<vals.length;j++){
+						 if (vals[j] != null && !vals[j].equals("")) {
+								if (vals[j].equals(codevalue.getCode_value())) {
+									sb.append(" checked=\"checked\" ");
+								}
+						 }
+					 }
+					
 					sb.append(">");
 					sb.append("<label for=\""+id+"\"> "+codevalue.getCode_name() +" </label>");
 					sb.append("</div>");

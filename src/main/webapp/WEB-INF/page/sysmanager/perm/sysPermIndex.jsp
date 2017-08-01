@@ -15,10 +15,10 @@
        <div class="col-sm-3">
 			<div class="ibox float-e-margins">
 				<div class="ibox-title">
-					<h5>权限列表树区</h5>
+					<h5>权限树区</h5>
 					<div class="ibox-tools">
-                        <a onclick="sys_perm_addnewperm()" class="btn btn-primary btn-xs"><i class="fa fa-plus"></i>&nbsp;新增权限</a>
-                        <a onclick="sys_perm_deleteperm()" class="btn btn-danger btn-xs"><i class="fa fa-remove"></i>&nbsp;删除权限</a>
+                        <a onclick="sys_perm_addnewperm()" class="btn btn-primary btn-xs"><i class="fa fa-plus"></i>&nbsp;新增</a>
+                        <a onclick="sys_perm_deleteperm()" class="btn btn-danger btn-xs"><i class="fa fa-remove"></i>&nbsp;删除</a>
                     </div>
 				</div>
 				<div class="ibox-content">
@@ -37,42 +37,44 @@
                            <rc:hidden property="permissionid"/>
                            <rc:hidden property="parentid" />
                            <div class="form-group">
-                                <rc:textedit property="parentname" cols="1,11" label="上级权限名称 " readonly="true"/>
+                                <rc:textedit property="parentname" cols="2,8" label="上级权限名称 " readonly="true"/>
                            </div>
                            <div class="hr-line-dashed"></div>
                            <div class="form-group">
-                                <rc:textedit property="code"  required="true"  cols="1,11" label="权限编码 " validate="{required:true,messages:{required:'请输入权限编码'}}"/>
+                                <rc:textedit property="code"  required="true"  cols="2,8" label="权限编码 " validate="{required:true,messages:{required:'请输入权限编码'}}"/>
                            </div>
                            <div class="hr-line-dashed"></div>
                            <div class="form-group">
-                                <rc:textedit property="name"  required="true"  cols="1,11" label="权限名称" validate="{required:true,messages:{required:'请输入权限名称'}}"/>
+                                <rc:textedit property="name"  required="true"  cols="2,8" label="权限名称" validate="{required:true,messages:{required:'请输入权限名称'}}"/>
                            </div>
                            <div class="hr-line-dashed"></div>
                            <div class="form-group">
-                                <rc:textedit property="describe" required="true"  cols="1,11" label="权限描述"  validate="{required:true,messages:{required:'请输入权限描述'}}"/>
+                                <rc:textedit property="describe" required="true"  cols="2,8" label="权限描述"  validate="{required:true,messages:{required:'请输入权限描述'}}"/>
                            </div>
                            <div class="hr-line-dashed"></div>
                            
                            <div class="form-group">
-                               <rc:select codetype="PERMTYPE" property="type"  label="权限类型" required="true"  cols="1,11" validate="{required:true,messages:{required:'请选择权限类型'}}"/> 
+                               <rc:select codetype="PERMTYPE" property="type"  label="权限类型" required="true"  cols="2,8" validate="{required:true,messages:{required:'请选择权限类型'}}"/> 
                            </div>
                            <div class="hr-line-dashed"></div>
                            
                            <div class="form-group">
-                                <rc:textedit property="url" cols="1,11" label="权限地址url " />
+                                <rc:textedit property="url" cols="2,8" label="权限地址url" />
                            </div>
                            <div class="hr-line-dashed"></div>
                            
                            <div class="form-group">
-                                <rc:textedit property="sortnum" cols="1,11" label="排序号"/>
+                                <rc:textedit property="sortnum" cols="2,8" datamask="9999" label="排序号"/>
                            </div>
                            <div class="hr-line-dashed"></div>
                            <div class="form-group">
-                                <rc:date property="updatetime" label="更新日期" required="true"  cols="1,11" validate="{required:true,messages:{required:'请选择更新日期'}}" />
+                                <rc:date property="updatetime" label="更新日期" required="true"  cols="2,8" validate="{required:true,messages:{required:'请选择更新日期'}}" />
                            </div>
                            <div class="hr-line-dashed"></div>
-	                       <div class="form-group" style="text-align: right;">
-	                            <a class="btn btn-primary " onclick="sys_perm_savePermData()"><i class="fa fa-save"></i>&nbsp;保存</a>
+	                       <div class="form-group" style="text-align: right;" >
+		                       <div class="col-sm-10 col-xs-10">
+		                           <a class="btn btn-primary "  onclick="sys_perm_savePermData()"><i class="fa fa-save"></i>&nbsp;保存</a>
+		                       </div>
 	                       </div>
                  </form>
 			</div>

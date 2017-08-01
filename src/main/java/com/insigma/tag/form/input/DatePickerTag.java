@@ -20,7 +20,6 @@ public class DatePickerTag implements Tag {
 	private String property;
 	// 值
 	private String value;
-
 	
 	// 校验规则
 	private String validate;
@@ -43,8 +42,6 @@ public class DatePickerTag implements Tag {
 		return pageContext;
 	}
 
-	
-
 	public String getProperty() {
 		return property;
 	}
@@ -64,8 +61,6 @@ public class DatePickerTag implements Tag {
 	public void setValidate(String validate) {
 		this.validate = validate;
 	}
-	
-	
 
 	public String getLabel() {
 		return label;
@@ -104,6 +99,8 @@ public class DatePickerTag implements Tag {
 	     //空值检查
 		 validate=(validate==null)?"":validate;
 	     value=(value==null)?"":value;
+	     cols=(cols==null)?"1,2":cols;
+	     
 	     String [] col=cols.split(",");
 	     int labelcol=Integer.parseInt(col[0]);
 	     int inputcol=Integer.parseInt(col[1]);
@@ -118,7 +115,7 @@ public class DatePickerTag implements Tag {
 	     sb.append("</label>");
 	     sb.append("<div class=\"col-sm-"+inputcol+" col-xs-"+inputcol+" \">");
 	     sb.append("<div class=\"input-group form_date date\">");
-		 sb.append("<input type=\"text\" id=\""+property+"\" name=\""+property+"\"  value=\""+value+"\"  readonly   validate=\""+validate+"\" class=\"form-control\"  >");
+		 sb.append("<input type=\"text\" id=\""+property+"\" name=\""+property+"\"  value=\""+value+"\"  placeholder=\"请选择"+label+"\" readonly   validate=\""+validate+"\" class=\"form-control\"  >");
 		 sb.append("<span class=\"input-group-addon\" draggable=\"false\"><i class=\"fa fa-calendar\"></i></span>");
 		 sb.append("</div>");
 		 sb.append("</div>");
