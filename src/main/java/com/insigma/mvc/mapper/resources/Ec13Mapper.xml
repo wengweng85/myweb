@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.insigma.mvc.dao.resources.Ec13Mapper">
+  <resultMap id="BaseResultMap" type="com.insigma.mvc.model.Ec13">
+    <id column="EEC131" jdbcType="VARCHAR" property="eec131" />
+    <result column="EEC121" jdbcType="VARCHAR" property="eec121" />
+    <result column="AEC104" jdbcType="VARCHAR" property="aec104" />
+    <result column="AEC105" jdbcType="DATE" property="aec105" />
+    <result column="AAB301" jdbcType="VARCHAR" property="aab301" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    EEC131, EEC121, AEC104, AEC105, AAB301
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from EC13
+    where EEC131 = #{eec131,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from EC13
+    where EEC131 = #{eec131,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.insigma.mvc.model.Ec13">
+    insert into EC13 (EEC131, EEC121, AEC104, 
+      AEC105, AAB301)
+    values (#{eec131,jdbcType=VARCHAR}, #{eec121,jdbcType=VARCHAR}, #{aec104,jdbcType=VARCHAR}, 
+      #{aec105,jdbcType=DATE}, #{aab301,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.insigma.mvc.model.Ec13">
+    insert into EC13
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="eec131 != null">
+        EEC131,
+      </if>
+      <if test="eec121 != null">
+        EEC121,
+      </if>
+      <if test="aec104 != null">
+        AEC104,
+      </if>
+      <if test="aec105 != null">
+        AEC105,
+      </if>
+      <if test="aab301 != null">
+        AAB301,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="eec131 != null">
+        #{eec131,jdbcType=VARCHAR},
+      </if>
+      <if test="eec121 != null">
+        #{eec121,jdbcType=VARCHAR},
+      </if>
+      <if test="aec104 != null">
+        #{aec104,jdbcType=VARCHAR},
+      </if>
+      <if test="aec105 != null">
+        #{aec105,jdbcType=DATE},
+      </if>
+      <if test="aab301 != null">
+        #{aab301,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.insigma.mvc.model.Ec13">
+    update EC13
+    <set>
+      <if test="eec121 != null">
+        EEC121 = #{eec121,jdbcType=VARCHAR},
+      </if>
+      <if test="aec104 != null">
+        AEC104 = #{aec104,jdbcType=VARCHAR},
+      </if>
+      <if test="aec105 != null">
+        AEC105 = #{aec105,jdbcType=DATE},
+      </if>
+      <if test="aab301 != null">
+        AAB301 = #{aab301,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where EEC131 = #{eec131,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.insigma.mvc.model.Ec13">
+    update EC13
+    set EEC121 = #{eec121,jdbcType=VARCHAR},
+      AEC104 = #{aec104,jdbcType=VARCHAR},
+      AEC105 = #{aec105,jdbcType=DATE},
+      AAB301 = #{aab301,jdbcType=VARCHAR}
+    where EEC131 = #{eec131,jdbcType=VARCHAR}
+  </update>
+</mapper>

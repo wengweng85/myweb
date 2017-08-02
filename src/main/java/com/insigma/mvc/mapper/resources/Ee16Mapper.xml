@@ -1,0 +1,516 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.insigma.mvc.dao.resources.Ee16Mapper">
+  <resultMap id="BaseResultMap" type="com.insigma.mvc.model.Ee16">
+    <id column="EEE161" jdbcType="VARCHAR" property="eee161" />
+    <result column="AEF101" jdbcType="VARCHAR" property="aef101" />
+    <result column="AEE124" jdbcType="VARCHAR" property="aee124" />
+    <result column="AEE125" jdbcType="DATE" property="aee125" />
+    <result column="AEE131" jdbcType="DECIMAL" property="aee131" />
+    <result column="AEE132" jdbcType="DECIMAL" property="aee132" />
+    <result column="AEE133" jdbcType="DECIMAL" property="aee133" />
+    <result column="AEE134" jdbcType="DECIMAL" property="aee134" />
+    <result column="AEE135" jdbcType="DECIMAL" property="aee135" />
+    <result column="AEE136" jdbcType="DECIMAL" property="aee136" />
+    <result column="AEE137" jdbcType="DECIMAL" property="aee137" />
+    <result column="AEE138" jdbcType="DECIMAL" property="aee138" />
+    <result column="AEE139" jdbcType="DECIMAL" property="aee139" />
+    <result column="AEE140" jdbcType="DECIMAL" property="aee140" />
+    <result column="AEE141" jdbcType="DECIMAL" property="aee141" />
+    <result column="AEE142" jdbcType="DECIMAL" property="aee142" />
+    <result column="AEE143" jdbcType="DECIMAL" property="aee143" />
+    <result column="AEE144" jdbcType="DECIMAL" property="aee144" />
+    <result column="AEE145" jdbcType="DECIMAL" property="aee145" />
+    <result column="AEE146" jdbcType="DECIMAL" property="aee146" />
+    <result column="AEE147" jdbcType="DECIMAL" property="aee147" />
+    <result column="AEE148" jdbcType="DECIMAL" property="aee148" />
+    <result column="AEE149" jdbcType="DECIMAL" property="aee149" />
+    <result column="AAE011" jdbcType="VARCHAR" property="aae011" />
+    <result column="AAE036" jdbcType="DATE" property="aae036" />
+    <result column="AAF011" jdbcType="VARCHAR" property="aaf011" />
+    <result column="AAE009" jdbcType="VARCHAR" property="aae009" />
+    <result column="AAE010" jdbcType="VARCHAR" property="aae010" />
+    <result column="AAE200" jdbcType="VARCHAR" property="aae200" />
+    <result column="AAE199" jdbcType="VARCHAR" property="aae199" />
+    <result column="AAE202" jdbcType="DATE" property="aae202" />
+    <result column="AAE201" jdbcType="VARCHAR" property="aae201" />
+    <result column="AAE198" jdbcType="VARCHAR" property="aae198" />
+    <result column="AAE203" jdbcType="VARCHAR" property="aae203" />
+    <result column="AAE133" jdbcType="VARCHAR" property="aae133" />
+    <result column="AAE134" jdbcType="VARCHAR" property="aae134" />
+    <result column="AAE132" jdbcType="VARCHAR" property="aae132" />
+    <result column="AAE135" jdbcType="VARCHAR" property="aae135" />
+    <result column="AAE102" jdbcType="DATE" property="aae102" />
+    <result column="AAE013" jdbcType="VARCHAR" property="aae013" />
+    <result column="AAB301" jdbcType="VARCHAR" property="aab301" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    EEE161, AEF101, AEE124, AEE125, AEE131, AEE132, AEE133, AEE134, AEE135, AEE136, AEE137, 
+    AEE138, AEE139, AEE140, AEE141, AEE142, AEE143, AEE144, AEE145, AEE146, AEE147, AEE148, 
+    AEE149, AAE011, AAE036, AAF011, AAE009, AAE010, AAE200, AAE199, AAE202, AAE201, AAE198, 
+    AAE203, AAE133, AAE134, AAE132, AAE135, AAE102, AAE013, AAB301
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from EE16
+    where EEE161 = #{eee161,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from EE16
+    where EEE161 = #{eee161,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.insigma.mvc.model.Ee16">
+    insert into EE16 (EEE161, AEF101, AEE124, 
+      AEE125, AEE131, AEE132, 
+      AEE133, AEE134, AEE135, 
+      AEE136, AEE137, AEE138, 
+      AEE139, AEE140, AEE141, 
+      AEE142, AEE143, AEE144, 
+      AEE145, AEE146, AEE147, 
+      AEE148, AEE149, AAE011, 
+      AAE036, AAF011, AAE009, 
+      AAE010, AAE200, AAE199, 
+      AAE202, AAE201, AAE198, 
+      AAE203, AAE133, AAE134, 
+      AAE132, AAE135, AAE102, 
+      AAE013, AAB301)
+    values (#{eee161,jdbcType=VARCHAR}, #{aef101,jdbcType=VARCHAR}, #{aee124,jdbcType=VARCHAR}, 
+      #{aee125,jdbcType=DATE}, #{aee131,jdbcType=DECIMAL}, #{aee132,jdbcType=DECIMAL}, 
+      #{aee133,jdbcType=DECIMAL}, #{aee134,jdbcType=DECIMAL}, #{aee135,jdbcType=DECIMAL}, 
+      #{aee136,jdbcType=DECIMAL}, #{aee137,jdbcType=DECIMAL}, #{aee138,jdbcType=DECIMAL}, 
+      #{aee139,jdbcType=DECIMAL}, #{aee140,jdbcType=DECIMAL}, #{aee141,jdbcType=DECIMAL}, 
+      #{aee142,jdbcType=DECIMAL}, #{aee143,jdbcType=DECIMAL}, #{aee144,jdbcType=DECIMAL}, 
+      #{aee145,jdbcType=DECIMAL}, #{aee146,jdbcType=DECIMAL}, #{aee147,jdbcType=DECIMAL}, 
+      #{aee148,jdbcType=DECIMAL}, #{aee149,jdbcType=DECIMAL}, #{aae011,jdbcType=VARCHAR}, 
+      #{aae036,jdbcType=DATE}, #{aaf011,jdbcType=VARCHAR}, #{aae009,jdbcType=VARCHAR}, 
+      #{aae010,jdbcType=VARCHAR}, #{aae200,jdbcType=VARCHAR}, #{aae199,jdbcType=VARCHAR}, 
+      #{aae202,jdbcType=DATE}, #{aae201,jdbcType=VARCHAR}, #{aae198,jdbcType=VARCHAR}, 
+      #{aae203,jdbcType=VARCHAR}, #{aae133,jdbcType=VARCHAR}, #{aae134,jdbcType=VARCHAR}, 
+      #{aae132,jdbcType=VARCHAR}, #{aae135,jdbcType=VARCHAR}, #{aae102,jdbcType=DATE}, 
+      #{aae013,jdbcType=VARCHAR}, #{aab301,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.insigma.mvc.model.Ee16">
+    insert into EE16
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="eee161 != null">
+        EEE161,
+      </if>
+      <if test="aef101 != null">
+        AEF101,
+      </if>
+      <if test="aee124 != null">
+        AEE124,
+      </if>
+      <if test="aee125 != null">
+        AEE125,
+      </if>
+      <if test="aee131 != null">
+        AEE131,
+      </if>
+      <if test="aee132 != null">
+        AEE132,
+      </if>
+      <if test="aee133 != null">
+        AEE133,
+      </if>
+      <if test="aee134 != null">
+        AEE134,
+      </if>
+      <if test="aee135 != null">
+        AEE135,
+      </if>
+      <if test="aee136 != null">
+        AEE136,
+      </if>
+      <if test="aee137 != null">
+        AEE137,
+      </if>
+      <if test="aee138 != null">
+        AEE138,
+      </if>
+      <if test="aee139 != null">
+        AEE139,
+      </if>
+      <if test="aee140 != null">
+        AEE140,
+      </if>
+      <if test="aee141 != null">
+        AEE141,
+      </if>
+      <if test="aee142 != null">
+        AEE142,
+      </if>
+      <if test="aee143 != null">
+        AEE143,
+      </if>
+      <if test="aee144 != null">
+        AEE144,
+      </if>
+      <if test="aee145 != null">
+        AEE145,
+      </if>
+      <if test="aee146 != null">
+        AEE146,
+      </if>
+      <if test="aee147 != null">
+        AEE147,
+      </if>
+      <if test="aee148 != null">
+        AEE148,
+      </if>
+      <if test="aee149 != null">
+        AEE149,
+      </if>
+      <if test="aae011 != null">
+        AAE011,
+      </if>
+      <if test="aae036 != null">
+        AAE036,
+      </if>
+      <if test="aaf011 != null">
+        AAF011,
+      </if>
+      <if test="aae009 != null">
+        AAE009,
+      </if>
+      <if test="aae010 != null">
+        AAE010,
+      </if>
+      <if test="aae200 != null">
+        AAE200,
+      </if>
+      <if test="aae199 != null">
+        AAE199,
+      </if>
+      <if test="aae202 != null">
+        AAE202,
+      </if>
+      <if test="aae201 != null">
+        AAE201,
+      </if>
+      <if test="aae198 != null">
+        AAE198,
+      </if>
+      <if test="aae203 != null">
+        AAE203,
+      </if>
+      <if test="aae133 != null">
+        AAE133,
+      </if>
+      <if test="aae134 != null">
+        AAE134,
+      </if>
+      <if test="aae132 != null">
+        AAE132,
+      </if>
+      <if test="aae135 != null">
+        AAE135,
+      </if>
+      <if test="aae102 != null">
+        AAE102,
+      </if>
+      <if test="aae013 != null">
+        AAE013,
+      </if>
+      <if test="aab301 != null">
+        AAB301,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="eee161 != null">
+        #{eee161,jdbcType=VARCHAR},
+      </if>
+      <if test="aef101 != null">
+        #{aef101,jdbcType=VARCHAR},
+      </if>
+      <if test="aee124 != null">
+        #{aee124,jdbcType=VARCHAR},
+      </if>
+      <if test="aee125 != null">
+        #{aee125,jdbcType=DATE},
+      </if>
+      <if test="aee131 != null">
+        #{aee131,jdbcType=DECIMAL},
+      </if>
+      <if test="aee132 != null">
+        #{aee132,jdbcType=DECIMAL},
+      </if>
+      <if test="aee133 != null">
+        #{aee133,jdbcType=DECIMAL},
+      </if>
+      <if test="aee134 != null">
+        #{aee134,jdbcType=DECIMAL},
+      </if>
+      <if test="aee135 != null">
+        #{aee135,jdbcType=DECIMAL},
+      </if>
+      <if test="aee136 != null">
+        #{aee136,jdbcType=DECIMAL},
+      </if>
+      <if test="aee137 != null">
+        #{aee137,jdbcType=DECIMAL},
+      </if>
+      <if test="aee138 != null">
+        #{aee138,jdbcType=DECIMAL},
+      </if>
+      <if test="aee139 != null">
+        #{aee139,jdbcType=DECIMAL},
+      </if>
+      <if test="aee140 != null">
+        #{aee140,jdbcType=DECIMAL},
+      </if>
+      <if test="aee141 != null">
+        #{aee141,jdbcType=DECIMAL},
+      </if>
+      <if test="aee142 != null">
+        #{aee142,jdbcType=DECIMAL},
+      </if>
+      <if test="aee143 != null">
+        #{aee143,jdbcType=DECIMAL},
+      </if>
+      <if test="aee144 != null">
+        #{aee144,jdbcType=DECIMAL},
+      </if>
+      <if test="aee145 != null">
+        #{aee145,jdbcType=DECIMAL},
+      </if>
+      <if test="aee146 != null">
+        #{aee146,jdbcType=DECIMAL},
+      </if>
+      <if test="aee147 != null">
+        #{aee147,jdbcType=DECIMAL},
+      </if>
+      <if test="aee148 != null">
+        #{aee148,jdbcType=DECIMAL},
+      </if>
+      <if test="aee149 != null">
+        #{aee149,jdbcType=DECIMAL},
+      </if>
+      <if test="aae011 != null">
+        #{aae011,jdbcType=VARCHAR},
+      </if>
+      <if test="aae036 != null">
+        #{aae036,jdbcType=DATE},
+      </if>
+      <if test="aaf011 != null">
+        #{aaf011,jdbcType=VARCHAR},
+      </if>
+      <if test="aae009 != null">
+        #{aae009,jdbcType=VARCHAR},
+      </if>
+      <if test="aae010 != null">
+        #{aae010,jdbcType=VARCHAR},
+      </if>
+      <if test="aae200 != null">
+        #{aae200,jdbcType=VARCHAR},
+      </if>
+      <if test="aae199 != null">
+        #{aae199,jdbcType=VARCHAR},
+      </if>
+      <if test="aae202 != null">
+        #{aae202,jdbcType=DATE},
+      </if>
+      <if test="aae201 != null">
+        #{aae201,jdbcType=VARCHAR},
+      </if>
+      <if test="aae198 != null">
+        #{aae198,jdbcType=VARCHAR},
+      </if>
+      <if test="aae203 != null">
+        #{aae203,jdbcType=VARCHAR},
+      </if>
+      <if test="aae133 != null">
+        #{aae133,jdbcType=VARCHAR},
+      </if>
+      <if test="aae134 != null">
+        #{aae134,jdbcType=VARCHAR},
+      </if>
+      <if test="aae132 != null">
+        #{aae132,jdbcType=VARCHAR},
+      </if>
+      <if test="aae135 != null">
+        #{aae135,jdbcType=VARCHAR},
+      </if>
+      <if test="aae102 != null">
+        #{aae102,jdbcType=DATE},
+      </if>
+      <if test="aae013 != null">
+        #{aae013,jdbcType=VARCHAR},
+      </if>
+      <if test="aab301 != null">
+        #{aab301,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.insigma.mvc.model.Ee16">
+    update EE16
+    <set>
+      <if test="aef101 != null">
+        AEF101 = #{aef101,jdbcType=VARCHAR},
+      </if>
+      <if test="aee124 != null">
+        AEE124 = #{aee124,jdbcType=VARCHAR},
+      </if>
+      <if test="aee125 != null">
+        AEE125 = #{aee125,jdbcType=DATE},
+      </if>
+      <if test="aee131 != null">
+        AEE131 = #{aee131,jdbcType=DECIMAL},
+      </if>
+      <if test="aee132 != null">
+        AEE132 = #{aee132,jdbcType=DECIMAL},
+      </if>
+      <if test="aee133 != null">
+        AEE133 = #{aee133,jdbcType=DECIMAL},
+      </if>
+      <if test="aee134 != null">
+        AEE134 = #{aee134,jdbcType=DECIMAL},
+      </if>
+      <if test="aee135 != null">
+        AEE135 = #{aee135,jdbcType=DECIMAL},
+      </if>
+      <if test="aee136 != null">
+        AEE136 = #{aee136,jdbcType=DECIMAL},
+      </if>
+      <if test="aee137 != null">
+        AEE137 = #{aee137,jdbcType=DECIMAL},
+      </if>
+      <if test="aee138 != null">
+        AEE138 = #{aee138,jdbcType=DECIMAL},
+      </if>
+      <if test="aee139 != null">
+        AEE139 = #{aee139,jdbcType=DECIMAL},
+      </if>
+      <if test="aee140 != null">
+        AEE140 = #{aee140,jdbcType=DECIMAL},
+      </if>
+      <if test="aee141 != null">
+        AEE141 = #{aee141,jdbcType=DECIMAL},
+      </if>
+      <if test="aee142 != null">
+        AEE142 = #{aee142,jdbcType=DECIMAL},
+      </if>
+      <if test="aee143 != null">
+        AEE143 = #{aee143,jdbcType=DECIMAL},
+      </if>
+      <if test="aee144 != null">
+        AEE144 = #{aee144,jdbcType=DECIMAL},
+      </if>
+      <if test="aee145 != null">
+        AEE145 = #{aee145,jdbcType=DECIMAL},
+      </if>
+      <if test="aee146 != null">
+        AEE146 = #{aee146,jdbcType=DECIMAL},
+      </if>
+      <if test="aee147 != null">
+        AEE147 = #{aee147,jdbcType=DECIMAL},
+      </if>
+      <if test="aee148 != null">
+        AEE148 = #{aee148,jdbcType=DECIMAL},
+      </if>
+      <if test="aee149 != null">
+        AEE149 = #{aee149,jdbcType=DECIMAL},
+      </if>
+      <if test="aae011 != null">
+        AAE011 = #{aae011,jdbcType=VARCHAR},
+      </if>
+      <if test="aae036 != null">
+        AAE036 = #{aae036,jdbcType=DATE},
+      </if>
+      <if test="aaf011 != null">
+        AAF011 = #{aaf011,jdbcType=VARCHAR},
+      </if>
+      <if test="aae009 != null">
+        AAE009 = #{aae009,jdbcType=VARCHAR},
+      </if>
+      <if test="aae010 != null">
+        AAE010 = #{aae010,jdbcType=VARCHAR},
+      </if>
+      <if test="aae200 != null">
+        AAE200 = #{aae200,jdbcType=VARCHAR},
+      </if>
+      <if test="aae199 != null">
+        AAE199 = #{aae199,jdbcType=VARCHAR},
+      </if>
+      <if test="aae202 != null">
+        AAE202 = #{aae202,jdbcType=DATE},
+      </if>
+      <if test="aae201 != null">
+        AAE201 = #{aae201,jdbcType=VARCHAR},
+      </if>
+      <if test="aae198 != null">
+        AAE198 = #{aae198,jdbcType=VARCHAR},
+      </if>
+      <if test="aae203 != null">
+        AAE203 = #{aae203,jdbcType=VARCHAR},
+      </if>
+      <if test="aae133 != null">
+        AAE133 = #{aae133,jdbcType=VARCHAR},
+      </if>
+      <if test="aae134 != null">
+        AAE134 = #{aae134,jdbcType=VARCHAR},
+      </if>
+      <if test="aae132 != null">
+        AAE132 = #{aae132,jdbcType=VARCHAR},
+      </if>
+      <if test="aae135 != null">
+        AAE135 = #{aae135,jdbcType=VARCHAR},
+      </if>
+      <if test="aae102 != null">
+        AAE102 = #{aae102,jdbcType=DATE},
+      </if>
+      <if test="aae013 != null">
+        AAE013 = #{aae013,jdbcType=VARCHAR},
+      </if>
+      <if test="aab301 != null">
+        AAB301 = #{aab301,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where EEE161 = #{eee161,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.insigma.mvc.model.Ee16">
+    update EE16
+    set AEF101 = #{aef101,jdbcType=VARCHAR},
+      AEE124 = #{aee124,jdbcType=VARCHAR},
+      AEE125 = #{aee125,jdbcType=DATE},
+      AEE131 = #{aee131,jdbcType=DECIMAL},
+      AEE132 = #{aee132,jdbcType=DECIMAL},
+      AEE133 = #{aee133,jdbcType=DECIMAL},
+      AEE134 = #{aee134,jdbcType=DECIMAL},
+      AEE135 = #{aee135,jdbcType=DECIMAL},
+      AEE136 = #{aee136,jdbcType=DECIMAL},
+      AEE137 = #{aee137,jdbcType=DECIMAL},
+      AEE138 = #{aee138,jdbcType=DECIMAL},
+      AEE139 = #{aee139,jdbcType=DECIMAL},
+      AEE140 = #{aee140,jdbcType=DECIMAL},
+      AEE141 = #{aee141,jdbcType=DECIMAL},
+      AEE142 = #{aee142,jdbcType=DECIMAL},
+      AEE143 = #{aee143,jdbcType=DECIMAL},
+      AEE144 = #{aee144,jdbcType=DECIMAL},
+      AEE145 = #{aee145,jdbcType=DECIMAL},
+      AEE146 = #{aee146,jdbcType=DECIMAL},
+      AEE147 = #{aee147,jdbcType=DECIMAL},
+      AEE148 = #{aee148,jdbcType=DECIMAL},
+      AEE149 = #{aee149,jdbcType=DECIMAL},
+      AAE011 = #{aae011,jdbcType=VARCHAR},
+      AAE036 = #{aae036,jdbcType=DATE},
+      AAF011 = #{aaf011,jdbcType=VARCHAR},
+      AAE009 = #{aae009,jdbcType=VARCHAR},
+      AAE010 = #{aae010,jdbcType=VARCHAR},
+      AAE200 = #{aae200,jdbcType=VARCHAR},
+      AAE199 = #{aae199,jdbcType=VARCHAR},
+      AAE202 = #{aae202,jdbcType=DATE},
+      AAE201 = #{aae201,jdbcType=VARCHAR},
+      AAE198 = #{aae198,jdbcType=VARCHAR},
+      AAE203 = #{aae203,jdbcType=VARCHAR},
+      AAE133 = #{aae133,jdbcType=VARCHAR},
+      AAE134 = #{aae134,jdbcType=VARCHAR},
+      AAE132 = #{aae132,jdbcType=VARCHAR},
+      AAE135 = #{aae135,jdbcType=VARCHAR},
+      AAE102 = #{aae102,jdbcType=DATE},
+      AAE013 = #{aae013,jdbcType=VARCHAR},
+      AAB301 = #{aab301,jdbcType=VARCHAR}
+    where EEE161 = #{eee161,jdbcType=VARCHAR}
+  </update>
+</mapper>

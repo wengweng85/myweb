@@ -2,7 +2,6 @@ package com.insigma.mvc.controller.common.codetype;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -70,18 +69,32 @@ public class CodeTypeController extends MvcHelper {
 	}
 	
 	/**
-	 * 根据代码类型获取代码值
+	 * 根据代码类型及代码父类名获取代码值
 	 * 
 	 * @param request
 	 * @param response
 	 * @return
 	 * @throws com.insigma.resolver.AppException
 	 */
-	@RequestMapping(value = "/query")
+	@RequestMapping(value = "/queryByCodeTypeAndParent")
 	@ResponseBody
-	public HashMap query(HttpServletRequest request, HttpServletResponse response,CodeValue codevalue) throws AppException {
-		return initservice.queryCodeValueByParam(codevalue);
+	public List<CodeValue> queryByCodeTypeAndParent(HttpServletRequest request, HttpServletResponse response,CodeValue codevalue) throws AppException {
+		return initservice.queryCodeValueByCodeTypeAndParent(codevalue);
 	}
 	
+	
+	/**
+	 * 从缓存中获取代码值
+	 * 
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws com.insigma.resolver.AppException
+	 */
+	@RequestMapping(value = "/getCodeValueFromCache")
+	@ResponseBody
+	public HashMap getCodeValueFromCache(HttpServletRequest request, HttpServletResponse response,CodeValue codevalue) throws AppException {
+		return initservice.getCodeValueFromCache(codevalue);
+	}
 	
 }

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.insigma.mvc.dao.resources.Ec12Mapper">
+  <resultMap id="BaseResultMap" type="com.insigma.mvc.model.Ec12">
+    <id column="EEC121" jdbcType="VARCHAR" property="eec121" />
+    <result column="AEF101" jdbcType="VARCHAR" property="aef101" />
+    <result column="AEC101" jdbcType="VARCHAR" property="aec101" />
+    <result column="AEC102" jdbcType="VARCHAR" property="aec102" />
+    <result column="AEC103" jdbcType="VARCHAR" property="aec103" />
+    <result column="AAB998" jdbcType="VARCHAR" property="aab998" />
+    <result column="AAB301" jdbcType="VARCHAR" property="aab301" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    EEC121, AEF101, AEC101, AEC102, AEC103, AAB998, AAB301
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from EC12
+    where EEC121 = #{eec121,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from EC12
+    where EEC121 = #{eec121,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.insigma.mvc.model.Ec12">
+    insert into EC12 (EEC121, AEF101, AEC101, 
+      AEC102, AEC103, AAB998, 
+      AAB301)
+    values (#{eec121,jdbcType=VARCHAR}, #{aef101,jdbcType=VARCHAR}, #{aec101,jdbcType=VARCHAR}, 
+      #{aec102,jdbcType=VARCHAR}, #{aec103,jdbcType=VARCHAR}, #{aab998,jdbcType=VARCHAR}, 
+      #{aab301,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.insigma.mvc.model.Ec12">
+    insert into EC12
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="eec121 != null">
+        EEC121,
+      </if>
+      <if test="aef101 != null">
+        AEF101,
+      </if>
+      <if test="aec101 != null">
+        AEC101,
+      </if>
+      <if test="aec102 != null">
+        AEC102,
+      </if>
+      <if test="aec103 != null">
+        AEC103,
+      </if>
+      <if test="aab998 != null">
+        AAB998,
+      </if>
+      <if test="aab301 != null">
+        AAB301,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="eec121 != null">
+        #{eec121,jdbcType=VARCHAR},
+      </if>
+      <if test="aef101 != null">
+        #{aef101,jdbcType=VARCHAR},
+      </if>
+      <if test="aec101 != null">
+        #{aec101,jdbcType=VARCHAR},
+      </if>
+      <if test="aec102 != null">
+        #{aec102,jdbcType=VARCHAR},
+      </if>
+      <if test="aec103 != null">
+        #{aec103,jdbcType=VARCHAR},
+      </if>
+      <if test="aab998 != null">
+        #{aab998,jdbcType=VARCHAR},
+      </if>
+      <if test="aab301 != null">
+        #{aab301,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.insigma.mvc.model.Ec12">
+    update EC12
+    <set>
+      <if test="aef101 != null">
+        AEF101 = #{aef101,jdbcType=VARCHAR},
+      </if>
+      <if test="aec101 != null">
+        AEC101 = #{aec101,jdbcType=VARCHAR},
+      </if>
+      <if test="aec102 != null">
+        AEC102 = #{aec102,jdbcType=VARCHAR},
+      </if>
+      <if test="aec103 != null">
+        AEC103 = #{aec103,jdbcType=VARCHAR},
+      </if>
+      <if test="aab998 != null">
+        AAB998 = #{aab998,jdbcType=VARCHAR},
+      </if>
+      <if test="aab301 != null">
+        AAB301 = #{aab301,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where EEC121 = #{eec121,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.insigma.mvc.model.Ec12">
+    update EC12
+    set AEF101 = #{aef101,jdbcType=VARCHAR},
+      AEC101 = #{aec101,jdbcType=VARCHAR},
+      AEC102 = #{aec102,jdbcType=VARCHAR},
+      AEC103 = #{aec103,jdbcType=VARCHAR},
+      AAB998 = #{aab998,jdbcType=VARCHAR},
+      AAB301 = #{aab301,jdbcType=VARCHAR}
+    where EEC121 = #{eec121,jdbcType=VARCHAR}
+  </update>
+</mapper>

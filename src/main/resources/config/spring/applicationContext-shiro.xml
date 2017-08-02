@@ -28,10 +28,8 @@
 			<value>
 			    /=authc
 			    /index=authc
-			    /demo/**=authc
-				/drag/**=authc
+				/demo/**=authc
 				/codetype/**=authc
-				/token/**=authc
 				/job/**=authc
 				/sys/**=authc,roles[admin]
 			</value>

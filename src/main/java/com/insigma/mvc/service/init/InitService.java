@@ -17,7 +17,8 @@ public interface InitService {
 	
 	public List<CodeType> getInitcodetypeList();
 	public List<CodeValue> getInitCodeValueList(String code_type);
-	public HashMap queryCodeValueByParam(CodeValue codevalue);
+	public  List<CodeValue> queryCodeValueByCodeTypeAndParent(CodeValue codevalue);
+	public HashMap getCodeValueFromCache(CodeValue codevalue);
 	public List<Aa01> getInitParamList();
 	public Aa01 getInitParamById(String aaa001);
 	public List<CodeValue> getCodeValueTree(CodeValue codevalue);

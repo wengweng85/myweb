@@ -69,7 +69,7 @@ public class CommonJsFooterTag implements Tag  {
 	  //<!-- Ä£ÐÍ -->
 	  sb.append("<script id=\"tpl_option\" type=\"text/x-handlebars-template\" >");
 	  sb.append("   {{#each this}}");
-	  sb.append("  <option value='{{id}}'>{{text}}</option>");
+	  sb.append("  <option value='{{code_value}}'>{{code_name}}</option>");
 	  sb.append("  {{/each}}");
 	  sb.append("</script>");
 	      

@@ -120,6 +120,7 @@ public class TimePickerTag implements Tag {
 		 sb.append("<input type=\"text\" id=\""+property+"\" name=\""+property+"\" placeholder=\"ÇëÑ¡Ôñ"+label+"\"  readonly   validate=\""+validate+"\" class=\"form-control\"  >");
 		 sb.append("<span class=\"input-group-addon\" draggable=\"false\"><i class=\"fa fa-calendar\"></i></span>");
 		 sb.append("</div>");
+		 sb.append("</div>");
 		 try {  
 			   out.write(sb.toString());
 	     } catch (IOException e) {  

@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.insigma.mvc.dao.resources.Ec11Mapper">
+  <resultMap id="BaseResultMap" type="com.insigma.mvc.model.Ec11">
+    <id column="EEC111" jdbcType="VARCHAR" property="eec111" />
+    <result column="AEF101" jdbcType="VARCHAR" property="aef101" />
+    <result column="AAC001" jdbcType="VARCHAR" property="aac001" />
+    <result column="AAC003" jdbcType="VARCHAR" property="aac003" />
+    <result column="AAC004" jdbcType="VARCHAR" property="aac004" />
+    <result column="AAC020" jdbcType="DECIMAL" property="aac020" />
+    <result column="AAC011" jdbcType="VARCHAR" property="aac011" />
+    <result column="AAC024" jdbcType="VARCHAR" property="aac024" />
+    <result column="AAC023" jdbcType="VARCHAR" property="aac023" />
+    <result column="AAC002" jdbcType="VARCHAR" property="aac002" />
+    <result column="AEF001" jdbcType="VARCHAR" property="aef001" />
+    <result column="AEF002" jdbcType="DATE" property="aef002" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    EEC111, AEF101, AAC001, AAC003, AAC004, AAC020, AAC011, AAC024, AAC023, AAC002, AEF001, 
+    AEF002
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from EC11
+    where EEC111 = #{eec111,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from EC11
+    where EEC111 = #{eec111,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.insigma.mvc.model.Ec11">
+    insert into EC11 (EEC111, AEF101, AAC001, 
+      AAC003, AAC004, AAC020, 
+      AAC011, AAC024, AAC023, 
+      AAC002, AEF001, AEF002
+      )
+    values (#{eec111,jdbcType=VARCHAR}, #{aef101,jdbcType=VARCHAR}, #{aac001,jdbcType=VARCHAR}, 
+      #{aac003,jdbcType=VARCHAR}, #{aac004,jdbcType=VARCHAR}, #{aac020,jdbcType=DECIMAL}, 
+      #{aac011,jdbcType=VARCHAR}, #{aac024,jdbcType=VARCHAR}, #{aac023,jdbcType=VARCHAR}, 
+      #{aac002,jdbcType=VARCHAR}, #{aef001,jdbcType=VARCHAR}, #{aef002,jdbcType=DATE}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.insigma.mvc.model.Ec11">
+    insert into EC11
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="eec111 != null">
+        EEC111,
+      </if>
+      <if test="aef101 != null">
+        AEF101,
+      </if>
+      <if test="aac001 != null">
+        AAC001,
+      </if>
+      <if test="aac003 != null">
+        AAC003,
+      </if>
+      <if test="aac004 != null">
+        AAC004,
+      </if>
+      <if test="aac020 != null">
+        AAC020,
+      </if>
+      <if test="aac011 != null">
+        AAC011,
+      </if>
+      <if test="aac024 != null">
+        AAC024,
+      </if>
+      <if test="aac023 != null">
+        AAC023,
+      </if>
+      <if test="aac002 != null">
+        AAC002,
+      </if>
+      <if test="aef001 != null">
+        AEF001,
+      </if>
+      <if test="aef002 != null">
+        AEF002,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="eec111 != null">
+        #{eec111,jdbcType=VARCHAR},
+      </if>
+      <if test="aef101 != null">
+        #{aef101,jdbcType=VARCHAR},
+      </if>
+      <if test="aac001 != null">
+        #{aac001,jdbcType=VARCHAR},
+      </if>
+      <if test="aac003 != null">
+        #{aac003,jdbcType=VARCHAR},
+      </if>
+      <if test="aac004 != null">
+        #{aac004,jdbcType=VARCHAR},
+      </if>
+      <if test="aac020 != null">
+        #{aac020,jdbcType=DECIMAL},
+      </if>
+      <if test="aac011 != null">
+        #{aac011,jdbcType=VARCHAR},
+      </if>
+      <if test="aac024 != null">
+        #{aac024,jdbcType=VARCHAR},
+      </if>
+      <if test="aac023 != null">
+        #{aac023,jdbcType=VARCHAR},
+      </if>
+      <if test="aac002 != null">
+        #{aac002,jdbcType=VARCHAR},
+      </if>
+      <if test="aef001 != null">
+        #{aef001,jdbcType=VARCHAR},
+      </if>
+      <if test="aef002 != null">
+        #{aef002,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.insigma.mvc.model.Ec11">
+    update EC11
+    <set>
+      <if test="aef101 != null">
+        AEF101 = #{aef101,jdbcType=VARCHAR},
+      </if>
+      <if test="aac001 != null">
+        AAC001 = #{aac001,jdbcType=VARCHAR},
+      </if>
+      <if test="aac003 != null">
+        AAC003 = #{aac003,jdbcType=VARCHAR},
+      </if>
+      <if test="aac004 != null">
+        AAC004 = #{aac004,jdbcType=VARCHAR},
+      </if>
+      <if test="aac020 != null">
+        AAC020 = #{aac020,jdbcType=DECIMAL},
+      </if>
+      <if test="aac011 != null">
+        AAC011 = #{aac011,jdbcType=VARCHAR},
+      </if>
+      <if test="aac024 != null">
+        AAC024 = #{aac024,jdbcType=VARCHAR},
+      </if>
+      <if test="aac023 != null">
+        AAC023 = #{aac023,jdbcType=VARCHAR},
+      </if>
+      <if test="aac002 != null">
+        AAC002 = #{aac002,jdbcType=VARCHAR},
+      </if>
+      <if test="aef001 != null">
+        AEF001 = #{aef001,jdbcType=VARCHAR},
+      </if>
+      <if test="aef002 != null">
+        AEF002 = #{aef002,jdbcType=DATE},
+      </if>
+    </set>
+    where EEC111 = #{eec111,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.insigma.mvc.model.Ec11">
+    update EC11
+    set AEF101 = #{aef101,jdbcType=VARCHAR},
+      AAC001 = #{aac001,jdbcType=VARCHAR},
+      AAC003 = #{aac003,jdbcType=VARCHAR},
+      AAC004 = #{aac004,jdbcType=VARCHAR},
+      AAC020 = #{aac020,jdbcType=DECIMAL},
+      AAC011 = #{aac011,jdbcType=VARCHAR},
+      AAC024 = #{aac024,jdbcType=VARCHAR},
+      AAC023 = #{aac023,jdbcType=VARCHAR},
+      AAC002 = #{aac002,jdbcType=VARCHAR},
+      AEF001 = #{aef001,jdbcType=VARCHAR},
+      AEF002 = #{aef002,jdbcType=DATE}
+    where EEC111 = #{eec111,jdbcType=VARCHAR}
+  </update>
+</mapper>

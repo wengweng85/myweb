@@ -13,8 +13,8 @@
 	</select>
 	
 	<!-- 通过代码类型获取对应代码 -->
-	<select id="queryCodeValueByParam" parameterType="CodeValue" resultType="CodeValue" >
-		 select aaa102 id ,aaa103 text  from v_aa10 where aaa100=#{code_type} order by aaa102
+	<select id="queryCodeValueByCodeTypeAndParent" parameterType="CodeValue" resultType="CodeValue" >
+		 select aaa102 code_value ,aaa103 code_name  from v_aa10 where aaa100=#{code_type} and aaa105=#{par_code_value} order by aaa102
 	</select>
 	
 	<!-- 获取初始化参数 -->

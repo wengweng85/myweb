@@ -51,6 +51,21 @@
                             </li>
                         </ul>
                     </li>
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-star"></i>
+                            <span class="nav-label">人力资源服务机构申报</span>
+                            <span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a class="J_menuItem" href="<c:url value='/hragencyapply/toreg'/>" data-index="1">人力资源服务机构设立申请</a>
+                            </li>
+                            <li>
+                                <a class="J_menuItem" href="<c:url value='/demo/toadd'/>" data-index="1">人力资源服务机构变更申请</a>
+                            </li>
+                        </ul>
+                    </li>
                     <shiro:hasRole name="admin">
                     <li>
                         <a href="#">

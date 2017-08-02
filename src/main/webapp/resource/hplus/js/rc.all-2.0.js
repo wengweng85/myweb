@@ -962,7 +962,7 @@ var rc = {
 	 * @param {} next_selector
 	 */
 	code_value_select_data_change:function(currentvalue,next_code_type,next_selector){
-		var url=contextPath+'/codetype/query';
+		var url=contextPath+'/codetype/queryByCodeTypeAndParent';
 		rc.ajax(url,{par_code_value:currentvalue,code_type:next_code_type},function(response){
 			//将当前节点后的所有子选择框清空
 			$.each(next_selector,function(index, value, array){

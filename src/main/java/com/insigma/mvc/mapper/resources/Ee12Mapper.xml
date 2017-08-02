@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.insigma.mvc.dao.resources.Ee12Mapper">
+  <resultMap id="BaseResultMap" type="com.insigma.mvc.model.Ee12">
+    <id column="EEE121" jdbcType="VARCHAR" property="eee121" />
+    <result column="EEE111" jdbcType="VARCHAR" property="eee111" />
+    <result column="AEF101" jdbcType="VARCHAR" property="aef101" />
+    <result column="AAE100" jdbcType="VARCHAR" property="aae100" />
+    <result column="AAB301" jdbcType="VARCHAR" property="aab301" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    EEE121, EEE111, AEF101, AAE100, AAB301
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from EE12
+    where EEE121 = #{eee121,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from EE12
+    where EEE121 = #{eee121,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.insigma.mvc.model.Ee12">
+    insert into EE12 (EEE121, EEE111, AEF101, 
+      AAE100, AAB301)
+    values (#{eee121,jdbcType=VARCHAR}, #{eee111,jdbcType=VARCHAR}, #{aef101,jdbcType=VARCHAR}, 
+      #{aae100,jdbcType=VARCHAR}, #{aab301,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.insigma.mvc.model.Ee12">
+    insert into EE12
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="eee121 != null">
+        EEE121,
+      </if>
+      <if test="eee111 != null">
+        EEE111,
+      </if>
+      <if test="aef101 != null">
+        AEF101,
+      </if>
+      <if test="aae100 != null">
+        AAE100,
+      </if>
+      <if test="aab301 != null">
+        AAB301,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="eee121 != null">
+        #{eee121,jdbcType=VARCHAR},
+      </if>
+      <if test="eee111 != null">
+        #{eee111,jdbcType=VARCHAR},
+      </if>
+      <if test="aef101 != null">
+        #{aef101,jdbcType=VARCHAR},
+      </if>
+      <if test="aae100 != null">
+        #{aae100,jdbcType=VARCHAR},
+      </if>
+      <if test="aab301 != null">
+        #{aab301,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.insigma.mvc.model.Ee12">
+    update EE12
+    <set>
+      <if test="eee111 != null">
+        EEE111 = #{eee111,jdbcType=VARCHAR},
+      </if>
+      <if test="aef101 != null">
+        AEF101 = #{aef101,jdbcType=VARCHAR},
+      </if>
+      <if test="aae100 != null">
+        AAE100 = #{aae100,jdbcType=VARCHAR},
+      </if>
+      <if test="aab301 != null">
+        AAB301 = #{aab301,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where EEE121 = #{eee121,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.insigma.mvc.model.Ee12">
+    update EE12
+    set EEE111 = #{eee111,jdbcType=VARCHAR},
+      AEF101 = #{aef101,jdbcType=VARCHAR},
+      AAE100 = #{aae100,jdbcType=VARCHAR},
+      AAB301 = #{aab301,jdbcType=VARCHAR}
+    where EEE121 = #{eee121,jdbcType=VARCHAR}
+  </update>
+</mapper>
