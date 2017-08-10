@@ -7,6 +7,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,11 +31,13 @@ import com.insigma.shiro.realm.SysUserUtil;
 public class DemoAc01ServiceImpl extends MvcHelper implements DemoAc01Service {
 
 	@Resource
+	
 	private DemoAc01Mapper demoAc01Mapper;
-
+	
 	/**
 	 * 分页查询
 	 */
+	
 	@Override
 	public HashMap<String, Object> getAc01List(Ac01 ac01) {
 		PageHelper.offsetPage(ac01.getOffset(), ac01.getLimit());
@@ -118,6 +121,11 @@ public class DemoAc01ServiceImpl extends MvcHelper implements DemoAc01Service {
 				return this.error("更新失败,请确认此人已经被删除");
 			}
 		}
+	}
+
+	@Override
+	public Ac01 getDemoNameById(String aac001) {
+		return demoAc01Mapper.selectNameByPrimaryKey(aac001);
 	}
 
 }

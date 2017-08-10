@@ -13,6 +13,8 @@ public interface DemoAc01Mapper {
     int insertSelective(Ac01 record);
 
     Ac01 selectByPrimaryKey(String aac001);
+    
+    Ac01 selectNameByPrimaryKey(String aac001);
 
     int updateByPrimaryKeySelective(Ac01 record);
     

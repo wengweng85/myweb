@@ -6,7 +6,10 @@
         <!-- sql超时时间 -->
         <setting name="defaultStatementTimeout" value="2"/> 
         <!-- 打印查询语句 -->
+        <!--  
         <setting name="logImpl" value="STDOUT_LOGGING" />
+        -->
+        <setting name="logImpl" value="LOG4J" />
         <setting name="cacheEnabled" value="true" />  
         <setting name="lazyLoadingEnabled" value="true" />  
         <setting name="multipleResultSetsEnabled" value="true" />  

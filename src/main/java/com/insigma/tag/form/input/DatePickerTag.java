@@ -20,7 +20,6 @@ public class DatePickerTag implements Tag {
 	private String property;
 	// 值
 	private String value;
-	
 	// 校验规则
 	private String validate;
 	
@@ -32,6 +31,9 @@ public class DatePickerTag implements Tag {
 
 	//是否必输
 	private String required;
+	
+	//是否只读
+	private String readonly;
 
 
 	public void setValue(String value) {
@@ -76,6 +78,15 @@ public class DatePickerTag implements Tag {
 
 	
 	
+	
+	public String getReadonly() {
+		return readonly;
+	}
+
+	public void setReadonly(String readonly) {
+		this.readonly = readonly;
+	}
+
 	public String getCols() {
 		return cols;
 	}
@@ -101,11 +112,17 @@ public class DatePickerTag implements Tag {
 	     value=(value==null)?"":value;
 	     cols=(cols==null)?"1,2":cols;
 	     
+	     required=(required==null)?"":required;
+	     readonly=(readonly==null)?"false":readonly;
+	     
 	     String [] col=cols.split(",");
 	     int labelcol=Integer.parseInt(col[0]);
 	     int inputcol=Integer.parseInt(col[1]);
 	     //是否必输
 	     boolean isrequired=Boolean.parseBoolean(required);
+	     //是否只读
+	     boolean isreadonly=Boolean.parseBoolean(readonly);
+	     
 	     JspWriter out = pageContext.getOut();
 	     StringBuffer sb=new StringBuffer();
 	     sb.append("<label class=\"col-sm-"+labelcol+"  col-xs-"+labelcol+" control-label\">"+label);
@@ -115,7 +132,14 @@ public class DatePickerTag implements Tag {
 	     sb.append("</label>");
 	     sb.append("<div class=\"col-sm-"+inputcol+" col-xs-"+inputcol+" \">");
 	     sb.append("<div class=\"input-group form_date date\">");
-		 sb.append("<input type=\"text\" id=\""+property+"\" name=\""+property+"\"  value=\""+value+"\"  placeholder=\"请选择"+label+"\" readonly   validate=\""+validate+"\" class=\"form-control\"  >");
+		 sb.append("<input type=\"text\" id=\""+property+"\" name=\""+property+"\"  value=\""+value+"\"  placeholder=\"请选择"+label+"\"   validate=\""+validate+"\" class=\"form-control\"  ");
+		 
+		 if(isreadonly){
+			 sb.append(" readonly=\"readonly\" ");
+		 }
+		 sb.append(" > ");
+		 
+		 sb.append("<span class=\"input-group-addon\"><span class=\"glyphicon glyphicon-remove\" ></span></span>");
 		 sb.append("<span class=\"input-group-addon\" draggable=\"false\"><i class=\"fa fa-calendar\"></i></span>");
 		 sb.append("</div>");
 		 sb.append("</div>");

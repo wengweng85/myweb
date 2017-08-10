@@ -85,6 +85,21 @@ public class DemoController extends MvcHelper {
         return modelAndView;
 	}
 	
+	
+	/**
+	 * 跳转至查看页面
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/toview/{id}")
+	public ModelAndView toview(HttpServletRequest request,Model model,@PathVariable String id) throws Exception {
+		ModelAndView modelAndView=new ModelAndView("demo/demoView");
+		Ac01 ac01=demoAc01Service.getDemoNameById(id);
+		modelAndView.addObject("ac01",ac01);  
+        return modelAndView;
+	}
+	
+	
 	/**
 	 * 批量删除
 	 * @param request

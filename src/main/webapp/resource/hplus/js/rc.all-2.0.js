@@ -371,10 +371,11 @@ var rc = {
 		inputs.each(function(i, dom) {
 			var type = dom.type;
 			var name = dom.name;
+			//console.log(type+' '+name);
 			if (name) {
 				eval('var res=obj.' + name||'');
 				//if (res) {
-				if (type == 'text'||type=='hidden') {
+				if (type == 'text'||type=='hidden'||type=='textarea') {
 					$(dom).val(res);
 				} else if (type == 'checkbox') {
 					if(res){
@@ -418,7 +419,7 @@ var rc = {
 			var type = dom.type;
 			var name = dom.name;
 			if (name) {
-				if (type == 'text'||type=='hidden') {
+				if (type == 'text'||type=='hidden'||type=='textarea') {
 					$(dom).val('');
 				} else if (type == 'checkbox'||type == 'radio') {
 				    $(dom).attr('checked', false);

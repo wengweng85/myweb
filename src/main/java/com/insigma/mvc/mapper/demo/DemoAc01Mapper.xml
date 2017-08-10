@@ -28,7 +28,37 @@
     ADC300, 
     aab800,
     aab801,
-    aab802 
+    aab802,
+    aae013 
+  </sql>
+  
+  
+    <sql id="Base_Column_List_Of_Name">
+    AAC001, 
+    AAC003, 
+    AAC002, 
+    (select aaa103 from v_aa10 t where t.aaa100='AAC004' AND aaa102=AAC004) AAC004, 
+    (select aaa103 from v_aa10 t where t.aaa100='AAC005' AND aaa102=AAC005) AAC005, 
+    to_char(aac006,'yyyy-MM-dd HH:mm:ss') aac006_string, 
+    AAC033, 
+    AAC017, 
+    (select aaa103 from v_aa10 t where t.aaa100='AAC024' AND aaa102=AAC024)  AAC024, 
+    (select aaa103 from v_aa10 t where t.aaa100='AAC011' AND aaa102=AAC011)  AAC011, 
+    AAE006, 
+    AAC067, 
+    AAE015, 
+    (select aaa103 from v_aa10 t where t.aaa100='AAC200' AND aaa102=aac007) aac007,
+    AAC027, 
+    ADC100, 
+    AAF011, 
+    AAE011, 
+    AAE036, 
+    AAA148, 
+    ADC300, 
+    aab800,
+    aab801,
+    aab802,
+    aae013 
   </sql>
   
   
@@ -50,7 +80,8 @@
     aae010,
     aae009,
     aae036,
-    (select aaa103 from v_aa10 t where t.aaa100='AAB800' AND aaa102=aab800) aab800  
+    (select aaa103 from v_aa10 t where t.aaa100='AAB800' AND aaa102=aab800) aab800,
+    aae013  
     from DEMO_AC01 
     <where>
       <if test="aac002!=null">
@@ -90,6 +121,15 @@
     from DEMO_AC01
     where AAC001 = #{aac001,jdbcType=VARCHAR}
   </select>
+  
+  <!-- 通过主键查询中文 -->
+   <select id="selectNameByPrimaryKey" parameterType="java.lang.String" resultType="Ac01">
+    select 
+    <include refid="Base_Column_List_Of_Name" />
+    from DEMO_AC01
+    where AAC001 = #{aac001,jdbcType=VARCHAR}
+  </select>
+  
   
   <!-- 通过主键删除 -->
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
@@ -199,6 +239,9 @@
        <if test="aab802 != null">
         aab802,
       </if>
+      <if test="aae013 != null">
+        aae013,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="aac001 != null">
@@ -275,6 +318,9 @@
       </if>
       <if test="aab802 != null">
         #{aab802,jdbcType=VARCHAR},
+      </if>
+      <if test="aae013 != null">
+        #{aae013,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -354,6 +400,9 @@
       </if>
        <if test="aab802 != null">
         aab802 = #{aab802,jdbcType=VARCHAR},
+      </if>
+      <if test="aae013 != null">
+        aae013 = #{aae013,jdbcType=VARCHAR},
       </if>
     </set>
     where AAC001 = #{aac001,jdbcType=VARCHAR}

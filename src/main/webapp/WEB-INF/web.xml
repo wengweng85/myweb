@@ -24,6 +24,11 @@
     <listener-class>com.insigma.common.listener.ApplicationListener</listener-class>
   </listener>
   
+  <!-- 让应用程序关闭时通知ehcache -->
+  <listener>  
+    <listener-class>net.sf.ehcache.constructs.web.ShutdownListener</listener-class>  
+  </listener>  
+  
   
   <!-- 浏览器不支持put,delete等method,由该filter将/xxx?_method=delete转换为标准的http delete方法 -->
   <!-- 
@@ -192,17 +197,15 @@
   </servlet-mapping>
   
   <!-- 配置CXF框架的核心Servlet --> 
-  <!--  
   <servlet> 
   <servlet-name>CXFServlet</servlet-name> 
 	  <servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class> 
-	  <load-on-startup>2</load-on-startup> 
+	  <load-on-startup>1</load-on-startup> 
   </servlet> 
   <servlet-mapping> 
 	  <servlet-name>CXFServlet</servlet-name> 
-	  <url-pattern>/server/*</url-pattern> 
+	  <url-pattern>/services/*</url-pattern> 
   </servlet-mapping>
-  -->
   <jsp-config>
     <taglib>
       <taglib-uri>/tags/jstl/core</taglib-uri>

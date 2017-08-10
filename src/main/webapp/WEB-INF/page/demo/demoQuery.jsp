@@ -55,14 +55,21 @@
             </div>
             <!-- 模型 -->
             <script id="tpl" type="text/x-handlebars-template" >
-                <a class="btn btn-info"   onclick="demo_edit_by_id('{{aac001}}')"><i class="fa fa-edit"></i>&nbsp;编辑</a> 
-                <a class="btn btn-danger" onclick="demo_delete_by_id('{{aac001}}')" ><i class="fa fa-remove"></i>&nbsp;删除</a> 
+                <a class="link" onclick="demo_view_by_id('{{aac001}}')"><i class="fa fa-file-o"></i>&nbsp;查看</a> 
+                <a class="link" onclick="demo_edit_by_id('{{aac001}}')"><i class="fa fa-edit"></i>&nbsp;编辑</a> 
+                <a class="link" onclick="demo_delete_by_id('{{aac001}}')" ><i class="fa fa-remove"></i>&nbsp;删除</a> 
             </script>
             
             <!-- toolbar -->
             <div id="toolbar" class="btn-group">
-				 <button id="btn_delete" type="button" class="btn btn-default" onclick="demo_bat_delete()">
-				 <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>批量删除
+				 <button id="btn_delete" type="button" class="btn btn-info" onclick="demo_bat_delete()">
+				 <span class="glyphicon glyphicon-remove" aria-hidden="false"></span>批量删除
+				 </button>
+				 <button id="btn_edit" type="button" class="btn btn-info" >
+				 <span class="glyphicon glyphicon-pencil" aria-hidden="false"></span>修改
+				 </button>
+				 <button id="btn_user" type="button" class="btn btn-info" >
+				 <span class="glyphicon glyphicon-plus" aria-hidden="false"></span>新增
 				 </button>
 			</div>
 			
@@ -70,6 +77,7 @@
 			    <table id="ac01table" data-url="<c:url value='/demo/getAc01List'/>" 
 			          data-click-to-select="false"
                       data-toolbar="#toolbar"
+                      data-show-export="true"
                       data-page-size="10" >
 			    <thead>
 				    <tr>
@@ -90,6 +98,7 @@
 	                    <th data-field="aae036" >经办时间</th>
 	                    <th data-field="aab800" >户籍所在省</th>
 	                    <th data-field="aac007_name" >弹出框数据测试</th>
+	                    <th data-field="aae013"  data-width="10px">textarea测试</th>
 	                    <th data-formatter="demo_jobnameFormatter">操作</th>
 				    </tr>
 			    </thead>
@@ -111,9 +120,9 @@
     });
   
     
-    //用户表格监听 
+    //用户表格监听,双击 
     $('#ac01table').on('dbl-click-row.bs.table', function (e, row, $element) {
-    	demo_edit_by_id(row.aac001)
+    	demo_view_by_id(row.aac001)
     });  
     //操作编辑
     function demo_jobnameFormatter(value, row, index) {
@@ -152,6 +161,7 @@
     }
     
     
+    //编辑
     function demo_edit_by_id(aac001){
     	layer.open({
 	   		  type: 2,
@@ -163,6 +173,20 @@
 	   		  content: "<c:url value='/demo/toedit'/>/"+aac001 //iframe的url
  		});
     }
+    
+    //查看
+    function demo_view_by_id(aac001){
+    	layer.open({
+	   		  type: 2,
+	   		  title: '查看页面',
+	   		  shadeClose: false,
+	   		maxmin:true,
+	   		  shade: 0.8,
+	   		  area: ['40%', '90%'],
+	   		  content: "<c:url value='/demo/toview'/>/"+aac001 //iframe的url
+ 		});
+    }
+    
     
     //批量删除
     function demo_bat_delete(){

@@ -48,6 +48,7 @@ public class ApplicationListener implements   ServletContextListener  {
 		Element element=EhCacheUtil.getManager().getCache("webcache").get("code_value_last_update_time");
 		if(element!=null){
 			Date code_value_last_update_time=(Date)element.getValue();
+			System.out.println(code_value_last_update_time.toGMTString());
 			if(code_value_last_update_time!=null){
 				if(!DateUtil.compare(new Date(), code_value_last_update_time, 3600*1000)){
 					syn_flag=false;
@@ -78,6 +79,7 @@ public class ApplicationListener implements   ServletContextListener  {
 			}
 			//上一次更新时间
 			EhCacheUtil.getManager().getCache("webcache").put(new Element("code_value_last_update_time",new Date()));
+			
 		}
 	}
 	

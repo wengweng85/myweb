@@ -43,7 +43,7 @@
 				       <div class="hr-line-dashed"></div>
 				       <div class="form-group">
 				           <rc:select property="aac011" required="true"  label="学历"   codetype="AAC011"  validate="{required:true,messages:{required:'性别不能为空'}}"/>
-				           <rc:date property="aac006" required="true"  label="出生日期"  validate="{required:true,messages:{required:'出生日期不能为空'}}"/>
+				           <rc:date property="aac006" required="true"   label="出生日期"  readonly="false"  validate="{required:true,messages:{required:'出生日期不能为空'}}"/>
 				           <rc:select property="aac033" required="true"  label="健康状况"   codetype="AAC033" validate="{required:true,messages:{required:'健康状况不能为空'}}"/>
 				           <rc:select property="aac017" required="true"  label="婚姻状况"   codetype="AAC017" validate="{required:true,messages:{required:'婚姻状况不能为空'}}"/>
 				       </div>
@@ -77,9 +77,15 @@
 			               <rc:radio label="就业状态" required="true" property="adc100" cols="1,3" codetype="ADC100" />
 			            </div>
 			            <div class="hr-line-dashed"></div>
-					       <div class="form-group">
+					    <div class="form-group">
 					       <rc:textEditIconCodeValue property="aac007" codetype="AAC200" label="地区选择"   />
 					    </div>
+					    <!-- 注意textarea框不要放到form-group中 -->
+					    <div class="hr-line-dashed"></div>
+					    <rc:textarea label="备注" property="aae013"   required="true" rows="3"   validate="{required:true,messages:{required:'备注信息不能为空'}}"/>
+					    
+					    <div class="hr-line-dashed"></div>
+					    <rc:textarea label="备注" property="aae013_2"   required="true" rows="3"  validate="{required:true,messages:{required:'备注信息不能为空'}}"/>
 			       </div>
 		       </div>
 	        </div>

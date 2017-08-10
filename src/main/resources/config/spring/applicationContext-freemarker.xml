@@ -26,7 +26,7 @@
 	<bean id="modulesMap" class="java.util.HashMap">
 		<constructor-arg>
 			<map>
-				<entry key="homeModule" value="/sxrlzy/" />
+				<entry key="homeModule" value="/myweb/" />
 			</map>
 		</constructor-arg>
 	</bean>

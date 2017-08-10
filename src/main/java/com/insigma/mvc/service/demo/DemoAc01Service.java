@@ -24,6 +24,8 @@ public interface DemoAc01Service {
 	
 	public Ac01 getDemoById(String aac001);
 	
+	public Ac01 getDemoNameById(String aac001); 
+	
 	public AjaxReturnMsg saveDemoData(Ac01 ac01);
 
 }

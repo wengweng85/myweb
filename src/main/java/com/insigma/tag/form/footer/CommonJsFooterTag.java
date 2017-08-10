@@ -42,6 +42,8 @@ public class CommonJsFooterTag implements Tag  {
 	  //<!--bootstrap-table  -->
 	  sb.append("<script src='"+contextpath+"/resource/hplus/js/plugins/bootstrap-table/bootstrap-table.min.js'></script>");
 	  sb.append("<script src='"+contextpath+"/resource/hplus/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js'></script>");
+	  sb.append("<script src='"+contextpath+"/resource/hplus/js/plugins/bootstrap-table/extensions/export/bootstrap-table-export.min.js'></script>");
+	  sb.append("<script src='"+contextpath+"/resource/hplus/js/plugins/tableExport/tableExport.min.js'></script>");
 
 	  //<!-- ztree  -->
 	  sb.append("<script  src='"+contextpath+"/resource/hplus/js/jQuery/ztree/jquery.ztree.all.min.js'></script>");
@@ -61,6 +63,10 @@ public class CommonJsFooterTag implements Tag  {
 	  sb.append("<script src='"+contextpath+"/resource/hplus/js/plugins/jasny/jasny-bootstrap.min.js'></script>");
 	  
 	  sb.append("<script src='"+contextpath+"/resource/hplus/js/plugins/suggest/bootstrap-suggest.min.js'></script>");
+	  
+	  sb.append("<script src='"+contextpath+"/resource/hplus/js/json2.js'></script>");
+	  
+	
 	  
 	  //<!--rc about js--> 
 	  sb.append("<script src='"+contextpath+"/resource/hplus/js/rc.all-2.0.js'></script>");

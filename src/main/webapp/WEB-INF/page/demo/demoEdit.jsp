@@ -42,6 +42,9 @@
 				           <rc:textedit property="aac067" value="${ac01.aac067}" required="true" label="移动电话"  validate="{required:true,mobile:true,messages:{required:'移动电话不能为空'}}"/>
 				           <rc:textedit property="aae015" value="${ac01.aae015}" required="true" label="电子邮件"  validate="{required:true,email:true,messages:{required:'电子邮件不能为空'}}"/>
 				       </div>
+				       <!-- 注意textarea框不要放到form-group中 -->
+				       <div class="hr-line-dashed"></div>
+					   <rc:textarea label="备注" property="aae013"   required="true" rows="3"   value="${ac01.aae013 }"  validate="{required:true,messages:{required:'备注信息不能为空'}}"/>
 			       </div>
 		       </div>
 	        </div>
@@ -69,6 +72,7 @@
 	        <!-- 人员附加信息结束-->
 	        <div class="form-group" style="text-align: right;">
 	              <a class="btn btn-primary " onclick="demo_save_data()"><i class="fa fa-save"></i>&nbsp;保存</a>
+	              <a class="btn btn-danger " onclick="select_closeframe()"><i class="fa fa-remove"></i>&nbsp;关闭</a>
 	         </div>
          </div>
         </form>

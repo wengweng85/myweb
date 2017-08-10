@@ -7,7 +7,7 @@
     <show-archived-real-path-enabled>true</show-archived-real-path-enabled>
 </container-descriptor>
 <!-- 如果不带项目名, context-root配置为/-->
-<context-root>sxrlzy</context-root>
+<context-root>myweb</context-root>
 <!-- 集群环境下放开 -->
 <!--  
 <session-descriptor> 

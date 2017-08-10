@@ -2,7 +2,14 @@
 <ehcache>
     <diskStore path="java.io.tmpdir" />
     <defaultCache maxElementsInMemory="10000" eternal="false" timeToIdleSeconds="120" timeToLiveSeconds="120" overflowToDisk="true" />
-    <cache name="webcache"  maxElementsInMemory="10000"  eternal="true"   overflowToDisk="false" />  
+    
+        
+    <cache name="webcache" maxElementsInMemory="1" eternal="true"  
+        overflowToDisk="true" diskSpoolBufferSizeMB="10" maxElementsOnDisk="100000"  
+        diskPersistent="true" memoryStoreEvictionPolicy="LRU">
+        <BootstrapCacheLoaderFactory class="net.sf.ehcache.store.DiskStoreBootstrapCacheLoaderFactory" properties="bootstrapAsynchronously=true" />  
+    </cache>  
+    
     <cache name="testcache" maxElementsInMemory="1000" eternal="false" timeToLiveSeconds="10" timeToIdleSeconds="8" overflowToDisk="true"/>
     <!-- token缓存，缓存时间为30分钟，可存放100000个元素 -->
     <cache name="tokencache"
