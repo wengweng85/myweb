@@ -11,9 +11,9 @@
 <rc:csshead/>
 </head>
 <body class="gray-bg">
-<div class="wrapper wrapper-content animated fadeInRight">
+<div class="">
        <div class="col-sm-3">
-			<div class="ibox float-e-margins">
+			<div class="ibox ">
 				<div class="ibox-title">
 					<h5>权限树区</h5>
 					<div class="ibox-tools">
@@ -28,7 +28,7 @@
 		</div>
 
 		<div class="col-sm-9">
-			<div class="ibox float-e-margins">
+			<div class="ibox ">
 				<div class="ibox-title">
 					<h5>权限编辑区</h5>
 				</div>

@@ -364,14 +364,14 @@ var rc = {
 	 * @param {} response
 	 */
 	evaluation : function(obj,dom_selector) {
-		var inputs = $("form :input");
+		var inputs = $("form :input").not('.ignore_evaluation');
 		if(dom_selector){
-			inputs=dom_selector.find(":input");
+			inputs=dom_selector.find(":input").not('.ignore_evaluation');
 		}
 		inputs.each(function(i, dom) {
 			var type = dom.type;
 			var name = dom.name;
-			//console.log(type+' '+name);
+			console.log(type+' '+name);
 			if (name) {
 				eval('var res=obj.' + name||'');
 				//if (res) {
@@ -1400,7 +1400,7 @@ function jiangese_set(tabid,start,color1,color2){
 	        queryParamsType:'limit',//查询参数组织方式
 	        sidePagination:'server',//指定服务器端分页
 	        pageList:[5,10,20,30,50],//分页步进值
-	        showToggle:false,
+	        showToggle:true,
 	        showRefresh:false,//刷新按钮
 	        showColumns:false,//显示列选择框
 	        //singleSelect:true,

@@ -32,6 +32,8 @@
 	height: 1px;
 	margin: 10px 0
 }
+
+
 .hr-line-solid {
 	border-bottom: 1px solid #e7eaec;
 	background-color: rgba(0, 0, 0, 0);
@@ -39,3 +41,4 @@
 	margin-top: 15px;
 	margin-bottom: 15px
 }
+

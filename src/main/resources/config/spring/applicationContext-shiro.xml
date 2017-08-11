@@ -21,6 +21,10 @@
                     <bean  
                         class="com.insigma.shiro.filter.SimpleFormAuthenticationFilter" />  
                 </entry>  
+                 <entry key="access">  
+                    <bean  
+                        class="com.insigma.shiro.filter.MyAccessControlFilter" />  
+                </entry>  
             </map>  
         </property>  
 		<!-- Shiro过滤链的定义 -->
@@ -28,7 +32,7 @@
 			<value>
 			    /=authc
 			    /index=authc
-				/demo/**=authc
+				/demo/**=authc,access
 				/codetype/**=authc
 				/job/**=authc
 				/sys/**=authc,roles[admin]

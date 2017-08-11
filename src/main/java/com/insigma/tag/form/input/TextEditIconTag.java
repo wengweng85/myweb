@@ -152,8 +152,8 @@ public class TextEditIconTag implements Tag {
 	     sb.append("<div class=\"col-sm-"+inputcol+" col-xs-"+inputcol+" \">");
 	     
 	     sb.append("<div class=\"input-group\">");
-	     sb.append("<input type=\"hidden\" id=\""+property+"\" name=\""+property+"\"  value=\""+value+"\" >");
-	     sb.append("<input type=\"text\" id=\""+property+"_name\" name=\""+property+"_name\"  placeholder=\"请点击右侧放大镜选择\"  value=\""+name_value+"\"  readonly=\"readonly\" class=\"form-control\"> ");
+	     sb.append("<input type=\"hidden\" id=\""+property+"\" class=\"ignore_evaluation\" name=\""+property+"\"  value=\""+value+"\" >");
+	     sb.append("<input type=\"text\" id=\""+property+"_name\" name=\""+property+"_name\"  placeholder=\"请点击右侧放大镜选择\"  value=\""+name_value+"\"  readonly=\"readonly\" class=\"form-control ignore_evaluation\"> ");
 	     sb.append("<span class=\"input-group-btn\"> ");
 	     sb.append("<a type=\"button\" onclick=\""+property+"_clean_select()\" class=\"btn btn-default\"><i class=\"fa fa-remove\"></i></a>&nbsp;");
 	     sb.append("<a type=\"button\" onclick=\""+property+"_open_select()\" class=\"btn btn-primary\"><i class=\"fa fa-search\"></i></a>");

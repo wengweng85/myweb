@@ -95,6 +95,11 @@ public class DemoAc01ServiceImpl extends MvcHelper implements DemoAc01Service {
 	@Override
 	public AjaxReturnMsg saveDemoData(Ac01 ac01) {
 		ac01.setAae011(SysUserUtil.getCurrentUser().getUserid());//经办人编号
+		System.out.println(SysUserUtil.getCurrentUser().getUserid());
+		System.out.println(SysUserUtil.getCurrentUser().getUserid());
+		System.out.println(SysUserUtil.getCurrentUser().getUserid());
+		System.out.println(SysUserUtil.getCurrentUser().getUserid());
+		
 		ac01.setAae010(SysUserUtil.getCurrentUser().getCnname());//经办人姓名
 		ac01.setAaf011(SysUserUtil.getCurrentUser().getGroupid());//经办机构编号
 		ac01.setAae009(SysUserUtil.getCurrentUser().getGroupname());//经办机构编号

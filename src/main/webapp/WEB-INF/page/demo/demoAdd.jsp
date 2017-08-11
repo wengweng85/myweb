@@ -11,21 +11,7 @@
 </head>
 <body class="gray-bg">
     <div class="wrapper wrapper-content ">
-         <form action="${contextpath}/demo/savedata" >
-         <!-- 人员选择 -->
-         <div class="ibox float-e-margins">
-            <div class="ibox-title">
-                <h5>人员编辑</h5>
-            </div>
-            <div class="ibox-content">
-	            <div class="form-horizontal" >
-			        <div class="form-group">
-			           <rc:textEditIcon property="aac001" label="人员选择"  url="${contextpath}/demo/toselect"  callback="select_demo_by_id" />
-			       </div>
-		       </div>
-	       </div>
-        </div>
-        
+        <form action="${contextpath}/demo/savedata" >
         <div id="input_content">
 	        <!-- 人员选择基本信息开始 -->
 	        <div class="ibox ">
@@ -34,7 +20,12 @@
 	            </div>
 	            <div class="ibox-content">
 		            <div class="form-horizontal"  >
-				        <div class="form-group">
+		               <div class="form-group">
+		                   <rc:textEditIcon property="aac001" label="人员选择" cols="1,5"  url="${contextpath}/demo/toselect"  callback="select_demo_by_id" />
+			           </div>
+				       <div class="hr-line-dashed"></div> 
+		            
+				       <div class="form-group">
 			               <rc:textedit  property="aac003" onchange="aac003_change(this)" required="true" label="姓名" validate="{required:true,chinese:true,maxlength:10,messages:{required:'姓名不能为空'}}"  />
 			               <rc:textedit  property="aac002" required="true" datamask="999999999999999999" label="身份证"  validate="{required:true,idcard:true,messages:{required:'身份证不能为空'}}"/>
 			               <rc:select property="aac004" required="true"  multiple="true"  label="性别"   codetype="AAC004"  validate="{required:true,messages:{required:'性别不能为空'}}"/>

@@ -1,4 +1,6 @@
 eclipse.preferences.version=1
+encoding//src/main/java=gbk
+encoding//src/main/resources=UTF-8
 encoding//src/main/resources/config/app/app.properties=utf-8
 encoding//src/main/resources/mybatis-generator/generatorConfig.xml=gbk
 encoding//src/main/resources/quartz.properties=UTF-8
@@ -14,3 +16,5 @@ encoding//src/main/webapp/resource/hplus/js/plugins/datetimepicker/js/locales/bo
 encoding//src/main/webapp/resource/hplus/js/plugins/suggest/data.json=utf-8
 encoding//src/main/webapp/resource/hplus/js/rc.all-2.0.js=utf-8
 encoding//src/main/webapp/resource/hplus/js/rc.tag-1.0.js=utf-8
+encoding//src/test/java=UTF-8
+encoding/<project>=UTF-8
