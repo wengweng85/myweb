@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.insigma.dto.AjaxReturnMsg;
 import com.insigma.mvc.MvcHelper;
+import com.insigma.mvc.model.Ac01;
 import com.insigma.mvc.model.SRole;
 import com.insigma.mvc.service.sysmanager.role.SysRoleService;
 
@@ -29,7 +30,7 @@ import com.insigma.mvc.service.sysmanager.role.SysRoleService;
  */
 @Controller
 @RequestMapping("/sys/role")
-public class SysRoleController extends MvcHelper  {
+public class SysRoleController extends MvcHelper<SRole>  {
 	
 	@Resource
 	private SysRoleService sysRoleService;
@@ -66,10 +67,23 @@ public class SysRoleController extends MvcHelper  {
 	@RequestMapping("/getRoleData/{id}")
 	@RequiresRoles("admin")
 	@ResponseBody
-	public AjaxReturnMsg getPermDataByid(HttpServletRequest request, HttpServletResponse response,Model model,@PathVariable String id) throws Exception {
+	public AjaxReturnMsg<SRole> getPermDataByid(HttpServletRequest request, HttpServletResponse response,Model model,@PathVariable String id) throws Exception {
 		return sysRoleService.getRoleDataById(id);
 	}
 	
+	
+	/**
+	 * 页面初始化
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/toRoleEdit/{id}")
+	public ModelAndView toRoleEdit(HttpServletRequest request,@PathVariable String id) throws Exception {
+		ModelAndView modelAndView=new ModelAndView("sysmanager/role/sysRoleEdit");
+		SRole srole= sysRoleService.getRoleDataById(id).getObj();
+		modelAndView.addObject("srole",srole);  
+        return modelAndView;
+	}
 	/**
 	 * 删除角色相关数据
 	 * @param request
@@ -78,7 +92,7 @@ public class SysRoleController extends MvcHelper  {
 	@RequestMapping("/deleteRoleDataById/{id}")
 	@ResponseBody
 	@RequiresRoles("admin")
-	public AjaxReturnMsg deleteRoleDataById(HttpServletRequest request,Model model,@PathVariable String id) throws Exception {
+	public AjaxReturnMsg<String> deleteRoleDataById(HttpServletRequest request,Model model,@PathVariable String id) throws Exception {
 		return  sysRoleService.deleteRoleDataById(id);
 	}
 	
@@ -90,7 +104,7 @@ public class SysRoleController extends MvcHelper  {
 	@RequestMapping("/saveorupdate")
 	@ResponseBody
 	@RequiresRoles("admin")
-	public AjaxReturnMsg saveorupdate(HttpServletRequest request,Model model,@Valid SRole srole,BindingResult result) throws Exception {
+	public AjaxReturnMsg<String> saveorupdate(HttpServletRequest request,Model model,@Valid SRole srole,BindingResult result) throws Exception {
 		//检验输入
 		if (result.hasErrors()){
 			return validate(result);
@@ -120,7 +134,7 @@ public class SysRoleController extends MvcHelper  {
 	@RequestMapping("/saveroleperm")
 	@ResponseBody
 	@RequiresRoles("admin")
-	public AjaxReturnMsg saveroleperm(HttpServletRequest request,Model model,SRole srole) throws Exception {
+	public AjaxReturnMsg<String> saveroleperm(HttpServletRequest request,Model model,SRole srole) throws Exception {
 		return sysRoleService.saveRolePermData(srole);
 	}
 }

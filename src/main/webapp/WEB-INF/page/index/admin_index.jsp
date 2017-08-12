@@ -118,6 +118,18 @@
                             </li>
                         </ul>
                     </li>
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-code"></i>
+                            <span class="nav-label">代码管理</span>
+                            <span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a class="J_menuItem" href="<c:url value='/codetype/index'/>" data-index="4">代码管理</a>
+                            </li>
+                        </ul>
+                    </li>
                     </shiro:hasRole>
                     </shiro:user>
                 </ul>

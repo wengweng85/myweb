@@ -10,7 +10,7 @@
 		  code,
 		  describe 
 		from 
-		s_role order by updatetime desc 
+		s_role
 	</select>
 	
 	<!-- 通过角色id获取相关角色数据 -->

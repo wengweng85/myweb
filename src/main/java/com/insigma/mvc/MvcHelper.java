@@ -1,8 +1,7 @@
 package com.insigma.mvc;
 
 import java.util.HashMap;
-
-import net.sf.json.JSONObject;
+import java.util.List;
 
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -17,11 +16,11 @@ import com.insigma.dto.AjaxReturnMsg;
  * @author wengsh
  *
  */
-public class MvcHelper {
+public class MvcHelper<T> {
 	
-	public AjaxReturnMsg validate(BindingResult result){
+	public AjaxReturnMsg<String> validate(BindingResult result){
 		 FieldError fielderror=result.getFieldErrors().get(result.getErrorCount()-1);
-		 AjaxReturnMsg dto = new AjaxReturnMsg();
+		 AjaxReturnMsg<String> dto = new AjaxReturnMsg<String>();
 	     dto.setSuccess(false);
 	     dto.setMessage(fielderror.getDefaultMessage());
 	     dto.setObj(fielderror.getField());
@@ -33,8 +32,8 @@ public class MvcHelper {
      * @param message
      * @return
      */
-    public AjaxReturnMsg success(String message) {
-        AjaxReturnMsg dto = new AjaxReturnMsg();
+    public AjaxReturnMsg<String> success(String message) {
+        AjaxReturnMsg<String> dto = new AjaxReturnMsg<String>();
         dto.setSuccess(true);
         dto.setMessage(message);
         return dto;
@@ -47,8 +46,8 @@ public class MvcHelper {
      * @param o
      * @return
      */
-    public AjaxReturnMsg success(String message,Object o) {
-        AjaxReturnMsg dto = new AjaxReturnMsg();
+    public AjaxReturnMsg<java.io.Serializable> success(String message,java.io.Serializable o) {
+        AjaxReturnMsg<java.io.Serializable> dto = new AjaxReturnMsg<java.io.Serializable>();
         dto.setSuccess(true);
         dto.setMessage(message);
         dto.setObj(o);
@@ -60,8 +59,8 @@ public class MvcHelper {
      * @param o
      * @return
      */
-    public AjaxReturnMsg success(Object o) {
-        AjaxReturnMsg dto = new AjaxReturnMsg();
+    public AjaxReturnMsg<T> success(T o) {
+        AjaxReturnMsg<T> dto = new AjaxReturnMsg<T>();
         dto.setSuccess(true);
         dto.setObj(o);
         return dto;
@@ -71,8 +70,8 @@ public class MvcHelper {
      * @param PageInfo pageinfo
      * @return
      */
-    public AjaxReturnMsg success(PageInfo pageinfo) {
-        AjaxReturnMsg dto = new AjaxReturnMsg();
+    public AjaxReturnMsg<List<T>> success(PageInfo<T> pageinfo) {
+        AjaxReturnMsg<List<T>> dto = new AjaxReturnMsg<List<T>>();
         dto.setSuccess(true);
         dto.setObj(pageinfo.getList());
         dto.setTotal(pageinfo.getTotal());
@@ -84,7 +83,7 @@ public class MvcHelper {
      * @param PageInfo pageinfo
      * @return
      */
-    public HashMap<String,Object> success_hashmap_response(PageInfo pageinfo) {
+    public HashMap<String,Object> success_hashmap_response(PageInfo<T> pageinfo) {
     	HashMap<String,Object> hashmap=new HashMap<String,Object>();
     	hashmap.put("total", pageinfo.getTotal());
     	hashmap.put("rows", pageinfo.getList());
@@ -97,8 +96,8 @@ public class MvcHelper {
      * @param message
      * @return
      */
-    public AjaxReturnMsg error(String message) {
-        AjaxReturnMsg dto = new AjaxReturnMsg();
+    public AjaxReturnMsg<String> error(String message) {
+        AjaxReturnMsg<String> dto = new AjaxReturnMsg<String>();
         dto.setSuccess(false);
         dto.setMessage(message);
         return dto;
@@ -110,8 +109,8 @@ public class MvcHelper {
      * @param obj
      * @return
      */
-    public AjaxReturnMsg error(String message,Object obj) {
-        AjaxReturnMsg dto = new AjaxReturnMsg();
+    public AjaxReturnMsg<T> error(String message,T obj) {
+        AjaxReturnMsg<T> dto = new AjaxReturnMsg<T>();
         dto.setSuccess(false);
         dto.setMessage(message);
         dto.setObj(obj);
@@ -123,8 +122,8 @@ public class MvcHelper {
      * @param o
      * @return
      */
-    public AjaxReturnMsg error(Object o) {
-        AjaxReturnMsg dto = new AjaxReturnMsg();
+    public AjaxReturnMsg<T> error(T o) {
+        AjaxReturnMsg<T> dto = new AjaxReturnMsg<T>();
         dto.setSuccess(false);
         dto.setObj(o);
         return dto;
@@ -135,20 +134,11 @@ public class MvcHelper {
      * @param e
      * @return
      */
-    public AjaxReturnMsg error(Exception e) {
-        AjaxReturnMsg dto = new AjaxReturnMsg();
+    public AjaxReturnMsg<String> error(Exception e) {
+        AjaxReturnMsg<String>  dto = new AjaxReturnMsg<String>();
         dto.setSuccess(false);
         dto.setMessage(e.getLocalizedMessage());
         return dto;
-    }
-   
-    /**
-     * 将ajax返回dto返回成字符串
-     * @param msg
-     * @return
-     */
-    public String AjaxMsgtoString(AjaxReturnMsg msg){
-        return JSONObject.fromObject(msg).toString();
     }
 
 }

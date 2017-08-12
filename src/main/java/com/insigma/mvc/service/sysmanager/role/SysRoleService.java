@@ -18,14 +18,14 @@ public interface SysRoleService {
 	
     public HashMap<String,Object>  getAllRoleList( SRole role);
 	
-	public AjaxReturnMsg getRoleDataById(String id);
+	public AjaxReturnMsg<SRole> getRoleDataById(String id);
 	
-	public AjaxReturnMsg saveOrUpdateRoleData(SRole srole);
+	public AjaxReturnMsg<String> saveOrUpdateRoleData(SRole srole);
 	
-	public AjaxReturnMsg deleteRoleDataById(String id);
+	public AjaxReturnMsg<String> deleteRoleDataById(String id);
 	
 	public List<SRole> getRolePermTreeData(String roleid);
 	
-	public AjaxReturnMsg saveRolePermData(SRole srole);
+	public AjaxReturnMsg<String> saveRolePermData(SRole srole);
 
 }

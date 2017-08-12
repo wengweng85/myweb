@@ -17,8 +17,10 @@
 				<div class="ibox-title">
 					<h5>权限树区</h5>
 					<div class="ibox-tools">
+					    <button  id="tree_expand"  class="btn btn-primary btn-xs"><i class="fa fa-plus"></i>&nbsp;展开树</button>
                         <a onclick="sys_perm_addnewperm()" class="btn btn-primary btn-xs"><i class="fa fa-plus"></i>&nbsp;新增</a>
                         <a onclick="sys_perm_deleteperm()" class="btn btn-danger btn-xs"><i class="fa fa-remove"></i>&nbsp;删除</a>
+                       
                     </div>
 				</div>
 				<div class="ibox-content">
@@ -88,6 +90,19 @@ $(function() {
 	sys_perm_treeinit();
 })
 
+$('#tree_expand').on('click',
+	    function(){
+	       if($(this).html()=='<i class="fa fa-plus"></i>&nbsp;展开树'){
+	    	    var treeObj = $.fn.zTree.getZTreeObj("tree-div");
+		    	treeObj.expandAll(true);
+		    	$(this).html('<i class="fa fa-minus"></i>&nbsp;收缩树');
+	       }else{
+	    		var treeObj = $.fn.zTree.getZTreeObj("tree-div");
+		    	treeObj.expandAll(false);
+		    	$(this).html('<i class="fa fa-plus"></i>&nbsp;展开树</a>');
+	       }
+	    }
+	);
 function sys_perm_treeinit(){
 	$.fn.zTree.init($("#tree-div"), sys_perm_setting);
 }

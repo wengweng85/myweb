@@ -18,6 +18,7 @@ import com.insigma.mvc.model.Aa01;
 import com.insigma.mvc.model.CodeType;
 import com.insigma.mvc.model.CodeValue;
 import com.insigma.mvc.service.init.InitService;
+import com.insigma.mvc.service.sysmanager.codetype.SysCodeTypeService;
 import com.insigma.redis.RedisManager;
 
 /**
@@ -43,12 +44,12 @@ public class ApplicationListener implements   ServletContextListener  {
 	public void contextInitialized(ServletContextEvent sce) {
 		//通过MyApplicationContextUtil获取bean
 		InitService initservice= MyApplicationContextUtil.getContext().getBean(InitService.class);
+		SysCodeTypeService sysCodeTypeService= MyApplicationContextUtil.getContext().getBean(SysCodeTypeService.class);
 		//是否同步标志 如果上一次同步时间是1小时之内，不同步下载代码
 		boolean syn_flag=true;
 		Element element=EhCacheUtil.getManager().getCache("webcache").get("code_value_last_update_time");
 		if(element!=null){
 			Date code_value_last_update_time=(Date)element.getValue();
-			System.out.println(code_value_last_update_time.toGMTString());
 			if(code_value_last_update_time!=null){
 				if(!DateUtil.compare(new Date(), code_value_last_update_time, 3600*1000)){
 					syn_flag=false;
@@ -63,10 +64,10 @@ public class ApplicationListener implements   ServletContextListener  {
 			}
 			
 			//code_type code_value同步
-			List <CodeType> list_code_type=initservice.getInitcodetypeList();
+			List <CodeType> list_code_type=sysCodeTypeService.getInitcodetypeList();
 			for(CodeType codetype : list_code_type){
 				String code_type=codetype.getCode_type();
-				List<CodeValue> list_code_value =initservice.getInitCodeValueList(code_type);
+				List<CodeValue> list_code_value =sysCodeTypeService.getInitCodeValueList(code_type);
 				if (list_code_value.size() > 0) {
 					//将代码参加加载到redis缓存中
 					try{
@@ -91,6 +92,7 @@ public class ApplicationListener implements   ServletContextListener  {
 		//通过MyApplicationContextUtil获取bean
 		InitService initservice= MyApplicationContextUtil.getContext().getBean(InitService.class);
 		RedisManager redismanager= MyApplicationContextUtil.getContext().getBean(RedisManager.class);
+		SysCodeTypeService sysCodeTypeService= MyApplicationContextUtil.getContext().getBean(SysCodeTypeService.class);
 		//是否同步标志 如果上一次同步时间是1小时之内，不同步下载代码
 		boolean syn_flag=true;
 		Date code_value_last_update_time=(Date)redismanager.get("code_value_last_update_time"); 
@@ -110,11 +112,11 @@ public class ApplicationListener implements   ServletContextListener  {
 			redismanager.set(aa01.getAaa001(), aa01.getAaa005());
 			
 			//code_type code_value同步
-			List <CodeType> list_code_type=initservice.getInitcodetypeList();
+			List <CodeType> list_code_type=sysCodeTypeService.getInitcodetypeList();
 			for(CodeType codetype : list_code_type){
 				String code_type=codetype.getCode_type();
 				log.info(code_type);
-				List<CodeValue> list_code_value =initservice.getInitCodeValueList(code_type);
+				List<CodeValue> list_code_value =sysCodeTypeService.getInitCodeValueList(code_type);
 				if (list_code_value.size() > 0) {
 					//将代码参加加载到redis缓存中
 					try{

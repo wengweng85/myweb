@@ -25,7 +25,7 @@ import com.mysql.jdbc.StringUtils;
  */
 
 @Service
-public class SysRoleServicelmpl extends MvcHelper  implements SysRoleService {
+public class SysRoleServicelmpl extends MvcHelper<SRole> implements SysRoleService {
 
 	@Resource
 	private SysRoleMapper sysRoleMapper;
@@ -45,7 +45,7 @@ public class SysRoleServicelmpl extends MvcHelper  implements SysRoleService {
 	 * 通过角色id获取角色数据
 	 */
 	@Override
-	public AjaxReturnMsg getRoleDataById(String id) {
+	public AjaxReturnMsg<SRole> getRoleDataById(String id) {
 		return this.success(sysRoleMapper.getRoleDataById(id));
 	}
 
@@ -54,7 +54,7 @@ public class SysRoleServicelmpl extends MvcHelper  implements SysRoleService {
 	 */
 	@Override
 	@Transactional
-	public AjaxReturnMsg saveOrUpdateRoleData(SRole srole) {
+	public AjaxReturnMsg<String> saveOrUpdateRoleData(SRole srole) {
 		SRole ispermsionexist=sysRoleMapper.isRoleCodeExist(srole);
 		if(ispermsionexist!=null){
 			   return this.error("此角色"+srole.getCode()+"编号已经存在,请重新输入一个新的角色编号");
@@ -75,7 +75,7 @@ public class SysRoleServicelmpl extends MvcHelper  implements SysRoleService {
 	 */
 	@Override
 	@Transactional
-	public AjaxReturnMsg deleteRoleDataById(String id) {
+	public AjaxReturnMsg<String> deleteRoleDataById(String id) {
 		if(sysRoleMapper.isRoleUsedbyUser(id)!=null){
 			return this.error("当前角色已经被用户绑定使用，不允许删除,请确认");
 		}else{
@@ -99,7 +99,7 @@ public class SysRoleServicelmpl extends MvcHelper  implements SysRoleService {
 	 */
 	@Transactional
 	@Override
-	public AjaxReturnMsg saveRolePermData(SRole srole) {
+	public AjaxReturnMsg<String> saveRolePermData(SRole srole) {
 		//先删除角色对应历史数据
 		sysRoleMapper.deleteRolePermbyRoleid(srole.getRoleid());
 		String[] selectnodes= srole.getSelectnodes().split(",");

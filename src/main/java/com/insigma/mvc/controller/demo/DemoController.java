@@ -1,7 +1,6 @@
 package com.insigma.mvc.controller.demo;
 
 import java.util.HashMap;
-import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -28,7 +27,7 @@ import com.insigma.mvc.service.demo.DemoAc01Service;
  */
 @Controller
 @RequestMapping("/demo")
-public class DemoController extends MvcHelper {
+public class DemoController extends MvcHelper<Ac01> {
 	
 	
 	@Resource
@@ -109,7 +108,7 @@ public class DemoController extends MvcHelper {
 	 */
 	@RequestMapping("/batdelete")
 	@ResponseBody
-	public AjaxReturnMsg batDeleteDemodata(HttpServletRequest request,Model model,Ac01 ac01){
+	public AjaxReturnMsg<String> batDeleteDemodata(HttpServletRequest request,Model model,Ac01 ac01){
 		return demoAc01Service.batDeleteDemoData(ac01);
 	}
 	
@@ -145,7 +144,7 @@ public class DemoController extends MvcHelper {
 	 */
 	@RequestMapping("/getDemoById/{id}")
 	@ResponseBody
-	public AjaxReturnMsg getDemoById(HttpServletRequest request,Model model,@PathVariable String id) throws Exception {
+	public AjaxReturnMsg<Ac01> getDemoById(HttpServletRequest request,Model model,@PathVariable String id) throws Exception {
 		return this.success(demoAc01Service.getDemoById(id));
 	}
 	
@@ -157,7 +156,7 @@ public class DemoController extends MvcHelper {
 	 */
 	@RequestMapping("/savedata")
 	@ResponseBody
-	public AjaxReturnMsg savedata(HttpServletRequest request,Model model,@Valid Ac01 ac01,BindingResult result) throws Exception {
+	public AjaxReturnMsg<String> savedata(HttpServletRequest request,Model model,@Valid Ac01 ac01,BindingResult result) throws Exception {
 		//ºÏ—È ‰»Î
 		if (result.hasErrors()){
 			return validate(result);

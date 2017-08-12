@@ -70,7 +70,7 @@ public class DemoAc01ServiceImpl extends MvcHelper implements DemoAc01Service {
 	 */
 	@Override
 	@Transactional
-	public AjaxReturnMsg batDeleteDemoData(Ac01 ac01) {
+	public AjaxReturnMsg<String> batDeleteDemoData(Ac01 ac01) {
 		String [] ids=ac01.getSelectnodes().split(",");
 		int batdeletenum=demoAc01Mapper.batDeleteData(ids);
 		if(batdeletenum==ids.length){
@@ -93,7 +93,7 @@ public class DemoAc01ServiceImpl extends MvcHelper implements DemoAc01Service {
 	 * 保存
 	 */
 	@Override
-	public AjaxReturnMsg saveDemoData(Ac01 ac01) {
+	public AjaxReturnMsg<String> saveDemoData(Ac01 ac01) {
 		ac01.setAae011(SysUserUtil.getCurrentUser().getUserid());//经办人编号
 		System.out.println(SysUserUtil.getCurrentUser().getUserid());
 		System.out.println(SysUserUtil.getCurrentUser().getUserid());

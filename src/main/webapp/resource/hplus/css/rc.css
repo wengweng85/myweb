@@ -42,3 +42,29 @@
 	margin-bottom: 15px
 }
 
+.form-control {
+    background-color: #FFF;
+    background-image: none;
+    border: 1px solid #000;
+    border-radius: 3px;
+    color: inherit;
+    display: block;
+    padding: 6px 12px;
+    -webkit-transition: border-color .15s ease-in-out 0s,box-shadow .15s ease-in-out 0s;
+    transition: border-color .15s ease-in-out 0s,box-shadow .15s ease-in-out 0s;
+    width: 100%;
+    font-size: 14px;
+}
+
+.btn-default {
+    color: #333;
+    background-color: #fff;
+    border-color: #000;
+}
+
+div#rMenu {
+	position:absolute; 
+	visibility:hidden; top:0;text-align: left;padding: 2px;
+}
+
+

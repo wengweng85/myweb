@@ -18,14 +18,14 @@ public interface DemoAc01Service {
 	
 	public HashMap<String,Object> getAc01List( Ac01 ac01 );
 	
-	public AjaxReturnMsg deleteDemoById(String aac001);
+	public AjaxReturnMsg<String> deleteDemoById(String aac001);
 	
-	public AjaxReturnMsg batDeleteDemoData(Ac01 ac01);
+	public AjaxReturnMsg<String> batDeleteDemoData(Ac01 ac01);
 	
 	public Ac01 getDemoById(String aac001);
 	
 	public Ac01 getDemoNameById(String aac001); 
 	
-	public AjaxReturnMsg saveDemoData(Ac01 ac01);
+	public AjaxReturnMsg<String>saveDemoData(Ac01 ac01);
 
 }
