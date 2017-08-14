@@ -20,7 +20,8 @@
 	<!-- 代码树 -->
 	<select id="getCodeValueTree"  parameterType="CodeValue" resultType="CodeValue" >
 		select 
-		code_value id ,
+		code_type id,
+		code_value,
 		code_name name, 
 		nvl(code_describe,code_name) code_describe,
 		par_code_value pid,
@@ -28,6 +29,7 @@
 		from 
 		code_value t where t.code_type=#{code_type} and par_code_value=#{par_code_value} order by t.code_value
 	</select>
+	
 	
 	<!-- 得到代码类型树 -->
 	<select id="getCodeTypeTreeData" resultType="CodeType">
@@ -38,40 +40,151 @@
 		'false' isParent,
 		 code_root_value 
 	from code_type 
-	</select>
-	
-	
-	<!-- 得到代码类型树 -->
-	<select id="getCodeTypeInfo"  parameterType="String" resultType="CodeType">
-	select 
-		code_type, 
-		code_root_value 
-	from code_type where code_type=#{code_type}
+	<where>
+	  <if test="q_code_type != null">
+         code_type like '%'||#{q_code_type}||'%' 
+      </if>
+      <if test="q_type_name != null">
+         and type_name like '%'||#{q_type_name}||'%' 
+      </if>
+	</where>
+	order by code_type
 	</select>
 	
 	
 	<!-- 通过代码类型获取代码明细信息 -->
 	<select id="getCodeValueByType" parameterType="CodeType" resultType="CodeType" >
-	 select 
-		code_value id , 
-		code_seq , 
+	 select
+	    code_seq, 
+		code_value id  , 
 		code_name||'('||code_value||')' name,
 		isParent
-		from   (
+		from  (
 		select a.code_seq , a.code_value,a.code_name, decode(sign((select count(*) from code_value s where s.par_code_value=a.code_value and s.code_type=#{code_type} )),'1','true','false')  isParent 
-		from   code_value a  where  a.code_type=#{code_type}  order by  code_value )  
+		from  code_value a  where  a.code_type=#{code_type}  
+		<if test="q_code_value != null">
+	         and code_value like '%'||#{q_code_value}||'%' 
+	    </if>
+	    <if test="q_code_name != null">
+	         and code_name like '%'||#{q_code_name}||'%' 
+	    </if>
+		order by  code_value 
+		)  
 	</select>
 	
 	<!-- 通过代码头节点+代码类型获取代码明细信息 -->
 	<select id="getCodeValueByTypeAndRoot" parameterType="CodeType" resultType="CodeType" >
 		 select 
-		 code_value id , 
-		 code_seq,
+		 code_seq ,
+		 code_value id, 
 		 code_name||'('||code_value||')' name,
 		 isParent
 		 from   (
 		 select a.code_seq, a.code_value,a.code_name, decode(sign((select count(*) from code_value s where s.par_code_value=a.code_value and s.code_type=#{code_type}  )),'1','true','false')  isParent 
 		 from   code_value a  where a.par_code_value=#{code_root_value}  
-		 and a.code_type=#{code_type}   order by  code_value )
+		 and a.code_type=#{code_type}  
+		 <if test="q_code_value != null">
+	         and code_value like '%'||#{q_code_value}||'%' 
+	     </if>
+	     <if test="q_code_name != null">
+	         and code_name like '%'||#{q_code_name}||'%' 
+	     </if>
+		 order by  code_value )
 	</select>
+	
+	
+	<!-- 得到代码类型信息 -->
+	<select id="getCodeTypeInfo"  parameterType="String" resultType="CodeType">
+	select 
+		code_type, 
+		type_name,
+		code_root_value 
+	from code_type where code_type=#{code_type}
+	</select>
+	
+	
+	<!-- 新增代码类型 -->
+	<insert id="addCodeType" parameterType="CodeType" >
+	   insert into code_type(code_type,type_name,code_root_value)
+	   values (#{code_type},#{type_name},#{code_root_value})
+	</insert>
+	
+	
+	<!-- 更新代码类型 -->
+	<update id="updateCodeType" parameterType="CodeType" >
+	update code_type
+	<set>
+      <if test="type_name != null">
+        type_name = #{type_name,jdbcType=VARCHAR},
+      </if>
+      <if test="code_root_value != null">
+        code_root_value = #{code_root_value,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where code_type = #{code_type,jdbcType=VARCHAR}
+	</update>
+	
+	
+	<!-- 得到代码类型明细信息 -->
+	<select id="getCodeTypeDetailInfo"  parameterType="String" resultType="CodeValue">
+	select 
+	    t.code_seq,
+		t.code_type,
+		t.code_value,
+		t.code_name,
+		t.par_code_value,
+		(select code_name from code_value c where c.code_value=t.par_code_value and c.code_type=t.code_type) par_code_name, 
+		t.code_describe 
+	from CODE_VALUE t
+	where code_seq=#{code_seq}
+	</select>
+	
+	
+	<!-- 通过代码值及代码类型获取代码明细,用于判断代码值是否会重复 -->
+	<select id="getCodeTypeDetailByValue"  parameterType="String" resultType="CodeValue">
+	select 
+	    t.code_seq 
+	from CODE_VALUE t
+	where code_value=#{code_value} and code_type=#{code_type}
+	</select>
+	
+	<!-- 新增代码明细 -->
+	<insert id="addCodeTypeDetail" parameterType="CodeValue" >
+	   <selectKey resultType="java.lang.String" order="BEFORE" keyProperty="code_seq"> 
+            SELECT CODE_VALUE_SEQ.Nextval from dual 
+     </selectKey>
+	   insert into code_value(code_seq,code_type,code_value,code_name,par_code_value,code_describe)
+	   values (#{code_seq},#{code_type},#{code_value}, #{code_name},#{par_code_value},#{code_describe})
+	</insert>
+	
+	<!-- 更新代码明细-->
+	<update id="updateCodeTypeDetail" parameterType="CodeType" >
+	update code_value
+	<set>
+      <if test="code_name != null">
+        code_name = #{code_name,jdbcType=VARCHAR},
+      </if>
+      <if test="code_describe != null">
+        code_describe = #{code_describe,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where code_seq = #{code_seq,jdbcType=VARCHAR}
+	</update>
+
+    <!-- 通过代码类型删除代码 -->	
+	<delete id="deleteCodeTypeByType" parameterType="String">
+	   delete from code_type t where t.code_type=#{code_type}
+	</delete>
+	
+	<!-- 通过代码类型删除全部代码值 -->
+	<delete id="deleteCodeValueByType" parameterType="String">
+	   delete from code_value t where t.code_type=#{code_type}
+	</delete>
+
+	
+	<!-- 通过代码类型删除全部代码值 -->
+	<delete id="deleteCodeValueBySeq" parameterType="String">
+	   delete from code_value t where t.code_seq=#{code_seq}
+	</delete>
+	
 </mapper>

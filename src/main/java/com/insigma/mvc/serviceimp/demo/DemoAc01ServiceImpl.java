@@ -7,7 +7,6 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,7 +27,7 @@ import com.insigma.shiro.realm.SysUserUtil;
  */
 
 @Service
-public class DemoAc01ServiceImpl extends MvcHelper implements DemoAc01Service {
+public class DemoAc01ServiceImpl extends MvcHelper<Ac01> implements DemoAc01Service {
 
 	@Resource
 	
@@ -54,7 +53,7 @@ public class DemoAc01ServiceImpl extends MvcHelper implements DemoAc01Service {
 	 */
 	@Override
 	@Transactional
-	public AjaxReturnMsg deleteDemoById(String aac001) {
+	public AjaxReturnMsg<String> deleteDemoById(String aac001) {
 		int deletenum=demoAc01Mapper.deleteByPrimaryKey(aac001);
 		if(deletenum==1){
 			return this.success("É¾³ý³É¹¦");

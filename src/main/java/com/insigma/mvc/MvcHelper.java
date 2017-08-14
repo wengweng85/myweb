@@ -39,21 +39,29 @@ public class MvcHelper<T> {
         return dto;
     }
 
-
     /**
      * 成功返回
-     * @param message
      * @param o
      * @return
      */
-    public AjaxReturnMsg<java.io.Serializable> success(String message,java.io.Serializable o) {
-        AjaxReturnMsg<java.io.Serializable> dto = new AjaxReturnMsg<java.io.Serializable>();
+    public AjaxReturnMsg<T> success(String message,T o) {
+        AjaxReturnMsg<T> dto = new AjaxReturnMsg<T>();
         dto.setSuccess(true);
         dto.setMessage(message);
         dto.setObj(o);
         return dto;
     }
-
+    
+    
+    @SuppressWarnings("rawtypes")
+	public AjaxReturnMsg success_obj(String message,Object o) {
+        AjaxReturnMsg dto = new AjaxReturnMsg();
+        dto.setSuccess(true);
+        dto.setMessage(message);
+        dto.setObj(o);
+        return dto;
+    }
+    
     /**
      * 成功返回
      * @param o
