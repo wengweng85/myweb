@@ -90,6 +90,9 @@ $(function() {
 	 zTree = $.fn.zTree.getZTreeObj("tree-code-type-div");
 	 rMenu = $("#rMenu");
 	 rDetailMenu = $("#rDetailMenu");
+	 $("#tree-code-type-div").bind("scroll", onTreeDivScroll);
+	 $("#tree-code-type-detail-div").bind("scroll", onTreeDetailDivScroll);
+	
 })
 
 //树配置
@@ -194,6 +197,7 @@ function showRMenu(type, x, y) {
     x += document.body.scrollLeft;
     rMenu.css({"top":y+"px", "left":x+"px", "visibility":"visible"});
 	$("body").bind("mousedown", onBodyMouseDown);
+	
 }
 /**
  * 隐藏右键菜单
@@ -203,11 +207,6 @@ function hideRMenu() {
 	$("body").unbind("mousedown", onBodyMouseDown);
 }
 
-function onBodyMouseDown(event){
-	if (!(event.target.id == "rMenu" || $(event.target).parents("#rMenu").length>0)) {
-		rMenu.css({"visibility" : "hidden"});
-	}
-}
 
 /**
  * 在当前节点下增加子结点
@@ -360,6 +359,14 @@ function onBodyMouseDown(event){
 	if (!(event.target.id == "rDetailMenu" || $(event.target).parents("#rDetailMenu").length>0)) {
 		rDetailMenu.css({"visibility" : "hidden"});
 	}
+}
+
+function onTreeDivScroll(event){
+	rMenu.css({"visibility" : "hidden"});
+}
+
+function onTreeDetailDivScroll(event){
+	rDetailMenu.css({"visibility" : "hidden"});
 }
 
 /**
