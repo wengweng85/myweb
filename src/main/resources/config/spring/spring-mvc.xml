@@ -110,26 +110,13 @@
         <property name="defaultEncoding" value="UTF-8"/>
     </bean>
 
-    <!-- Support Shiro Annotation -->
-    <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
-
-    <!-- Enable Shiro Annotations for Spring-configured beans.  Only run after
-         the lifecycleBeanProcessor has run: -->
-    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
-          depends-on="lifecycleBeanPostProcessor"/>
-    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
-        <property name="securityManager" ref="securityManager"/>
-    </bean>
     
+    <aop:config proxy-target-class="true"/>  
+	<bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">  
+	    <property name="securityManager" ref="securityManager"/>  
+	</bean>
 
-    <!-- 启动对@AspectJ注解的支持 --> 
-    <!-- proxy-target-class等于true是强制使用cglib代理，proxy-target-class默认是false，如果你的类实现了接口 就走JDK代理，如果没有，走cglib代理  -->
-    <!-- 注：对于单利模式建议使用cglib代理，虽然JDK动态代理比cglib代理速度快，但性能不如cglib -->
-    <!--如果不写proxy-target-class="true"这句话也没问题-->
-    <!--  
-    <aop:aspectj-autoproxy />
-    -->
     <bean id="systemLogAspect" class="com.insigma.mvc.component.log.SystemLogAspect"></bean>
-   
+	
     
 </beans> 

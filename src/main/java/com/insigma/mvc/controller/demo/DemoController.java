@@ -18,6 +18,7 @@ import com.insigma.dto.AjaxReturnMsg;
 import com.insigma.mvc.MvcHelper;
 import com.insigma.mvc.model.Ac01;
 import com.insigma.mvc.service.demo.DemoAc01Service;
+import com.insigma.shiro.realm.SysUserUtil;
 
 
 /**
@@ -42,6 +43,8 @@ public class DemoController extends MvcHelper<Ac01> {
 	@RequestMapping("/toquery")
 	public ModelAndView draglist(HttpServletRequest request,Model model) throws Exception {
 		ModelAndView modelAndView=new ModelAndView("demo/demoQuery");
+		//更新当前用户权限
+		SysUserUtil.updateCurrentUserPerms();
         return modelAndView;
 	}
 	

@@ -15,15 +15,11 @@ import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
-import org.apache.shiro.realm.Realm;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.SimplePrincipalCollection;
 import org.apache.shiro.subject.Subject;
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.github.pagehelper.StringUtil;
 import com.insigma.mvc.model.SPermission;
@@ -33,9 +29,7 @@ import com.insigma.mvc.service.login.LoginService;
 import com.insigma.shiro.cache.RedisCache;
 import com.insigma.shiro.token.CustomUsernamePasswordToken;
 
-@Service
-@Transactional
-public class MyShiroRealm extends AuthorizingRealm  implements Realm, InitializingBean {
+public class MyShiroRealm extends AuthorizingRealm  {
 	
 	
 	
@@ -213,9 +207,4 @@ public class MyShiroRealm extends AuthorizingRealm  implements Realm, Initializi
         }  
     }
 
-	@Override
-	public void afterPropertiesSet() throws Exception {
-		// TODO Auto-generated method stub
-	}  
-   
 }
