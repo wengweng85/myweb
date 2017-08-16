@@ -364,44 +364,46 @@ var rc = {
 	 * @param {} response
 	 */
 	evaluation : function(obj,dom_selector) {
-		var inputs = $("form :input").not('.ignore_evaluation');
-		if(dom_selector){
-			inputs=dom_selector.find(":input").not('.ignore_evaluation');
-		}
-		inputs.each(function(i, dom) {
-			var type = dom.type;
-			var name = dom.name;
-			if (name) {
-				eval('var res=obj.' + name||'');
-				//if (res) {
-				if (type == 'text'||type=='hidden'||type=='textarea') {
-					$(dom).val(res);
-				} else if (type == 'checkbox') {
-					if(res){
-						var checkboxvalues = res.split(',');
-						for (var i = 0; i < checkboxvalues.length; i++) {
-							if ($(dom).val() == checkboxvalues[i]) {
-								$(dom).attr('checked', true);
+		if(obj){
+			var inputs = $("form :input").not('.ignore_evaluation');
+			if(dom_selector){
+				inputs=dom_selector.find(":input").not('.ignore_evaluation');
+			}
+			inputs.each(function(i, dom) {
+				var type = dom.type;
+				var name = dom.name;
+				if (name) {
+					eval('var res=obj.' + name||'');
+					//if (res) {
+					if (type == 'text'||type=='hidden'||type=='textarea') {
+						$(dom).val(res);
+					} else if (type == 'checkbox') {
+						if(res){
+							var checkboxvalues = res.split(',');
+							for (var i = 0; i < checkboxvalues.length; i++) {
+								if ($(dom).val() == checkboxvalues[i]) {
+									$(dom).attr('checked', true);
+								}
 							}
 						}
-					}
-				} else if (type == 'radio') {
-					if ($(dom).val() == res) {
-						$(dom).attr('checked', true);
-					}
-				} else if (type == 'select-one') {
-					$(dom).selectpicker('val',res);
-					//$(dom).val(res).trigger('change');
-				} else if (type == 'select-multiple' ) {
-					try{
-						$(dom).selectpicker('val',res.split(','));
-					} catch(error) {
+					} else if (type == 'radio') {
+						if ($(dom).val() == res) {
+							$(dom).attr('checked', true);
+						}
+					} else if (type == 'select-one') {
 						$(dom).selectpicker('val',res);
-					}
-					//$(dom).val(res.split(',')).trigger('change');
-				} 
-			}
-		});
+						//$(dom).val(res).trigger('change');
+					} else if (type == 'select-multiple' ) {
+						try{
+							$(dom).selectpicker('val',res.split(','));
+						} catch(error) {
+							$(dom).selectpicker('val',res);
+						}
+						//$(dom).val(res.split(',')).trigger('change');
+					} 
+				}
+			});
+		}
 	},
 	
 	/**
