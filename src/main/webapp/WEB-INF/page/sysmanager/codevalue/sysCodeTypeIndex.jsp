@@ -254,10 +254,6 @@ function hideRMenu() {
 	$("body").unbind("mousedown", onBodyMouseDown);
 }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 3a43a871dc896845147300333fbd83d081dbdc4a
 /**
  * 在当前节点下增加子结点
  */
