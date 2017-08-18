@@ -194,18 +194,19 @@
    	    //选中的值
    	    var selectnodes='';
    	    if(selections.length>0){
-   			   for(i=0;i<selections.length;i++){
-   	     	   var item=selections[i];
-   	     	   selectnodes+=item.aac001+',';
-   	       }
-   		   rc.ajax("<c:url value='/demo/batdelete'/>", {selectnodes:selectnodes},function (response) {
-   		    	alert(response.message);
-   		    	$('#ac01table').refreshtable();
-   		   }); 
-   	    }else{
-   	 	   layer.alert("请至少选中一条记录");                
-   			   return;
-   	    }
+   	    	layer.confirm('确定批量删除这些数据吗？', function(index){
+   	    	   for(i=0;i<selections.length;i++){
+   	   	     	   var item=selections[i];
+   	   	     	   selectnodes+=item.aac001+',';
+   	   	       }
+   	   		   rc.ajax("<c:url value='/demo/batdelete'/>", {selectnodes:selectnodes},function (response) {
+   	   		    	alert(response.message);
+   	   		    	$('#ac01table').refreshtable();
+   	   		   }); 
+   	    	});
+    	  }else{
+    		layer.alert('请先选择你要删除的数据');
+    	  }
     }
     </script>
 </body>

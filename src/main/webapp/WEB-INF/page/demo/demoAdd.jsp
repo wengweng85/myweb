@@ -22,7 +22,11 @@
 	            <div class="ibox-content">
 		            <div class="form-horizontal"  >
 		               <div class="form-group">
+		               <!-- 
+		                    <rc:textEditIcon property="aac001" label="人员选择" cols="1,3"  url="${contextpath}/demo/toselect"  callback="select_demo_by_id" />
+		              -->     
 			               <rc:textEditSuggest label="个人信息搜索" cols="1,3" property="aac001" keytype="AC01" callback="select_demo_by_id"></rc:textEditSuggest>
+			          
 			           </div>
 				       <div class="hr-line-dashed"></div> 
 				       <div class="form-group">

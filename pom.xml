@@ -113,12 +113,14 @@
 		</dependency>
 		
 		<!-- org.springframework.data -->
+		<!-- 
 		<dependency>
 		    <groupId>org.springframework.data</groupId>
 		    <artifactId>spring-data-jpa</artifactId>
 		    <version>${spring-data.version}</version>
 		</dependency>
-		
+		 -->
+		 
 		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-entitymanager -->
 		<dependency>
 		    <groupId>org.hibernate</groupId>
@@ -214,6 +216,7 @@
 		
 
         <!-- activiti -->
+        <!--  
         
 		<dependency>
 		    <groupId>org.activiti</groupId>
@@ -250,6 +253,8 @@
 		    <artifactId>activiti-image-generator</artifactId>
 		    <version>${activiti.version}</version>
 		</dependency>
+		
+		-->
 		
 		<!-- activemq -->
 		<dependency>
@@ -342,10 +347,18 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<version>5.1.33</version>
 		</dependency>
+		<!--  
 		<dependency>
 		      <groupId>com.oracle</groupId>
 			  <artifactId>ojdbc14</artifactId>
 			  <version>10.2.0.5.0</version>
+		</dependency>
+		-->
+		
+		<dependency>
+		      <groupId>com.oracle</groupId>
+			  <artifactId>ojdbc7</artifactId>
+			  <version>12.1.0.1.0</version>
 		</dependency>
 		
 		<!-- 分布式事务 jta atomikos -->
@@ -582,7 +595,7 @@
 		
 		
 		
-	    
+	    <!--  
 	    <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
@@ -599,6 +612,7 @@
             <artifactId>guava</artifactId>  
             <version>15.0</version>  
         </dependency>  
+        -->
         
         <!-- jackson -->
 		<dependency>

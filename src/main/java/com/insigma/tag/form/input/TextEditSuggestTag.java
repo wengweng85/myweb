@@ -135,9 +135,9 @@ public class TextEditSuggestTag implements Tag {
 	     sb.append("<div class=\"col-sm-"+inputcol+" col-xs-"+inputcol+" \">");
 	     sb.append("<div class=\"input-group\">");
 	     sb.append("<input type=\"hidden\" id=\""+property+"\" class=\"ignore_evaluation\" name=\""+property+"\"  value=\""+value+"\" >");
-	     sb.append("<input type=\"text\" id=\""+property+"_name\" name=\""+property+"_name\"  placeholder=\"请输入中文或代码搜索\"  value=\""+name_value+"\"   class=\"form-control ignore_evaluation\"> ");
+	     sb.append("<input type=\"text\" id=\""+property+"_name\"  onchange=\""+property+"_clean_select(this.value)\"  name=\""+property+"_name\"  placeholder=\"请输入中文或代码搜索\"  value=\""+name_value+"\"   class=\"form-control ignore_evaluation\"> ");
 	     sb.append("<div class=\"input-group-btn\">");
-	     sb.append("<a onclick=\""+property+"_clean_select()\" type=\"button\" class=\"btn btn-default\"><i class=\"fa fa-remove\"></i></a>");
+	     sb.append("<a onclick=\""+property+"_clean_select('')\" type=\"button\" class=\"btn btn-default\"><i class=\"fa fa-remove\"></i></a>");
 	     sb.append("<button type=\"button\" class=\"btn btn-white dropdown-toggle\" data-toggle=\"dropdown\"><span class=\"caret\"></span></button>");
 	     sb.append("<ul class=\"dropdown-menu dropdown-menu-right\" role=\"menu\"></ul>");
 	     sb.append("</div></div></div>");
@@ -165,7 +165,7 @@ public class TextEditSuggestTag implements Tag {
 			  sb.append(callback+"(keyword.id)");
 		 }
 	     sb.append("});");
-	     sb.append("function "+property+"_clean_select(){$('#"+property+"').val('');$('#"+property+"_name').val('');rc.clean();}");
+	     sb.append("function "+property+"_clean_select(val){if(val==''){ $('#"+property+"').val('');$('#"+property+"_name').val('');rc.clean();}}");
 	     sb.append("</script>");
 		
 		 try {  
