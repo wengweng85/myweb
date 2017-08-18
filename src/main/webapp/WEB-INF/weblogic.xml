@@ -3,16 +3,13 @@
 <container-descriptor>
     <!-- 优先加载项目classes -->
     <prefer-web-inf-classes>true</prefer-web-inf-classes>
-    <!-- weblogic 下ServletContext.getRealPath()为空时的解决办法 -->
     <show-archived-real-path-enabled>true</show-archived-real-path-enabled>
 </container-descriptor>
 <!-- 如果不带项目名, context-root配置为/-->
 <context-root>myweb</context-root>
 <!-- 集群环境下放开 -->
-<!--  
 <session-descriptor> 
-      <persistent-store-type>replicated</persistent-store-type> 
+      <persistent-store-type>replicated_if_clustered</persistent-store-type> 
       <sharing-enabled>true</sharing-enabled> 
 </session-descriptor> 
- -->
 </weblogic-web-app>

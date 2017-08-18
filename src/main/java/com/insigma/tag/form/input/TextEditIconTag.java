@@ -173,7 +173,7 @@ public class TextEditIconTag implements Tag {
 			  sb.append(callback+"(code)");
 		 }
 	     sb.append("}");
-	     sb.append("function "+property+"_clean_select(){$('#"+property+"').val('');$('#"+property+"_value').val('');rc.clean();}");
+	     sb.append("function "+property+"_clean_select(){$('#"+property+"').val('');$('#"+property+"_name').val('');rc.clean();}");
 	     sb.append("</script>");
 		
 		 try {  

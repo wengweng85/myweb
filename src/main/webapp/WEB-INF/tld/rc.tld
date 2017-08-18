@@ -179,6 +179,57 @@
 	    <body-content>empty</body-content>  
     </tag> 
     
+    
+    <!-- textEditSuggest -->
+    <tag>  
+	    <name>textEditSuggest</name> 
+	    <tag-class>com.insigma.tag.form.input.TextEditSuggestTag</tag-class> 
+	    <description>文本搜索框标签</description> 
+	     <attribute>
+	        <description>属性名</description>
+	        <name>property</name>
+	        <required>true</required>
+	        <rtexprvalue>true</rtexprvalue>
+	    </attribute>
+	    <attribute>
+	        <description>input输入框对应label名</description>
+	        <name>label</name>
+	        <required>true</required>
+	        <rtexprvalue>true</rtexprvalue>
+	    </attribute>
+	     <attribute>
+	        <description>代码搜索建议代码类型</description>
+	        <name>keytype</name>
+	        <required>true</required>
+	        <rtexprvalue>true</rtexprvalue>
+	    </attribute>
+	     <attribute>
+	        <description>input输入对应自适应列数,形如1,3逗号前代表列占位列数据,逗号后代码输入框占位列数</description>
+	        <name>cols</name>
+	        <required>false</required>
+	        <rtexprvalue>true</rtexprvalue>
+	    </attribute>
+	    <attribute>
+	        <description>回调函数名</description>
+	        <name>callback</name>
+	        <required>false</required>
+	        <rtexprvalue>true</rtexprvalue>
+	    </attribute>
+	    <attribute>
+	        <description>代码值</description>
+	        <name>value</name>
+	        <required>false</required>
+	        <rtexprvalue>true</rtexprvalue>
+	    </attribute>
+	    <attribute>
+	        <description>代码值对应名称值</description>
+	        <name>name_value</name>
+	        <required>false</required>
+	        <rtexprvalue>true</rtexprvalue>
+	    </attribute>
+	    <body-content>empty</body-content>  
+    </tag> 
+    
     <!-- textEditIconCodeValue -->
     <tag>  
 	    <name>textEditIconCodeValue</name> 

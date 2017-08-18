@@ -77,13 +77,13 @@
     	   }
      })
      
-     var testBsSuggest=$("#input_search").bsSuggest({
+     $("#input_search").bsSuggest({
          url:"<c:url value='/codetype/getCodeValueFromCache'/>?code_type=${codetype}",
          effectiveFields: ['code_describe'],
          searchFields: [ "code_describe"],
          idField: "code_value",
          keyField: "code_describe",
-         allowNoKeyword:false,
+         allowNoKeyword:true,
          multiWord:false
      }).on('onSetSelectValue', function (e, keyword, data) {
          //console.log('onSetSelectValue: ', keyword);
@@ -120,7 +120,7 @@
  	function onClick(event, treeId, treeNode, clickFlag) {
  		$('#code').val(treeNode.id);
  	  	$('#value').html(treeNode.code_describe);
-         $('#btn_confirm').removeAttr("disabled");
+        $('#btn_confirm').removeAttr("disabled");
  	}
      
      

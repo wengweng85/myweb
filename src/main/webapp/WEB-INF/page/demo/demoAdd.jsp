@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>demo测试编辑页面</title>
     <rc:csshead/>
+    <rc:jsfooter/>
 </head>
 <body class="gray-bg">
     <div class="wrapper wrapper-content ">
@@ -21,10 +22,9 @@
 	            <div class="ibox-content">
 		            <div class="form-horizontal"  >
 		               <div class="form-group">
-		                   <rc:textEditIcon property="aac001" label="人员选择" cols="1,5"  url="${contextpath}/demo/toselect"  callback="select_demo_by_id" />
+			               <rc:textEditSuggest label="个人信息搜索" cols="1,3" property="aac001" keytype="AC01" callback="select_demo_by_id"></rc:textEditSuggest>
 			           </div>
 				       <div class="hr-line-dashed"></div> 
-		            
 				       <div class="form-group">
 			               <rc:textedit  property="aac003" onchange="aac003_change(this)" required="true" label="姓名" validate="{required:true,chinese:true,maxlength:10,messages:{required:'姓名不能为空'}}"  />
 			               <rc:textedit  property="aac002" required="true" datamask="999999999999999999" label="身份证"  validate="{required:true,idcard:true,messages:{required:'身份证不能为空'}}"/>
@@ -87,9 +87,8 @@
          </div>
         </form>
     </div>
-    <rc:jsfooter/>
+    
     <script type="text/javascript">
- 
     function select_demo_by_id(aac001){
     	rc.ajaxQuery("<c:url value='/demo/getDemoById'/>/"+aac001,$('#input_content'));
     }

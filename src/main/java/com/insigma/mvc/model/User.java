@@ -1,6 +1,5 @@
 package com.insigma.mvc.model;
 
-import org.springframework.data.annotation.Id;
 
 
 /**
@@ -14,7 +13,6 @@ public class User implements java.io.Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	@Id 
     private Long id;
 	private String name;
 	private int age;

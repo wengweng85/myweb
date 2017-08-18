@@ -20,8 +20,8 @@
 	<!-- 代码树 -->
 	<select id="getCodeValueTree"  parameterType="CodeValue" resultType="CodeValue" >
 		select 
-		code_type id,
-		code_value,
+		code_type ,
+		code_value id,
 		code_name name, 
 		nvl(code_describe,code_name) code_describe,
 		par_code_value pid,

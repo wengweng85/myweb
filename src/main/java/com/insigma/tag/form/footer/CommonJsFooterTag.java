@@ -35,6 +35,11 @@ public class CommonJsFooterTag implements Tag  {
 	  
 	  String csrf=(String)request.getAttribute("csrf" );
 	  
+	//<!-- 用于记录当前项目根目录供js调用 -->
+	  sb.append("<input type='hidden' id='contextPath' name='contextPath' value='"+contextpath+"'>");
+	  //<!-- 隐藏域用于重复校验验证 -->
+	  sb.append("<input type='hidden' id='CSRFToken' name='CSRFToken' value='"+csrf+"'>");
+	  
 	  //<!--css及javascript引入开始-->
 	  sb.append("<script src='"+contextpath+"/resource/hplus/js/jQuery/all/jquery.js' charset ='utf-8'></script>");
 	  sb.append("<script src='"+contextpath+"/resource/hplus/js/bootstrap.min.js'></script>");
@@ -62,7 +67,7 @@ public class CommonJsFooterTag implements Tag  {
 	  
 	  sb.append("<script src='"+contextpath+"/resource/hplus/js/plugins/jasny/jasny-bootstrap.min.js'></script>");
 	  
-	  sb.append("<script src='"+contextpath+"/resource/hplus/js/plugins/suggest/bootstrap-suggest.min.js'></script>");
+	  sb.append("<script src='"+contextpath+"/resource/hplus/js/plugins/suggest/bootstrap-suggest.js'></script>");
 	  
 	  sb.append("<script src='"+contextpath+"/resource/hplus/js/json2.js'></script>");
 	  
@@ -79,10 +84,7 @@ public class CommonJsFooterTag implements Tag  {
 	  sb.append("  {{/each}}");
 	  sb.append("</script>");
 	      
-	  //<!-- 用于记录当前项目根目录供js调用 -->
-	  sb.append("<input type='hidden' id='contextPath' name='contextPath' value='"+contextpath+"'>");
-	  //<!-- 隐藏域用于重复校验验证 -->
-	  sb.append("<input type='hidden' id='CSRFToken' name='CSRFToken' value='"+csrf+"'>");
+	  
 	  
 	  try {  
 		   out.write(sb.toString());
