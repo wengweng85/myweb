@@ -7,6 +7,11 @@
 		select aaa100 code_type from v_code_type
 	</select>
 	
+	<!-- 根据代码值及代码类型判断代码是否存在 -->
+	<select id="getCodeValueByValue" parameterType="CodeValue" resultType="CodeValue" >
+		 select * from code_value t where t.code_type=#{code_type} and t.code_value=${code_value}
+	</select>
+	
 	<!-- 通过代码类型获取对应代码   -->
 	<select id="getInitCodeValueList" parameterType="String" resultType="CodeValue" >
 		 select aaa102 code_value ,aaa103 code_name,aaa106 code_describe  from v_aa10 where aaa100=#{code_type}  order by aaa102

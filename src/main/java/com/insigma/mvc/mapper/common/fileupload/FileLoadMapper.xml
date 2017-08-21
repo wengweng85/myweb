@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.insigma.mvc.dao.common.fileupload.FileLoadMapper">
+    <!-- 查询列表 -->
+	<!-- 保存 -->
+	<insert id="saveFileUploadRecord"  parameterType="SFileRecord">
+	    <selectKey resultType="java.lang.String" order="BEFORE" keyProperty="file_uuid"> 
+            SELECT sys_guid() from dual 
+        </selectKey>
+		insert into s_file_record(file_uuid,file_name,file_length,file_status,file_path,file_addtime,file_md5,file_type,file_bus_id,file_bus_type)
+		values (#{file_uuid},#{file_name},#{file_length},#{file_status},#{file_path},sysdate,#{file_md5},#{file_type},#{file_bus_id},#{file_bus_type})
+	</insert>
+	
+	<!-- getFileUploadRecordByFileMd5 -->
+	<select id="getFileUploadRecordByFileMd5" parameterType="String" resultType="SFileRecord">
+	    select * from s_file_record  where file_md5=#{file_md5}
+	</select>
+	
+	<!-- 通过id查询-->
+	<select id="getFileUploadRecordByFileUUid" parameterType="String" resultType="SFileRecord">
+	    select * from s_file_record  where file_uuid=#{file_uuid}
+	</select>
+	
+	<!-- 通过id查询-->
+	<select id="getFileListByBusId" parameterType="String" resultType="SFileRecord">
+	    select file_uuid,file_name,file_length,file_status,file_addtime,
+	    file_type,
+	    (select aaa103 from v_aa10 t where t.aaa100='FILE_BUS_TYPE' and aaa102=file_bus_type) file_bus_type 
+	    from s_file_record  t where t.file_bus_id=#{file_bus_id}
+	    <if test="file_bus_type!=null">
+	          and file_bus_type =#{file_bus_type}
+	    </if>
+	    <if test="file_name!=null">
+	          and file_name like '%'||#{file_name}||'%'  
+	    </if>
+	    
+	    order by file_addtime desc 
+	</select>
+	
+	
+	<!-- 通过fileuuid删除文件记录 -->
+	<delete id="deleteFileByFileUuid" parameterType="String" >
+	    delete from s_file_record t where t.file_uuid=#{file_uuid}
+	</delete>
+	
+	<!-- 批量删除 -->
+  <delete id="batDeleteData"  parameterType="String" >
+       delete from s_file_record where file_uuid in 
+       <foreach item="selectnodes" collection="array" open="(" separator="," close=")">
+            #{selectnodes}
+       </foreach>
+  </delete>
+	
+	
+</mapper>

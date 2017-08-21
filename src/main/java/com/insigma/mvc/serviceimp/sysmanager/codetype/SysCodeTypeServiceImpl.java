@@ -161,6 +161,7 @@ public class SysCodeTypeServiceImpl extends MvcHelper<CodeValue> implements SysC
 	/**
 	 * ÐÞ¸Ä´úÂë»º´æ
 	 */
+	@Override
 	public  void setSelectCacheData(String code_type){
 		List<CodeValue> list_code_value =getInitCodeValueList(code_type);
 		if (list_code_value.size() > 0) {
@@ -171,6 +172,11 @@ public class SysCodeTypeServiceImpl extends MvcHelper<CodeValue> implements SysC
 				e.printStackTrace();
 			}
 		}
+	}
+
+	@Override
+	public CodeValue getCodeValueByValue(CodeValue codevalue) {
+		return sysCodeTypeMapper.getCodeValueByValue(codevalue);
 	}
 	
 }

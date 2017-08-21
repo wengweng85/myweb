@@ -145,7 +145,7 @@ public class TextEditSuggestTag implements Tag {
 	     //js
 	     sb.append("<script type=\"text/javascript\">");
 	     sb.append("$(\"#"+property+"_name\").bsSuggest({");
-	     sb.append("url:$('#contextPath').val()+'/suggest/searchcode?keytype="+keytype+"&keyword=',");
+	     sb.append("url:$('#contextPath').val()+'/common/suggest/searchcode?keytype="+keytype+"&keyword=',");
 	     sb.append(" effectiveFields: ['showname','key','name'],");
 	     sb.append("getDataMethod: \"url\",");
 	     sb.append("effectiveFieldsAlias:{showname: \"È«³Æ\", key: \"´úÂë\",name:\"Ãû³Æ\"},");

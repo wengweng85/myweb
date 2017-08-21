@@ -77,7 +77,6 @@ public class DemoAc01ServiceImpl extends MvcHelper<Ac01> implements DemoAc01Serv
 		}else{
 			return this.success("批量删除成功,但存在失败的数据,请检查");
 		}
-	    
 	}
 
 	/**

@@ -35,6 +35,7 @@
 				/demo/**=authc,access
 				/codetype/**=authc
 				/job/**=authc
+				/common/**=authc
 				/sys/**=authc,roles[admin]
 			</value>
 		</property>

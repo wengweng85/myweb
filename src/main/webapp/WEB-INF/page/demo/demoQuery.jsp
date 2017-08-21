@@ -58,11 +58,11 @@
                 <a class="link" onclick="demo_view_by_id('{{aac001}}')"><i class="fa fa-file-o"></i>&nbsp;查看</a> 
                 <a class="link" onclick="demo_edit_by_id('{{aac001}}')"><i class="fa fa-edit"></i>&nbsp;编辑</a> 
                 <a class="link" onclick="demo_delete_by_id('{{aac001}}')" ><i class="fa fa-remove"></i>&nbsp;删除</a> 
+                <a class="link" onclick="demo_fileupload_by_id('{{aac001}}','001')" ><i class="fa fa-upload"></i>&nbsp;文件上传</a> 
             </script>
-            
             <!-- toolbar -->
             <div id="toolbar" class="btn-group">
-				 <button id="btn_delete" type="button" class="btn btn-info" onclick="demo_bat_delete()">
+				 <button id="btn_delete" type="button" class="btn btn-danger" onclick="demo_bat_delete()">
 				 <span class="glyphicon glyphicon-remove" aria-hidden="false"></span>批量删除
 				 </button>
 				 <button id="btn_edit" type="button" class="btn btn-info" >
@@ -86,7 +86,6 @@
 	                    <th data-field="aac002" >身份证号码</th>
 	                    <th data-field="aac003" >姓名</th>
 	                    <th data-field="aac004" >性别</th>
-	                    <th data-field="aac005" >民族</th>
 	                    <th data-field="aac006" >出生日期</th>
 	                    <th data-field="aac033" >健康状况</th>
 	                    <th data-field="aac017" >婚姻状况</th>
@@ -94,11 +93,7 @@
 	                    <th data-field="aac011" >学历</th>
 	                    <th data-field="aae006" >联系电话</th>
 	                    <th data-field="aae010" >经办人</th>
-	                    <th data-field="aae009" >经办机构</th>
-	                    <th data-field="aae036" >经办时间</th>
-	                    <th data-field="aab800" >户籍所在省</th>
 	                    <th data-field="aac007_name" >弹出框数据测试</th>
-	                    <th data-field="aae013"  data-width="10px">textarea测试</th>
 	                    <th data-formatter="demo_jobnameFormatter">操作</th>
 				    </tr>
 			    </thead>
@@ -208,6 +203,20 @@
     		layer.alert('请先选择你要删除的数据');
     	  }
     }
+    
+    //文件上传
+    function demo_fileupload_by_id(file_bus_id,file_bus_type){
+    	index=layer.open({
+	   		  type: 2,
+	   		  title: '文件上传',
+	   		  shadeClose: true,
+	   		  shade: 0.8,
+	   		  area: ['50%', '60%'],
+	   		  maxmin: true,
+	   		  content: "<c:url value='/common/fileload/tofilelist'/>?file_bus_id="+file_bus_id+"&file_bus_type="+file_bus_type //iframe的url
+   		});
+    	layer.full(index);
+    }  
     </script>
 </body>
 </html>

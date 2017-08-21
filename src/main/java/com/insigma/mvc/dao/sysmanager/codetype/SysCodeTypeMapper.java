@@ -21,6 +21,7 @@ public interface SysCodeTypeMapper {
 	public List<CodeType> getCodeValueByType(CodeType codetype);
 	public List<CodeType> getCodeValueByTypeAndRoot(CodeType codetype);
 	public CodeType getCodeTypeInfo(String code_type);
+	public CodeValue getCodeValueByValue(CodeValue codevalue);
 	public int addCodeType(CodeType codetype);
 	public int updateCodeType(CodeType codetype);
 	public CodeValue getCodeTypeDetailInfo(String code_seq);

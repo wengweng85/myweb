@@ -22,7 +22,7 @@ import com.insigma.resolver.AppException;
  * ½¨ÒéËÑË÷controller
  */
 @Controller
-@RequestMapping(value = "/suggest")
+@RequestMapping(value = "/common/suggest")
 public class SuggestSearchController extends MvcHelper<SuggestKey> {
 
 

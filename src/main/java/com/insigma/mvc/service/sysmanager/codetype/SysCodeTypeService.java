@@ -18,6 +18,7 @@ public interface SysCodeTypeService {
 	public List<CodeType> getInitcodetypeList();
 	public List<CodeValue> getInitCodeValueList(String code_type);
 	public List<CodeValue> queryCodeValueByCodeTypeAndParent(CodeValue codevalue);
+	public CodeValue getCodeValueByValue(CodeValue codevalue);
 	public HashMap<String,List<CodeValue>> getCodeValueFromCache(CodeValue codevalue);
 	public List<CodeValue> getCodeValueTree(CodeValue codevalue);
 	public List<CodeType> getCodeTypeTreeData(CodeType codetype);
