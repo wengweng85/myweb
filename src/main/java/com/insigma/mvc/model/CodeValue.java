@@ -25,7 +25,6 @@ public class CodeValue implements java.io.Serializable{
 	private String par_code_value;
 	private String par_code_name;
 	
-	
 	public String getCode_type() {
 		return code_type;
 	}
@@ -86,6 +85,4 @@ public class CodeValue implements java.io.Serializable{
 	public void setCode_seq(String code_seq) {
 		this.code_seq = code_seq;
 	}
-	
-
 }

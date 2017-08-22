@@ -40,6 +40,8 @@ public class SelectTag implements Tag {
     private String required;
     
     private String readonly;
+    
+    private String filter;
 
 	// 值
 	private String value;
@@ -87,6 +89,13 @@ public class SelectTag implements Tag {
 		this.label = label;
 	}
 
+	public String getFilter() {
+		return filter;
+	}
+
+	public void setFilter(String filter) {
+		this.filter = filter;
+	}
 	
 
 	public String getCols() {
@@ -216,6 +225,7 @@ public class SelectTag implements Tag {
 		 required=(required==null)?"":required;
 		 readonly=(readonly==null)?"":readonly;
 		 codetype=(codetype==null)?"":codetype;
+		 filter=(filter==null)?"":filter;
 		 cols=(cols==null)?"1,2":cols;
 		 
 		 String [] col=cols.split(",");
@@ -233,7 +243,7 @@ public class SelectTag implements Tag {
 	     }
 	     sb.append("</label>");
 	     sb.append("<div class=\"col-sm-"+inputcol+" col-xs-"+inputcol+" \">");
-		 sb.append("<select class=\"form-control selectpicker \" id=\"" + property+ "\" name=\"" + property + "\"  title=\"请选择"+label+"\" value=\"" + value+ "\"  selectOnTab=\"true\" data-size=\"10\" data-live-search=\"true\" validate=\"" + validate+ "\"   data-selected-text-format=\"count > 2\"");
+		 sb.append("<select class=\"form-control selectpicker \" id=\"" + property+ "\" name=\"" + property + "\"  title=\"请选择"+label+"\" value=\"" + value+ "\"  selectOnTab=\"true\" data-actions-box=\"true\" data-size=\"10\"  data-live-search=\"true\" validate=\"" + validate+ "\"   data-selected-text-format=\"count > 2\"");
 		 
 		 if(isreadonly){
 			 sb.append(" disabled ");
@@ -268,8 +278,8 @@ public class SelectTag implements Tag {
 		 }
 		sb.append(">");
 		
-		//如果codetype不为空
-		if(!codetype.equals("")){
+		//如果codetype不为空且过滤条件为空
+		if(!codetype.equals("")&&filter.equals("")){
 			// 从EhCache获取下载
 			Element element = EhCacheUtil.getManager().getCache("webcache").get(codetype.toUpperCase());
 			if (element != null) {
@@ -287,7 +297,16 @@ public class SelectTag implements Tag {
 			}	
 		}
 		sb.append("</select>");
+		
+		
 		sb.append("</div>");
+		sb.append("<script type=\"text/javascript\">");
+		
+		//如果过滤条件不为空、说明代码数据要通过动态过滤方式获取
+		if(!filter.equals("")){
+			  sb.append(" $(function() { rc.dynamic_get_codevalue_by_codetype_and_filter(\"#"+property+"\",\""+codetype+"\",\""+filter+"\",\""+value+"\");})");
+		}
+	    sb.append("</script>");
 
 		// 从redis获取下载
 		/*

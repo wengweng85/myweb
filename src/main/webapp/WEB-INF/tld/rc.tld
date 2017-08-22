@@ -409,9 +409,15 @@
 	        <required>false</required>
 	        <rtexprvalue>true</rtexprvalue>
 	    </attribute>
-	     <attribute>
+	    <attribute>
 	        <description>代码类型:从codevalue中获取数据的数据类型;如codetype="AAC04"性别</description>
 	        <name>codetype</name>
+	        <required>false</required>
+	        <rtexprvalue>true</rtexprvalue>
+	    </attribute>
+	    <attribute>
+	        <description>代码过滤条件,形如aaa102='2' and aaa103='姓名'</description>
+	        <name>filter</name>
 	        <required>false</required>
 	        <rtexprvalue>true</rtexprvalue>
 	    </attribute>

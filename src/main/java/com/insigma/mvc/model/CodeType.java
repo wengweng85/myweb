@@ -15,36 +15,27 @@ public class CodeType implements java.io.Serializable {
 	
 	@NotNull(message="代码类型不能为空")
     private String code_type;
-    
 	@JsonIgnore
     private String aaa100;
-    
     private String id;
-    
     private String name;
-    
     @NotNull(message="代码名称不能为空")
     private String type_name;
-    
     private String code_root_value;
-    
     private String code_seq;
-    
     private String isParent;
-    
     @JsonIgnore
     private String isupdate;//是否更新标志
-    
     @JsonIgnore
     private String q_code_type;
     @JsonIgnore
     private String q_type_name;
-    
 	@JsonIgnore
 	private String q_code_value;
 	@JsonIgnore
 	private String q_code_name;
-    
+	@JsonIgnore
+	private String filter;
     
 	public String getIsParent() {
 		return isParent;
@@ -149,7 +140,14 @@ public class CodeType implements java.io.Serializable {
 	public void setQ_code_name(String q_code_name) {
 		this.q_code_name = q_code_name;
 	}
-	
+
+	public String getFilter() {
+		return filter;
+	}
+
+	public void setFilter(String filter) {
+		this.filter = filter;
+	}
 	
 	
 }

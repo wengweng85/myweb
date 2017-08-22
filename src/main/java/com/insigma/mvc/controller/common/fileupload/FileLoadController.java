@@ -69,7 +69,7 @@ public class FileLoadController extends MvcHelper<SFileRecord> {
    		if(syscodetypeservice.getCodeValueByValue(codevalue)==null){
    			throw new Exception("业务图片类型编码"+sFileRecord.getFile_bus_type()+"不存在,请检查代码类型FILE_BUS_TYPE中是否存在!");
    		}
-   		
+   		sFileRecord.setFile_name("管理");
    		modelAndView.addObject("filerecord", sFileRecord);
    		return modelAndView;
    	}
@@ -121,7 +121,7 @@ public class FileLoadController extends MvcHelper<SFileRecord> {
      */
     @RequestMapping("/upload")
     @ResponseBody
-    public void upload(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public AjaxReturnMsg<String>  upload(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String file_bus_id=request.getParameter("file_bus_id");
 		String file_bus_type=request.getParameter("file_bus_type");
         //检查业务编号参数
@@ -160,8 +160,7 @@ public class FileLoadController extends MvcHelper<SFileRecord> {
                     //取得上传文件
                     MultipartFile multipartFile = multiRequest.getFile(iter.next());
                     if (multipartFile.getSize() > MAX_SIZE) {
-                        this.error( "文件尺寸超过规定大小:" + MAX_SIZE / 1024 / 1024 + "M");
-                        break;
+                    	return this.error( "文件尺寸超过规定大小:" + MAX_SIZE / 1024 / 1024 + "M");
                     } else {
                        
                         // 得到去除路径的文件名
@@ -177,10 +176,12 @@ public class FileLoadController extends MvcHelper<SFileRecord> {
 	     						//上传并记录日志
                             	String id=fileloadservice.upload(originalFilename,file_bus_id,file_bus_type,multipartFile.getInputStream() );
                             	System.out.println(id);
-                                this.success( id);
+                                return this.success(id);
                             }else{
-                                this.error("文件格式不正确,请确认,只允许上传格式为jpg、jpeg、gif、png、pdf、doc、docx、xls、xlsx、rar、zip格式的文件!!");
+                            	return this.error("文件格式不正确,请确认,只允许上传格式为jpg、jpeg、gif、png、pdf、doc、docx、xls、xlsx、rar、zip格式的文件");
                             }
+                        }else{
+                        	return this.error("文件格式错误");
                         }
                     }
                 }
@@ -189,10 +190,11 @@ public class FileLoadController extends MvcHelper<SFileRecord> {
         	e.printStackTrace();
 			// 处理文件尺寸过大异常
 			if (e instanceof SizeLimitExceededException) {
-				this.error( "文件尺寸超过规定大小:" + MAX_SIZE / 1024 / 1024 + "M");
+				return this.error( "文件尺寸超过规定大小:" + MAX_SIZE / 1024 / 1024 + "M");
 			}
-			this.error(e.getMessage());
+			return this.error(e.getMessage());
         }
+    	return null;
 
     }
 
@@ -206,7 +208,7 @@ public class FileLoadController extends MvcHelper<SFileRecord> {
 	 */
 	@RequestMapping("/deletebyid/{id}")
 	@ResponseBody
-	public AjaxReturnMsg deleteFileByid(HttpServletRequest request,Model model,@PathVariable String id){
+	public AjaxReturnMsg<String> deleteFileByid(HttpServletRequest request,Model model,@PathVariable String id){
 		return fileloadservice.deleteFileByFileUuid(id);
 	}
 	

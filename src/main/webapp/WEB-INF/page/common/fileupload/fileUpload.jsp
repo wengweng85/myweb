@@ -26,6 +26,7 @@
 		    </div>
 		    <input type="hidden" id="file_bus_id" value="${filerecord.file_bus_id}">
             <input type="hidden" id="file_bus_type" value="${filerecord.file_bus_type}">
+            <input type="hidden" id="upload_callback" value="${filerecord.upload_callback}">
 	</div>	 
 	</div>   
     <script src="<c:url value='/resource/hplus/js/jquery.min.js'/>"></script>
@@ -34,6 +35,9 @@
     <script type="text/javascript">
         var BASE_URL = 'js/plugins/webuploader';
         var contextPath='<c:url value="/"/>';
+        var upload_callback=function(file_uuid){
+        	parent.${filerecord.upload_callback}('${filerecord.file_bus_id}',file_uuid)
+        }
     </script>
     <script src="<c:url value='/resource/hplus/js/plugins/webuploader/webuploader.min.js'/>"></script>
     <script src="<c:url value='/resource/hplus/js/rc.webuploader.file.js'/>"></script>

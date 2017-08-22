@@ -56,9 +56,9 @@ public class SysCodeTypeServiceImpl extends MvcHelper<CodeValue> implements SysC
 	}
 
 	@Override
-	public List<CodeValue> getInitCodeValueList(String code_type) {
+	public List<CodeValue> getInitCodeValueList(CodeType codetype) {
 		// TODO Auto-generated method stub
-		return sysCodeTypeMapper.getInitCodeValueList(code_type);
+		return sysCodeTypeMapper.getInitCodeValueList(codetype);
 	}
 
 	@Override
@@ -163,7 +163,9 @@ public class SysCodeTypeServiceImpl extends MvcHelper<CodeValue> implements SysC
 	 */
 	@Override
 	public  void setSelectCacheData(String code_type){
-		List<CodeValue> list_code_value =getInitCodeValueList(code_type);
+		CodeType codetype=new CodeType();
+		codetype.setCode_type(code_type);
+		List<CodeValue> list_code_value =getInitCodeValueList(codetype);
 		if (list_code_value.size() > 0) {
 			try{
 				//将代码参加加载到ehcache缓存中

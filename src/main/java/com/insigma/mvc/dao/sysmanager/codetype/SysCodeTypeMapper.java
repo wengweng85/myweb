@@ -14,7 +14,7 @@ import com.insigma.mvc.model.CodeValue;
 public interface SysCodeTypeMapper {
 	
 	public List<CodeType> getInitcodetypeList();
-	public List<CodeValue> getInitCodeValueList(String code_type);
+	public List<CodeValue> getInitCodeValueList(CodeType codetype);
 	public List<CodeValue> queryCodeValueByCodeTypeAndParent(CodeValue codevalue);
 	public List<CodeValue> getCodeValueTree(CodeValue codevalue);
 	public List<CodeType> getCodeTypeTreeData(CodeType codetype);

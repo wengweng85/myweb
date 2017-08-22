@@ -24,7 +24,16 @@ public class SFileRecord extends PageInfo implements java.io.Serializable  {
 	private String file_bus_id;
 	private String file_bus_type;
 	private String selectnodes;
+	private String upload_callback;
 	
+	
+	
+	public String getUpload_callback() {
+		return upload_callback;
+	}
+	public void setUpload_callback(String upload_callback) {
+		this.upload_callback = upload_callback;
+	}
 	public String getFile_type() {
 		return file_type;
 	}

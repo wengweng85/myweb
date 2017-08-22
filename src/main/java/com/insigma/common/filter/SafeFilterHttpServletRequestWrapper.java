@@ -6,7 +6,6 @@ import java.net.URLDecoder;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 
-import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -115,10 +114,8 @@ public class SafeFilterHttpServletRequestWrapper extends HttpServletRequestWrapp
         	//e.printStackTrace();
         }
 
-        //·ÀÖ¹sql×¢Èë
-        s=StringEscapeUtils.escapeSql(s);
         //·ÀÖ¹xss¹¥»÷
-        //s=stripXSS(s);
+       // s=stripXSS(s);
         return s;
     }
 

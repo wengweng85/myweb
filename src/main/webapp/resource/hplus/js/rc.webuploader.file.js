@@ -48,8 +48,17 @@ jQuery(function() {
         $percent.css( 'width', percentage * 100 + '%' );
     });
 
-    uploader.on( 'uploadSuccess', function( file ) {
-        $( '#'+file.id ).find('p.state').text('已上传');
+    uploader.on( 'uploadSuccess', function( file,response  ) {
+        //$( '#'+file.id ).find('p.state').text('已上传');
+    	var res=eval("("+response._raw+")");//转换为json对象 
+        if(res.success){
+        	console.log("返回的文件记录编号:"+res.message+"通过/common/fileload/"+res.message+"即可下载文件");
+            $( '#'+file.id ).find('p.state').text("上传成功:返回的文件记录编号:"+res.message);
+            upload_callback(res.message);
+        }else{
+            layer.alert("上传失败:失败原因"+res.message);
+            $( '#'+file.id ).find('p.state').text("上传失败:失败原因"+res.message);
+        }
     });
 
     uploader.on( 'uploadError', function( file ) {

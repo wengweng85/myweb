@@ -27,15 +27,15 @@
 			       <div class="form-group">
 			            <rc:hidden property="file_bus_id" value="${filerecord.file_bus_id}"/>
 			            <rc:select property="file_bus_type" label="业务类型" codetype="FILE_BUS_TYPE" value="${filerecord.file_bus_type}"  />
-			            
-			            <rc:select property="filename" label="文件名" codetype="FILENAME"   />
+			            <rc:select property="filename" label="文件名" codetype="FILENAME"  filter="aaa103 like '%${filerecord.file_name}%'"  />
 			            <!-- 
 			            <rc:textedit property="file_name" label="文件名"/>
 			            -->
 			            <div class="col-sm-6" align="right">
 		                   <a class="btn btn-info" onclick="file_query()"><i class="fa fa-search"></i>&nbsp;查询</a>
-		                   <a class="btn btn-success" onclick="file_upload()"><i class="fa fa-upload"></i>&nbsp;文件上传</a>
-		                   <a class="btn btn-success" onclick="img_upload()"><i class="fa fa-upload"></i>&nbsp;图片上传</a>
+		                   <a class="btn btn-info" onclick="reload_select()"><i class="fa fa-search"></i>&nbsp;文件名代码刷新</a>
+		                   <a class="btn btn-success" onclick="rc.open_file_upload_page('${filerecord.file_bus_id}','${filerecord.file_bus_type}','file_query')"><i class="fa fa-upload"></i>&nbsp;文件上传</a>
+		                   <a class="btn btn-success" onclick="rc.open_imgage_upload_page('${filerecord.file_bus_id}','${filerecord.file_bus_type}','file_query')""><i class="fa fa-upload"></i>&nbsp;图片上传</a>
 		                </div>
 			       </div>
 		       </form>
@@ -52,8 +52,8 @@
             </div>
             <!-- 模型 -->
             <script id="tpl" type="text/x-handlebars-template" >
-                <a class="link" onclick="file_download_by_id('{{file_uuid}}')"><i class="fa fa-download"></i>&nbsp;下载</a> 
-                <a class="link" onclick="file_delete_by_id('{{file_uuid}}')" ><i class="fa fa-remove"></i>&nbsp;删除</a> 
+                <a class="link" onclick="rc.download_file_by_id('{{file_uuid}}')"><i class="fa fa-download"></i>&nbsp;下载</a> 
+                <a class="link" onclick="delete_file_by_id('{{file_uuid}}')" ><i class="fa fa-remove"></i>&nbsp;删除</a> 
             </script>
             
             <!-- toolbar -->
@@ -119,11 +119,12 @@
     	$('#filetable').refreshtable();
     	//$('.collapse-link').click();
     }
+   
     
     //删除数据
-    function file_delete_by_id(file_uuid){
+    function delete_file_by_id(file_uuid){
    	  if(file_uuid){
-   		layer.confirm('确定删除此文件吗？', function(index){
+   		layer.confirm('确定删除要邮件此文件吗？', function(index){
    			var url= "<c:url value='/common/fileload/deletebyid/'/>"+file_uuid;
    			rc.ajax(url, null,function (response) {
    				if(response.success){
@@ -136,13 +137,6 @@
    	  }else{
    		layer.alert('请先选择你要删除的数据');
    	  }
-    }
-    
-    
-    //下载 
-    function file_download_by_id(file_uuid){
-    	var url="<c:url value='/common/fileload/download'/>/"+file_uuid;
-    	window.open(url);
     }
     
     //批量删除
@@ -166,29 +160,10 @@
     	  }
     }
     
-    //文件上传
-    function file_upload(){
-    	layer.open({
-	   		  type: 2,
-	   		  title: '文件上传',
-	   		  shadeClose: true,
-	   		  shade: 0.8,
-	   		  area: ['30%', '40%'],
-	   		  content: "<c:url value='/common/fileload/toFileUpload'/>?file_bus_id="+$('#file_bus_id').val()+"&file_bus_type="+$('#file_bus_type').val() //iframe的url
-   		});
-    } 
     
-    function img_upload(){
-    	layer.open({
-	   		  type: 2,
-	   		  title: '图片上传',
-	   		  shadeClose: true,
-	   		  shade: 0.8,
-	   		  area: ['60%', '90%'],
-	   		  content: "<c:url value='/common/fileload/toImgUpload'/>?file_bus_id="+$('#file_bus_id').val()+"&file_bus_type="+$('#file_bus_type').val() //iframe的url
-   		});
-    } 
-    
+    function reload_select(){
+    	rc.dynamic_get_codevalue_by_codetype_and_filter("#filename","FILENAME","aaa103 like '%管理%'","")
+    }
     </script>
 </body>
 </html>

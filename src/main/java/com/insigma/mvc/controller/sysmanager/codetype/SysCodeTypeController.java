@@ -349,5 +349,20 @@ public class SysCodeTypeController extends MvcHelper<CodeValue> {
         return modelAndView;
 	}
 	
+	  
+	 /**
+	  * 通过代码类型、过滤条件获取代码 
+	  * @param request
+	  * @param response
+	  * @param codevalue
+	  * @return
+	  * @throws AppException
+	  */
+	 @RequestMapping(value = "/getCodeValueList")
+	 @ResponseBody
+	 public List<CodeValue> getCodeValueList(HttpServletRequest request, HttpServletResponse response,CodeType codetype) throws AppException {
+		   return sysCodeTypeService.getInitCodeValueList(codetype);
+	 } 
+	
 	
 }

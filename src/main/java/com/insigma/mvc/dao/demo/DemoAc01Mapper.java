@@ -21,4 +21,6 @@ public interface DemoAc01Mapper {
     int batDeleteData(String []  ids);
     
     int selectByAac002(Ac01 ac01);
+    
+    int updateAc01DemoFileUuid(Ac01 ac01);
 }

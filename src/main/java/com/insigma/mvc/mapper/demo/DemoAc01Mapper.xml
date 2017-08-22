@@ -29,7 +29,8 @@
     aab800,
     aab801,
     aab802,
-    aae013 
+    aae013,
+    fileuuid
   </sql>
   
   
@@ -58,7 +59,8 @@
     aab800,
     aab801,
     aab802,
-    aae013 
+    aae013,
+    fileuuid 
   </sql>
   
   
@@ -81,7 +83,8 @@
     aae009,
     aae036,
     (select aaa103 from v_aa10 t where t.aaa100='AAB800' AND aaa102=aab800) aab800,
-    aae013  
+    aae013,
+    fileuuid  
     from DEMO_AC01 
     <where>
       <if test="aac002!=null">
@@ -407,4 +410,10 @@
     </set>
     where AAC001 = #{aac001,jdbcType=VARCHAR}
   </update>
+  
+  <!-- 更新ac01对应图片编号 -->
+  <update id="updateAc01DemoFileUuid" parameterType="Ac01">
+     update DEMO_AC01 t set t.fileuuid=#{fileuuid} where aac001=#{aac001}
+  </update>
+  
 </mapper>

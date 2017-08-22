@@ -167,5 +167,33 @@ public class DemoController extends MvcHelper<Ac01> {
 		return demoAc01Service.saveDemoData(ac01);
 		
 	}
+	
+	/**
+	 * 更新个人图片编号
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/updatefile/{id}/{fileuuid}")
+	@ResponseBody
+	public AjaxReturnMsg<String> updatefile(HttpServletRequest request,Model model,@PathVariable String id,@PathVariable String fileuuid) throws Exception {
+		Ac01 ac01=new Ac01();
+		ac01.setAac001(id);
+		ac01.setFileuuid(fileuuid);
+		return demoAc01Service.updateAc01DemoFileUuid(ac01);
+	}
+	
+	/**
+	 * 删除个人图片
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/deletefile/{id}/{fileuuid}")
+	@ResponseBody
+	public AjaxReturnMsg<String> deletefile(HttpServletRequest request,Model model,@PathVariable String id,@PathVariable String fileuuid) throws Exception {
+		Ac01 ac01=new Ac01();
+		ac01.setAac001(id);
+		ac01.setFileuuid(fileuuid);
+		return demoAc01Service.deletefile(ac01);
+	}
 
 }

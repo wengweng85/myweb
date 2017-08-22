@@ -8,7 +8,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>demo测试编辑页面</title>
     <rc:csshead/>
-    <rc:jsfooter/>
 </head>
 <body class="gray-bg">
     <div class="wrapper wrapper-content ">
@@ -91,7 +90,7 @@
          </div>
         </form>
     </div>
-    
+      <rc:jsfooter/>
     <script type="text/javascript">
     function select_demo_by_id(aac001){
     	rc.ajaxQuery("<c:url value='/demo/getDemoById'/>/"+aac001,$('#input_content'));

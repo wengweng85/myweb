@@ -54,6 +54,15 @@ public class CommonCssHeaderTag implements Tag  {
 	  //<!-- rc.css -->
 	  sb.append("<link href='"+contextpath+"/resource/hplus/css/rc.css' rel='stylesheet'>");
 	  
+	  
+	  //以下js要在页面加载前加载
+	  sb.append("<script type=\"text/javascript\">");
+	  sb.append(" var contextPath='"+contextpath+"';");
+	  sb.append("</script>");
+	  
+	  sb.append("<script src='"+contextpath+"/resource/hplus/js/jQuery/all/jquery.js' charset ='utf-8'></script>");
+	  sb.append("<script src='"+contextpath+"/resource/hplus/js/plugins/suggest/bootstrap-suggest.js'></script>");
+	  
 	  try {  
 		   out.write(sb.toString());
       } catch (IOException e) {  

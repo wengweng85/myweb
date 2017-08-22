@@ -67,7 +67,7 @@ public class ApplicationListener implements   ServletContextListener  {
 			List <CodeType> list_code_type=sysCodeTypeService.getInitcodetypeList();
 			for(CodeType codetype : list_code_type){
 				String code_type=codetype.getCode_type();
-				List<CodeValue> list_code_value =sysCodeTypeService.getInitCodeValueList(code_type);
+				List<CodeValue> list_code_value =sysCodeTypeService.getInitCodeValueList(codetype);
 				if (list_code_value.size() > 0) {
 					//将代码参加加载到redis缓存中
 					try{
@@ -115,8 +115,8 @@ public class ApplicationListener implements   ServletContextListener  {
 			List <CodeType> list_code_type=sysCodeTypeService.getInitcodetypeList();
 			for(CodeType codetype : list_code_type){
 				String code_type=codetype.getCode_type();
-				log.info(code_type);
-				List<CodeValue> list_code_value =sysCodeTypeService.getInitCodeValueList(code_type);
+				codetype.setCode_type(code_type);
+				List<CodeValue> list_code_value =sysCodeTypeService.getInitCodeValueList(codetype);
 				if (list_code_value.size() > 0) {
 					//将代码参加加载到redis缓存中
 					try{

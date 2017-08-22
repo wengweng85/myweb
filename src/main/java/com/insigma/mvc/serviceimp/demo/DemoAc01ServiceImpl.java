@@ -16,6 +16,7 @@ import com.insigma.dto.AjaxReturnMsg;
 import com.insigma.mvc.MvcHelper;
 import com.insigma.mvc.dao.demo.DemoAc01Mapper;
 import com.insigma.mvc.model.Ac01;
+import com.insigma.mvc.service.common.fileupload.FileLoadService;
 import com.insigma.mvc.service.demo.DemoAc01Service;
 import com.insigma.shiro.realm.SysUserUtil;
 
@@ -30,8 +31,10 @@ import com.insigma.shiro.realm.SysUserUtil;
 public class DemoAc01ServiceImpl extends MvcHelper<Ac01> implements DemoAc01Service {
 
 	@Resource
-	
 	private DemoAc01Mapper demoAc01Mapper;
+	
+	@Resource
+	private FileLoadService fileLoadService;
 	
 	/**
 	 * 分页查询
@@ -39,6 +42,10 @@ public class DemoAc01ServiceImpl extends MvcHelper<Ac01> implements DemoAc01Serv
 	
 	@Override
 	public HashMap<String, Object> getAc01List(Ac01 ac01) {
+		System.out.println(SysUserUtil.getCurrentUser().getUserid());
+		System.out.println(SysUserUtil.getCurrentUser().getUserid());
+		System.out.println(SysUserUtil.getCurrentUser().getUserid());
+		System.out.println(SysUserUtil.getCurrentUser().getUserid());
 		PageHelper.offsetPage(ac01.getOffset(), ac01.getLimit());
 		if(StringUtils.isNotEmpty(ac01.getAac011())){
 			ac01.setA_aac011(ac01.getAac011().split(","));
@@ -93,10 +100,7 @@ public class DemoAc01ServiceImpl extends MvcHelper<Ac01> implements DemoAc01Serv
 	@Override
 	public AjaxReturnMsg<String> saveDemoData(Ac01 ac01) {
 		ac01.setAae011(SysUserUtil.getCurrentUser().getUserid());//经办人编号
-		System.out.println(SysUserUtil.getCurrentUser().getUserid());
-		System.out.println(SysUserUtil.getCurrentUser().getUserid());
-		System.out.println(SysUserUtil.getCurrentUser().getUserid());
-		System.out.println(SysUserUtil.getCurrentUser().getUserid());
+		
 		
 		ac01.setAae010(SysUserUtil.getCurrentUser().getCnname());//经办人姓名
 		ac01.setAaf011(SysUserUtil.getCurrentUser().getGroupid());//经办机构编号
@@ -126,9 +130,42 @@ public class DemoAc01ServiceImpl extends MvcHelper<Ac01> implements DemoAc01Serv
 		}
 	}
 
+	/**
+	 * 
+	 */
 	@Override
 	public Ac01 getDemoNameById(String aac001) {
 		return demoAc01Mapper.selectNameByPrimaryKey(aac001);
+	}
+
+	
+	/**
+	 * 通过业务id和文件id更新
+	 */
+	@Override
+	public AjaxReturnMsg<String> updateAc01DemoFileUuid(Ac01 ac01) {
+		int updatenum= demoAc01Mapper.updateAc01DemoFileUuid(ac01);
+		if(updatenum==1){
+			return this.success("更新成功");
+		}else{
+			return this.error("更新失败");
+		}
+	}
+
+	
+	/**
+	 * 通过业务id及文件id上传文件记录
+	 */
+	@Override
+	public AjaxReturnMsg<String> deletefile(Ac01 ac01) {
+		fileLoadService.deleteFileByFileUuid(ac01.getFileuuid());		
+		ac01.setFileuuid("");
+		int updatenum=demoAc01Mapper.updateAc01DemoFileUuid(ac01);
+		if(updatenum==1){
+			return this.success("删除成功");
+		}else{
+			return this.error("删除失败");
+		}
 	}
 
 }

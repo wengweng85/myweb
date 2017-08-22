@@ -41,7 +41,6 @@ public class CommonJsFooterTag implements Tag  {
 	  sb.append("<input type='hidden' id='CSRFToken' name='CSRFToken' value='"+csrf+"'>");
 	  
 	  //<!--css及javascript引入开始-->
-	  sb.append("<script src='"+contextpath+"/resource/hplus/js/jQuery/all/jquery.js' charset ='utf-8'></script>");
 	  sb.append("<script src='"+contextpath+"/resource/hplus/js/bootstrap.min.js'></script>");
 	  sb.append("<script src='"+contextpath+"/resource/hplus/js/plugins/layer/layer.min.js'></script>");
 	  //<!--bootstrap-table  -->
@@ -67,20 +66,16 @@ public class CommonJsFooterTag implements Tag  {
 	  
 	  sb.append("<script src='"+contextpath+"/resource/hplus/js/plugins/jasny/jasny-bootstrap.min.js'></script>");
 	  
-	  sb.append("<script src='"+contextpath+"/resource/hplus/js/plugins/suggest/bootstrap-suggest.js'></script>");
-	  
 	  sb.append("<script src='"+contextpath+"/resource/hplus/js/json2.js'></script>");
-	  
 	
-	  
 	  //<!--rc about js--> 
 	  sb.append("<script src='"+contextpath+"/resource/hplus/js/rc.all-2.0.js'></script>");
 	  sb.append("<script src='"+contextpath+"/resource/hplus/js/rc.tag-1.0.js'></script>");
 	  
 	  //<!-- 模型 -->
 	  sb.append("<script id=\"tpl_option\" type=\"text/x-handlebars-template\" >");
-	  sb.append("   {{#each this}}");
-	  sb.append("  <option value='{{code_value}}'>{{code_name}}</option>");
+	  sb.append("  {{#each this}}");
+	  sb.append("  <option value='{{code_value}}'   {{#equals code_value ../value }} selected {{/equals}}   >{{code_name}}</option>");
 	  sb.append("  {{/each}}");
 	  sb.append("</script>");
 	      

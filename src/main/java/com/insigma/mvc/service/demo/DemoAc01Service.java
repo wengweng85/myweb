@@ -27,5 +27,9 @@ public interface DemoAc01Service {
 	public Ac01 getDemoNameById(String aac001); 
 	
 	public AjaxReturnMsg<String>saveDemoData(Ac01 ac01);
+	
+	public AjaxReturnMsg<String> updateAc01DemoFileUuid(Ac01 ac01);
+	
+	public AjaxReturnMsg<String> deletefile(Ac01 ac01);
 
 }

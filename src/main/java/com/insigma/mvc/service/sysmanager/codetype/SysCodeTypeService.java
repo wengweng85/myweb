@@ -16,7 +16,7 @@ import com.insigma.mvc.model.CodeValue;
 public interface SysCodeTypeService {
 	
 	public List<CodeType> getInitcodetypeList();
-	public List<CodeValue> getInitCodeValueList(String code_type);
+	public List<CodeValue> getInitCodeValueList(CodeType codetype);
 	public List<CodeValue> queryCodeValueByCodeTypeAndParent(CodeValue codevalue);
 	public CodeValue getCodeValueByValue(CodeValue codevalue);
 	public HashMap<String,List<CodeValue>> getCodeValueFromCache(CodeValue codevalue);

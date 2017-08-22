@@ -978,7 +978,90 @@ var rc = {
 		    $(next_selector[0]).append(views);
 		    $(next_selector[0]).selectpicker('refresh');
 		})
-	}
+	},
+	/**
+	 * 动态从数据库中获取代码
+	 * @param {} codetype
+	 * @param {} filter
+	 */
+	dynamic_get_codevalue_by_codetype_and_filter:function(current_selector,codetype,filter,value){
+		if(codetype&&filter){
+			var url=contextPath+'/codetype/getCodeValueList';
+			rc.ajax(url,{code_type:codetype,filter:filter},function(response){
+				//将当前节点后的所有子选择框清空
+				$(current_selector).empty();
+				//$(current_selector).selectpicker('refresh');
+				//数据加模型生成新的option数组
+				var modeldata=Handlebars.compile($('#tpl_option').html());
+				if(value){
+					response.value=value;
+				}
+				var views = modeldata(response);
+			    $(current_selector).append(views);
+			    $(current_selector).selectpicker('refresh');
+			})
+		}else{
+			layer.msg('代码类型及过滤代码不能为空');
+		}
+	},
+	
+	//找开文件列表上传页面
+    open_file_list_upload_page:function(file_bus_id,file_bus_type){
+   		if(file_bus_id&&file_bus_type){
+    		index=layer.open({
+	   		  type: 2,
+	   		  title: '文件上传列表',
+	   		  shadeClose: true,
+	   		  shade: 0.8,
+	   		  area: ['30%', '40%'],
+	   		  content: contextPath+"/common/fileload/tofilelist?file_bus_id="+file_bus_id+"&file_bus_type="+file_bus_type //iframe的url
+ 		    });
+ 		    layer.full(index);
+    	}else{
+    		layer.alert('上传文件需要的业务编号及业务类型不能为空,请确认');
+    	}
+    	
+    }, 
+    
+    //打开文件上传页面
+    open_file_upload_page:function(file_bus_id,file_bus_type,upload_callback){
+ 		if(file_bus_id&&file_bus_type&&upload_callback){
+    		layer.open({
+	   		  type: 2,
+	   		  title: '文件上传',
+	   		  shadeClose: true,
+	   		  shade: 0.8,
+	   		  area: ['30%', '40%'],
+	   		  content: contextPath+"/common/fileload/toFileUpload?file_bus_id="+file_bus_id+"&file_bus_type="+file_bus_type+"&upload_callback="+upload_callback //iframe的url
+ 		    });
+    	}else{
+    		layer.alert('上传文件需要的业务编号、业务类型、回调函数不能为空,请确认');
+    	}
+    },
+    //打开图片上传页面
+    open_imgage_upload_page:function(file_bus_id,file_bus_type,upload_callback){
+    	if(file_bus_id&&file_bus_type&&upload_callback){
+    		layer.open({
+	   		  type: 2,
+	   		  title: '图片上传',
+	   		  shadeClose: true,
+	   		  shade: 0.8,
+	   		  area: ['50%', '60%'],
+	   		  content: contextPath+"/common/fileload/toImgUpload?file_bus_id="+file_bus_id+"&file_bus_type="+file_bus_type+"&upload_callback="+upload_callback 
+ 		    });
+    	}else{
+    		layer.alert('上传文件需要的业务编号、业务类型、回调函数不能为空,请确认');
+    	}
+    },
+     //下载 
+    download_file_by_id:function(file_uuid){
+      if(file_uuid){
+    	  var url=contextPath+"/common/fileload/download/"+file_uuid;
+    	  window.open(url);
+       }else{
+   		  layer.alert('请先选择你要下载的文件编号');
+   	  }
+    }
 }
 
 var JPlaceHolder = {
@@ -1498,3 +1581,5 @@ var closableTab = {
 		$("#"+containerId).remove();
 	}
 }
+
+

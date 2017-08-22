@@ -256,8 +256,20 @@ public class Ac01  extends PageInfo implements java.io.Serializable  {
     
     private String selectnodes;
     
+    private String fileuuid;
     
-    public String getAae010() {
+    
+    
+    
+    public String getFileuuid() {
+		return fileuuid;
+	}
+
+	public void setFileuuid(String fileuuid) {
+		this.fileuuid = fileuuid;
+	}
+
+	public String getAae010() {
 		return aae010;
 	}
 
