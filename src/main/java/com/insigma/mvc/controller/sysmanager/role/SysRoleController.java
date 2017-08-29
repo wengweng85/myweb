@@ -19,7 +19,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.insigma.dto.AjaxReturnMsg;
 import com.insigma.mvc.MvcHelper;
-import com.insigma.mvc.model.Ac01;
 import com.insigma.mvc.model.SRole;
 import com.insigma.mvc.service.sysmanager.role.SysRoleService;
 

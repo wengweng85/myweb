@@ -174,9 +174,9 @@ public class FileLoadController extends MvcHelper<SFileRecord> {
                             endfix = originalFilename.substring(indexofdoute).toLowerCase();
                             if(endfix.equals(".jpg")||endfix.equals(".jpeg")||endfix.equals(".gif")||endfix.equals(".png") ||endfix.equals(".pdf")||endfix.equals(".doc")||endfix.equals(".docx")||endfix.equals(".xls")||endfix.equals(".xlsx")||endfix.equals(".rar")||endfix.equals(".zip")) {
 	     						//上传并记录日志
-                            	String id=fileloadservice.upload(originalFilename,file_bus_id,file_bus_type,multipartFile.getInputStream() );
-                            	System.out.println(id);
-                                return this.success(id);
+                            	String recordjson=fileloadservice.upload(originalFilename,file_bus_id,file_bus_type,multipartFile.getInputStream() );
+                            	System.out.println(recordjson);
+                                return this.success(recordjson);
                             }else{
                             	return this.error("文件格式不正确,请确认,只允许上传格式为jpg、jpeg、gif、png、pdf、doc、docx、xls、xlsx、rar、zip格式的文件");
                             }
@@ -209,7 +209,7 @@ public class FileLoadController extends MvcHelper<SFileRecord> {
 	@RequestMapping("/deletebyid/{id}")
 	@ResponseBody
 	public AjaxReturnMsg<String> deleteFileByid(HttpServletRequest request,Model model,@PathVariable String id){
-		return fileloadservice.deleteFileByFileUuid(id);
+		return fileloadservice.deleteFileByBusUuid(id);
 	}
 	
 	/**
@@ -231,10 +231,10 @@ public class FileLoadController extends MvcHelper<SFileRecord> {
      * @param response
      * @throws AppException
      */
-    @RequestMapping(value = "/download/{file_uuid}")
-    public void download(@PathVariable(value="file_uuid") String file_uuid, HttpServletRequest request ,HttpServletResponse response) throws  AppException{
+    @RequestMapping(value = "/download/{bus_uuid}")
+    public void download(@PathVariable(value="bus_uuid") String bus_uuid, HttpServletRequest request ,HttpServletResponse response) throws  AppException{
         try{
-        	SFileRecord filerecord=fileloadservice.getFileInfo(file_uuid);
+        	SFileRecord filerecord=fileloadservice.getFileInfo(bus_uuid);
         	if(filerecord!=null){
         		 byte[] temp=fileloadservice.download(filerecord.getFile_path());
                  if(temp!=null){

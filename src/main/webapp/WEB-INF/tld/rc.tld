@@ -47,6 +47,12 @@
 	        <rtexprvalue>true</rtexprvalue>
 	    </attribute>
 	    <attribute>
+	        <description>文件框类型(text|password)</description>
+	        <name>type</name>
+	        <required>false</required>
+	        <rtexprvalue>true</rtexprvalue>
+	    </attribute>
+	    <attribute>
 	        <description>数据格式,形如999 99 999 9999 9</description>
 	        <name>datamask</name>
 	        <required>false</required>

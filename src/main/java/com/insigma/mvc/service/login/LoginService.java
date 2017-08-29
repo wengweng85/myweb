@@ -44,7 +44,7 @@ public interface LoginService {
 	public void saveLoginHashInfo(LoginInf inf);
 	
 	
-	public LoginInf findLoginInfoByhashcode(String loginhash);
+	public List<LoginInf> findLoginInfoByhashcode(String loginhash);
 	
 
 }

@@ -12,7 +12,6 @@ import com.insigma.mvc.model.SPermission;
 import com.insigma.mvc.model.SRole;
 import com.insigma.mvc.model.SUser;
 import com.insigma.mvc.service.login.LoginService;
-import com.insigma.resolver.AppException;
 
 
 /**
@@ -56,7 +55,7 @@ public class LoginServiceImpl implements LoginService {
 	}
 
 	@Override
-	public LoginInf findLoginInfoByhashcode(String loginhash) {
+	public List<LoginInf> findLoginInfoByhashcode(String loginhash) {
 		return loginmapper.findLoginInfoByhashcode(loginhash);
 	}
 

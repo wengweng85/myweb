@@ -13,8 +13,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
+
+import net.sf.json.JSONObject;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.IOUtils;
@@ -38,7 +41,7 @@ import com.insigma.mvc.service.sysmanager.codetype.SysCodeTypeService;
  *
  */
 @Service
-public class FileLoadServiceImpl  extends MvcHelper implements FileLoadService {
+public class FileLoadServiceImpl  extends MvcHelper<SFileRecord> implements FileLoadService {
 
 	@Value("${localdir}")
 	private String localdir;
@@ -63,11 +66,14 @@ public class FileLoadServiceImpl  extends MvcHelper implements FileLoadService {
 	 */
 	@Override
 	public HashMap<String, Object> getFileList(SFileRecord sFileRecord) {
-		PageHelper.offsetPage(sFileRecord.getOffset(), sFileRecord.getLimit());
-		List<SFileRecord> list=fileLoadMapper.getFileListByBusId(sFileRecord);
+	    //PageHelper.offsetPage(sFileRecord.getOffset(), sFileRecord.getLimit());
+		List<SFileRecord> list=fileLoadMapper.getBusFileRecordListByBusId(sFileRecord);
 		PageInfo<SFileRecord> pageinfo = new PageInfo<SFileRecord>(list);
 		return this.success_hashmap_response(pageinfo);
 	}
+	
+	
+	
 
 	/**
 	 * 下载
@@ -96,6 +102,7 @@ public class FileLoadServiceImpl  extends MvcHelper implements FileLoadService {
 	 * 上传
 	 */
 	@Override
+	@Transactional
 	public String upload(String originalFilename,String file_bus_id,String file_bus_type,InputStream in){
 		try {
             /**拷贝输入流*/
@@ -113,12 +120,10 @@ public class FileLoadServiceImpl  extends MvcHelper implements FileLoadService {
 			String file_md5 = DigestUtils.md5Hex(is1);
 			is1.close();
 
-			SFileRecord md5filerecord = fileLoadMapper.getFileUploadRecordByFileMd5(file_md5);
+			SFileRecord sfilerecord = fileLoadMapper.getFileUploadRecordByFileMd5(file_md5);
 			/** 如果通过md5判断文件，已经在服务器上存在此文件，不重复保存 **/
-			if (md5filerecord != null) {
-				return md5filerecord.getFile_uuid();
-			} else {
-				SFileRecord sfilerecord = new SFileRecord();
+			if (sfilerecord == null) {
+				sfilerecord = new SFileRecord();
 				sfilerecord.setFile_name(originalFilename);// 文件名
 				
 				/** 构建图片保存的目录 **/
@@ -144,8 +149,6 @@ public class FileLoadServiceImpl  extends MvcHelper implements FileLoadService {
 					filepath=localdir + "/" + ym + "/"+prefix+endfix;
 					file=new File(filepath);
 				}
-				sfilerecord.setFile_bus_id(file_bus_id);
-				sfilerecord.setFile_bus_type(file_bus_type);
 				sfilerecord.setFile_path(filepath);
 				sfilerecord.setFile_status("0");//无效
 				OutputStream os = new FileOutputStream(file);
@@ -162,10 +165,17 @@ public class FileLoadServiceImpl  extends MvcHelper implements FileLoadService {
 				sfilerecord.setFile_length(new Long(file.length()).toString());
 				sfilerecord.setFile_type(sfilerecord.getFile_name().substring(sfilerecord.getFile_name().lastIndexOf(".")+1));
 				sfilerecord.setFile_md5(file_md5);// 文件MD5计算器
-				fileLoadMapper.saveFileUploadRecord(sfilerecord);
-				sysCodeTypeService.setSelectCacheData("FILENAME");
-				return sfilerecord.getFile_uuid();
+				//保存文件记录
+				fileLoadMapper.saveFileRecord(sfilerecord);
+				//sysCodeTypeService.setSelectCacheData("FILENAME");
 			}
+			
+			sfilerecord.setFile_bus_id(file_bus_id);
+			sfilerecord.setFile_bus_type(file_bus_type);
+			sfilerecord.setBus_status("0");
+			//保存业务记录
+			fileLoadMapper.saveBusRecord(sfilerecord);
+			return JSONObject.fromObject(sfilerecord).toString();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -177,21 +187,14 @@ public class FileLoadServiceImpl  extends MvcHelper implements FileLoadService {
 	 */
 	@Override
 	public SFileRecord getFileInfo(String file_uuid) {
-		return fileLoadMapper.getFileUploadRecordByFileUUid(file_uuid);
+		return fileLoadMapper.getBusFileRecordByBusId(file_uuid);
 	}
 
 	
 	@Override
-	public AjaxReturnMsg<String> deleteFileByFileUuid(String file_uuid) {
-		SFileRecord sfilerecored=fileLoadMapper.getFileUploadRecordByFileUUid(file_uuid);
-		//判断文件是否存在
-		if(sfilerecored!=null){
-			//物理删除
-			File file=new File(sfilerecored.getFile_path());
-			file.delete();
-		}
+	public AjaxReturnMsg<String> deleteFileByBusUuid(String bus_uuid) {
 		//记录删除
-		int deletenum= fileLoadMapper.deleteFileByFileUuid(file_uuid);
+		int deletenum= fileLoadMapper.deleteFileByBusUuid(bus_uuid);
 		if(deletenum==1){
 			return this.success("删除成功");
 		}else{
@@ -207,7 +210,7 @@ public class FileLoadServiceImpl  extends MvcHelper implements FileLoadService {
 	public AjaxReturnMsg<String> batDeleteData(SFileRecord sFileRecord) {
 		String [] ids=sFileRecord.getSelectnodes().split(",");
 		for(int i=0;i<ids.length;i++){
-			deleteFileByFileUuid(ids[i]);
+			deleteFileByBusUuid(ids[i]);
 		}
 		sysCodeTypeService.setSelectCacheData("FILENAME");
 		return this.success("批量删除成功");
@@ -217,6 +220,14 @@ public class FileLoadServiceImpl  extends MvcHelper implements FileLoadService {
 		}else{
 			return this.success("批量删除成功,但存在失败的数据,请检查");
 		}*/
+	}
+
+	
+	@Override
+	@Transactional
+	public AjaxReturnMsg<String> batupdateBusIdByBusUuidArray( Map<String,Object> map) {
+		  fileLoadMapper.batupdateBusIdByBusUuidArray(map);
+		  return this.success("更新成功");
 	}
 
 }

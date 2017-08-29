@@ -23,17 +23,15 @@ public class SFileRecord extends PageInfo implements java.io.Serializable  {
 	private String file_type;
 	private String file_bus_id;
 	private String file_bus_type;
+	
+	private String bus_uuid;
+	private String bus_status;
+	private Date bus_addtime;
 	private String selectnodes;
+	private String [] ids;
 	private String upload_callback;
 	
 	
-	
-	public String getUpload_callback() {
-		return upload_callback;
-	}
-	public void setUpload_callback(String upload_callback) {
-		this.upload_callback = upload_callback;
-	}
 	public String getFile_type() {
 		return file_type;
 	}
@@ -94,12 +92,43 @@ public class SFileRecord extends PageInfo implements java.io.Serializable  {
 	public void setFile_md5(String file_md5) {
 		this.file_md5 = file_md5;
 	}
+	public String getBus_uuid() {
+		return bus_uuid;
+	}
+	public void setBus_uuid(String bus_uuid) {
+		this.bus_uuid = bus_uuid;
+	}
+	public String getBus_status() {
+		return bus_status;
+	}
+	public void setBus_status(String bus_status) {
+		this.bus_status = bus_status;
+	}
+	public Date getBus_addtime() {
+		return bus_addtime;
+	}
+	public void setBus_addtime(Date bus_addtime) {
+		this.bus_addtime = bus_addtime;
+	}
 	public String getSelectnodes() {
 		return selectnodes;
 	}
 	public void setSelectnodes(String selectnodes) {
 		this.selectnodes = selectnodes;
 	}
+	public String[] getIds() {
+		return ids;
+	}
+	public void setIds(String[] ids) {
+		this.ids = ids;
+	}
+	public String getUpload_callback() {
+		return upload_callback;
+	}
+	public void setUpload_callback(String upload_callback) {
+		this.upload_callback = upload_callback;
+	}
+	
 	
 	
 

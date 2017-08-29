@@ -25,8 +25,8 @@
             <div class="ibox-content">
 	            <form class="form-horizontal" id="query_form" >
 			        <div class="form-group">
-                        <rc:textEditSuggest label="身份证号码" property="aac001" keytype="AC01"/>
-			            <rc:textedit property="aac003" label="姓名" />
+                        <rc:textEditSuggest label="个人编号" property="aac001" keytype="AC01"/>
+			            <rc:textedit property="aac003" type="password" label="姓名" />
 			            <rc:select property="aac004" label="性别"  codetype="AAC004" multiple="true" filter="aaa102 in ('1','2') "/>
 			            <rc:select property="aac011" label="学历"  codetype="AAC011" multiple="true" filter="aaa102 in ('11','21')" value="11"/>
 			       </div>
@@ -63,9 +63,9 @@
             </script>
             
             <script id="tplfile" type="text/x-handlebars-template" >
-               {{#if fileuuid}}
-                 <a class="link" onclick="rc.download_file_by_id('{{fileuuid}}')"><i class="fa fa-download"></i>&nbsp;下载</a> 
-                 <a class="link" onclick="delete_file_by_id('{{aac001}}','{{fileuuid}}')" ><i class="fa fa-remove"></i>&nbsp;删除</a>  
+               {{#if bus_uuid}}
+                 <a class="link" onclick="rc.download_file_by_id('{{bus_uuid}}')"><i class="fa fa-download"></i>&nbsp;下载</a> 
+                 <a class="link" onclick="delete_file_by_id('{{aac001}}','{{bus_uuid}}')" ><i class="fa fa-remove"></i>&nbsp;删除</a>  
                {{/if}}
             </script>
             <!-- toolbar -->
@@ -86,11 +86,13 @@
 			          data-click-to-select="false"
                       data-toolbar="#toolbar"
                       data-show-export="true"
+                      data-pagination="true"
                       data-page-size="10" >
 			    <thead>
 				    <tr>
 				        <th data-checkbox="true" ></th>
 				        <th data-formatter="demo_indexFormatter">序号</th>
+				        <th data-formatter="demo_rowFormatter">行操作</th>
 	                    <th data-field="aac002" >身份证号码</th>
 	                    <th data-field="aac003" >姓名</th>
 	                    <th data-field="aac004" >性别</th>
@@ -101,7 +103,7 @@
 	                    <th data-field="aac011" >学历</th>
 	                    <th data-field="aae010" >经办人</th>
 	                    <th data-field="aac007_name" >弹出框数据测试</th>
-	                    <th data-field="fileuuid" data-formatter="demo_fileuuidFormatter">文件</th>
+	                    <th data-field="bus_uuid" data-formatter="demo_bus_uuidFormatter">文件</th>
 	                    <th data-formatter="demo_jobnameFormatter">操作</th>
 				    </tr>
 			    </thead>
@@ -135,7 +137,7 @@
 	  	return template(row);
     }
     
-    function demo_fileuuidFormatter(value, row, index) {
+    function demo_bus_uuidFormatter(value, row, index) {
     	var tpl = $("#tplfile").html();  
 	  	//预编译模板  
 	  	var template = Handlebars.compile(tpl);  
@@ -144,6 +146,29 @@
     
     function demo_indexFormatter(value, row, index) {
         return index+1;
+    }
+   
+    //行操作 
+    function demo_rowFormatter(value, row, index){
+        return [
+                "<a class=\"like\" href='javascript:addRow(" + index + ", " + JSON.stringify(row) + ")' title=\"新增行\">",
+                '<i class="glyphicon glyphicon-plus"></i>',
+                '</a>  ',
+                '<a class="remove" href="javascript:removeRow(\'' + row.dbColName + '\')" title="删除行">',
+                '<i class="glyphicon glyphicon-remove"></i>',
+                '</a>'
+            ].join('');
+    }
+    
+    //增加一行
+    function addRow(insertIndex, rowObj){
+        var insertRow = rowObj;
+        $.each(insertRow, function(name, value){
+            insertRow[name] = '';
+        });
+
+        var params = {index:insertIndex + 1, row:insertRow};
+        $('#ac01table').bootstrapTable('insertRow', params);
     }
     
     //查询
@@ -170,7 +195,19 @@
    	  }
     }
     
-    
+    //编辑
+    function demo_add(){
+    	 index=layer.open({
+	   		  type: 2,
+	   		  title: '新增页面',
+	   		  shadeClose: false,
+	   		  maxmin:true,
+	   		  shade: 0.8,
+	   		  area: ['80%', '90%'],
+	   		  content: "<c:url value='/demo/toadd'/>" //iframe的url
+ 		});
+    	 layer.full(index);
+    }
     
     //编辑
     function demo_edit_by_id(aac001){
@@ -222,10 +259,10 @@
     
   
     
-    //文件上传回调函数-更新ac01表fileuuid
-    function file_upload_callback(aac001,fileuuid){
-  	  if(aac001&&fileuuid){
- 		  var url= "<c:url value='/demo/updatefile/'/>"+aac001+"/"+fileuuid;
+    //文件上传回调函数-更新ac01表bus_uuid
+    function file_upload_callback(aac001,bus_uuid){
+  	  if(aac001&&bus_uuid){
+ 		  var url= "<c:url value='/demo/updatefile/'/>"+aac001+"/"+bus_uuid;
  		  rc.ajax(url, null,function (response) {
  			if(response.success){
  				$('#ac01table').refreshtable();
@@ -239,11 +276,11 @@
     }
 
     
-    //删除数据,更新表中的上传文件id为空,删除主键为file_uuid的记录
-    function delete_file_by_id(aac001,fileuuid){
-   	  if(aac001&&fileuuid){
+    //删除数据,更新表中的上传文件id为空,删除主键为bus_uuid的记录
+    function delete_file_by_id(aac001,bus_uuid){
+   	  if(aac001&&bus_uuid){
    		layer.confirm('确定删除此文件吗？', function(index){
-   			var url= "<c:url value='/demo/deletefile/'/>"+aac001+"/"+fileuuid;
+   			var url= "<c:url value='/demo/deletefile/'/>"+aac001+"/"+bus_uuid;
    			rc.ajax(url, null,function (response) {
    				if(response.success){
    					$('#ac01table').refreshtable()

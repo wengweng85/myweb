@@ -430,6 +430,8 @@ var rc = {
 				} 
 			}
 		});
+		$("table tr:gt(0)").remove();
+		
 	},
 	/**
 	 * checkbox 事件绑定
@@ -1478,17 +1480,20 @@ function jiangese_set(tabid,start,color1,color2){
 	        		return params;
 	        	}
 	        },
-	        pagination:true,//是否分页
+	        //pagination:true,//是否分页
+	        //onlyInfoPagination:true,//设置为 true 只显示总数据数，而不显示分页按钮。需要 pagination='true'
 	        async:false,
 	        contentType: "application/x-www-form-urlencoded",//必须要有！！！！
 	        queryParamsType:'limit',//查询参数组织方式
 	        sidePagination:'server',//指定服务器端分页
 	        pageList:[5,10,20,30,50],//分页步进值
-	        showToggle:true,
+	        //showToggle:false,//是否显示切换按钮
+	        //showExport:false,//是否显示导出按钮
 	        showRefresh:false,//刷新按钮
 	        showColumns:false,//显示列选择框
+	        detailView:false,//是否显示子表
 	        //singleSelect:true,
-	        clickToSelect: true,//是否启用点击选中行
+	        clickToSelect: false,//是否启用点击选中行
 	        buttonsAlign:'right'//按钮对齐方式
          })
         //点击事件 

@@ -17,7 +17,7 @@
 				<div class="ibox-title">
 					<h5>角色列表区</h5>
 					<div class="ibox-tools">
-						<a onclick="addnewrole()" class="btn btn-primary btn-xs"><i class="fa fa-plus"></i>&nbsp;新增角色</a>
+						<a onclick="sys_role_addnewrole()" class="btn btn-primary btn-xs"><i class="fa fa-plus"></i>&nbsp;新增角色</a>
 					</div>
 				</div>
 				<!-- 模型 tpl  -->

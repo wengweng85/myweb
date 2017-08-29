@@ -141,6 +141,9 @@
 <script type="text/javascript">
 $(function() {
 	 $.fn.zTree.init($("#tree-div"), sys_user_role_setting);
+	 //树默认展开第一级节点
+   	 var treeObj = $.fn.zTree.getZTreeObj("tree-div");
+     treeObj.expandAll(true);
 	 $('#usertable').inittable();
 	 $('#roletable').inittable();
 })

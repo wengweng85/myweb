@@ -30,7 +30,7 @@
     aab801,
     aab802,
     aae013,
-    fileuuid
+    bus_uuid
   </sql>
   
   
@@ -60,12 +60,12 @@
     aab801,
     aab802,
     aae013,
-    fileuuid 
+    bus_uuid 
   </sql>
   
   
   <!-- ac01查询 -->
-  <select id="getAc01List" parameterType="Ac01" resultType="Ac01">
+  <select id="getDemoAc01List" parameterType="DemoAc01" resultType="DemoAc01">
     select 
     aac001,
     aac002,
@@ -84,9 +84,12 @@
     aae036,
     (select aaa103 from v_aa10 t where t.aaa100='AAB800' AND aaa102=aab800) aab800,
     aae013,
-    fileuuid  
+    bus_uuid  
     from DEMO_AC01 
     <where>
+       <if test="aac001!=null">
+        aac001=#{aac001}
+      </if>
       <if test="aac002!=null">
         aac002=#{aac002}
       </if>
@@ -118,7 +121,7 @@
   </select>
   
   <!-- 通过主键查询 -->
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultType="Ac01">
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultType="DemoAc01">
     select 
     <include refid="Base_Column_List" />
     from DEMO_AC01
@@ -126,7 +129,7 @@
   </select>
   
   <!-- 通过主键查询中文 -->
-   <select id="selectNameByPrimaryKey" parameterType="java.lang.String" resultType="Ac01">
+   <select id="selectNameByPrimaryKey" parameterType="java.lang.String" resultType="DemoAc01">
     select 
     <include refid="Base_Column_List_Of_Name" />
     from DEMO_AC01
@@ -151,7 +154,7 @@
 
 
   <!-- 判断这个身份证号码是否存在 -->  
-  <select id="selectByAac002" parameterType="Ac01" resultType="Integer">
+  <select id="selectByAac002" parameterType="DemoAc01" resultType="Integer">
       select count(*) c from demo_ac01 t where t.aac002=#{aac002} 
       <if test="aac001 != null">
         and aac001 <![CDATA[<>]]> #{aac001}
@@ -161,7 +164,7 @@
 
   
   <!-- insertSelective -->
-  <insert id="insertSelective" parameterType="Ac01">
+  <insert id="insertSelective" parameterType="DemoAc01">
      <selectKey resultType="java.lang.String" order="BEFORE" keyProperty="aac001"> 
             SELECT SQ_AAC001.NEXTVAL from dual 
      </selectKey>
@@ -329,7 +332,7 @@
   </insert>
   
   <!-- 动态更新 -->
-  <update id="updateByPrimaryKeySelective" parameterType="Ac01">
+  <update id="updateByPrimaryKeySelective" parameterType="DemoAc01">
     update DEMO_AC01
     <set>
       <if test="aac003 != null">
@@ -412,8 +415,8 @@
   </update>
   
   <!-- 更新ac01对应图片编号 -->
-  <update id="updateAc01DemoFileUuid" parameterType="Ac01">
-     update DEMO_AC01 t set t.fileuuid=#{fileuuid} where aac001=#{aac001}
+  <update id="updateDemoAc01DemBusUuid" parameterType="DemoAc01">
+     update DEMO_AC01 t set t.bus_uuid=#{bus_uuid} where aac001=#{aac001}
   </update>
   
 </mapper>

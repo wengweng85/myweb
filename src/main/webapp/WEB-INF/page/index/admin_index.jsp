@@ -32,8 +32,18 @@
             <div class="sidebar-collapse">
                 <ul class="nav" id="side-menu">
                     <li class="nav-header">
-                        <span class="text-muted text-xs block" style="color: #f9f9f9"><strong> 陕西省人力资源市场管理信息系统</strong></span>
-                        <span class="text-muted text-xs block">${suser.groupname}(${suser.cnname})</span>
+                    <div class="dropdown profile-element">
+                        <span class="block m-t-xs" style="color: #f9f9f9"><strong class="font-bold"> 陕西省人力资源市场管理信息系统</strong></span>
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                        <span class="text-muted text-xs block">${suser.groupname}(${suser.username})<b class="caret"></b></span>
+                        </a>
+                        <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                            <li>
+                                <a class="J_menuItem" href="<c:url value='/resources/SXJY_RLZYSC_009_001/tochanagepwd'/>" data-index="1">修改密码</a>
+                            </li>
+                            
+                        </ul>
+                        </div>
                     </li>
                     <shiro:user>
                     <li>
@@ -47,25 +57,171 @@
                                 <a class="J_menuItem" href="<c:url value='/demo/toquery'/>" data-index="1">查询页面</a>
                             </li>
                             <li>
-                                <a class="J_menuItem" href="<c:url value='/demo/toadd'/>" data-index="1">编辑页面</a>
+                                <a class="J_menuItem" href="<c:url value='/demo/toadd'/>" data-index="2">编辑页面</a>
                             </li>
                         </ul>
                     </li>
                     <li>
                         <a href="#">
-                            <i class="fa fa-star"></i>
+                            <i class="fa fa-tags"></i>
+                            <span class="nav-label">人力资源管理机构管理</span>
+                            <span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a class="J_menuItem" href="<c:url value='/resources/SXJY_RLZYSC_001_001/toreg'/>" data-index="1">人力资源服务机构登记</a>
+                            </li>
+                            <li>
+                                <a class="J_menuItem" href="<c:url value='/resources/SXJY_RLZYSC_001_002/toupdate'/>" data-index="2">人力资源服务机构变更</a>
+                            </li>
+                            <li>
+                                <a class="J_menuItem" href="<c:url value='/resources/SXJY_RLZYSC_001_003/toreport'/>" data-index="3">人力资源服务机构业务报告</a>
+                            </li>
+                            <li>
+                                <a class="J_menuItem" href="<c:url value='/resources/SXJY_RLZYSC_001_004/tocancel'/>" data-index="4">人力资源服务机构注销</a>
+                            </li>
+                            <!-- 设立审核开始 -->
+                            <li>
+                                <a class="J_menuItem" href="<c:url value='/resources/SXJY_RLZYSC_001_005/tofirstaudit'/>" data-index="1">人力资源服务机构设立初审</a>
+                            </li>
+                            <li>
+                                <a class="J_menuItem" href="<c:url value='/resources/SXJY_RLZYSC_001_005/tosecondaudit'/>" data-index="1">人力资源服务机构设立复审</a>
+                            </li>
+                            <li>
+                                <a class="J_menuItem" href="<c:url value='/resources/SXJY_RLZYSC_001_005/tothreeaudit'/>" data-index="1">人力资源服务机构设立终审</a>
+                            </li>
+                            <!-- 设立审核结束 -->
+                            <li>
+                                <a class="J_menuItem" href="<c:url value='/resources/SXJY_RLZYSC_001_006/tochangeaudit'/>" data-index="5">人力资源服务机构变更审核</a>
+                            </li>
+                            <li>
+                                <a class="J_menuItem" href="<c:url value='/resources/SXJY_RLZYSC_001_007/toreportaudit'/>" data-index="6">人力资源服务机构业务报告审核</a>
+                            </li>
+                            <li>
+                                <a class="J_menuItem" href="<c:url value='/resources/SXJY_RLZYSC_001_008/todeleteaudit'/>" data-index="7">人力资源服务机构注销审核</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-tag"></i>
                             <span class="nav-label">人力资源服务机构申报</span>
                             <span class="fa arrow"></span>
                         </a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a class="J_menuItem" href="<c:url value='/hragencyapply/toreg'/>" data-index="1">人力资源服务机构设立申请</a>
+                                <a class="J_menuItem" href="<c:url value='/resources/SXJY_RLZYSC_002_001/toreg'/>" data-index="1">人力资源服务机构设立申请</a>
                             </li>
                             <li>
-                                <a class="J_menuItem" href="<c:url value='/demo/toadd'/>" data-index="1">人力资源服务机构变更申请</a>
+                                <a class="J_menuItem" href="<c:url value='/resources/SXJY_RLZYSC_002_001/toedit'/>" data-index="1">人力资源服务机构变更申请</a>
+                            </li>
+                            <li>
+                                <a class="J_menuItem" href="<c:url value='/resources/SXJY_RLZYSC_002_001/toedit'/>" data-index="1">人力资源服务机构业务报告申请</a>
+                            </li>
+                            <li>
+                                <a class="J_menuItem" href="<c:url value='/resources/SXJY_RLZYSC_002_001/tocancel'/>" data-index="1">人力资源服务机构注销申请</a>
                             </li>
                         </ul>
                     </li>
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-send-o"></i>
+                            <span class="nav-label">公告管理</span>
+                            <span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a class="J_menuItem" href="<c:url value='/resources/SXJY_RLZYSC_003_001/tomanager'/>" data-index="1">公告管理</a>
+                                <a class="J_menuItem" href="<c:url value='/resources/SXJY_RLZYSC_003_001/tonotice'/>" data-index="1">公告通知</a>
+                                <a class="J_menuItem" href="<c:url value='/resources/SXJY_RLZYSC_003_002/toadd'/>" data-index="1">新增公告信息</a>
+                                <a class="J_menuItem" href="<c:url value='/resources/SXJY_RLZYSC_003_002/toquery'/>" data-index="1">查询管理公告</a>
+                            </li>
+                        </ul>
+                    </li>
+
+
+                     <li>
+                        <a href="#">
+                            <i class="fa fa-edit"></i>
+                            <span class="nav-label">业务数据管理</span>
+                            <span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a class="J_menuItem" href="<c:url value='/resources/SXJY_RLZYSC_004_002/toviewother'/>" data-index="1">人力资源服务其他数据录入</a>
+                                <a class="J_menuItem" href="<c:url value='/resources/SXJY_RLZYSC_004_002/torecruitdataentry'/>" data-index="1">招聘数据录入</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                     <li>
+                        <a href="#">
+                            <i class="fa fa-comments"></i>
+                            <span class="nav-label">投诉举报管理</span>
+                            <span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a class="J_menuItem" href="<c:url value='/resources/SXJY_RLZYSC_005_001/toreport'/>" data-index="1">投诉举报</a>
+                                <a class="J_menuItem" href="<c:url value='/resources/SXJY_RLZYSC_005_001/toview'/>" data-index="1">查阅历史投诉举报信息</a>
+                                <a class="J_menuItem" href="<c:url value='/resources/SXJY_RLZYSC_005_001/tohandle'/>" data-index="1">投诉举报受理</a>
+                              
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-share-alt"></i>
+                            <span class="nav-label">信息发布管理</span>
+                            <span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a class="J_menuItem" href="<c:url value='/resources/SXJY_RLZYSC_006_001/toview'/>" data-index="1">信息发布管理</a>
+                            </li>
+                            <li>
+                                <a class="J_menuItem" href="<c:url value='/resources/SXJY_RLZYSC_006_003/opinion'/>" data-index="2">服务机构意见建议</a>
+                            </li>
+                            <li>
+                                <a class="J_menuItem" href="<c:url value='/resources/SXJY_RLZYSC_006_003/accept'/>" data-index="3">服务机构意见建议受理</a>
+                            </li>
+                        </ul>
+                    </li>
+                    
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-search"></i>
+                            <span class="nav-label">人力资源市场信息查询</span>
+                            <span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a class="J_menuItem" href="<c:url value='/resources/SXJY_RLZYSC_006_001/toview'/>" data-index="1">人力资源服务机构综合信息查询</a>
+                            </li>
+                            <li>
+                                <a class="J_menuItem" href="<c:url value='/resources/SXJY_RLZYSC_006_003/opinion'/>" data-index="2">人力资源服务机构业务信息查询</a>
+                            </li>
+                            <li>
+                                <a class="J_menuItem" href="<c:url value='/resources/SXJY_RLZYSC_006_003/accept'/>" data-index="3">人力资源服务机构意见建议查询</a>
+                            </li>
+                            <li>
+                                <a class="J_menuItem" href="<c:url value='/resources/SXJY_RLZYSC_006_003/accept'/>" data-index="4">人力资源合法服务机构查询</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fa fa fa-bar-chart-o"></i>
+                            <span class="nav-label">统计报表</span>
+                            <span class="fa arrow"></span>
+                        </a>
+                        <ul class="nav nav-second-level">
+                            <li>
+                                <a class="J_menuItem" href="<c:url value='/resources/SXJY_RLZYSC_006_001/toview'/>" data-index="1">人力资源服务机构业务统计报表</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <%--
                     <shiro:hasRole name="admin">
                     <li>
                         <a href="#">
@@ -79,7 +235,7 @@
                             </li>
                         </ul>
                     </li>
-                    </shiro:hasRole>
+                    </shiro:hasRole> --%>
                     <!-- 管理员角色功能  -->
                     <shiro:hasRole name="admin">
                     <li>
@@ -105,7 +261,7 @@
                                 <a class="J_menuItem" href="<c:url value='/sys/role/index'/>" data-index="3">角色管理</a>
                             </li>
                         </ul>
-                    </li>
+                    </li>                
                     <li>
                         <a href="#">
                             <i class="fa fa-user"></i>
@@ -166,7 +322,7 @@
                 <iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="<c:url value='/index'/>" frameborder="0" data-id="index_v1.html" seamless></iframe>
             </div>
             <div class="footer">
-                <div class="pull-right">&copy;2017浙江网新思普软件有限公司
+                <div class="pull-right">&copy;2017浙江网新恩普软件有限公司
                 </div>
             </div>
         </div>

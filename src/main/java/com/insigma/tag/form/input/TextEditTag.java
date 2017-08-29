@@ -22,6 +22,9 @@ public class TextEditTag implements Tag {
 	
 	//label
    private String label;
+   
+   //类型 text或password
+   private String type;
 			
 	//占位列数,包括label的一列
    private String cols;
@@ -59,6 +62,15 @@ public class TextEditTag implements Tag {
 	//onkeyup事件
 	private String onkeyup;
 	
+	
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
 
 	public String getOnclick() {
 		return onclick;
@@ -195,6 +207,11 @@ public class TextEditTag implements Tag {
 	     required=(required==null)?"":required;
 	     datamask=(datamask==null)?"":datamask;
 	     cols=(cols==null)?"1,2":cols;
+	     type=(type==null)?"text":type;
+	     
+	     if(!(type.equals("text")||type.equals("password"))){
+	    	 throw new JspException("rc:textedit标签类型只能为text或password,请确认");
+	     }
 	     
 	     String [] col=cols.split(",");
 	     int labelcol=Integer.parseInt(col[0]);
@@ -211,7 +228,7 @@ public class TextEditTag implements Tag {
 	     }
 	     sb.append("</label>");
 	     sb.append("<div class=\"col-sm-"+inputcol+" col-xs-"+inputcol+" \">");
-		 sb.append("<input type=\"text\" id=\""+property+"\" name=\""+property+"\"  placeholder=\"请输入"+label+"\" value=\""+value+"\"  validate=\""+validate+"\" class=\"form-control\"");
+		 sb.append("<input type=\""+type+"\" id=\""+property+"\" name=\""+property+"\"  placeholder=\"请输入"+label+"\" value=\""+value+"\"  validate=\""+validate+"\" class=\"form-control\"");
 		 if(isreadonly){
 			 sb.append(" readonly=\"readonly\" ");
 		 }

@@ -48,6 +48,6 @@ public interface LoginMapper {
 	public void saveLoginHashInfo(LoginInf inf);
 	
 	
-	public LoginInf findLoginInfoByhashcode(String loginhash);
+	public List<LoginInf> findLoginInfoByhashcode(String loginhash);
 
 }

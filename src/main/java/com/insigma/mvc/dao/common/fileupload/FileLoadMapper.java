@@ -1,6 +1,7 @@
 package com.insigma.mvc.dao.common.fileupload;
 
 import java.util.List;
+import java.util.Map;
 
 import com.insigma.mvc.model.SFileRecord;
 
@@ -14,10 +15,16 @@ import com.insigma.mvc.model.SFileRecord;
 public interface FileLoadMapper {
 	
 	/**
-	 * 保存文件上传路径
+	 * 保存文件记录
 	 * @param sfilerecord
 	 */
-	public void saveFileUploadRecord( SFileRecord sfilerecord);
+	public void saveFileRecord( SFileRecord sfilerecord);
+	
+	/**
+	 * 保存业务记录
+	 * @param sfilerecord
+	 */
+	public void saveBusRecord(SFileRecord sfilerecord);
 	/**
 	 * 通过文件md5查询文件
 	 * @param file_md5
@@ -26,25 +33,25 @@ public interface FileLoadMapper {
 	public SFileRecord getFileUploadRecordByFileMd5(String file_md5);
 	
 	/**
-	 * 通过文件id查询文件
+	 * 通过业务id查询文件
 	 * @param file_uuid
 	 * @return
 	 */
-	public SFileRecord getFileUploadRecordByFileUUid(String file_uuid);
+	public SFileRecord getBusFileRecordByBusId(String bus_uuid);
 	
 	/**
-	 * 通过 
+	 * 
 	 * @param sFileRecord
 	 * @return
 	 */
-	public List<SFileRecord> getFileListByBusId(SFileRecord sFileRecord);
+	public List<SFileRecord> getBusFileRecordListByBusId(SFileRecord sFileRecord);
 	
 	/**
 	 * 通过文件编号删除文件
 	 * @param fileuuid
 	 * @return
 	 */
-	public int deleteFileByFileUuid(String fileuuid);
+	public int deleteFileByBusUuid(String bus_uuid);
 	
 	/**
 	 * 批量删除数据
@@ -52,4 +59,10 @@ public interface FileLoadMapper {
 	 * @return
 	 */
 	public int batDeleteData(String[] ids);
+	
+	/**
+	 *  通过文件id数组更新业务id及业务状态为有效状态 
+	 * @return
+	 */
+	public int batupdateBusIdByBusUuidArray(Map<String,Object> map);
 }

@@ -16,7 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.insigma.dto.AjaxReturnMsg;
 import com.insigma.mvc.MvcHelper;
-import com.insigma.mvc.model.Ac01;
+import com.insigma.mvc.model.DemoAc01;
 import com.insigma.mvc.service.demo.DemoAc01Service;
 import com.insigma.shiro.realm.SysUserUtil;
 
@@ -28,7 +28,7 @@ import com.insigma.shiro.realm.SysUserUtil;
  */
 @Controller
 @RequestMapping("/demo")
-public class DemoController extends MvcHelper<Ac01> {
+public class DemoController extends MvcHelper<DemoAc01> {
 	
 	
 	@Resource
@@ -56,8 +56,8 @@ public class DemoController extends MvcHelper<Ac01> {
 	 */
 	@RequestMapping("/getAc01List")
 	@ResponseBody
-	public HashMap<String,Object> getUserListByGroupid(HttpServletRequest request,Model model,Ac01 ac01 ) throws Exception {
-		return demoAc01Service.getAc01List(ac01);
+	public HashMap<String,Object> getUserListByGroupid(HttpServletRequest request,Model model,DemoAc01 ac01 ) throws Exception {
+		return demoAc01Service.getDemoAc01List(ac01);
 	}
 	
 	/**
@@ -82,7 +82,7 @@ public class DemoController extends MvcHelper<Ac01> {
 	@RequestMapping("/toedit/{id}")
 	public ModelAndView toedit(HttpServletRequest request,Model model,@PathVariable String id) throws Exception {
 		ModelAndView modelAndView=new ModelAndView("demo/demoEdit");
-		Ac01 ac01=demoAc01Service.getDemoById(id);
+		DemoAc01 ac01=demoAc01Service.getDemoById(id);
 		modelAndView.addObject("ac01",ac01);  
         return modelAndView;
 	}
@@ -96,7 +96,7 @@ public class DemoController extends MvcHelper<Ac01> {
 	@RequestMapping("/toview/{id}")
 	public ModelAndView toview(HttpServletRequest request,Model model,@PathVariable String id) throws Exception {
 		ModelAndView modelAndView=new ModelAndView("demo/demoView");
-		Ac01 ac01=demoAc01Service.getDemoNameById(id);
+		DemoAc01 ac01=demoAc01Service.getDemoNameById(id);
 		modelAndView.addObject("ac01",ac01);  
         return modelAndView;
 	}
@@ -111,7 +111,7 @@ public class DemoController extends MvcHelper<Ac01> {
 	 */
 	@RequestMapping("/batdelete")
 	@ResponseBody
-	public AjaxReturnMsg<String> batDeleteDemodata(HttpServletRequest request,Model model,Ac01 ac01){
+	public AjaxReturnMsg<String> batDeleteDemodata(HttpServletRequest request,Model model,DemoAc01 ac01){
 		return demoAc01Service.batDeleteDemoData(ac01);
 	}
 	
@@ -147,7 +147,7 @@ public class DemoController extends MvcHelper<Ac01> {
 	 */
 	@RequestMapping("/getDemoById/{id}")
 	@ResponseBody
-	public AjaxReturnMsg<Ac01> getDemoById(HttpServletRequest request,Model model,@PathVariable String id) throws Exception {
+	public AjaxReturnMsg<DemoAc01> getDemoById(HttpServletRequest request,Model model,@PathVariable String id) throws Exception {
 		return this.success(demoAc01Service.getDemoById(id));
 	}
 	
@@ -159,7 +159,7 @@ public class DemoController extends MvcHelper<Ac01> {
 	 */
 	@RequestMapping("/savedata")
 	@ResponseBody
-	public AjaxReturnMsg<String> savedata(HttpServletRequest request,Model model,@Valid Ac01 ac01,BindingResult result) throws Exception {
+	public AjaxReturnMsg<String> savedata(HttpServletRequest request,Model model,@Valid DemoAc01 ac01,BindingResult result) throws Exception {
 		//ºÏ—È ‰»Î
 		if (result.hasErrors()){
 			return validate(result);
@@ -173,13 +173,13 @@ public class DemoController extends MvcHelper<Ac01> {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping("/updatefile/{id}/{fileuuid}")
+	@RequestMapping("/updatefile/{id}/{bus_uuid}")
 	@ResponseBody
-	public AjaxReturnMsg<String> updatefile(HttpServletRequest request,Model model,@PathVariable String id,@PathVariable String fileuuid) throws Exception {
-		Ac01 ac01=new Ac01();
+	public AjaxReturnMsg<String> updatefile(HttpServletRequest request,Model model,@PathVariable String id,@PathVariable String bus_uuid) throws Exception {
+		DemoAc01 ac01=new DemoAc01();
 		ac01.setAac001(id);
-		ac01.setFileuuid(fileuuid);
-		return demoAc01Service.updateAc01DemoFileUuid(ac01);
+		ac01.setBus_uuid (bus_uuid);
+		return demoAc01Service.updateDemoAc01DemBusUuid(ac01);
 	}
 	
 	/**
@@ -187,12 +187,12 @@ public class DemoController extends MvcHelper<Ac01> {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping("/deletefile/{id}/{fileuuid}")
+	@RequestMapping("/deletefile/{id}/{bus_uuid}")
 	@ResponseBody
-	public AjaxReturnMsg<String> deletefile(HttpServletRequest request,Model model,@PathVariable String id,@PathVariable String fileuuid) throws Exception {
-		Ac01 ac01=new Ac01();
+	public AjaxReturnMsg<String> deletefile(HttpServletRequest request,Model model,@PathVariable String id,@PathVariable String bus_uuid) throws Exception {
+		DemoAc01 ac01=new DemoAc01();
 		ac01.setAac001(id);
-		ac01.setFileuuid(fileuuid);
+		ac01.setBus_uuid(bus_uuid);
 		return demoAc01Service.deletefile(ac01);
 	}
 
