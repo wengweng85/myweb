@@ -47,8 +47,26 @@
 	        <rtexprvalue>true</rtexprvalue>
 	    </attribute>
 	    <attribute>
-	        <description>文件框类型(text|password)</description>
+	        <description>文件框类型(text|password|number)</description>
 	        <name>type</name>
+	        <required>false</required>
+	        <rtexprvalue>true</rtexprvalue>
+	    </attribute>
+	    <attribute>
+	        <description>文本最大长度,对于type为number无效</description>
+	        <name>maxlength</name>
+	        <required>false</required>
+	        <rtexprvalue>true</rtexprvalue>
+	    </attribute>
+	    <attribute>
+	        <description>type为number时最大数</description>
+	        <name>max</name>
+	        <required>false</required>
+	        <rtexprvalue>true</rtexprvalue>
+	    </attribute>
+	    <attribute>
+	        <description>type为number时最小数</description>
+	        <name>min</name>
 	        <required>false</required>
 	        <rtexprvalue>true</rtexprvalue>
 	    </attribute>

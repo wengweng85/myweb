@@ -375,7 +375,7 @@ var rc = {
 				if (name) {
 					eval('var res=obj.' + name||'');
 					//if (res) {
-					if (type == 'text'||type=='hidden'||type=='textarea') {
+					if (type == 'text'||type=='hidden'||type=='number'||type=='textarea') {
 						$(dom).val(res);
 					} else if (type == 'checkbox') {
 						if(res){
@@ -420,7 +420,7 @@ var rc = {
 			var type = dom.type;
 			var name = dom.name;
 			if (name) {
-				if (type == 'text'||type=='hidden'||type=='textarea') {
+				if (type == 'text'||type=='hidden'||type=='number'||type=='textarea') {
 					$(dom).val('');
 				} else if (type == 'checkbox'||type == 'radio') {
 				    $(dom).attr('checked', false);

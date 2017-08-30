@@ -25,6 +25,12 @@ public class TextEditTag implements Tag {
    
    //类型 text或password
    private String type;
+   
+   private String maxlength;
+   
+   private String min;
+   
+   private String max;
 			
 	//占位列数,包括label的一列
    private String cols;
@@ -152,7 +158,6 @@ public class TextEditTag implements Tag {
 		this.label = label;
 	}
 
-
 	public String getCols() {
 		return cols;
 	}
@@ -180,16 +185,39 @@ public class TextEditTag implements Tag {
 	public void setValidate(String validate) {
 		this.validate = validate;
 	}
-	
-	
-	
 
 	public String getDatamask() {
 		return datamask;
 	}
 
+	public String getMaxlength() {
+		return maxlength;
+	}
+
+	public void setMaxlength(String maxlength) {
+		this.maxlength = maxlength;
+	}
+
 	public void setDatamask(String datamask) {
 		this.datamask = datamask;
+	}
+
+	
+	
+	public String getMin() {
+		return min;
+	}
+
+	public void setMin(String min) {
+		this.min = min;
+	}
+
+	public String getMax() {
+		return max;
+	}
+
+	public void setMax(String max) {
+		this.max = max;
 	}
 
 	@Override
@@ -208,8 +236,11 @@ public class TextEditTag implements Tag {
 	     datamask=(datamask==null)?"":datamask;
 	     cols=(cols==null)?"1,2":cols;
 	     type=(type==null)?"text":type;
+	     maxlength=(maxlength==null)?"":maxlength;
+	     max=(max==null)?"":max;
+	     min=(min==null)?"":min;
 	     
-	     if(!(type.equals("text")||type.equals("password"))){
+	     if(!(type.equals("text")||type.equals("password")||type.equals("number"))){
 	    	 throw new JspException("rc:textedit标签类型只能为text或password,请确认");
 	     }
 	     
@@ -234,6 +265,15 @@ public class TextEditTag implements Tag {
 		 }
 		 if(!datamask.equals("")){
 			 sb.append(" data-mask=\""+datamask+"\" ");
+		 }
+		 if(!maxlength.equals("")){
+			 sb.append(" maxlength=\""+maxlength+"\" ");
+		 }
+		 if(!max.equals("")){
+			 sb.append(" max=\""+max+"\" ");
+		 }
+		 if(!min.equals("")){
+			 sb.append(" min=\""+min+"\" ");
 		 }
 		 //onclick事件
 		 if(onclick!=null){

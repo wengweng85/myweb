@@ -138,7 +138,7 @@ public class FileUtils {
 			fis.close();
 		} catch (FileNotFoundException fnfe) {
 			if (src.isDirectory()) {
-				/* Ô­ÎÄ¼þÊÇÄ¿Â¼ ¸´ÖÆÄ¿Â¼ */
+				/* Ô­ï¿½Ä¼ï¿½ï¿½ï¿½Ä¿Â¼ ï¿½ï¿½ï¿½ï¿½Ä¿Â¼ */
 				File[] files = src.listFiles();
 				Stack stack = new Stack();
 				for (int i = 0; i < files.length; i++) {
@@ -148,22 +148,22 @@ public class FileUtils {
 							overwrite);
 				}
 			} else {
-				/* Ô­ÎÄ¼þ²»´æÔÚ»òÆäËüÒì³£Çé¿ö, Å×³öÒì³£ */
+				/* Ô­ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ì³£ï¿½ï¿½ï¿½, ï¿½×³ï¿½ï¿½ì³£ */
 				throw fnfe;
 			}
 		} catch (IOException e) {
-			/* Î´ÖªµÄI/OÒì³£ */
+			/* Î´Öªï¿½ï¿½I/Oï¿½ì³£ */
 			throw e;
 		}
 	}
 
 	/**
-	 * Ñ¹ËõzipÎÄ¼þ
+	 * Ñ¹ï¿½ï¿½zipï¿½Ä¼ï¿½
 	 * 
 	 * @param zipFileName
-	 *            ÐèÒª½âÑ¹µÄzipÎÄ¼þ
+	 *            ï¿½ï¿½Òªï¿½ï¿½Ñ¹ï¿½ï¿½zipï¿½Ä¼ï¿½
 	 * @param outPath
-	 *            Êä³öÂ·¾¶£¨ÎÄ¼þ¼ÐÄ¿Â¼£©
+	 *            ï¿½ï¿½ï¿½Â·ï¿½ï¿½ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½Ä¿Â¼ï¿½ï¿½
 	 */
 	@SuppressWarnings("rawtypes")
 	public static void unzip(String zipFileName, String outPath) throws Exception {
@@ -186,8 +186,8 @@ public class FileUtils {
 					if (v < length - 1) {
 						path += names[v] + "/";
 						new File(path).mkdir();
-					} else { // ×îºóÒ»¸ö
-						if (entryName.endsWith("/")) { // ÎªÄ¿Â¼,Ôò´´½¨ÎÄ¼þ¼Ð
+					} else { // ï¿½ï¿½ï¿½Ò»ï¿½ï¿½
+						if (entryName.endsWith("/")) { // ÎªÄ¿Â¼,ï¿½ò´´½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½
 							new File(outPath + entryName).mkdir();
 						} else {
 							InputStream in = zipFile.getInputStream(zipEntry);
@@ -205,17 +205,17 @@ public class FileUtils {
 			}
 			zipFile.close();
 		} else {
-			throw new Exception("ÎÄ¼þ²»´æÔÚ");
+			throw new Exception("ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 		}
 	}
 
 	/**
-	 * Éú´æÄ¿Â¼
+	 * ï¿½ï¿½ï¿½ï¿½Ä¿Â¼
 	 * 
 	 * @param directory
-	 *            ½âÑ¹ÎÄ¼þ´æ·ÅÄ¿Â¼
+	 *            ï¿½ï¿½Ñ¹ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½Ä¿Â¼
 	 * @param subDirectory
-	 *            ×ÓÄ¿Â¼£¨Ã»ÓÐÊ±¿É´«Èë¿Õ×Ö·û´®£©
+	 *            ï¿½ï¿½Ä¿Â¼ï¿½ï¿½Ã»ï¿½ï¿½Ê±ï¿½É´ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½
 	 */
 	private static void createDirectory(String directory, String subDirectory) {
 		String dir[];
@@ -237,7 +237,7 @@ public class FileUtils {
 		}
 	}
 
-	// zip½âÑ¹²âÊÔ
+	// zipï¿½ï¿½Ñ¹ï¿½ï¿½ï¿½ï¿½
 	public static void main(String[] args) {
 		try {
 			unzip("f:\\test\\test.zip", "f:\\test2\\");

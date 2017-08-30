@@ -26,7 +26,7 @@
 	            <form class="form-horizontal" id="query_form" >
 			        <div class="form-group">
                         <rc:textEditSuggest label="个人编号" property="aac001" keytype="AC01"/>
-			            <rc:textedit property="aac003" type="password" label="姓名" />
+			            <rc:textedit property="aac003" type="number" max="10" min="5"  maxlength="2" label="姓名" />
 			            <rc:select property="aac004" label="性别"  codetype="AAC004" multiple="true" filter="aaa102 in ('1','2') "/>
 			            <rc:select property="aac011" label="学历"  codetype="AAC011" multiple="true" filter="aaa102 in ('11','21')" value="11"/>
 			       </div>

@@ -24,6 +24,7 @@
     <link href="<c:url value='/resource/hplus/css/font-awesome.min.css'/>" rel="stylesheet">
     <link href="<c:url value='/resource/hplus/css/animate.min.css'/>" rel="stylesheet">
     <link href="<c:url value='/resource/hplus/css/style.min.css'/>" rel="stylesheet">
+    <link href="<c:url value='/resource/hplus/css/rc.css'/>" rel="stylesheet">
 </head>
 <body class="fixed-sidebar full-height-layout gray-bg" style="overflow:hidden">
     <div id="wrapper">
@@ -50,7 +51,7 @@
                     <c:forEach items="${permlist}" var="perm" >
                     <li>
                         <a href="#">
-                            <i class="fa ${perm.iconcss }"></i>
+                            <i class="fa <c:if test="${ empty perm.iconcss}" >fa-bookmark-o </c:if> <c:if test="${not empty perm.iconcss}" >${perm.iconcss}</c:if> "></i>
                             <span class="nav-label">${perm.name }</span>
                             <c:if test="${not empty perm.child}" >
                                  <span class="fa arrow"></span>
@@ -62,17 +63,17 @@
 						      <li>
 							      <c:choose>
 	                                 <c:when test="${not empty secondperm.child}">
-		                                 <a class="J_menuItem" href="<c:url value='${secondperm.url}'/>" >${secondperm.name}<span class="fa arrow"></span></a>
+		                                 <a class="J_menuItem" href="<c:url value='${secondperm.url}'/>" ><i class="fa ${secondperm.iconcss}"></i>${secondperm.name}<span class="fa arrow"></span></a>
 		                                 <ul class="nav nav-third-level">
 			                                 <c:forEach items="${secondperm.child}" var="thirdperm" >
 			                                 <li>
-			                                      <a class="J_menuItem" href="<c:url value='${thirdperm.url}'/>" >${thirdperm.name}</a>
+			                                      <a class="J_menuItem" href="<c:url value='${thirdperm.url}'/>" ><i class="fa ${thirdperm.iconcss}"></i>${thirdperm.name}</a>
 			                                 </li>
 			                                 </c:forEach>
 		                                 </ul>
 	                                 </c:when>
 		                             <c:otherwise>
-		                                 <a class="J_menuItem" href="<c:url value='${secondperm.url}'/>" >${secondperm.name}</a>
+		                                 <a class="J_menuItem" href="<c:url value='${secondperm.url}'/>" ><i class="fa ${secondperm.iconcss}"></i>${secondperm.name}</a>
 		                             </c:otherwise>
 	                              </c:choose>
 						      </li>
