@@ -25,16 +25,21 @@
 	
 	<!-- 个人用户权限查询  -->
 	<select id="findPermissionStr" parameterType="String" resultType="SPermission">
-		select distinct d.code from s_user a,s_role b ,s_user_role c,s_permission d ,s_role_permission e 
-	    where a.username=#{username} 
-	    and a.userid=c.userid 
-	    and b.roleid=c.roleid  and b.roleid=e.roleid 
-	    and d.permissionid=e.permissionid  and d.code is not null 
-	    union 
-	    select distinct c.code from s_user a, s_user_permission b, s_permission  c 
-	    where a.username =#{username} 
-	    and a.userid = b.userid and c.permissionid=b.permissionid and c.code is not null
+		select * from (
+        select distinct d.url, d.type, d.iconcss, d.permissionid,d.parentid, d.name,d.sortnum
+       from s_user a,s_role b ,s_user_role c,s_permission d ,s_role_permission e 
+        where a.username=#{username}
+        and a.userid=c.userid 
+        and b.roleid=c.roleid  and b.roleid=e.roleid 
+        and d.permissionid=e.permissionid  and d.code is not null and d.parentid is not null and d.enabled='1'
+        union 
+        select distinct c.url, c.type, c.iconcss, c.permissionid, c.parentid, c.name,c.sortnum
+         from s_user a, s_user_permission b, s_permission  c 
+        where a.username =#{username}
+         and a.userid = b.userid and c.permissionid=b.permissionid and c.code is not null and c.parentid is not null and c.enabled='1' ) order by sortnum 
 	</select>
+	
+	
 	
 	<!-- 保存 -->
 	<insert id="saveLoginHashInfo"  parameterType="LoginInf">
@@ -46,5 +51,6 @@
 	<select id="findLoginInfoByhashcode" parameterType="String" resultType="LoginInf">
 		select * from LOGININF where loginhash=#{loginhash} 
 	</select>
+	
 	
 </mapper>

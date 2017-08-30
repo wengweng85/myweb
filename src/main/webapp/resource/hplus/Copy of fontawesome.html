@@ -2,20 +2,33 @@
 <html>
 
 <head>
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>后台主题UI框架 - 字体图标</title>
+
+
+    <title>H+ 后台主题UI框架 - 字体图标</title>
+
     <meta name="keywords" content="H+后台主题,后台bootstrap框架,会员中心主题,后台HTML,响应式后台">
     <meta name="description" content="H+是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术">
+
     <link rel="shortcut icon" href="favicon.ico"> <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/font-awesome.min.css" rel="stylesheet">
+
     <link href="css/animate.min.css" rel="stylesheet">
     <link href="css/style.min.css" rel="stylesheet">
+
 </head>
+
 <body class="gray-bg">
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
-            <div class="col-sm-12">
+            <div class="col-sm-3">
+                <div class="ibox float-e-margins">
+                    <h2>Font Awesome 4.4.0</h2> 字体图标的最佳集合。提供可伸缩矢量图标，可以立即进行定制大小、颜色、阴影，所有都可以用CSS样式来完成。
+                </div>
+            </div>
+            <div class="col-sm-9">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <h5>所有图标 <small class="m-l-sm">所有图标集合 - <a target="_blank" href="../../../fortawesome.github.io/Font-Awesome/icons/default.htm">Font Awesome</a> </small></h5>
@@ -39,9 +52,13 @@
                     </div>
                     <div class="ibox-content icons-box">
                         <section id="new">
-                            <h2 class="page-header">66个图标</h2>
+                            <h2 class="page-header">4.4版新增的66个图标</h2>
+
 
                             <div class="row fontawesome-icon-list">
+
+
+
                                 <div class="fa-hover col-md-3 col-sm-4"><a href="#500px"><i class="fa fa-500px"></i> 500px</a></div>
 
                                 <div class="fa-hover col-md-3 col-sm-4"><a href="#amazon"><i class="fa fa-amazon"></i> amazon</a></div>
@@ -1893,6 +1910,14 @@
                                 <div class="fa-hover col-md-3 col-sm-4"><a href="#youtube-square"><i class="fa fa-youtube-square"></i> youtube-square</a></div>
 
                             </div>
+
+                            <div class="alert alert-success">
+                                <ul class="margin-bottom-none padding-left-lg">
+                                    <li>所有品牌图标均为其各自所有者的商标</li>
+                                    <li>使用这些商标并不表示该商标持有人的认可，反之亦然</li>
+                                </ul>
+
+                            </div>
                         </section>
                         <section id="medical">
                             <h2 class="page-header">医疗图标</h2>
@@ -1922,7 +1947,9 @@
                                 <div class="fa-hover col-md-3 col-sm-4"><a href="#user-md"><i class="fa fa-user-md"></i> user-md</a></div>
 
                                 <div class="fa-hover col-md-3 col-sm-4"><a href="#wheelchair"><i class="fa fa-wheelchair"></i> wheelchair</a></div>
+
                             </div>
+
                         </section>
                     </div>
                 </div>
@@ -1932,14 +1959,7 @@
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/content.min.js"></script>
-    <script type="text/javascript">
-        $(function(){
-        	$('a').on('click',function(){
-        		var fontcssname=$(this).find("i").attr('class').replace('fa','')
-        		parent.font_css_choose(fontcssname);
-        	})
-        })
-    </script>
+    
 </body>
 
 </html>

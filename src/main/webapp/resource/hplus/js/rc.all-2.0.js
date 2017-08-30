@@ -430,7 +430,7 @@ var rc = {
 				} 
 			}
 		});
-		$("table tr:gt(0)").remove();
+		dom_selector.find("table tr:gt(0)").remove();
 		
 	},
 	/**

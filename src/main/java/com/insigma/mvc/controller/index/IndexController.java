@@ -1,6 +1,9 @@
 package com.insigma.mvc.controller.index;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.insigma.mvc.MvcHelper;
+import com.insigma.mvc.model.SPermission;
 import com.insigma.mvc.service.index.IndexService;
 import com.insigma.shiro.realm.SysUserUtil;
 
@@ -21,7 +25,7 @@ import com.insigma.shiro.realm.SysUserUtil;
  *
  */
 @Controller
-public class IndexController extends MvcHelper {
+public class IndexController extends MvcHelper<SPermission> {
 	
 	@Resource
     private IndexService indexService;
@@ -35,8 +39,10 @@ public class IndexController extends MvcHelper {
 	public ModelAndView gotoAdminIndex(HttpServletRequest request,Model model) throws Exception {
 		ModelAndView modelAndView=new ModelAndView("index/admin_index");
 		modelAndView.addObject("suser", SysUserUtil.getCurrentUser());
+    	modelAndView.addObject("permlist",SysUserUtil.getCurrentUserPermsList(SysUserUtil.getCurrentUser().getUsername()));
         return modelAndView;
 	}
+	
 	
 	/**
 	 * ÏµÍ³Ö÷Ò³

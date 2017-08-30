@@ -5,6 +5,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import net.sf.ehcache.Element;
+
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -22,6 +24,7 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.github.pagehelper.StringUtil;
+import com.insigma.common.util.EhCacheUtil;
 import com.insigma.mvc.model.SPermission;
 import com.insigma.mvc.model.SRole;
 import com.insigma.mvc.model.SUser;
@@ -60,11 +63,17 @@ public class MyShiroRealm extends AuthorizingRealm  {
         getName() ); //realm name
     	setSession(SysUserUtil.SHIRO_CURRENT_USER_INFO,suser);
     	SysUserUtil.setCurrentUser(suser);
+    	//用户权限
+    	try{
+	    	List<SPermission> permlist=loginservice.findPermissionStr(suser.getUsername());
+	        EhCacheUtil.getManager().getCache("webcache").put(new Element(SysUserUtil.SHIRO_CURRENT_PERM_LIST_INFO+"_"+suser.getUsername(),SysUserUtil.filterPersmList(permlist)));
+    	}catch(Exception e){
+			e.printStackTrace();
+		}
     	//清理缓存
     	clearCachedAuthorizationInfo(authenticationInfo.getPrincipals());
 	    return authenticationInfo;
 	}
-	
 	
 	
 	/**
@@ -89,8 +98,9 @@ public class MyShiroRealm extends AuthorizingRealm  {
  	           
  	            //用户权限
 	            List<SPermission> permlist=loginservice.findPermissionStr(loginname);
+	            EhCacheUtil.getManager().getCache("webcache").put(new Element(SysUserUtil.SHIRO_CURRENT_PERM_LIST_INFO+"_"+principals.getPrimaryPrincipal(),SysUserUtil.filterPersmList(permlist)));
 	            if(permlist!=null){
-	            	  Set<String> set=new HashSet<String>();
+	            	Set<String> set=new HashSet<String>();
 	  	            Iterator iterator=permlist.iterator();
 	  	            while(iterator.hasNext()){
 	  	            	SPermission  spermission=(SPermission) iterator.next();

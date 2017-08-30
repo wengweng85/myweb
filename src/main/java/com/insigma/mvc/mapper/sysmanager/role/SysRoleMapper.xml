@@ -10,7 +10,7 @@
 		  code,
 		  describe 
 		from 
-		s_role
+		s_role order by updatetime desc 
 	</select>
 	
 	<!-- 通过角色id获取相关角色数据 -->
@@ -72,7 +72,7 @@
 		parentid pid,
 		open,
 		decode(sign((select count(*) from s_role_permission  t where t.roleid=#{roleid} and t.permissionid=a.permissionid  )),'1','true','false') checked 
-		from s_permission  a  
+		from s_permission  a  where a.enabled='1'
 		order by to_number(sortnum) 
 	</select>
 	

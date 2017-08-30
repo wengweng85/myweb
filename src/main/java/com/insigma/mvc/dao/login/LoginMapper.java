@@ -41,6 +41,7 @@ public interface LoginMapper {
 	 */
 	public List<SPermission> findPermissionStr(String loginname) throws AppException, Exception;
 	
+	
 	/**
 	 * ±£´æhashinfo
 	 * @param hashinfo

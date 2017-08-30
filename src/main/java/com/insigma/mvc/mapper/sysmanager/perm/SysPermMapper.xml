@@ -26,16 +26,25 @@
 		    (select name from s_permission t where t.permissionid=a.parentid) parentname,
 		    enabled,
 		    sortnum,
-		    updatetime
+		    updatetime,
+		    iconcss,
+		    enabled 
 		    from 
 		    s_permission  a 
 		where permissionid=#{permissionid}
 	</select>
 	
 	
-	<!-- 通过代码编号获取权限相关数据 -->
+	<!-- 通过代码编号获取权限相关数据 判断权限编号是否重复 -->
 	<select id="isPermCodeExist"  resultType="SPermission" parameterType="SPermission" >
 		select code from s_permission a  where code=#{code} 
+		<if test="permissionid != null and  permissionid!=''"> and a.permissionid&lt;&gt;#{permissionid}</if>
+	</select>
+	
+	
+	<!-- 通过代码编号获取权限相关数据 判断url是否重复 -->
+	<select id="isPermUrlExist"  resultType="SPermission" parameterType="SPermission" >
+		select code from s_permission a  where url=#{url} and url!='#'
 		<if test="permissionid != null and  permissionid!=''"> and a.permissionid&lt;&gt;#{permissionid}</if>
 	</select>
 	
@@ -55,13 +64,13 @@
 	    <selectKey resultType="java.lang.String" order="BEFORE" keyProperty="permissionid"> 
             SELECT sys_guid() from dual 
         </selectKey>
-		insert into s_permission(permissionid,parentid,code,name,type,url,describe,sortnum,updatetime)
-		values (#{permissionid},#{parentid},#{code},#{name},#{type},#{url},#{describe},#{sortnum},#{updatetime,jdbcType=DATE})
+		insert into s_permission(permissionid,parentid,code,name,type,url,describe,sortnum,updatetime,iconcss,enabled)
+		values (#{permissionid},#{parentid},#{code},#{name},#{type},#{url},#{describe},#{sortnum},sysdate,#{iconcss},#{enabled})
 	</insert>
 	
 	<!-- 更新-->
 	<update id="updatePermissionData" parameterType="SPermission">
-		update s_permission t
+		update s_permission t 
 		  <set>
 	      <if test="name != null and name!='' ">t.name=#{name},</if>
 	      <if test="code != null and code !='' ">t.code=#{code},</if>
@@ -69,7 +78,9 @@
 	      <if test="type != null and type!=''">type=#{type},</if>
 	      <if test="url != null and url!=''">url=#{url},</if>
 	      <if test="sortnum != null and sortnum!=''">sortnum=#{sortnum},</if>
-	      <if test="updatetime != null and updatetime!=''">updatetime=#{updatetime, jdbcType=DATE}</if>
+	      <if test="iconcss != null and iconcss!=''">iconcss=#{iconcss},</if>
+	      <if test="enabled != null and enabled!=''">enabled=#{enabled},</if>
+	      updatetime=sysdate 
 	    </set>
         where t.permissionid=#{permissionid}
 	</update>

@@ -52,28 +52,32 @@ public class SysPermServiceImpl extends MvcHelper implements SysPermService {
 	@Override
 	@Transactional
 	public AjaxReturnMsg saveOrUpdatePermData(SPermission spermission) {
-		  SPermission ispermsionexist=sysPermMapper.isPermCodeExist(spermission);
-		   if(ispermsionexist!=null){
+		   SPermission isPermsionCodeexist=sysPermMapper.isPermCodeExist(spermission);
+		   if(isPermsionCodeexist!=null){
 			   return this.error("此权限"+spermission.getCode()+"编号已经存在,请重新输入一个新的权限编号");
-		   }else{
-			//判断是否更新操作
-			if(StringUtils.isNullOrEmpty(spermission.getPermissionid())){
+		   }
+		   
+		   SPermission isPermsionUrlexist=sysPermMapper.isPermUrlExist(spermission);
+		   if(isPermsionUrlexist!=null){
+			   return this.error("此权限"+spermission.getUrl()+"路径地址已经存在,请重新输入一个新的路径地址");
+		   }
+		   
+		  //判断是否更新操作
+		  if(StringUtils.isNullOrEmpty(spermission.getPermissionid())){
 				 int insertnum=sysPermMapper.savePermissionData(spermission);
 				 if(insertnum==1){
 					 return this.success("新增成功");
 				 }else{
 					 return this.error("新增失败");
 				 }
-			}else{
+		 }else{
 				 int updatenum=sysPermMapper.updatePermissionData(spermission);
 				 if(updatenum==1){
 					 return this.success("更新成功");
 				 }else{
 					 return this.error("更新失败");
 				 }
-			}
-		}
-		   
+		  }
 	}
 
 	/**

@@ -11,7 +11,7 @@
 <rc:csshead/>
 </head>
 <body class="gray-bg">
-<div class="">
+<div >
        <div class="col-sm-3">
 			<div class="ibox ">
 				<div class="ibox-title">
@@ -51,27 +51,29 @@
                            </div>
                            <div class="hr-line-dashed"></div>
                            <div class="form-group">
-                                <rc:textedit property="describe" required="true"  cols="2,8" label="权限描述"  validate="{required:true,messages:{required:'请输入权限描述'}}"/>
-                           </div>
-                           <div class="hr-line-dashed"></div>
-                           
-                           <div class="form-group">
                                <rc:select codetype="PERMTYPE" property="type"  label="权限类型" required="true"  cols="2,8" validate="{required:true,messages:{required:'请选择权限类型'}}"/> 
                            </div>
                            <div class="hr-line-dashed"></div>
-                           
                            <div class="form-group">
-                                <rc:textedit property="url" cols="2,8" label="权限地址url" />
-                           </div>
-                           <div class="hr-line-dashed"></div>
-                           
-                           <div class="form-group">
-                                <rc:textedit property="sortnum" cols="2,8" datamask="9999" label="排序号"/>
+                                <rc:textedit property="url"  required="true"  value="#" cols="2,8" label="权限地址"  validate="{required:true,messages:{required:'权限地址不能为空'}}" />
                            </div>
                            <div class="hr-line-dashed"></div>
                            <div class="form-group">
-                                <rc:date property="updatetime" label="更新日期" required="true"  cols="2,8" validate="{required:true,messages:{required:'请选择更新日期'}}" />
+                                <rc:textedit property="sortnum"  required="true"  cols="2,8" datamask="99" label="排序号" validate="{required:true,messages:{required:'排序号不能为空'}}"/>
                            </div>
+                           <div class="hr-line-dashed"></div>
+                           <div class="form-group">
+                                <rc:select label="是否有效" property="enabled" required="true"  cols="2,8" codetype="AAE100" validate="{required:true,messages:{required:'是否有效不能为空'}}"/>
+                           </div>
+                           <div class="hr-line-dashed"></div>
+                           <div class="form-group">
+                                <rc:textedit property="describe" cols="2,8" label="权限描述" />
+                           </div>
+                           <div class="hr-line-dashed"></div>
+                           <div class="form-group">
+                                <rc:textedit property="iconcss" cols="2,8" label="图标样式" readonly="true" onclick="open_font_css_iframe()" />
+                           </div>
+                          
                            <div class="hr-line-dashed"></div>
 	                       <div class="form-group" style="text-align: right;" >
 		                       <div class="col-sm-10 col-xs-10">
@@ -105,6 +107,8 @@ $('#tree_expand').on('click',
 	);
 function sys_perm_treeinit(){
 	$.fn.zTree.init($("#tree-div"), sys_perm_setting);
+	var treeObj = $.fn.zTree.getZTreeObj("tree-div");
+	treeObj.expandAll(true);
 }
 //回调函数
 function sys_perm_callback(response){
@@ -146,7 +150,6 @@ function sys_perm_onClick(event, treeId, treeNode, clickFlag) {
 }
 
 
-
 //保存页面配置信息
 function sys_perm_savePermData(){
    $('#myform').submit();
@@ -158,6 +161,7 @@ function sys_perm_addnewperm(){
 	rc.clean();
 	$('#parentid').val(permissionid);
 	$('#parentname').val(name);
+	$('#url').val('#');
 }
 //删除权限
 function sys_perm_deleteperm(){
@@ -177,6 +181,24 @@ function sys_perm_deleteperm(){
 	}else{
 		layer.alert('请先选择一个你要删除的权限节点');
 	}
+}
+
+//查看
+function open_font_css_iframe(){
+	layer.open({
+   		  type: 2,
+   		  title: '图标选择页面',
+   		  shadeClose: false,
+   		  maxmin:true,
+   		  shade: 0.8,
+   		  area: ['60%', '90%'],
+   		  content: "<c:url value='/resource/hplus/fontawesome.html'/>" //iframe的url
+		});
+}
+
+function font_css_choose(font_css_class_name){
+	$('#iconcss').val(font_css_class_name);
+	layer.close(layer.index);
 }
 </script>
 </body>

@@ -59,4 +59,5 @@ public class LoginServiceImpl implements LoginService {
 		return loginmapper.findLoginInfoByhashcode(loginhash);
 	}
 
+
 }

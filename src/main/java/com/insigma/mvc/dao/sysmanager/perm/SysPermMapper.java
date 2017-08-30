@@ -18,6 +18,8 @@ public interface SysPermMapper {
 	
 	public SPermission isPermCodeExist(SPermission spermission);
 	
+	public SPermission isPermUrlExist(SPermission spermission);
+	
 	public int savePermissionData(SPermission spermission);
 	
 	public int updatePermissionData(SPermission spermission);

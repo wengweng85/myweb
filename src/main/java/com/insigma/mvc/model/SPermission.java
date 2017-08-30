@@ -1,6 +1,7 @@
 package com.insigma.mvc.model;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
@@ -25,10 +26,17 @@ public class SPermission implements java.io.Serializable {
 	@NotNull(message="权限描述不能为空")
 	private String describe;
 	/**权限地址*/
+	@NotNull(message="权限描述不能为空")
 	private String url;
 	/**权限类型*/
 	@NotNull(message="权限类型不能为空")
 	private String type;
+	
+	@NotNull(message="有效标志不能为空")
+	private String enabled;
+	
+	private String iconcss;
+	
 	/**权限编号*/
 	private String permissionid;
 	/**权限编号*/
@@ -46,8 +54,27 @@ public class SPermission implements java.io.Serializable {
 	
 	private Date updatetime;
 	
+	private List<SPermission> child;
 	
 	
+	public String getEnabled() {
+		return enabled;
+	}
+	public void setEnabled(String enabled) {
+		this.enabled = enabled;
+	}
+	public List<SPermission> getChild() {
+		return child;
+	}
+	public void setChild(List<SPermission> child) {
+		this.child = child;
+	}
+	public String getIconcss() {
+		return iconcss;
+	}
+	public void setIconcss(String iconcss) {
+		this.iconcss = iconcss;
+	}
 	public Date getUpdatetime() {
 		return updatetime;
 	}

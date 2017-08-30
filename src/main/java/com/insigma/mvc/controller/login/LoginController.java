@@ -16,7 +16,6 @@ import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.apache.shiro.web.util.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -29,6 +28,7 @@ import com.insigma.mvc.MvcHelper;
 import com.insigma.mvc.model.LoginInf;
 import com.insigma.mvc.model.SUser;
 import com.insigma.mvc.service.login.LoginService;
+import com.insigma.shiro.realm.SysUserUtil;
 import com.insigma.shiro.token.CustomUsernamePasswordToken;
 
 
@@ -113,30 +113,29 @@ public class LoginController extends MvcHelper {
 		return this.error(errorMessage);
 	}
 	
+	/**
+	 * 跳转至注册页面
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/register")
+	public ModelAndView register(HttpServletRequest request) throws Exception {
+		//注册页面
+		ModelAndView modelAndView=new ModelAndView("login/register");
+		return modelAndView;
+	}
 	
 	/**
-	 * 登出
+	 * 退出
 	 * @param request
 	 * @return
 	 */
 	@RequestMapping(value = "/loginout")
 	public String loginout(HttpServletRequest request) {
-		request.getSession().setAttribute("user", null);
+		request.getSession().removeAttribute(SysUserUtil.SHIRO_CURRENT_USER_INFO);
+		request.getSession().removeAttribute(SysUserUtil.SHIRO_CURRENT_PERM_LIST_INFO);
 		Subject user = SecurityUtils.getSubject();
 		user.logout();
 		return "redirect:/gotologin";
-	}
-	
-	/**
-	 * 登出
-	 * @param request
-	 * @return
-	 */
-	@RequestMapping(value = "/clientlogout")
-	public String loginout(HttpServletRequest request,Model model) {
-		request.getSession().setAttribute("user", null);
-		Subject user = SecurityUtils.getSubject();
-		user.logout();
-		return "redirect:/logout";
 	}
 }
