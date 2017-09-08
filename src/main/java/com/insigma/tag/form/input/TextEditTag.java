@@ -50,6 +50,12 @@ public class TextEditTag implements Tag {
 	//是否只读
 	private String readonly;
 	
+	//提示
+	private String placeholder;
+	
+	
+	
+	
 	//onclick事件
 	private String onclick;
 	
@@ -69,6 +75,15 @@ public class TextEditTag implements Tag {
 	private String onkeyup;
 	
 	
+	
+
+	public String getPlaceholder() {
+		return placeholder;
+	}
+
+	public void setPlaceholder(String placeholder) {
+		this.placeholder = placeholder;
+	}
 
 	public String getType() {
 		return type;
@@ -234,11 +249,13 @@ public class TextEditTag implements Tag {
 	     readonly=(readonly==null)?"":readonly;
 	     required=(required==null)?"":required;
 	     datamask=(datamask==null)?"":datamask;
+	     label=(label==null)?"":label;
 	     cols=(cols==null)?"1,2":cols;
 	     type=(type==null)?"text":type;
 	     maxlength=(maxlength==null)?"":maxlength;
 	     max=(max==null)?"":max;
 	     min=(min==null)?"":min;
+	     placeholder=(placeholder==null)?(label.equals("")?"":"请输入"+label):placeholder;
 	     
 	     if(!(type.equals("text")||type.equals("password")||type.equals("number"))){
 	    	 throw new JspException("rc:textedit标签类型只能为text或password,请确认");
@@ -253,11 +270,18 @@ public class TextEditTag implements Tag {
 	     boolean isrequired=Boolean.parseBoolean(required);
 	     JspWriter out = pageContext.getOut();
 	     StringBuffer sb=new StringBuffer();
-	     sb.append("<label class=\"col-sm-"+labelcol+"  col-xs-"+labelcol+"  control-label\">"+label);
-	     if(isrequired){
-	    	 sb.append("<span class=\"require\">*<span>");
+	     if(!label.equals("")){
+	    	 sb.append("<label class=\"col-sm-"+labelcol+"  col-xs-"+labelcol+"  control-label\">"+label);
+		     if(isrequired){
+		    	 sb.append("<span class=\"require\">*<span>");
+		     }
+		     sb.append("</label>");
+	     }else{
+	    	 if(isrequired){
+	    		 sb.append("<span class=\"require\">*<span>");
+		     }
 	     }
-	     sb.append("</label>");
+	    
 	     sb.append("<div class=\"col-sm-"+inputcol+" col-xs-"+inputcol+" \">");
 		 sb.append("<input type=\""+type+"\" id=\""+property+"\" name=\""+property+"\"  placeholder=\"请输入"+label+"\" value=\""+value+"\"  validate=\""+validate+"\" class=\"form-control\"");
 		 if(isreadonly){

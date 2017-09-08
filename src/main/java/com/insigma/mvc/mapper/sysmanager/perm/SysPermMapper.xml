@@ -72,14 +72,15 @@
 	<update id="updatePermissionData" parameterType="SPermission">
 		update s_permission t 
 		  <set>
-	      <if test="name != null and name!='' ">t.name=#{name},</if>
-	      <if test="code != null and code !='' ">t.code=#{code},</if>
-	      <if test="describe != null and describe!=''">t.describe=#{describe},</if>
-	      <if test="type != null and type!=''">type=#{type},</if>
-	      <if test="url != null and url!=''">url=#{url},</if>
-	      <if test="sortnum != null and sortnum!=''">sortnum=#{sortnum},</if>
-	      <if test="iconcss != null and iconcss!=''">iconcss=#{iconcss},</if>
-	      <if test="enabled != null and enabled!=''">enabled=#{enabled},</if>
+	      <if test="name != null  ">t.name=#{name},</if>
+	      <if test="code != null ">t.code=#{code},</if>
+	      <if test="describe != null ">t.describe=#{describe},</if>
+	      <if test="parentid != null  ">t.parentid=#{parentid},</if>
+	      <if test="type != null ">type=#{type},</if>
+	      <if test="url != null ">url=#{url},</if>
+	      <if test="sortnum != null ">sortnum=#{sortnum},</if>
+	      <if test="iconcss != null ">iconcss=#{iconcss},</if>
+	      <if test="enabled != null ">enabled=#{enabled},</if>
 	      updatetime=sysdate 
 	    </set>
         where t.permissionid=#{permissionid}

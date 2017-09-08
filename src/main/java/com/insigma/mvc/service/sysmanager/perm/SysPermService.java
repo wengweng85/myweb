@@ -17,12 +17,12 @@ public interface SysPermService {
 	
 	public List<SPermission>  getPermTreeList();
 	
-	public AjaxReturnMsg getPermDataById(String id);
+	public AjaxReturnMsg<SPermission> getPermDataById(String id);
 	
-	public AjaxReturnMsg saveOrUpdatePermData(SPermission spermission);
+	public AjaxReturnMsg<String> saveOrUpdatePermData(SPermission spermission);
 	
-    public AjaxReturnMsg getPermListDataByParentid(String parentid);
+	public AjaxReturnMsg<String> deletePermDataById(String id);
 	
-	public AjaxReturnMsg deletePermDataById(String id);
+	public AjaxReturnMsg<String> moveNode(String id);
 
 }

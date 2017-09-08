@@ -44,6 +44,18 @@ public class TextEditIconCodeValueTag implements Tag {
 	//自定义回调函数
 	private String callback;
 	
+	//提示
+	private String placeholder;
+	
+
+	public String getPlaceholder() {
+		return placeholder;
+	}
+
+	public void setPlaceholder(String placeholder) {
+		this.placeholder = placeholder;
+	}
+	
 	
 	public String getArea() {
 		return area;
@@ -147,9 +159,11 @@ public class TextEditIconCodeValueTag implements Tag {
 	     value=(value==null)?"":value;
 	     name_value=(name_value==null)?"":name_value;
 	     area=(area==null)?" ['40%', '80%']":area;
+	     label=(label==null)?"":label;
 	     url=(url==null)? contextPath+"/codetype/toCodeValuesuggest"  :url;//如果url不输入有一个默认的地址
 	     title=(title==null)?label+"代码搜索框":title;
 	     cols=(cols==null)?"1,2":cols;
+	     placeholder=(placeholder==null)?(label.equals("")?"":"请输入"+label):placeholder;
 	     
 	     String [] col=cols.split(",");
 	     int labelcol=Integer.parseInt(col[0]);
@@ -157,8 +171,13 @@ public class TextEditIconCodeValueTag implements Tag {
 	    
 	     JspWriter out = pageContext.getOut();
 	     StringBuffer sb=new StringBuffer();
-	     
-	     sb.append("<label class=\"col-sm-"+labelcol+" col-xs-"+labelcol+"  control-label\">"+label+"</label>");
+	     if(!label.equals("")){
+	    	 sb.append("<label class=\"control-label\">"+label);
+		     sb.append("<span class=\"require\">*<span>");
+		     sb.append("</label>");
+	     }else{
+	    		 sb.append("<span class=\"require\">*<span>");
+	     }
 	     sb.append("<div class=\"col-sm-"+inputcol+" col-xs-"+inputcol+" \">");
 	     
 	     sb.append("<div class=\"input-group\">");

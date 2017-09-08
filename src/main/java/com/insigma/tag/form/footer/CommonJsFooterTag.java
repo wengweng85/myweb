@@ -67,6 +67,11 @@ public class CommonJsFooterTag implements Tag  {
 	  sb.append("<script src='"+contextpath+"/resource/hplus/js/plugins/jasny/jasny-bootstrap.min.js'></script>");
 	  
 	  sb.append("<script src='"+contextpath+"/resource/hplus/js/json2.js'></script>");
+	  
+	  // <!-- bootstrap-editable -->
+	  sb.append("<script src='"+contextpath+"/resource/hplus/js/plugins/bootstrap-table/extensions/editable/bootstrap-table-editable.min.js'></script>");
+	  sb.append("<script src='"+contextpath+"/resource/hplus/js/plugins/bootstrap3-editable/js/bootstrap-editable.min.js'></script>");
+	  
 	
 	  //<!--rc about js--> 
 	  sb.append("<script src='"+contextpath+"/resource/hplus/js/rc.all-2.0.js'></script>");

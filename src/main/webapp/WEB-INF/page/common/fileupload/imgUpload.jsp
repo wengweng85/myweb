@@ -59,6 +59,7 @@
         }
     </script>
     <script src="<c:url value='/resource/hplus/js/plugins/webuploader/webuploader.min.js'/>"></script>
+    <script src="<c:url value='/resource/hplus/js/json2.js'/>"></script>
     <script src="<c:url value='/resource/hplus/js/rc.webuploader.img.js'/>"></script>
 </body>
 </html>

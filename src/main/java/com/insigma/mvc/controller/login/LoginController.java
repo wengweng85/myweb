@@ -81,13 +81,14 @@ public class LoginController extends MvcHelper {
 	@ResponseBody
 	public AjaxReturnMsg login(HttpServletRequest request,SUser suer) {
 		String errorMessage = "";
+		String isvercode=suer.getIsvercode()==null?"1":suer.getIsvercode();//是否校验验证码
 		Subject subject = SecurityUtils.getSubject();
 		boolean rememberMe = WebUtils.isTrue(request, FormAuthenticationFilter.DEFAULT_REMEMBER_ME_PARAM);
         String host = request.getRemoteHost();
         //使用rsa privatekey解密
         String password = RSAUtils.decryptStringByJs(suer.getPassword());  
 		//构造登陆令牌环
-		CustomUsernamePasswordToken token = new CustomUsernamePasswordToken(suer.getUsername(),  password.toCharArray(), rememberMe,host);
+		CustomUsernamePasswordToken token = new CustomUsernamePasswordToken(suer.getUsername(),  password.toCharArray(), rememberMe,host,suer.getVerifycode(),isvercode);
 		try {
 			subject.login(token);
 			LoginInf inf=new LoginInf();

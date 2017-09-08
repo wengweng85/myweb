@@ -6,6 +6,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
     <title>demo测试查询页面</title>
     <!-- css引入 -->
     <rc:csshead/>
@@ -70,7 +72,7 @@
             </script>
             <!-- toolbar -->
             <div id="toolbar" class="btn-group">
-				 <button id="btn_delete" type="button" class="btn btn-danger" onclick="demo_bat_delete()">
+				 <button id="btn_delete" type="button" class="btn btn-danger" onclick="demo_bat_delete('aac001')">
 				 <span class="glyphicon glyphicon-remove" aria-hidden="false"></span>批量删除
 				 </button>
 				 <button id="btn_edit" type="button" class="btn btn-info" >
@@ -93,10 +95,10 @@
 				        <th data-checkbox="true" ></th>
 				        <th data-formatter="demo_indexFormatter">序号</th>
 				        <th data-formatter="demo_rowFormatter">行操作</th>
-	                    <th data-field="aac002" >身份证号码</th>
+	                    <th data-field="aac002"  data-editable="true">身份证号码</th>
 	                    <th data-field="aac003" >姓名</th>
-	                    <th data-field="aac004" >性别</th>
-	                    <th data-field="aac006" >出生日期</th>
+	                    <th data-field="aac004" data-editable="true" data-editable-type="select" data-editable-source="[{value: 1, text: '男'},{value: 2, text: '女'}]">性别</th>
+	                    <th data-field="aac006" data-editable="true" data-editable-type="date">出生日期</th>
 	                    <th data-field="aac033" >健康状况</th>
 	                    <th data-field="aac017" >婚姻状况</th>
 	                    <th data-field="aac024" >政治面貌</th>
@@ -115,8 +117,21 @@
     <!-- javascript引入 -->
     <rc:jsfooter/>
     <script type="text/javascript">
+    //基于xeditable表格编辑调用保存函数
+    function onEditableSave(field, row, oldValue, $el) {
+        console.log(field+" "+row[field]);
+        var url=contextPath+'/demo/updateDataByXedit';
+		var param={};
+		param.aac001=row['aac001'];
+		param[field]=row[field];
+	    rc.ajax(url, param,function (response) {
+			console.log(response.message)
+		});
+    }
+    
     var demo_options={
-    	formid:'query_form'
+    	formid:'query_form',
+    	onEditableSave:onEditableSave
     }
     //初始化
     $(function(){
@@ -146,6 +161,14 @@
     
     function demo_indexFormatter(value, row, index) {
         return index+1;
+    }
+    
+    function demo_aac002_editable(value, row, index) {
+        return {
+        	 type: 'date',
+             title: '生日'
+        	
+        }
     }
    
     //行操作 
@@ -237,7 +260,7 @@
     
     
     //批量删除
-    function demo_bat_delete(){
+    function demo_bat_delete(idname){
    		var selections=$('#ac01table').getAllTableSelections();
    	    //选中的值
    	    var selectnodes='';
@@ -245,7 +268,7 @@
    	    	layer.confirm('确定批量删除这些数据吗？', function(index){
    	    	   for(i=0;i<selections.length;i++){
    	   	     	   var item=selections[i];
-   	   	     	   selectnodes+=item.aac001+',';
+   	   	     	   selectnodes+=item[idname]+',';
    	   	       }
    	   		   rc.ajax("<c:url value='/demo/batdelete'/>", {selectnodes:selectnodes},function (response) {
    	   		    	alert(response.message);

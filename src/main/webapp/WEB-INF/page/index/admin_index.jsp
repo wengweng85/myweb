@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit">
     <meta http-equiv="Cache-Control" content="no-siteapp" />
-    <title>陕西省人力资源市场管理信息系统</title>
+    <title>陕西省人力资源市场管理系统</title>
 
     <meta name="keywords" content="xxx">
     <meta name="description" content="xxxx">
@@ -36,7 +36,7 @@
                 <ul class="nav" id="side-menu">
                     <li class="nav-header">
                     <div class="dropdown profile-element">
-                        <span class="block m-t-xs" style="color: #f9f9f9"><strong class="font-bold"> 陕西省人力资源市场管理信息系统</strong></span>
+                        <span class="block m-t-xs" style="color: #f9f9f9"><strong class="font-bold"> 陕西省人力资源市场管理系统</strong></span>
                         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                         <span class="text-muted text-xs block">${suser.groupname}(${suser.username})<b class="caret"></b></span>
                         </a>
@@ -49,9 +49,9 @@
                     </li>
                     <shiro:authenticated>
                     <c:forEach items="${permlist}" var="perm" >
-                    <li>
-                        <a href="#">
-                            <i class="fa <c:if test="${ empty perm.iconcss}" >fa-bookmark-o </c:if> <c:if test="${not empty perm.iconcss}" >${perm.iconcss}</c:if> "></i>
+                    <li class="fa-hover">
+                        <a href="#" >
+                            <i class="fa fa-detail <c:if test="${ empty perm.iconcss}" >fa-bookmark-o </c:if> <c:if test="${not empty perm.iconcss}" >${perm.iconcss}</c:if> "></i>
                             <span class="nav-label">${perm.name }</span>
                             <c:if test="${not empty perm.child}" >
                                  <span class="fa arrow"></span>
@@ -63,17 +63,17 @@
 						      <li>
 							      <c:choose>
 	                                 <c:when test="${not empty secondperm.child}">
-		                                 <a class="J_menuItem" href="<c:url value='${secondperm.url}'/>" ><i class="fa ${secondperm.iconcss}"></i>${secondperm.name}<span class="fa arrow"></span></a>
+		                                 <a class="J_menuItem" href="<c:url value='${secondperm.url}'/>" ><i class="fa fa-detail ${secondperm.iconcss}"></i>${secondperm.name}<span class="fa arrow"></span></a>
 		                                 <ul class="nav nav-third-level">
 			                                 <c:forEach items="${secondperm.child}" var="thirdperm" >
 			                                 <li>
-			                                      <a class="J_menuItem" href="<c:url value='${thirdperm.url}'/>" ><i class="fa ${thirdperm.iconcss}"></i>${thirdperm.name}</a>
+			                                      <a class="J_menuItem" href="<c:url value='${thirdperm.url}'/>" ><i class="fa fa-detail ${thirdperm.iconcss}"></i>${thirdperm.name}</a>
 			                                 </li>
 			                                 </c:forEach>
 		                                 </ul>
 	                                 </c:when>
 		                             <c:otherwise>
-		                                 <a class="J_menuItem" href="<c:url value='${secondperm.url}'/>" ><i class="fa ${secondperm.iconcss}"></i>${secondperm.name}</a>
+		                                 <a class="J_menuItem" href="<c:url value='${secondperm.url}'/>" ><i class="fa fa-detail ${secondperm.iconcss}"></i>${secondperm.name}</a>
 		                             </c:otherwise>
 	                              </c:choose>
 						      </li>

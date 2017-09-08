@@ -37,7 +37,13 @@
 	    <attribute>
 	        <description>input输入框对应label名</description>
 	        <name>label</name>
-	        <required>true</required>
+	        <required>false</required>
+	        <rtexprvalue>true</rtexprvalue>
+	    </attribute>
+	    <attribute>
+	        <description>input输入框提示语</description>
+	        <name>placeholder</name>
+	        <required>false</required>
 	        <rtexprvalue>true</rtexprvalue>
 	    </attribute>
 	    <attribute>
@@ -155,7 +161,13 @@
 	    <attribute>
 	        <description>input输入框对应label名</description>
 	        <name>label</name>
-	        <required>true</required>
+	        <required>false</required>
+	        <rtexprvalue>true</rtexprvalue>
+	    </attribute>
+	    <attribute>
+	        <description>input输入框提示语</description>
+	        <name>placeholder</name>
+	        <required>false</required>
 	        <rtexprvalue>true</rtexprvalue>
 	    </attribute>
 	     <attribute>
@@ -218,7 +230,13 @@
 	    <attribute>
 	        <description>input输入框对应label名</description>
 	        <name>label</name>
-	        <required>true</required>
+	        <required>false</required>
+	        <rtexprvalue>true</rtexprvalue>
+	    </attribute>
+	    <attribute>
+	        <description>input输入框提示语</description>
+	        <name>placeholder</name>
+	        <required>false</required>
 	        <rtexprvalue>true</rtexprvalue>
 	    </attribute>
 	     <attribute>
@@ -268,7 +286,13 @@
 	     <attribute>
 	        <description>input输入框对应label名</description>
 	        <name>label</name>
-	        <required>true</required>
+	        <required>false</required>
+	        <rtexprvalue>true</rtexprvalue>
+	    </attribute>
+	    <attribute>
+	        <description>input输入框提示语</description>
+	        <name>placeholder</name>
+	        <required>false</required>
 	        <rtexprvalue>true</rtexprvalue>
 	    </attribute>
 	    <attribute>
@@ -337,7 +361,13 @@
 	    <attribute>
 	        <description>input输入框对应label名</description>
 	        <name>label</name>
-	        <required>true</required>
+	        <required>false</required>
+	        <rtexprvalue>true</rtexprvalue>
+	    </attribute>
+	    <attribute>
+	        <description>input输入框提示语</description>
+	        <name>placeholder</name>
+	        <required>false</required>
 	        <rtexprvalue>true</rtexprvalue>
 	    </attribute>
 	    <attribute>
@@ -424,7 +454,13 @@
 	    <attribute>
 	        <description>input输入框对应label名</description>
 	        <name>label</name>
-	        <required>true</required>
+	        <required>false</required>
+	        <rtexprvalue>true</rtexprvalue>
+	    </attribute>
+	    <attribute>
+	        <description>input输入框提示语</description>
+	        <name>placeholder</name>
+	        <required>false</required>
 	        <rtexprvalue>true</rtexprvalue>
 	    </attribute>
 	    <attribute>
@@ -528,7 +564,13 @@
 	     <attribute>
 	        <description>input输入框对应label名</description>
 	        <name>label</name>
-	        <required>true</required>
+	        <required>false</required>
+	        <rtexprvalue>true</rtexprvalue>
+	    </attribute>
+	    <attribute>
+	        <description>input输入框提示语</description>
+	        <name>placeholder</name>
+	        <required>false</required>
 	        <rtexprvalue>true</rtexprvalue>
 	    </attribute>
 	    <attribute>
@@ -578,7 +620,13 @@
 	    <attribute>
 	        <description>input输入框对应label名</description>
 	        <name>label</name>
-	        <required>true</required>
+	        <required>false</required>
+	        <rtexprvalue>true</rtexprvalue>
+	    </attribute>
+	    <attribute>
+	        <description>input输入框提示语</description>
+	        <name>placeholder</name>
+	        <required>false</required>
 	        <rtexprvalue>true</rtexprvalue>
 	    </attribute>
 	    <attribute>
@@ -628,7 +676,13 @@
 	    <attribute>
 	        <description>input输入框对应label名</description>
 	        <name>label</name>
-	        <required>true</required>
+	        <required>false</required>
+	        <rtexprvalue>true</rtexprvalue>
+	    </attribute>
+	    <attribute>
+	        <description>input输入框提示语</description>
+	        <name>placeholder</name>
+	        <required>false</required>
 	        <rtexprvalue>true</rtexprvalue>
 	    </attribute>
 	    <attribute>
@@ -681,6 +735,12 @@
 	        <name>label</name>
 	        <required>true</required>
 	        <rtexprvalue>true</rtexprvalue>
+	    </attribute>
+	    <attribute>
+	        <description>input输入框提示语</description>
+	        <name>placeholder</name>
+	        <required>false</required>
+	        <rtexprvalue>true</rtexprvalue>
 	    </attribute>    
 	    <attribute>
 	        <description>input输入对应自适应列数,形如1,3逗号前代表列占位列数据,逗号后代码输入框占位列数</description>
@@ -725,6 +785,12 @@
 	        <description>input输入框对应label名</description>
 	        <name>label</name>
 	        <required>true</required>
+	        <rtexprvalue>true</rtexprvalue>
+	    </attribute>
+	    <attribute>
+	        <description>input输入框提示语</description>
+	        <name>placeholder</name>
+	        <required>false</required>
 	        <rtexprvalue>true</rtexprvalue>
 	    </attribute>
 	    <attribute>

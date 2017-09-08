@@ -42,6 +42,17 @@ public class TextEditIconTag implements Tag {
 	//自定义回调函数
 	private String callback;
 	
+	//提示
+	private String placeholder;
+	
+
+	public String getPlaceholder() {
+		return placeholder;
+	}
+
+	public void setPlaceholder(String placeholder) {
+		this.placeholder = placeholder;
+	}
 	
 	public String getArea() {
 		return area;
@@ -140,7 +151,9 @@ public class TextEditIconTag implements Tag {
 	     name_value=(name_value==null)?"":name_value;
 	     area=(area==null)?" ['70%', '90%']":area;
 	     title=(title==null)?label+"搜索框":title;
+	     label=(label==null)?"":label;
 	     cols=(cols==null)?"1,2":cols;
+	     placeholder=(placeholder==null)?(label.equals("")?"":"请输入"+label):placeholder;
 	     
 	     String [] col=cols.split(",");
 	     int labelcol=Integer.parseInt(col[0]);

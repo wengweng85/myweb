@@ -182,7 +182,7 @@ var rc = {
 	 * @param successFun
 	 * @param failureFun
 	 */
-	ajaxsubmit : function(_form, callback,ismask,istokenreload) {
+	/*ajaxsubmit : function(_form, callback,ismask,istokenreload) {
 		var param=_form.serialize();
 		if($('#CSRFToken').length>0) {
 			param.CSRFToken=$('#CSRFToken').val()
@@ -192,7 +192,22 @@ var rc = {
 		}else{
 			layer.alert('请给要提交的表单提供正确的保存路径');
 		}
+	},*/
+	
+	ajaxsubmit : function(_form, callback,ismask,istokenreload) {
+		var param=_form.serializeObject();
+		if($('#CSRFToken').length>0) {
+			param.CSRFToken=$('#CSRFToken').val()
+		}
+		
+		
+		if(_form.attr('action')){
+		    rc.ajax(_form.attr('action'),param,callback,'post',null,true,true,istokenreload);	
+		}else{
+			layer.alert('请给要提交的表单提供正确的保存路径');
+		}
 	},
+	
 	ajaxdelete:function(url,callback){
 		rc.ajax(url,null,callback);
 	},
@@ -228,6 +243,7 @@ var rc = {
 		options.cache = false;
 		options.url=url;
 		options.async=_async;//ajax异步或同步请求（遮罩效果需要异步）
+		param.json=JSON.stringify(param);
 		options.data=param;
 		options.beforeSend=function(xhr) {
 			//rc.ajax_beforeSend(_ismask,maskdom_selector);
@@ -430,8 +446,9 @@ var rc = {
 				} 
 			}
 		});
-		dom_selector.find("table tr:gt(0)").remove();
-		
+		if(dom_selector>0){
+			dom_selector.find("table tr:gt(0)").remove();
+		}
 	},
 	/**
 	 * checkbox 事件绑定
@@ -1475,6 +1492,7 @@ function jiangese_set(tabid,start,color1,color2){
 	        queryParams:function(params){
 	        	if(_this.options.formid){
 	        		var request_param=$.extend({},$('#'+_this.options.formid).serializeObject(),params);
+	        		request_param.json=JSON.stringify(request_param);
                     return request_param
 	        	}else{
 	        		return params;
@@ -1494,7 +1512,8 @@ function jiangese_set(tabid,start,color1,color2){
 	        detailView:false,//是否显示子表
 	        //singleSelect:true,
 	        clickToSelect: false,//是否启用点击选中行
-	        buttonsAlign:'right'//按钮对齐方式
+	        buttonsAlign:'right',//按钮对齐方式
+	        onEditableSave:_this.options.onEditableSave
          })
         //点击事件 
         _this.on('click-row.bs.table', function (e, row, $element) {
@@ -1532,7 +1551,8 @@ function jiangese_set(tabid,start,color1,color2){
 	 */
 	$.fn.inittable.defaults={
 		formid:'',
-		url:''
+		url:'',
+		onEditableSave:''
 	}
 	
 	
@@ -1587,4 +1607,4 @@ var closableTab = {
 	}
 }
 
-
+var s={'wengsh':'name'}

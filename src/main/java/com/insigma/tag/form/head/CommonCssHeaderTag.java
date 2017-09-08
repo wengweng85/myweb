@@ -51,6 +51,8 @@ public class CommonCssHeaderTag implements Tag  {
 	  
 	  sb.append("<link href='"+contextpath+"/resource/hplus/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css' rel='stylesheet'>");
 	  
+	  sb.append("<link href='"+contextpath+"/resource/hplus/js/plugins/bootstrap3-editable/css/bootstrap-editable.css' rel='stylesheet'>");
+	  
 	  //<!-- rc.css -->
 	  sb.append("<link href='"+contextpath+"/resource/hplus/css/rc.css' rel='stylesheet'>");
 	  

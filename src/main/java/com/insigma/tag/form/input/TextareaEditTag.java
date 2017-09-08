@@ -137,6 +137,17 @@ public class TextareaEditTag implements Tag {
 		this.label = label;
 	}
 
+	//提示
+	private String placeholder;
+	
+
+	public String getPlaceholder() {
+		return placeholder;
+	}
+
+	public void setPlaceholder(String placeholder) {
+		this.placeholder = placeholder;
+	}
 
 	
 	public String getRequired() {
@@ -182,6 +193,8 @@ public class TextareaEditTag implements Tag {
 	     readonly=(readonly==null)?"":readonly;
 	     required=(required==null)?"":required;
 	     rows=(rows==null)?"1":rows;
+	     label=(label==null)?"":label;
+	     placeholder=(placeholder==null)?(label.equals("")?"":"请输入"+label):placeholder;
 	     
 	     //是否只读
 	     boolean isreadonly=Boolean.parseBoolean(readonly);
@@ -189,11 +202,17 @@ public class TextareaEditTag implements Tag {
 	     boolean isrequired=Boolean.parseBoolean(required);
 	     JspWriter out = pageContext.getOut();
 	     StringBuffer sb=new StringBuffer();
-	     sb.append("<label class=\"control-label\">"+label);
-	     if(isrequired){
-	    	 sb.append("<span class=\"require\">*<span>");
+	     if(!label.equals("")){
+	    	 sb.append("<label class=\"control-label\">"+label);
+		     if(isrequired){
+		    	 sb.append("<span class=\"require\">*<span>");
+		     }
+		     sb.append("</label>");
+	     }else{
+	    	 if(isrequired){
+	    		 sb.append("<span class=\"require\">*<span>");
+		     }
 	     }
-	     sb.append("</label>");
 	     
 	     sb.append("<div >");
 	     sb.append("<textarea class=\"form-control\"  rows=\""+rows+"\" id=\""+property+"\" name=\""+property+"\"  placeholder=\"请输入"+label+"\"  validate=\""+validate+"\" ");

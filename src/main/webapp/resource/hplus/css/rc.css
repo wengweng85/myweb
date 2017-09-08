@@ -45,7 +45,7 @@
 .form-control {
     background-color: #FFF;
     background-image: none;
-    border: 1px solid #000;
+    border: 1px solid #6a6f77;
     border-radius: 3px;
     color: inherit;
     display: block;
@@ -59,7 +59,7 @@
 .btn-default {
     color: #333;
     background-color: #fff;
-    border-color: #000;
+    border-color: #6a6f77;
 }
 
 label {
@@ -67,6 +67,98 @@ label {
     max-width: 100%;
     margin-bottom: 0px;
     font-weight: 700;
+}
+
+label {
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 0px;
+    font-weight: 700;
+}
+
+
+.wrapper-content {
+	padding: 30px 15px;
+}
+
+#page-wrapper {
+	background: #f4f6fa;
+}
+
+.ibox-content, .ibox-title {
+	border-width: 1px;
+}
+
+.ibox-content:last-child {
+	border-style: solid;
+}
+
+.nav>li.active {
+	border: none;
+}
+
+.nav-header {
+	padding: 25px 15px 15px;
+}
+
+.nav-header a.dropdown-toggle {
+	color: #fff;
+	margin-top: 10px;
+}
+
+.nav-header a.dropdown-toggle .text-muted {
+	color: #fff;
+	opacity: .8;
+}
+
+.profile-element {
+	text-align: left;
+}
+
+.img-circle {
+	border-radius: 5px;
+}
+
+.navbar-default .nav>li>a:focus, .navbar-default .nav>li>a:hover
+{
+	background: #39aef5;
+	color: #fff;
+}
+
+.nav.nav-tabs>li.active>a {
+	color: #555;
+}
+
+.content-tabs {
+	border-bottom: solid 2px #39aef5;
+}
+
+.nav.nav-tabs>li.active {
+	background: 0;
+}
+
+.page-tabs a.active {
+	background: #39aef5;
+	color: #fff;
+}
+
+.page-tabs a.active i:hover, .page-tabs a.active:hover {
+	background: #0e9aef;
+	color: #fff;
+}
+
+.navbar-static-side {
+	background: #2f4050;
+}
+
+
+
+.fa-hover a .fa-detail  {
+	font-size: 14px;
+}
+.fa-hover a:hover .fa-detail   {
+	font-size: 48px;
+	text-indent:-20px;
 }
 
 .nav-second-level li,.nav-third-level li{border-bottom:none!important;}

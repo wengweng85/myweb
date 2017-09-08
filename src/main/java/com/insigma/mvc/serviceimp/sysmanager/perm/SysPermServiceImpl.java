@@ -22,7 +22,7 @@ import com.mysql.jdbc.StringUtils;
  */
 
 @Service
-public class SysPermServiceImpl extends MvcHelper implements SysPermService {
+public class SysPermServiceImpl extends MvcHelper<SPermission> implements SysPermService {
 
 	@Resource
 	private SysPermMapper sysPermMapper;
@@ -41,7 +41,7 @@ public class SysPermServiceImpl extends MvcHelper implements SysPermService {
 	 * 通过权限id获取权限数据
 	 */
 	@Override
-	public AjaxReturnMsg getPermDataById(String id) {
+	public AjaxReturnMsg<SPermission> getPermDataById(String id) {
 		return this.success(sysPermMapper.getPermDataById(id));
 	}
 
@@ -51,7 +51,7 @@ public class SysPermServiceImpl extends MvcHelper implements SysPermService {
      */
 	@Override
 	@Transactional
-	public AjaxReturnMsg saveOrUpdatePermData(SPermission spermission) {
+	public AjaxReturnMsg<String> saveOrUpdatePermData(SPermission spermission) {
 		   SPermission isPermsionCodeexist=sysPermMapper.isPermCodeExist(spermission);
 		   if(isPermsionCodeexist!=null){
 			   return this.error("此权限"+spermission.getCode()+"编号已经存在,请重新输入一个新的权限编号");
@@ -66,27 +66,20 @@ public class SysPermServiceImpl extends MvcHelper implements SysPermService {
 		  if(StringUtils.isNullOrEmpty(spermission.getPermissionid())){
 				 int insertnum=sysPermMapper.savePermissionData(spermission);
 				 if(insertnum==1){
-					 return this.success("新增成功");
+					 return this.success(spermission.getPermissionid());
 				 }else{
 					 return this.error("新增失败");
 				 }
 		 }else{
 				 int updatenum=sysPermMapper.updatePermissionData(spermission);
 				 if(updatenum==1){
-					 return this.success("更新成功");
+					 return this.success(spermission.getPermissionid());
 				 }else{
 					 return this.error("更新失败");
 				 }
 		  }
 	}
 
-	/**
-	 * 通过父节点获取权限子节点数据
-	 */
-	@Override
-	public AjaxReturnMsg getPermListDataByParentid(String parentid) {
-		return this.success( sysPermMapper.getPermListDataByParentid(parentid));
-	}
 
 	
 	/**
@@ -94,7 +87,7 @@ public class SysPermServiceImpl extends MvcHelper implements SysPermService {
 	 */
 	@Override
 	@Transactional
-	public AjaxReturnMsg deletePermDataById(String id) {
+	public AjaxReturnMsg<String> deletePermDataById(String id) {
 		if(sysPermMapper.getPermListDataByParentid(id).size()>0){
 			return this.error("当前权限还存在子权限数据,请先删除子权限数据");
 		}else{
@@ -106,6 +99,33 @@ public class SysPermServiceImpl extends MvcHelper implements SysPermService {
 			}
 			
 		}
+	}
+
+	/**
+	 * 节点移动
+	 */
+	@Override
+	public AjaxReturnMsg<String> moveNode(String id) {
+		String[]  ids=id.split("_");
+		//要移动的节点id
+		String movetreenodeid=ids[0];
+		//目标节点id
+		String targettreenodeid=ids[1];
+		//要移动的节点
+		SPermission moveSpermission=sysPermMapper.getPermDataById(movetreenodeid);
+		//目标节点
+		SPermission targetSpermission=sysPermMapper.getPermDataById(targettreenodeid);
+		
+		//同级移动,只修改排序号
+		if(moveSpermission.getParentid().equals(targetSpermission.getParentid())){
+			moveSpermission.setSortnum(targetSpermission.getSortnum());
+		}
+		//非同级移动、修改当前节点的父节点为目标节点id
+		else{
+			moveSpermission.setParentid(targetSpermission.getPermissionid());
+		}
+		sysPermMapper.updatePermissionData(moveSpermission);
+		return this.success("成功");
 	}
 
 }

@@ -48,30 +48,49 @@ public class MyShiroRealm extends AuthorizingRealm  {
      */
 	public AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken) throws AuthenticationException {
 		CustomUsernamePasswordToken token = (CustomUsernamePasswordToken) authcToken;
-		SUser suser = loginservice.getUserAndGroupInfo(token.getUsername());
-		if (suser == null) {
-            throw new UnknownAccountException();//没找到帐号
-        }
+		SimpleAuthenticationInfo authenticationInfo=null;
+		try{
+			
+			//是否检验验证码
+			if(token.getIsvercode().equals("1")){
+		        //取得用户输入的校验码
+		        String userInputValidCode =token.getVerifycode();
 
-        if (suser.getEnabled().equals("0") ) {
-            throw new LockedAccountException(); //帐号锁定
-        }
-	    
-    	SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(
-		suser.getUsername(), 
-		suser.getPassword(), 
-        getName() ); //realm name
-    	setSession(SysUserUtil.SHIRO_CURRENT_USER_INFO,suser);
-    	SysUserUtil.setCurrentUser(suser);
-    	//用户权限
-    	try{
+		        //取得真实的正确校验码
+		        String realRightValidCode = (String) SecurityUtils.getSubject().getSession().getAttribute("session_validator_code");
+		        
+		        //清除校验码
+		        SecurityUtils.getSubject().getSession().removeAttribute("session_validator_code");
+		        
+		        if (null == userInputValidCode || !userInputValidCode.equalsIgnoreCase(realRightValidCode)) {
+		            throw new AuthenticationException("验证码不正确");
+		        }
+			}
+			
+			SUser suser = loginservice.getUserAndGroupInfo(token.getUsername());
+			if (suser == null) {
+	            throw new UnknownAccountException();//没找到帐号
+	        }
+	
+	        if (suser.getEnabled().equals("0") ) {
+	            throw new LockedAccountException(); //帐号锁定
+	        }
+		    
+	    	authenticationInfo = new SimpleAuthenticationInfo(
+			suser.getUsername(), 
+			suser.getPassword(), 
+	        getName() ); //realm name
+	    	setSession(SysUserUtil.SHIRO_CURRENT_USER_INFO,suser);
+	    	SysUserUtil.setCurrentUser(suser);
+	    	//用户权限
+    	
 	    	List<SPermission> permlist=loginservice.findPermissionStr(suser.getUsername());
 	        EhCacheUtil.getManager().getCache("webcache").put(new Element(SysUserUtil.SHIRO_CURRENT_PERM_LIST_INFO+"_"+suser.getUsername(),SysUserUtil.filterPersmList(permlist)));
-    	}catch(Exception e){
-			e.printStackTrace();
+	        //清理缓存
+	    	clearCachedAuthorizationInfo(authenticationInfo.getPrincipals());
+		}catch(Exception e){
+		    throw new AuthenticationException(e.getMessage());
 		}
-    	//清理缓存
-    	clearCachedAuthorizationInfo(authenticationInfo.getPrincipals());
 	    return authenticationInfo;
 	}
 	

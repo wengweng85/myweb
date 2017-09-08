@@ -22,7 +22,21 @@ public class SUser implements java.io.Serializable {
 	private String groupparentid;
 	private String type;
 	private String isgrant;
+	private String isvercode;
+	private String verifycode;
 	
+	public String getIsvercode() {
+		return isvercode;
+	}
+	public void setIsvercode(String isvercode) {
+		this.isvercode = isvercode;
+	}
+	public String getVerifycode() {
+		return verifycode;
+	}
+	public void setVerifycode(String verifycode) {
+		this.verifycode = verifycode;
+	}
 	public String getGroupid() {
 		return groupid;
 	}

@@ -43,10 +43,10 @@ public class DemoAc01ServiceImpl extends MvcHelper<DemoAc01> implements DemoAc01
 	
 	@Override
 	public HashMap<String, Object> getDemoAc01List(DemoAc01 ac01) {
+		/*System.out.println(SysUserUtil.getCurrentUser().getUserid());
 		System.out.println(SysUserUtil.getCurrentUser().getUserid());
 		System.out.println(SysUserUtil.getCurrentUser().getUserid());
-		System.out.println(SysUserUtil.getCurrentUser().getUserid());
-		System.out.println(SysUserUtil.getCurrentUser().getUserid());
+		System.out.println(SysUserUtil.getCurrentUser().getUserid());*/
 		PageHelper.offsetPage(ac01.getOffset(), ac01.getLimit());
 		if(StringUtils.isNotEmpty(ac01.getAac011())){
 			ac01.setA_aac011(ac01.getAac011().split(","));
@@ -106,14 +106,13 @@ public class DemoAc01ServiceImpl extends MvcHelper<DemoAc01> implements DemoAc01
 		ac01.setAaf011(SysUserUtil.getCurrentUser().getGroupid());//经办机构编号
 		ac01.setAae009(SysUserUtil.getCurrentUser().getGroupname());//经办机构编号
 		ac01.setAae036(new Date());//经办时间
-		//判断身份证号码是否重复
-		int aac002num=demoDemoAc01Mapper.selectByAac002(ac01);
-		if(aac002num>0){
-			return this.error("此身份证号码"+ac01.getAac002()+"已经存在，不能重复,请输入正确的号码");
-		}
-				
 		//判断是否是更新
 		if(StringUtils.isEmpty(ac01.getAac001())){
+			//判断身份证号码是否重复
+			int aac002num=demoDemoAc01Mapper.selectByAac002(ac01);
+			if(aac002num>0){
+				return this.error("此身份证号码"+ac01.getAac002()+"已经存在，不能重复,请输入正确的号码");
+			}
 			int insertnum= demoDemoAc01Mapper.insertSelective (ac01);
 			if(insertnum==1){
 				return this.success("新增成功");
@@ -125,8 +124,10 @@ public class DemoAc01ServiceImpl extends MvcHelper<DemoAc01> implements DemoAc01
 			//更新个人附件文件信息
 			Map<String,Object> map =new HashMap<String,Object>();
 			map.put("file_bus_id", ac01.getAac001());
-			map.put("bus_uuids",ac01.getSelectnodes().split(","));
-			fileLoadService.batupdateBusIdByBusUuidArray(map);
+			if(ac01.getSelectnodes()!=null){
+				map.put("bus_uuids",ac01.getSelectnodes().split(","));
+				fileLoadService.batupdateBusIdByBusUuidArray(map);
+			}
 			if(updatenum==1){
 				return this.success("更新成功");
 			}else{

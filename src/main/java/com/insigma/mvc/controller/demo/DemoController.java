@@ -6,15 +6,19 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import net.sf.json.JSONObject;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.insigma.dto.AjaxReturnMsg;
+import com.insigma.http.HttpRequestUtils;
 import com.insigma.mvc.MvcHelper;
 import com.insigma.mvc.model.DemoAc01;
 import com.insigma.mvc.service.demo.DemoAc01Service;
@@ -30,6 +34,7 @@ import com.insigma.shiro.realm.SysUserUtil;
 @RequestMapping("/demo")
 public class DemoController extends MvcHelper<DemoAc01> {
 	
+	private String BASE_URL="http://127.0.0.1:8091/myweb";
 	
 	@Resource
 	private DemoAc01Service demoAc01Service;
@@ -56,7 +61,27 @@ public class DemoController extends MvcHelper<DemoAc01> {
 	 */
 	@RequestMapping("/getAc01List")
 	@ResponseBody
-	public HashMap<String,Object> getUserListByGroupid(HttpServletRequest request,Model model,DemoAc01 ac01 ) throws Exception {
+	public String getAc01List(HttpServletRequest request,Model model, DemoAc01 ac01 ) throws Exception {
+		JSONObject jsonParam=JSONObject.fromObject(ac01);
+		System.out.println("json"+jsonParam.toString());
+		//将json对象转换成java对象
+		//String json_param=request.getParameter("json");
+		//System.out.println("jsontoobject"+json_param);
+		//DemoAc01 demoac01=(DemoAc01)JSONObject.toBean(jsonobject, DemoAc01.class);
+		//return demoAc01Service.getDemoAc01List(ac01);
+		String url=BASE_URL+"/demo/api/getAc01List";
+		//返回结果
+		return HttpRequestUtils.httpPost(url, jsonParam);
+	}
+	
+	/**
+	 * 获取人员信息列表
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/api/getAc01List")
+	@ResponseBody
+	public HashMap<String,Object> apiGetAc01List(HttpServletRequest request,Model model, DemoAc01 ac01 ) throws Exception {
 		return demoAc01Service.getDemoAc01List(ac01);
 	}
 	
@@ -69,7 +94,7 @@ public class DemoController extends MvcHelper<DemoAc01> {
 	 */
 	@RequestMapping("/deletebyid/{id}")
 	@ResponseBody
-	public AjaxReturnMsg deleteDemoDataById(HttpServletRequest request,Model model,@PathVariable String id){
+	public AjaxReturnMsg<String> deleteDemoDataById(HttpServletRequest request,Model model,@PathVariable String id){
 		return demoAc01Service.deleteDemoById(id);
 	}
 	
@@ -152,6 +177,7 @@ public class DemoController extends MvcHelper<DemoAc01> {
 	}
 	
 	
+	
 	/**
 	 * 更新或保存
 	 * @param request
@@ -167,6 +193,18 @@ public class DemoController extends MvcHelper<DemoAc01> {
 		return demoAc01Service.saveDemoData(ac01);
 		
 	}
+	
+	/**
+	 * 更新或保存 通过单个编辑功能
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/updateDataByXedit")
+	@ResponseBody
+	public AjaxReturnMsg<String> updateDataByXedit(HttpServletRequest request,Model mode, DemoAc01 ac01) throws Exception {
+		return demoAc01Service.saveDemoData(ac01);
+	}
+	
 	
 	/**
 	 * 更新个人图片编号
@@ -194,6 +232,17 @@ public class DemoController extends MvcHelper<DemoAc01> {
 		ac01.setAac001(id);
 		ac01.setBus_uuid(bus_uuid);
 		return demoAc01Service.deletefile(ac01);
+	}
+	
+	/**
+	 * api测试页面
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/open_api_test_page")
+	public ModelAndView open_api_test_page(HttpServletRequest request,Model model) throws Exception {
+		ModelAndView modelAndView=new ModelAndView("demo/api_test_page");
+        return modelAndView;
 	}
 
 }

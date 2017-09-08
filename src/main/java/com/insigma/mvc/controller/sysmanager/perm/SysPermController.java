@@ -28,7 +28,7 @@ import com.insigma.mvc.service.sysmanager.perm.SysPermService;
  */
 @Controller
 @RequestMapping("/sys/perm")
-public class SysPermController extends MvcHelper {
+public class SysPermController extends MvcHelper<SPermission> {
 	
 	
 	@Resource
@@ -67,7 +67,7 @@ public class SysPermController extends MvcHelper {
 	@RequestMapping("/getPermData/{id}")
 	@RequiresRoles("admin")
 	@ResponseBody
-	public AjaxReturnMsg getPermDataByid(HttpServletRequest request, HttpServletResponse response,Model model,@PathVariable String id) throws Exception {
+	public AjaxReturnMsg<SPermission> getPermDataByid(HttpServletRequest request, HttpServletResponse response,Model model,@PathVariable String id) throws Exception {
 		return  sysPermService.getPermDataById(id);
 	}
 	
@@ -80,7 +80,7 @@ public class SysPermController extends MvcHelper {
 	@RequestMapping("/saveorupdate")
 	@ResponseBody
 	@RequiresRoles("admin")
-	public AjaxReturnMsg saveorupdate(HttpServletRequest request,Model model,@Valid SPermission spermission,BindingResult result) throws Exception {
+	public AjaxReturnMsg<String> saveorupdate(HttpServletRequest request,Model model,@Valid SPermission spermission,BindingResult result) throws Exception {
 		//检验输入
 		if (result.hasErrors()){
 			return validate(result);
@@ -97,7 +97,19 @@ public class SysPermController extends MvcHelper {
 	@RequestMapping("/deletePermDataById/{id}")
 	@ResponseBody
 	@RequiresRoles("admin")
-	public AjaxReturnMsg deletePermDataById(HttpServletRequest request,Model model,@PathVariable String id) throws Exception {
+	public AjaxReturnMsg<String> deletePermDataById(HttpServletRequest request,Model model,@PathVariable String id) throws Exception {
 		return   sysPermService.deletePermDataById(id);
+	}
+	
+	/**
+	 * 权限树移动排序
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/moveNode/{id}")
+	@ResponseBody
+	@RequiresRoles("admin")
+	public AjaxReturnMsg<String> moveNode(HttpServletRequest request,Model model,@PathVariable String id) throws Exception {
+		return   sysPermService.moveNode(id);
 	}
 }

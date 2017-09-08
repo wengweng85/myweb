@@ -36,6 +36,18 @@ public class TimePickerTag implements Tag {
 	//是否只读
 	private String readonly;
 
+	
+	//提示
+	private String placeholder;
+	
+
+	public String getPlaceholder() {
+		return placeholder;
+	}
+
+	public void setPlaceholder(String placeholder) {
+		this.placeholder = placeholder;
+	}
 
 	public void setValue(String value) {
 		this.value = value;
@@ -116,6 +128,8 @@ public class TimePickerTag implements Tag {
 	     cols=(cols==null)?"1,2":cols;
 	     required=(required==null)?"":required;
 	     readonly=(readonly==null)?"false":readonly;
+	     label=(label==null)?"":label;
+	     placeholder=(placeholder==null)?(label.equals("")?"":"请输入"+label):placeholder;
 	     String [] col=cols.split(",");
 	     int labelcol=Integer.parseInt(col[0]);
 	     int inputcol=Integer.parseInt(col[1]);
@@ -127,14 +141,20 @@ public class TimePickerTag implements Tag {
 	     
 	     JspWriter out = pageContext.getOut();
 	     StringBuffer sb=new StringBuffer();
-	     sb.append("<label class=\"col-sm-"+labelcol+"  col-xs-"+labelcol+" control-label\">"+label);
-	     if(isrequired){
-	    	 sb.append("<span class=\"require\">*<span>");
+	     if(!label.equals("")){
+	    	 sb.append("<label class=\"col-sm-"+labelcol+"  col-xs-"+labelcol+"  control-label\">"+label);
+		     if(isrequired){
+		    	 sb.append("<span class=\"require\">*<span>");
+		     }
+		     sb.append("</label>");
+	     }else{
+	    	 if(isrequired){
+	    		 sb.append("<span class=\"require\">*<span>");
+		     }
 	     }
-	     sb.append("</label>");
 	     sb.append("<div class=\"col-sm-"+inputcol+" col-xs-"+inputcol+" \">");
 	     sb.append("<div class=\"input-group form_time date\">");
-		 sb.append("<input type=\"text\" id=\""+property+"\" name=\""+property+"\" placeholder=\"请选择"+label+"\"     validate=\""+validate+"\" class=\"form-control\" ");
+		 sb.append("<input type=\"text\" id=\""+property+"\" name=\""+property+"\" placeholder=\""+placeholder+"\"     validate=\""+validate+"\" class=\"form-control\" ");
 		 if(isreadonly){
 			 sb.append(" readonly=\"readonly\" ");
 		 }

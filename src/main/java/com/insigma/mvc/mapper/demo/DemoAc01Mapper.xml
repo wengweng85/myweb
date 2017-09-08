@@ -91,7 +91,7 @@
         aac001=#{aac001}
       </if>
       <if test="aac002!=null">
-        aac002=#{aac002}
+        and aac002=#{aac002}
       </if>
       <if test="aac003!=null">
         and aac003 like '%'||#{aac003}||'%' 

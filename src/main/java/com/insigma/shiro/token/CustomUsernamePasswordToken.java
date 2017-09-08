@@ -18,9 +18,12 @@ public class CustomUsernamePasswordToken extends UsernamePasswordToken {
     private String isvercode;
 
 
-    public CustomUsernamePasswordToken(String username, char[] password,boolean rememberMe, String host) {
+
+    public CustomUsernamePasswordToken(String loginname, char[] password,boolean rememberMe, String host, String verifycode,String isvercode) {
         //调用父类的构造函数
-        super(username,password,rememberMe,host);
+        super(loginname,password,rememberMe,host);
+        this.verifycode=verifycode;
+        this.isvercode=isvercode;
     }
 
 	public String getVerifycode() {

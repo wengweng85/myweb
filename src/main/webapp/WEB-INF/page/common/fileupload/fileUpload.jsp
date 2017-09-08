@@ -16,7 +16,7 @@
 <body >
     <body >
     <div class="col-sm-12">
-    <div class="row">
+	    <div class="row">
             <div id="uploader" class="wu-example">
 		    <!--用来存放文件信息-->
 		    <div id="thelist" class="uploader-list"></div>
@@ -27,7 +27,7 @@
 		    <input type="hidden" id="file_bus_id" value="${filerecord.file_bus_id}">
             <input type="hidden" id="file_bus_type" value="${filerecord.file_bus_type}">
             <input type="hidden" id="upload_callback" value="${filerecord.upload_callback}">
-	</div>	 
+		</div>	 
 	</div>   
     <script src="<c:url value='/resource/hplus/js/jquery.min.js'/>"></script>
     <script src="<c:url value='/resource/hplus/js/bootstrap.min.js'/>"></script>
@@ -40,6 +40,7 @@
         }
     </script>
     <script src="<c:url value='/resource/hplus/js/plugins/webuploader/webuploader.min.js'/>"></script>
+    <script src="<c:url value='/resource/hplus/js/json2.js'/>"></script>
     <script src="<c:url value='/resource/hplus/js/rc.webuploader.file.js'/>"></script>
 </body>
 </html>

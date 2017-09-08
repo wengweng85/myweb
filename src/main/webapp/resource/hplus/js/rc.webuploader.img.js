@@ -166,7 +166,7 @@ jQuery(function() {
 			}),
 	n.on('uploadSuccess', function(file,response) {
 		// parent.$('#filetable').refreshtable();
-		var res=eval("("+response._raw+")");//转换为json对象 
+		var res=JSON.parse(response._raw);//转换为json对象  JSON.parse(b) 转换成字符JSON.stringify(a)
         if(res.success){
         	//console.log("返回的文件记录编号:"+res.message+"通过/common/fileload/"+res.message+"即可下载文件");
             //$( '#'+file.id ).find('p.state').text("上传成功:返回的文件记录编号:"+res.message);

@@ -37,6 +37,18 @@ public class TextEditSuggestTag implements Tag {
 	//自定义回调函数
 	private String callback;
 	
+	//提示
+	private String placeholder;
+	
+
+	public String getPlaceholder() {
+		return placeholder;
+	}
+
+	public void setPlaceholder(String placeholder) {
+		this.placeholder = placeholder;
+	}
+	
 
 	public String getLabel() {
 		return label;
@@ -123,6 +135,8 @@ public class TextEditSuggestTag implements Tag {
 	     value=(value==null)?"":value;
 	     name_value=(name_value==null)?"":name_value;
 	     cols=(cols==null)?"1,2":cols;
+	     label=(label==null)?"":label;
+	     placeholder=(placeholder==null)?(label.equals("")?"":"请输入"+label):placeholder;
 	     
 	     String [] col=cols.split(",");
 	     int labelcol=Integer.parseInt(col[0]);

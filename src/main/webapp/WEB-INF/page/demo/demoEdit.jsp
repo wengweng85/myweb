@@ -24,7 +24,7 @@
 				        <div class="form-group">
 				           <rc:hidden property="aac001" value="${ac01.aac001}" />
 			               <rc:textedit  property="aac003" value="${ac01.aac003}" readonly="true" required="true" label="姓名" validate="{required:true,chinese:true,maxlength:10,messages:{required:'姓名不能为空'}}"  />
-			               <rc:textedit  property="aac002" value="${ac01.aac002}" readonly="true" required="true" datamask="999999999999999999" label="身份证"  validate="{required:true,idcard:true,messages:{required:'身份证不能为空'}}"/>
+			               <rc:textedit  property="aac002"  value="${ac01.aac002}" readonly="true" required="true" datamask="999999999999999999" label="身份证"  validate="{required:true,idcard:true,messages:{required:'身份证不能为空'}}"/>
 			               <rc:select property="aac004" value="${ac01.aac004}" required="true"  multiple="true"  label="性别"   codetype="AAC004"  validate="{required:true,messages:{required:'性别不能为空'}}"/>
 			               <rc:select property="aac005" value="${ac01.aac005}" required="true"  label="民族"   codetype="AAC005"  validate="{required:true,messages:{required:'民族不能为空'}}"/>
 			           </div>

@@ -6,6 +6,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
     <title>demo测试编辑页面</title>
     <rc:csshead/>
 </head>
@@ -17,13 +19,18 @@
                     <div class="container-fluid " style="padding: 0px 20px;">
 	                    <div class="form-group" style="text-align: right;">
 				              <a class="btn btn-primary " onclick="demo_save_data()"><i class="fa fa-save"></i>&nbsp;保存</a>
+				              <a class="btn btn-primary " onclick="open_api_test_page()"><i class="fa fa-search"></i>&nbsp;接口测试</a>
 				        </div>
                 </div>
             </div>
      </div>
      <!-- 浮动框结束 -->
     <div class="wrapper wrapper-content ">
+     
         <form action="${contextpath}/demo/savedata" >
+  <!-- 
+        <form action="${contextpath}/api/common" >
+         -->
         <div >
 	        <!-- 人员选择基本信息开始 -->
 	        <div class="ibox ">
@@ -200,7 +207,6 @@
     
     //文件上传回调函数
     function file_upload_callback(file_bus_id,message){
-    	console.log(message);
     	var res=eval("("+message+")");//转换为json对象 
     	var index = $table.bootstrapTable('getData').length;
         $table.bootstrapTable('insertRow', {
@@ -215,7 +221,6 @@
 	    	var ids = $.map($table.bootstrapTable('getSelections'), function (row) {
 	            return row.bus_uuid
 	        });
-	    	console.log(ids.toString());
 	    	if(ids.length>0){
     			  rc.ajax("<c:url value='/common/fileload/batdelete'/>", {selectnodes:ids.toString()},function (response) {
      	   		    	alert(response.message);
@@ -230,6 +235,19 @@
 	        }
     	});
     }
+    
+    function open_api_test_page(){
+    	 index=layer.open({
+	   		  type: 2,
+	   		  title: '接口测试',
+	   		  shadeClose: false,
+	   		  maxmin:true,
+	   		  shade: 0.8,
+	   		  area: ['80%', '90%'],
+	   		  content: "<c:url value='/demo/open_api_test_page'/>" //iframe的url
+		});
+   	    //layer.full(index);
+    }
     </script>
 </body>
-</html>
+</htm  l>

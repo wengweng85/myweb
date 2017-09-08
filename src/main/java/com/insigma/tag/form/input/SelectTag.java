@@ -70,6 +70,17 @@ public class SelectTag implements Tag {
 	//onkeyup事件
 	private String onkeyup;
 	
+	//提示
+	private String placeholder;
+	
+
+	public String getPlaceholder() {
+		return placeholder;
+	}
+
+	public void setPlaceholder(String placeholder) {
+		this.placeholder = placeholder;
+	}
 	
 
 	
@@ -225,8 +236,10 @@ public class SelectTag implements Tag {
 		 required=(required==null)?"":required;
 		 readonly=(readonly==null)?"":readonly;
 		 codetype=(codetype==null)?"":codetype;
+		 label=(label==null)?"":label;
 		 filter=(filter==null)?"":filter;
 		 cols=(cols==null)?"1,2":cols;
+		 placeholder=(placeholder==null)?(label.equals("")?"":"请输入"+label):placeholder;
 		 
 		 String [] col=cols.split(",");
 	     int labelcol=Integer.parseInt(col[0]);
@@ -237,11 +250,17 @@ public class SelectTag implements Tag {
 	     boolean isrequired=Boolean.parseBoolean(required);
 	     JspWriter out = pageContext.getOut();
 	     StringBuffer sb=new StringBuffer();
-	     sb.append("<label class=\"col-sm-"+labelcol+"  col-xs-"+labelcol+" control-label\">"+label);
-	     if(isrequired){
-	    	 sb.append("<span class=\"require\">*<span>");
+	     if(!label.equals("")){
+	    	 sb.append("<label class=\"col-sm-"+labelcol+"  col-xs-"+labelcol+"  control-label\">"+label);
+		     if(isrequired){
+		    	 sb.append("<span class=\"require\">*<span>");
+		     }
+		     sb.append("</label>");
+	     }else{
+	    	 if(isrequired){
+	    		 sb.append("<span class=\"require\">*<span>");
+		     }
 	     }
-	     sb.append("</label>");
 	     sb.append("<div class=\"col-sm-"+inputcol+" col-xs-"+inputcol+" \">");
 		 sb.append("<select class=\"form-control selectpicker \" id=\"" + property+ "\" name=\"" + property + "\"  title=\"请选择"+label+"\" value=\"" + value+ "\"  selectOnTab=\"true\" data-actions-box=\"true\" data-size=\"10\"  data-live-search=\"true\" validate=\"" + validate+ "\"   data-selected-text-format=\"count > 2\"");
 		 

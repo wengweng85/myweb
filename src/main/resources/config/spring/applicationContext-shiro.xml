@@ -32,7 +32,6 @@
 			<value>
 			    /=authc
 			    /index=authc
-				/demo/**=authc,access
 				/codetype/**=authc
 				/job/**=authc
 				/common/**=authc

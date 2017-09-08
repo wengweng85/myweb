@@ -2,6 +2,11 @@ package com.insigma.mvc.controller.restapi;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
+import net.sf.json.JSONException;
+import net.sf.json.JSONObject;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -13,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.insigma.mvc.model.CodeType;
 import com.insigma.mvc.model.CodeValue;
-import com.insigma.mvc.service.init.InitService;
 import com.insigma.mvc.service.sysmanager.codetype.SysCodeTypeService;
 
 
@@ -40,5 +44,25 @@ public class HelloWorldRestController {
             return new ResponseEntity<List<CodeValue>>(HttpStatus.NOT_FOUND);  
         }  
         return new ResponseEntity<List<CodeValue>>(list, HttpStatus.OK);  
+    }  
+	
+	/**
+	 * 
+	 * @param json
+	 * @return
+	 */
+	@RequestMapping(value = "/api/common", method = RequestMethod.POST,  produces = MediaType.APPLICATION_JSON_VALUE)  
+    public ResponseEntity<String> apiCommon(HttpServletRequest request) {  
+		String json=request.getParameter("json");
+		try{
+			 JSONObject jsonobject =  JSONObject.fromObject(json);
+			 //检验格式
+			 //得到service通过spring方式得到类
+			 //调用具体实现类
+		}catch(JSONException e){
+			e.printStackTrace();
+			return new ResponseEntity<String>(HttpStatus.OK);  
+		}
+		return new ResponseEntity<String>(json, HttpStatus.OK);  
     }  
 }
