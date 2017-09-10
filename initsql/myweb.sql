@@ -1,7 +1,7 @@
-----------------------------------------------
--- Export file for user MYWEB@ORCL          --
--- Created by wengsh on 2017/8/13, 16:37:55 --
-----------------------------------------------
+--------------------------------------------
+-- Export file for user MYWEB@ORCL        --
+-- Created by wengsh on 2017/9/5, 1:06:06 --
+--------------------------------------------
 
 set define off
 spool myweb.log
@@ -734,6 +734,7 @@ prompt =========================
 prompt
 create table CODE_VALUE
 (
+  code_seq       NUMBER(6) not null,
   code_type      VARCHAR2(200) not null,
   code_level     VARCHAR2(10),
   code_value     VARCHAR2(100),
@@ -742,12 +743,13 @@ create table CODE_VALUE
   code_spelling  VARCHAR2(100),
   code_status    CHAR(1),
   code_describe  VARCHAR2(500),
-  code_sort      VARCHAR2(100),
-  code_seq       NUMBER(6)
+  code_sort      VARCHAR2(100)
 )
 ;
 comment on table CODE_VALUE
   is '[0079]业务代码明细表';
+comment on column CODE_VALUE.code_seq
+  is '代码项序号';
 comment on column CODE_VALUE.code_type
   is '代码类别编码';
 comment on column CODE_VALUE.code_level
@@ -766,9 +768,9 @@ comment on column CODE_VALUE.code_describe
   is '代码全称';
 comment on column CODE_VALUE.code_sort
   is '代码分类';
-comment on column CODE_VALUE.code_seq
-  is '代码值序号';
 create index CODE_VALUE_SEQ on CODE_VALUE (CODE_TYPE, PAR_CODE_VALUE);
+alter table CODE_VALUE
+  add primary key (CODE_SEQ);
 alter table CODE_VALUE
   add constraint UK_CODE_VALUE unique (CODE_TYPE, CODE_VALUE);
 
@@ -778,55 +780,56 @@ prompt ========================
 prompt
 create table DEMO_AC01
 (
-  aac001 VARCHAR2(20) not null,
-  aac003 VARCHAR2(50) not null,
-  aac002 VARCHAR2(20),
-  aac004 VARCHAR2(3) not null,
-  aac005 VARCHAR2(3) not null,
-  aac006 DATE not null,
-  aac033 VARCHAR2(3),
-  aac017 VARCHAR2(3),
-  aac024 VARCHAR2(3),
-  aac011 VARCHAR2(3),
-  aae006 VARCHAR2(20),
-  aac067 VARCHAR2(20),
-  aae015 VARCHAR2(50),
-  aac007 VARCHAR2(200),
-  aac027 VARCHAR2(3),
-  adc100 VARCHAR2(3),
-  aaf011 VARCHAR2(100),
-  aae011 VARCHAR2(32),
-  aae036 DATE,
-  aaz002 NUMBER(16),
-  aae100 VARCHAR2(3),
-  eae052 VARCHAR2(3),
-  aae200 VARCHAR2(32),
-  aae202 DATE,
-  aae201 VARCHAR2(100),
-  aae203 VARCHAR2(100),
-  aaa148 VARCHAR2(50),
-  adc300 VARCHAR2(20),
-  aac127 VARCHAR2(3),
-  aac032 VARCHAR2(3),
-  aac034 NUMBER(5),
-  aac035 NUMBER(5),
-  aac036 VARCHAR2(5),
-  aae013 VARCHAR2(200),
-  aab301 VARCHAR2(12),
-  aae009 VARCHAR2(100),
-  aae010 VARCHAR2(80),
-  aae198 VARCHAR2(100),
-  aae199 VARCHAR2(80),
-  aae132 VARCHAR2(100),
-  aae133 VARCHAR2(80),
-  aae134 VARCHAR2(32),
-  aae135 VARCHAR2(100),
-  aae102 DATE,
-  id     VARCHAR2(32),
-  aac128 VARCHAR2(3),
-  aab800 VARCHAR2(50),
-  aab801 VARCHAR2(50),
-  aab802 VARCHAR2(50)
+  aac001   VARCHAR2(20) not null,
+  aac003   VARCHAR2(50) not null,
+  aac002   VARCHAR2(20),
+  aac004   VARCHAR2(3) not null,
+  aac005   VARCHAR2(3) not null,
+  aac006   DATE not null,
+  aac033   VARCHAR2(3),
+  aac017   VARCHAR2(3),
+  aac024   VARCHAR2(3),
+  aac011   VARCHAR2(3),
+  aae006   VARCHAR2(20),
+  aac067   VARCHAR2(20),
+  aae015   VARCHAR2(50),
+  aac007   VARCHAR2(200),
+  aac027   VARCHAR2(3),
+  adc100   VARCHAR2(3),
+  aaf011   VARCHAR2(100),
+  aae011   VARCHAR2(32),
+  aae036   DATE,
+  aaz002   NUMBER(16),
+  aae100   VARCHAR2(3),
+  eae052   VARCHAR2(3),
+  aae200   VARCHAR2(32),
+  aae202   DATE,
+  aae201   VARCHAR2(100),
+  aae203   VARCHAR2(100),
+  aaa148   VARCHAR2(50),
+  adc300   VARCHAR2(20),
+  aac127   VARCHAR2(3),
+  aac032   VARCHAR2(3),
+  aac034   NUMBER(5),
+  aac035   NUMBER(5),
+  aac036   VARCHAR2(5),
+  aae013   VARCHAR2(200),
+  aab301   VARCHAR2(12),
+  aae009   VARCHAR2(100),
+  aae010   VARCHAR2(80),
+  aae198   VARCHAR2(100),
+  aae199   VARCHAR2(80),
+  aae132   VARCHAR2(100),
+  aae133   VARCHAR2(80),
+  aae134   VARCHAR2(32),
+  aae135   VARCHAR2(100),
+  aae102   DATE,
+  id       VARCHAR2(32),
+  aac128   VARCHAR2(3),
+  aab800   VARCHAR2(50),
+  aab801   VARCHAR2(50),
+  aab802   VARCHAR2(50),
+  bus_uuid VARCHAR2(32)
 )
 ;
 comment on table DEMO_AC01
@@ -929,6 +932,8 @@ comment on column DEMO_AC01.aab801
   is '市';
 comment on column DEMO_AC01.aab802
   is '县';
+comment on column DEMO_AC01.bus_uuid
+  is '关联文件业务记录表';
 
 prompt
 prompt Creating table LOGININF
@@ -1190,6 +1195,72 @@ alter table QRTZ_SIMPROP_TRIGGERS
   references QRTZ_TRIGGERS (SCHED_NAME, TRIGGER_NAME, TRIGGER_GROUP);
 
 prompt
+prompt Creating table S_BUS_FILE_RECORD
+prompt ================================
+prompt
+create table S_BUS_FILE_RECORD
+(
+  bus_uuid      VARCHAR2(36) not null,
+  file_uuid     VARCHAR2(36) not null,
+  file_bus_id   VARCHAR2(36),
+  file_bus_type VARCHAR2(36) not null,
+  bus_status    VARCHAR2(36),
+  bus_addtime   DATE
+)
+;
+comment on table S_BUS_FILE_RECORD
+  is '业务文件记录表';
+comment on column S_BUS_FILE_RECORD.bus_uuid
+  is '业务文件记录表编号';
+comment on column S_BUS_FILE_RECORD.file_uuid
+  is '文件上传记录表编号';
+comment on column S_BUS_FILE_RECORD.file_bus_id
+  is '文件所属业务编号';
+comment on column S_BUS_FILE_RECORD.file_bus_type
+  is '文件所属业务业务类型';
+comment on column S_BUS_FILE_RECORD.bus_status
+  is '文件上传状态';
+comment on column S_BUS_FILE_RECORD.bus_addtime
+  is '业务发生时间';
+
+prompt
+prompt Creating table S_FILE_RECORD
+prompt ============================
+prompt
+create table S_FILE_RECORD
+(
+  file_uuid    VARCHAR2(36) not null,
+  file_name    VARCHAR2(200),
+  file_length  VARCHAR2(32),
+  file_addtime DATE,
+  file_path    VARCHAR2(200),
+  file_status  VARCHAR2(32),
+  file_md5     VARCHAR2(32),
+  file_type    VARCHAR2(32)
+)
+;
+comment on table S_FILE_RECORD
+  is '系统之文件上传记录表';
+comment on column S_FILE_RECORD.file_uuid
+  is '文件上传记录表编号(uuid)';
+comment on column S_FILE_RECORD.file_name
+  is '文件名称';
+comment on column S_FILE_RECORD.file_length
+  is '文件大小单位(byte)';
+comment on column S_FILE_RECORD.file_addtime
+  is '文件上传时间';
+comment on column S_FILE_RECORD.file_path
+  is '文件上传角色路径';
+comment on column S_FILE_RECORD.file_status
+  is '文件状态(0无效 1有效审核通过)';
+comment on column S_FILE_RECORD.file_md5
+  is '文件md5,用于判断是否重复上传';
+comment on column S_FILE_RECORD.file_type
+  is '文件类型';
+alter table S_FILE_RECORD
+  add constraint PK_S_FILE_RECORD primary key (FILE_UUID);
+
+prompt
 prompt Creating table S_GROUP
 prompt ======================
 prompt
@@ -1254,13 +1325,66 @@ prompt ====================
 prompt
 create table S_LOG
 (
-  logid   VARCHAR2(32) not null,
-  logtime DATE,
-  content VARCHAR2(500)
+  logid         VARCHAR2(36) not null,
+  logtype       VARCHAR2(10),
+  message       VARCHAR2(2000),
+  logtime       DATE,
+  cost          VARCHAR2(100),
+  stackmsg      CLOB,
+  exceptiontype VARCHAR2(100),
+  usergent      VARCHAR2(1000),
+  ipaddr        VARCHAR2(200),
+  referer       VARCHAR2(1000),
+  url           VARCHAR2(1000),
+  userid        VARCHAR2(32),
+  cookie        VARCHAR2(1000),
+  appkey        VARCHAR2(1000),
+  queryparam    VARCHAR2(1000),
+  method        VARCHAR2(1000),
+  success       VARCHAR2(1000),
+  responsemsg   VARCHAR2(2000)
 )
 ;
+comment on table S_LOG
+  is '网站日志';
+comment on column S_LOG.logid
+  is '日志id';
+comment on column S_LOG.logtype
+  is '日志类型';
+comment on column S_LOG.message
+  is '日志标题';
+comment on column S_LOG.logtime
+  is '发生时间';
+comment on column S_LOG.cost
+  is '请求耗费时间';
+comment on column S_LOG.stackmsg
+  is '异常栈信息';
+comment on column S_LOG.exceptiontype
+  is '异常类型';
+comment on column S_LOG.usergent
+  is 'user-agent';
+comment on column S_LOG.ipaddr
+  is '客户端ip地址';
+comment on column S_LOG.referer
+  is 'refer';
+comment on column S_LOG.url
+  is '请求的地址';
+comment on column S_LOG.userid
+  is '当前操作人员id';
+comment on column S_LOG.cookie
+  is 'cookie';
+comment on column S_LOG.appkey
+  is 'appkey';
+comment on column S_LOG.queryparam
+  is '请求参数信息';
+comment on column S_LOG.method
+  is '请求方法类型';
+comment on column S_LOG.success
+  is '请求是否成功';
+comment on column S_LOG.responsemsg
+  is '返回信息';
 alter table S_LOG
-  add constraint PK_S_LOG primary key (LOGID);
+  add constraint PK_S_ERRORLOG primary key (LOGID);
 
 prompt
 prompt Creating table S_PERMISSION
@@ -1278,7 +1402,8 @@ create table S_PERMISSION
   open         VARCHAR2(10),
   describe     VARCHAR2(200),
   code         VARCHAR2(200),
-  updatetime   DATE
+  updatetime   DATE,
+  iconcss      VARCHAR2(100)
 )
 ;
 comment on table S_PERMISSION
@@ -1305,6 +1430,8 @@ comment on column S_PERMISSION.code
   is '权限编码';
 comment on column S_PERMISSION.updatetime
   is '权限最后更新时间';
+comment on column S_PERMISSION.iconcss
+  is '图标样式';
 alter table S_PERMISSION
   add constraint PK_S_PERMISSION_K primary key (PERMISSIONID);
 
@@ -1487,7 +1614,7 @@ prompt
 create sequence CODE_VALUE_SEQ
 minvalue 1
 maxvalue 999999999
-start with 24125
+start with 24185
 increment by 1
 cache 20;
 
@@ -1543,6 +1670,8 @@ union all
 select 'AAS004',aab301,aaa146,aaa148,aaa146 aaa106 from AA26 WHERE aaa147='4'
 union all
 select 'AAS005',aab301,aaa146,aaa148,aaa146 aaa106 from AA26 WHERE aaa147='5'
+union all
+select 'FILENAME',file_uuid,file_name,'','' aaa106 from S_FILE_RECORD
 ;
 
 prompt
@@ -1550,7 +1679,14 @@ prompt Creating view V_CODE_TYPE
 prompt =========================
 prompt
 create or replace force view v_code_type as
-select aaa100 from v_aa10 group by aaa100;
+select aaa100 from v_aa10 t where t.aaa100 in ('FILE_BUS_TYPE','APPKEY') group by aaa100;
+
+prompt
+prompt Creating view V_SUGGEST_DATA
+prompt ============================
+prompt
+create or replace force view v_suggest_data as
+select aac001 id,aac002 key, aac003 name, aac003||'('||aac002||')' showname  ,'AC01' keytype  from demo_ac01;
 
 prompt
 prompt Creating view V_S_GROUP

@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit">
     <meta http-equiv="Cache-Control" content="no-siteapp" />
-    <title>陕西省人力资源市场管理系统</title>
+    <title>${appname}</title>
 
     <meta name="keywords" content="xxx">
     <meta name="description" content="xxxx">
@@ -30,21 +30,18 @@
     <div id="wrapper">
         <!--左侧导航开始-->
         <nav class="navbar-default navbar-static-side" role="navigation">
-            <div class="nav-close"><i class="fa fa-times-circle"></i>
-            </div>
             <div class="sidebar-collapse">
                 <ul class="nav" id="side-menu">
                     <li class="nav-header">
                     <div class="dropdown profile-element">
-                        <span class="block m-t-xs" style="color: #f9f9f9"><strong class="font-bold"> 陕西省人力资源市场管理系统</strong></span>
-                        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                        <span class="text-muted text-xs block">${suser.groupname}(${suser.username})<b class="caret"></b></span>
-                        </a>
-                        <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                            <li>
-                                <a class="J_menuItem" href="<c:url value='/resources/SXJY_RLZYSC_009_001/tochanagepwd'/>" >修改密码</a>
-                            </li>
-                        </ul>
+                        <i style="font-size:36px;color: #f9f9f9" class="fa fa-registered"></i>
+                        <span style="color: #f9f9f9">
+                        <strong class="font-bold">
+							<marquee behavior="scroll" contenteditable="true" onstart="this.firstChild.innerHTML+=this.firstChild.innerHTML;" scrollamount="2" width="140" onmouseover="this.stop();" onmouseout="this.start();"> 
+							   ${appname}
+							</marquee>  
+                        </strong>
+                        </span>
                         </div>
                     </li>
                     <shiro:authenticated>
@@ -99,6 +96,8 @@
                 </nav>
                 <button class="roll-nav roll-right J_tabRight"><i class="fa fa-forward"></i>
                 </button>
+                
+                <!-- 关闭页面 -->
                 <div class="btn-group roll-nav roll-right">
                     <button class="dropdown J_tabClose" data-toggle="dropdown">关闭操作<span class="caret"></span>
                     </button>
@@ -111,7 +110,27 @@
                         </li>
                     </ul>
                 </div>
-                <a href="<c:url value='/loginout'/>" class="roll-nav roll-right J_tabExit"><i class="fa fa fa-sign-out"></i> 退出</a>
+                
+                <!-- 个人基本信息 -->
+                <div class="btn-group-info roll-nav roll-right">
+                    <button class="dropdown J_tabClose" data-toggle="dropdown">
+	                    <strong>
+		                    <!--  
+		                    <marquee behavior="scroll" contenteditable="true" onstart="this.firstChild.innerHTML+=this.firstChild.innerHTML;" scrollamount="2" width="150" onmouseover="this.stop();" onmouseout="this.start();"> 
+							  ${suser.groupname}(${suser.cnname})
+							</marquee>
+							-->
+							${suser.groupname}(${suser.cnname})
+	                    </strong>
+	                    <span class="caret"></span>
+                    </button>
+                    <ul role="menu" class="dropdown-menu dropdown-menu-right">
+                        <li ><a href="<c:url value='/loginout'/>"><i class="fa  fa-sign-out"></i>退出登录</a>
+                        </li>
+                        <li ><a class="J_menuItem" href="<c:url value='/resources/SXJY_RLZYSC_009_001/tochanagepwd'/>" ><i class="fa  fa-edit"></i>修改密码</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
             <div class="row J_mainContent" id="content-main">
                 <iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="<c:url value='/index'/>" frameborder="0" data-id="index_v1.html" seamless></iframe>
@@ -129,7 +148,7 @@
     <script src="<c:url value='/resource/hplus/js/plugins/slimscroll/jquery.slimscroll.min.js'/>"></script>
     <script src="<c:url value='/resource/hplus/js/plugins/layer/layer.min.js'/>"></script>
     <script src="<c:url value='/resource/hplus/js/hplus.min.js'/>"></script>
-    <script src="<c:url value='/resource/hplus/js/contabs.min.js'/>"></script>
+    <script src="<c:url value='/resource/hplus/js/contabs.js'/>"></script>
     <script src="<c:url value='/resource/hplus/js/plugins/pace/pace.min.js'/>"></script>
     <script type="text/javascript">
     $(function(){

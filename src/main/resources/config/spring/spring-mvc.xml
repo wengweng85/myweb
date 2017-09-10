@@ -51,7 +51,13 @@
          <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service" />  
      </context:component-scan>
      
-     
+     <bean id="propertyConfigurer" class="com.insigma.config.CustomizedPropertyConfigurer">
+		<property name="locations" >
+				<list>
+					<value>classpath:/config/app/app.properties</value>
+				</list>
+		</property>
+	</bean>
     
 	 <!-- 对静态资源文件的访问  方案一 （二选一） -->
  	 <mvc:default-servlet-handler/>

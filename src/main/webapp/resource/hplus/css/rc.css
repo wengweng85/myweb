@@ -98,7 +98,12 @@ label {
 }
 
 .nav-header {
-	padding: 25px 15px 15px;
+	padding: 3px 15px 3px;
+	background: url(patterns/header-profile.png) no-repeat;
+	height: 42px;
+	
+	border-bottom: 2px solid #39aef5;
+	font-size:12px;
 }
 
 .nav-header a.dropdown-toggle {
@@ -151,16 +156,43 @@ label {
 	background: #2f4050;
 }
 
-
-
 .fa-hover a .fa-detail  {
 	font-size: 14px;
 }
 .fa-hover a:hover .fa-detail   {
-	font-size: 48px;
-	text-indent:-20px;
+	font-size: 24px;
+	--text-indent:-10px;
 }
 
 .nav-second-level li,.nav-third-level li{border-bottom:none!important;}
 .nav-second-level li a{padding:7px 15px 7px 10px;padding-left:35px;}
 .nav-third-level  li a{padding-left:45px;}
+
+.roll-right.J_tabRight {
+	right: 240px;
+}
+
+.roll-right.btn-group {
+	right: 160px;
+	width: 80px;
+	padding: 0;
+}
+
+.roll-right.btn-group button {
+	width: 80px;
+}
+
+.roll-right.btn-group-info {
+	right: 80px;
+	width: 80px;
+	padding: 0;
+}
+
+.roll-right.btn-group-info button {
+	width: 180px;
+}
+
+.page-tabs a {
+    color: #39aef5;
+    font-weight: bold;
+}

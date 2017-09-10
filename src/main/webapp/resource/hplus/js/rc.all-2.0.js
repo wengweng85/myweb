@@ -243,7 +243,6 @@ var rc = {
 		options.cache = false;
 		options.url=url;
 		options.async=_async;//ajax异步或同步请求（遮罩效果需要异步）
-		param.json=JSON.stringify(param);
 		options.data=param;
 		options.beforeSend=function(xhr) {
 			//rc.ajax_beforeSend(_ismask,maskdom_selector);
@@ -1492,7 +1491,6 @@ function jiangese_set(tabid,start,color1,color2){
 	        queryParams:function(params){
 	        	if(_this.options.formid){
 	        		var request_param=$.extend({},$('#'+_this.options.formid).serializeObject(),params);
-	        		request_param.json=JSON.stringify(request_param);
                     return request_param
 	        	}else{
 	        		return params;

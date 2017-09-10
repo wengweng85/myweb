@@ -30,7 +30,7 @@ public interface LoginService {
 	 * @return 角色集合
 	 * @throws Exception 
 	 */
-	public List<SRole> findRolesStr(String loginname) throws AppException, Exception;
+	public List<SRole> findRolesStr(String loginname) ;
 	
 	/**
 	 * 通过用户id获取用户权限集合
@@ -38,7 +38,7 @@ public interface LoginService {
 	 * @return 权限集合
 	 * @throws Exception 
 	 */
-	public List<SPermission> findPermissionStr(String loginname) throws AppException, Exception;
+	public List<SPermission> findPermissionStr(String loginname);
 	
 	
 	public void saveLoginHashInfo(LoginInf inf);

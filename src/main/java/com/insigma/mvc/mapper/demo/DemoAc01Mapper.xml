@@ -70,7 +70,7 @@
     aac001,
     aac002,
     aac003,
-    (select aaa103 from v_aa10 t where t.aaa100='AAC004' AND aaa102=aac004) aac004,
+    aac004,
     (select aaa103 from v_aa10 t where t.aaa100='AAC005' AND aaa102=aac005) aac005,
     aac006,
     (select aaa103 from v_aa10 t where t.aaa100='AAC200' AND aaa102=aac007) aac007_name,

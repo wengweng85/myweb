@@ -46,10 +46,9 @@ public class MyShiroRealm extends AuthorizingRealm  {
 	 /**
      * 认证
      */
-	public AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken) throws AuthenticationException {
+	public AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken) throws AuthenticationException,UnknownAccountException,LockedAccountException {
 		CustomUsernamePasswordToken token = (CustomUsernamePasswordToken) authcToken;
 		SimpleAuthenticationInfo authenticationInfo=null;
-		try{
 			
 			//是否检验验证码
 			if(token.getIsvercode().equals("1")){
@@ -88,9 +87,7 @@ public class MyShiroRealm extends AuthorizingRealm  {
 	        EhCacheUtil.getManager().getCache("webcache").put(new Element(SysUserUtil.SHIRO_CURRENT_PERM_LIST_INFO+"_"+suser.getUsername(),SysUserUtil.filterPersmList(permlist)));
 	        //清理缓存
 	    	clearCachedAuthorizationInfo(authenticationInfo.getPrincipals());
-		}catch(Exception e){
-		    throw new AuthenticationException(e.getMessage());
-		}
+		
 	    return authenticationInfo;
 	}
 	

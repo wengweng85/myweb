@@ -38,13 +38,13 @@ public class LoginServiceImpl implements LoginService {
 	}
 
 	@Override
-	public List<SRole> findRolesStr(String loginname) throws Exception {
+	public List<SRole> findRolesStr(String loginname){
 		List<SRole> list= loginmapper.findRolesStr(loginname);
 		return list;
 	}
 
 	@Override
-	public List<SPermission>  findPermissionStr(String loginname) throws Exception {
+	public List<SPermission>  findPermissionStr(String loginname)  {
 		List<SPermission> list=loginmapper.findPermissionStr(loginname);
 		return list;
 	}

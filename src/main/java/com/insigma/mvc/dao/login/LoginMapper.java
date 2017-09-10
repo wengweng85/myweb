@@ -22,7 +22,7 @@ public interface LoginMapper {
 	 * @return 用户表
 	 * @throws Exception 
 	 */
-	public SUser getUserAndGroupInfo(String loginname) throws Exception ;
+	public SUser getUserAndGroupInfo(String loginname)  ;
 	
 	/**
 	 * 通过用户id获取用户角色集合
@@ -30,7 +30,7 @@ public interface LoginMapper {
 	 * @return 角色集合
 	 * @throws Exception 
 	 */
-	public List<SRole> findRolesStr(String loginname) throws AppException, Exception;
+	public List<SRole> findRolesStr(String loginname) ;
 	
 	
 	/**
@@ -39,7 +39,7 @@ public interface LoginMapper {
 	 * @return 权限集合
 	 * @throws Exception 
 	 */
-	public List<SPermission> findPermissionStr(String loginname) throws AppException, Exception;
+	public List<SPermission> findPermissionStr(String loginname) ;
 	
 	
 	/**

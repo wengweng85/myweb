@@ -54,7 +54,7 @@
 						</div>
 						<div class="hr-line-dashed"></div>
 						<div class="form-group">
-							<rc:textedit property="name" label="角色名称" required="true"  cols="3,9"validate="{required:true,messages:{required:'请输入角色名称'}}" />
+							<rc:textedit property="name" label="角色名称" required="true"  cols="3,9"   validate="{required:true,messages:{required:'请输入角色名称'}}" />
 						</div>
 						<div class="hr-line-dashed"></div>
 						<div class="form-group">

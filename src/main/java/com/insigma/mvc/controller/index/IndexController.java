@@ -1,12 +1,10 @@
 package com.insigma.mvc.controller.index;
 
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +28,8 @@ public class IndexController extends MvcHelper<SPermission> {
 	@Resource
     private IndexService indexService;
 	
+	@Value("${appname}")
+	private String appname;
 	/**
 	 * 管理功能主页面
 	 * @param request
@@ -38,6 +38,7 @@ public class IndexController extends MvcHelper<SPermission> {
 	@RequestMapping("/")
 	public ModelAndView gotoAdminIndex(HttpServletRequest request,Model model) throws Exception {
 		ModelAndView modelAndView=new ModelAndView("index/admin_index");
+		modelAndView.addObject("appname", appname);
 		modelAndView.addObject("suser", SysUserUtil.getCurrentUser());
     	modelAndView.addObject("permlist",SysUserUtil.getCurrentUserPermsList(SysUserUtil.getCurrentUser().getUsername()));
         return modelAndView;

@@ -97,7 +97,7 @@
 				        <th data-formatter="demo_rowFormatter">行操作</th>
 	                    <th data-field="aac002"  data-editable="true">身份证号码</th>
 	                    <th data-field="aac003" >姓名</th>
-	                    <th data-field="aac004" data-editable="true" data-editable-type="select" data-editable-source="[{value: 1, text: '男'},{value: 2, text: '女'}]">性别</th>
+	                    <th data-field="aac004" data-editable="true" data-editable-type="select"  data-editable-source="[{value: 1, text: '男'},{value: 2, text: '女'}]">性别</th>
 	                    <th data-field="aac006" data-editable="true" data-editable-type="date">出生日期</th>
 	                    <th data-field="aac033" >健康状况</th>
 	                    <th data-field="aac017" >婚姻状况</th>

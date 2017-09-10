@@ -158,24 +158,31 @@ a:hover {color:#CC3300;text-decoration:none;}//对鼠标放到超链接上文字
     		$('#password').focus();
     		return ;
     	} 
+    	var verifycode=$('#verifycode').val();
+    	if(!verifycode){
+    		layer.msg('验证码不能不空');
+    		$('#verifycode').focus();
+    		return ;
+    	} 
     	
     	RSAUtils.setMaxDigits(200);  
 		var key = new RSAUtils.getKeyPair($('#publicKeyExponent').val(), "", $('#publicKeyModulus').val());  
 		var encrypedPwd = RSAUtils.encryptedString(key,$('#password').val().split("").reverse().join("")); 
 		$('#password').val(encrypedPwd); 
 	    
-	    var param = {username:$('#username').val(),password:$('#password').val(),verifycode:$('#verifycode').val()}
+	    var param = {username:username,password:$('#password').val(),verifycode:verifycode}
 	    $.ajax({
             type : "post",
             url : "${homeModule}/login",
             dataType : "json",
             data: param,  //传入组装的参数
             success:function(response,textStatus){
-            	layer.msg(response.message);
             	if(response.success){
             	    window.location.href="${homeModule}";
             	}else{
+            	    layer.msg(response.message);
             	    $('#password').val('');
+            	    _reload_verfy_code();
             	}
             },
             error : function(response) {
@@ -188,6 +195,11 @@ a:hover {color:#CC3300;text-decoration:none;}//对鼠标放到超链接上文字
 	function _reload_verfy_code(){
 	    $('#verifiy_img').attr('src','${homeModule}/verifycode/create?d='+new Date());
 	}
+	
+	//如果当前登录页面不是最顶层页面、跳出
+	if (window != top){
+	   top.location.href = location.href;  
+	}  
 </script>
 
 </html>

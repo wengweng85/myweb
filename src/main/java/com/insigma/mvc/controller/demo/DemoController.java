@@ -61,29 +61,10 @@ public class DemoController extends MvcHelper<DemoAc01> {
 	 */
 	@RequestMapping("/getAc01List")
 	@ResponseBody
-	public String getAc01List(HttpServletRequest request,Model model, DemoAc01 ac01 ) throws Exception {
-		JSONObject jsonParam=JSONObject.fromObject(ac01);
-		System.out.println("json"+jsonParam.toString());
-		//将json对象转换成java对象
-		//String json_param=request.getParameter("json");
-		//System.out.println("jsontoobject"+json_param);
-		//DemoAc01 demoac01=(DemoAc01)JSONObject.toBean(jsonobject, DemoAc01.class);
-		//return demoAc01Service.getDemoAc01List(ac01);
-		String url=BASE_URL+"/demo/api/getAc01List";
-		//返回结果
-		return HttpRequestUtils.httpPost(url, jsonParam);
-	}
-	
-	/**
-	 * 获取人员信息列表
-	 * @param request
-	 * @return
-	 */
-	@RequestMapping("/api/getAc01List")
-	@ResponseBody
-	public HashMap<String,Object> apiGetAc01List(HttpServletRequest request,Model model, DemoAc01 ac01 ) throws Exception {
+	public HashMap<String,Object> getAc01List(HttpServletRequest request,Model model, DemoAc01 ac01 ) throws Exception {
 		return demoAc01Service.getDemoAc01List(ac01);
 	}
+	
 	
 	/**
 	 * 通过id删除人员demo信息

@@ -107,10 +107,8 @@ public class LoginController extends MvcHelper {
 		} catch (AuthenticationException e) {
 			e.printStackTrace();
 			errorMessage=e.getMessage();
-			token.clear();
 		}
-		log.error(errorMessage);
-		subject.getSession().setAttribute("errorMessage", errorMessage);
+		token.clear();
 		return this.error(errorMessage);
 	}
 	
