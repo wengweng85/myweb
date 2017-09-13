@@ -1,7 +1,5 @@
 package com.insigma.common.interceptor;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -14,7 +12,6 @@ import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.insigma.common.util.MD5Util;
-import com.insigma.mvc.model.SPermission;
 import com.insigma.mvc.model.SUser;
 import com.insigma.mvc.service.login.LoginService;
 import com.insigma.shiro.realm.SysUserUtil;
@@ -38,17 +35,12 @@ public class SessionInterceptor extends HandlerInterceptorAdapter {
 			request.setAttribute("contextpath", request.getContextPath());
 			Subject subject = SecurityUtils.getSubject();  
 			if(subject.isAuthenticated()){
-				//判断当前ThreadLocal中是否
-				if(SysUserUtil.getCurrentUser()==null){
-					log.info("SysUserUtil.getCurrentUser(）为空 null");
-					SysUserUtil.setCurrentUser ((SUser)subject.getSession().getAttribute(SysUserUtil.SHIRO_CURRENT_USER_INFO));  
-				}
+				SysUserUtil.setCurrentUser ((SUser)subject.getSession().getAttribute(SysUserUtil.SHIRO_CURRENT_USER_INFO));  
 				if(loginservice.findLoginInfoByhashcode(getReqeustHashcode(request))!=null){
 					return true;
 				}else{
 					return false;
 				}
-				
 			}
             return true;
         } else {

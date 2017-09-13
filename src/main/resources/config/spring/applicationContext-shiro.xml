@@ -17,10 +17,6 @@
                     <bean  
                         class="com.insigma.shiro.filter.RoleAuthorizationFilter" />  
                 </entry>  
-                 <entry key="access">  
-                    <bean  
-                        class="com.insigma.shiro.filter.MyAccessControlFilter" />  
-                </entry>  
             </map>  
         </property>  
 		<!-- Shiro过滤链的定义 -->
@@ -28,10 +24,9 @@
 			<value>
 			    /=authc
 			    /index=authc
-				/codetype/**=authc
+				/demo/**=authc
 				/job/**=authc
 				/common/**=authc
-				/demo/**=authc
 				/sys/**=authc,roles[admin]
 			</value>
 		</property>
@@ -61,7 +56,6 @@
 	<!-- 会话管理器 -->  
     <bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager"> 
         <property name="sessionIdUrlRewritingEnabled" value="false" /> 
-         
         <!-- 设置全局会话超时时间，默认2小时(7200000) -->  
         <property name="globalSessionTimeout" value="7200000" />  
         <!-- 是否在会话过期后会调用SessionDAO的delete方法删除会话 默认true -->  

@@ -57,6 +57,17 @@ public class CommonCssHeaderTag implements Tag  {
 	  sb.append("<link href='"+contextpath+"/resource/hplus/css/rc.css' rel='stylesheet'>");
 	  
 	  
+	  sb.append("<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->");
+	  sb.append("<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->");
+	  sb.append("<!--[if lt IE 9]>");
+	  sb.append("/r/n");
+	  sb.append("<script src=\"http://cdn.bootcss.com/html5shiv/3.7.0/html5shiv.min.js\"></script>");
+	  sb.append("<script src=\"http://cdn.bootcss.com/respond.js/1.3.0/respond.min.js\"></script>");
+	  sb.append("/r/n");
+	  sb.append("<![endif]-->");
+	  sb.append("/r/n");
+	  
+	  
 	  //以下js要在页面加载前加载
 	  sb.append("<script type=\"text/javascript\">");
 	  sb.append(" var contextPath='"+contextpath+"';");
